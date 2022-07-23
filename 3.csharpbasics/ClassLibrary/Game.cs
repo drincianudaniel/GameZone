@@ -32,9 +32,10 @@ namespace ClassLibrary
         {
             foreach (var i in Reviews)
             {
-                this.totalRating =+i.rating;
-                this.totalRating = this.totalRating / Reviews.Count();
+                this.totalRating += i.rating;
+
             }
+            this.totalRating = this.totalRating / Reviews.Count();
             return totalRating;
         }
     }

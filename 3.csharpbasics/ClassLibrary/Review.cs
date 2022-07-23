@@ -8,6 +8,7 @@ namespace ClassLibrary
 {
     public class Review
     {
+        private static int serial = 1;
         public int id { get; set; }
         public RegularUser reviewer { get; set; }
         public double rating { get; set; }
@@ -17,6 +18,7 @@ namespace ClassLibrary
             this.reviewer = reviewer;
             this.rating = rating;
             this.content = content;
+            this.id = serial++;
         }
     }
 }

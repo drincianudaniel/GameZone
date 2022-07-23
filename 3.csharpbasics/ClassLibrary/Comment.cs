@@ -8,6 +8,7 @@ namespace ClassLibrary
 {
     public class Comment
     {
+        private static int serial = 1;
         public int id { get; set; }
         public User commentOwer { get; set; }
         public string content { get; set; }
@@ -16,6 +17,7 @@ namespace ClassLibrary
         {
             this.commentOwer = commentOwner;
             this.content = content;
+            this.id = serial++;
         }
     }
 }
