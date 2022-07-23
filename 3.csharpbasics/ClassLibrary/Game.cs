@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 
 namespace ClassLibrary 
 {
-    public class Game : IEnumerable<Developer>, IEnumerable<Genre>
+    public class Game
     {
+        private static int serial = 1;
         public int id { get; set; }
         public string name { get; set; }
         public DateTime releaseDate { get; set; }
@@ -16,23 +17,15 @@ namespace ClassLibrary
         public string gameDetails { get; set; }
         public List<Developer> Developers { get; set; }
         public List<Genre> Genres { get; set; }
-        public Game(string name)
+        public List<Platform> Platforms { get; set; }
+        public List<Review> Reviews { get; set; }
+        public Game(string name, DateTime releaseDate, double totalRating, string gameDetails)
         {
             this.name = name;
-        }
-
-        public IEnumerator<Developer> GetEnumerator()
-        {
-            return Developers.GetEnumerator();
-        }
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return Developers.GetEnumerator();
-        }
-
-        IEnumerator<Genre> IEnumerable<Genre>.GetEnumerator()
-        {
-            return Genres.GetEnumerator();
+            this.releaseDate = releaseDate;
+            this.totalRating = totalRating;
+            this.gameDetails = gameDetails;
+            this.id = serial++;
         }
     }
 }
