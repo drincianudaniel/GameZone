@@ -8,11 +8,16 @@ namespace ClassLibrary
 {
     public abstract class User
     {
+        private static int serial = 1; 
         public int id { get; set; }
         public string? username { get; set; }
         public string? email { get; set; }
         public string? password { get; set; }
 
+        public User()
+        {
+            this.id = serial++;
+        }
         public void Login()
         {
             Console.WriteLine("User logged in");

@@ -11,6 +11,7 @@ namespace ClassLibrary
         public string? firstName { get; set; }
         public string? lastName { get; set; }
         public List<Game> FavoriteGames { get; set; }
+        public List<Review> userReviews { get; set; }
 
         public RegularUser(string email, string username, string password, string firstName, string lastName)
         {
@@ -19,10 +20,14 @@ namespace ClassLibrary
             this.password = password;
             this.firstName = firstName;
             this.lastName = lastName;
+            FavoriteGames = new List<Game>();
+            userReviews = new List<Review>();
         }
         public void postReview(Game gameToBeReviewed, double rating, string content)
         {
-            gameToBeReviewed.Reviews.Add(new Review(this, rating, content));
+            Review review = new Review(this, gameToBeReviewed, rating, content);
+            gameToBeReviewed.Reviews.Add(review);
+            userReviews.Add(review);
         }
 
         public void addGameToFavorite(Game favoriteGame)

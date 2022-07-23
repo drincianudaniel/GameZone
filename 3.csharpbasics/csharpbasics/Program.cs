@@ -11,17 +11,26 @@ namespace csharpbasics
             Console.WriteLine("Email: " + user.email);
             Console.WriteLine("Username: " + user.username);
             Console.WriteLine("Name: " + user.firstName + " " + user.lastName);
-            Console.WriteLine(" ");
             if (user.FavoriteGames.Count > 0)
             {
                 Console.WriteLine("Favorite Games: ");
                 foreach (var i in user.FavoriteGames)
                 {
                     Console.Write(i.name + " ");
-
                 }
             }
-            Console.WriteLine(" ");
+            Console.WriteLine("");
+            if (user.userReviews.Count > 0)
+            {
+                Console.WriteLine("User Reviews: ");
+                foreach (var i in user.userReviews)
+                {
+                    Console.WriteLine(i.reviewedGame.name);
+                    Console.WriteLine(i.content + " ");
+                    Console.WriteLine("---------------");
+                }
+            }
+            Console.WriteLine("==============================================================");
         }
         public static void displayGame(Game game)
         {
@@ -72,16 +81,14 @@ namespace csharpbasics
                     Console.WriteLine(i.content);
                 }
             }
-            Console.WriteLine("----------------------------");
+            Console.WriteLine("==============================================================");
         }
         static void Main(string[] args)
         {
 
             //users
             RegularUser user1 = new RegularUser("regularuser1@gmail.com", "regularuser123123", "password", "Regular", "User");
-            user1.FavoriteGames = new List<Game>();
             RegularUser user2 = new RegularUser("regularuser2@gmail.com", "regularuser2", "password", "Another Regular", "User");
-            user2.FavoriteGames = new List<Game>();
             Admin admin1 = new Admin("adminName", "admin1@gmail.com", "admin1231123", "password");
             //game developers
             Developer Ubisoft = new Developer("Ubisoft");
@@ -133,6 +140,7 @@ namespace csharpbasics
 
             //display user info
             displayRegularUserInfo(user1);
+            displayRegularUserInfo(user2);
         }
     }
 }

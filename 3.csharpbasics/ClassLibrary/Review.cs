@@ -11,11 +11,13 @@ namespace ClassLibrary
         private static int serial = 1;
         public int id { get; set; }
         public RegularUser reviewer { get; set; }
+        public Game reviewedGame { get; set; }
         public double rating { get; set; }
         public string? content { get; set; }
-        public Review(RegularUser reviewer, double rating, string content)
+        public Review(RegularUser reviewer, Game reviewedGame, double rating, string content)
         {
             this.reviewer = reviewer;
+            this.reviewedGame = reviewedGame;
             this.rating = rating;
             this.content = content;
             this.id = serial++;
