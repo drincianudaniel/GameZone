@@ -5,6 +5,24 @@ namespace csharpbasics
 {
     class Program
     {
+        public static void displayRegularUserInfo(RegularUser user)
+        {
+            Console.WriteLine("Id: " + user.id);
+            Console.WriteLine("Email: " + user.email);
+            Console.WriteLine("Username: " + user.username);
+            Console.WriteLine("Name: " + user.firstName + " " + user.lastName);
+            Console.WriteLine(" ");
+            if (user.FavoriteGames.Count > 0)
+            {
+                Console.WriteLine("Favorite Games: ");
+                foreach (var i in user.FavoriteGames)
+                {
+                    Console.Write(i.name + " ");
+
+                }
+            }
+            Console.WriteLine(" ");
+        }
         public static void displayGame(Game game)
         {
             Console.WriteLine("Id: " + game.id);
@@ -61,7 +79,9 @@ namespace csharpbasics
 
             //users
             RegularUser user1 = new RegularUser("regularuser1@gmail.com", "regularuser123123", "password", "Regular", "User");
+            user1.FavoriteGames = new List<Game>();
             RegularUser user2 = new RegularUser("regularuser2@gmail.com", "regularuser2", "password", "Another Regular", "User");
+            user2.FavoriteGames = new List<Game>();
             Admin admin1 = new Admin("adminName", "admin1@gmail.com", "admin1231123", "password");
             //game developers
             Developer Ubisoft = new Developer("Ubisoft");
@@ -103,9 +123,16 @@ namespace csharpbasics
             user2.postComment(lol, "toxic game");
             admin1.deleteComment(AssassinsCreed, 1);
 
-            //display
+
+            //favoritegames
+            user1.addGameToFavorite(AssassinsCreed);
+            user1.addGameToFavorite(lol);
+            //display games
             displayGame(AssassinsCreed);
             displayGame(lol);
+
+            //display user info
+            displayRegularUserInfo(user1);
         }
     }
 }

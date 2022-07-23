@@ -10,6 +10,7 @@ namespace ClassLibrary
     {
         public string? firstName { get; set; }
         public string? lastName { get; set; }
+        public List<Game> FavoriteGames { get; set; }
 
         public RegularUser(string email, string username, string password, string firstName, string lastName)
         {
@@ -22,6 +23,11 @@ namespace ClassLibrary
         public void postReview(Game gameToBeReviewed, double rating, string content)
         {
             gameToBeReviewed.Reviews.Add(new Review(this, rating, content));
+        }
+
+        public void addGameToFavorite(Game favoriteGame)
+        {
+            FavoriteGames.Add(favoriteGame);
         }
     }
 }
