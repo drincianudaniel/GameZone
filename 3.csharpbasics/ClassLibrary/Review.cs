@@ -9,10 +9,10 @@ namespace ClassLibrary
     public class Review
     {
         public int id { get; set; }
-        public string reviewer { get; set; }
+        public RegularUser reviewer { get; set; }
         public double rating { get; set; }
         public string? content { get; set; }
-        public Review(string reviewer, double rating, string content)
+        public Review(RegularUser reviewer, double rating, string content)
         {
             this.reviewer = reviewer;
             this.rating = rating;

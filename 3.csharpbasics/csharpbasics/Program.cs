@@ -10,7 +10,7 @@ namespace csharpbasics
             Console.WriteLine("Id: " + game.id);
             Console.WriteLine("Name: " + game.name);
             Console.WriteLine("Release date: " + game.releaseDate);
-            Console.WriteLine("Rating: " + game.totalRating);
+            Console.WriteLine("Rating: " + game.calculateTotalRating());
             Console.WriteLine("Game details: " + game.gameDetails);
 
             Console.Write("Developers: ");
@@ -39,7 +39,7 @@ namespace csharpbasics
                 Console.WriteLine("Reviews: ");
                 foreach (var i in game.Reviews)
                 {
-                    Console.Write(i.reviewer + " ");
+                    Console.Write(i.reviewer.lastName + " " + i.reviewer.firstName + ": ");
                     Console.Write(i.rating + " ");
                     Console.WriteLine(i.content);
                 }
@@ -64,7 +64,7 @@ namespace csharpbasics
             Platform pc = new Platform("Pc");
 
             //games
-            Game AssassinsCreed = new Game("Assassins Creed", new DateTime(2015, 12, 25), 6.78, "Assassin's Creed is an open-world action-adventure stealth video game franchise published by Ubisoft and developed mainly by its studio Ubisoft Montreal using the game engine Anvil and its more advanced derivatives. Created by Patrice Désilets, Jade Raymond, and Corey May, the Assassin's Creed series depicts a fictional millennia-old struggle between the Assassins, who fight for peace and free will, and the Templars, who desire peace through order and control. ");
+            Game AssassinsCreed = new Game("Assassins Creed", new DateTime(2015, 12, 25), "Assassin's Creed is an open-world action-adventure stealth video game franchise published by Ubisoft and developed mainly by its studio Ubisoft Montreal using the game engine Anvil and its more advanced derivatives. Created by Patrice Désilets, Jade Raymond, and Corey May, the Assassin's Creed series depicts a fictional millennia-old struggle between the Assassins, who fight for peace and free will, and the Templars, who desire peace through order and control. ");
             
             AssassinsCreed.Developers = new List<Developer> { Ubisoft };
             AssassinsCreed.Genres = new List<Genre> { Action, Adventure };
@@ -72,7 +72,7 @@ namespace csharpbasics
             AssassinsCreed.Reviews = new List<Review>();
 
 
-            Game lol = new Game("League of Legends", new DateTime(2014, 12, 23), 8.98, "Toxic");
+            Game lol = new Game("League of Legends", new DateTime(2014, 12, 23), "Toxic");
 
             lol.Developers = new List<Developer> { RiotGames };
             lol.Genres = new List<Genre> { Adventure };

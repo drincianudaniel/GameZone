@@ -18,9 +18,9 @@ namespace ClassLibrary
             this.firstName = firstName;
             this.lastName = lastName;
         }
-        public void postReview(Game gameToBeReviewd, double rating, string content)
+        public void postReview(Game gameToBeReviewed, double rating, string content)
         {
-            gameToBeReviewd.Reviews.Add(new Review(this.firstName + " " + this.lastName, rating, content));
+            gameToBeReviewed.Reviews.Add(new Review(this, rating, content));
         }
     }
 }
