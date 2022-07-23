@@ -5,7 +5,7 @@ namespace csharpbasics
 {
     class Program
     {
-        public static void showGame(Game game)
+        public static void displayGame(Game game)
         {
             Console.WriteLine("Id: " + game.id);
             Console.WriteLine("Name: " + game.name);
@@ -44,13 +44,24 @@ namespace csharpbasics
                     Console.WriteLine(i.content);
                 }
             }
+
+            if (game.Comments.Count > 0)
+            {
+                Console.WriteLine("Comments: ");
+                foreach (var i in game.Comments)
+                {
+                    Console.Write(i.commentOwer.username + ": ");
+                    Console.WriteLine(i.content);
+                }
+            }
             Console.WriteLine("----------------------------");
         }
         static void Main(string[] args)
         {
 
             //users
-            RegularUser user1 = new RegularUser("regularuser1@gmail.com", "regularuser", "Regular", "User");
+            RegularUser user1 = new RegularUser("regularuser1@gmail.com", "regularuser123123", "password", "Regular", "User");
+            Admin admin1 = new Admin("adminName", "admin1@gmail.com", "admin1231123", "password");
             //game developers
             Developer Ubisoft = new Developer("Ubisoft");
             Developer RiotGames = new Developer("Riot Games");
@@ -70,6 +81,7 @@ namespace csharpbasics
             AssassinsCreed.Genres = new List<Genre> { Action, Adventure };
             AssassinsCreed.Platforms = new List<Platform> { ps4 };
             AssassinsCreed.Reviews = new List<Review>();
+            AssassinsCreed.Comments = new List<Comment>();
 
 
             Game lol = new Game("League of Legends", new DateTime(2014, 12, 23), "Toxic");
@@ -78,12 +90,18 @@ namespace csharpbasics
             lol.Genres = new List<Genre> { Adventure };
             lol.Platforms = new List<Platform> { pc };
             lol.Reviews = new List<Review>();
-
+            lol.Comments = new List<Comment>();
             //reviews
             user1.postReview(AssassinsCreed, 8.5, "good game");
 
-            showGame(AssassinsCreed);
-            showGame(lol);
+            //comments
+            user1.postComment(AssassinsCreed, "i liked it");
+            admin1.postComment(AssassinsCreed, "i liked it too");
+
+
+            //display
+            displayGame(AssassinsCreed);
+            displayGame(lol);
         }
     }
 }

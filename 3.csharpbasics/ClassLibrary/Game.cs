@@ -19,6 +19,7 @@ namespace ClassLibrary
         public List<Genre> Genres { get; set; }
         public List<Platform> Platforms { get; set; }
         public List<Review> Reviews { get; set; }
+        public List<Comment> Comments { get; set; }
         public Game(string name, DateTime releaseDate, string gameDetails)
         {
             this.name = name;

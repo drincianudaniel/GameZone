@@ -11,9 +11,10 @@ namespace ClassLibrary
         public string? firstName { get; set; }
         public string? lastName { get; set; }
 
-        public RegularUser(string email, string password, string firstName, string lastName)
+        public RegularUser(string email, string username, string password, string firstName, string lastName)
         {
             this.email = email;
+            this.username = username;
             this.password = password;
             this.firstName = firstName;
             this.lastName = lastName;
