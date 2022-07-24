@@ -14,19 +14,19 @@ namespace csharpbasics
             if (user.FavoriteGames.Count > 0)
             {
                 Console.WriteLine("Favorite Games: ");
-                foreach (var i in user.FavoriteGames)
+                foreach (var favoriteGame in user.FavoriteGames)
                 {
-                    Console.Write(i.name + " ");
+                    Console.Write(favoriteGame.name + " ");
                 }
             }
             Console.WriteLine("");
             if (user.userReviews.Count > 0)
             {
                 Console.WriteLine("User Reviews: ");
-                foreach (var i in user.userReviews)
+                foreach (var userReview in user.userReviews)
                 {
-                    Console.WriteLine(i.reviewedGame.name);
-                    Console.WriteLine(i.content + " ");
+                    Console.WriteLine("Game: " + userReview.reviewedGame.name + " Rating: " + userReview.rating);
+                    Console.WriteLine(userReview.content + " ");
                     Console.WriteLine("---------------");
                 }
             }
@@ -41,44 +41,53 @@ namespace csharpbasics
             Console.WriteLine("Game details: " + game.gameDetails);
 
             Console.Write("Developers: ");
-            foreach (var i in game.Developers)
+            foreach (var developer in game.Developers)
             {
-                Console.Write(i.name + " ");
+                Console.Write(developer.name + " ");
             }
 
             Console.WriteLine(" ");
             Console.Write("Genres: ");
-            foreach (var i in game.Genres)
+            foreach (var genre in game.Genres)
             {
-                Console.Write(i.name + " ");
+                Console.Write(genre.name + " ");
             }
 
             Console.WriteLine(" ");
             Console.Write("Platforms: ");
-            foreach (var i in game.Platforms)
+            foreach (var platform in game.Platforms)
             {
-                Console.Write(i.name + " ");
+                Console.Write(platform.name + " ");
             }
             Console.WriteLine(" ");
             
             if (game.Reviews.Count > 0)
             {
                 Console.WriteLine("Reviews: ");
-                foreach (var i in game.Reviews)
+                foreach (var review in game.Reviews)
                 {
-                    Console.Write(i.reviewer.lastName + " " + i.reviewer.firstName + ": ");
-                    Console.Write(i.rating + " ");
-                    Console.WriteLine(i.content);
+                    Console.Write(review.reviewer.lastName + " " + review.reviewer.firstName + ": ");
+                    Console.Write(review.rating + " ");
+                    Console.WriteLine(review.content);
                 }
             }
 
             if (game.Comments.Count > 0)
             {
                 Console.WriteLine("Comments: ");
-                foreach (var i in game.Comments)
+                foreach (var comment in game.Comments)
                 {
-                    Console.Write(i.commentOwer.username + ": ");
-                    Console.WriteLine(i.content);
+                    Console.Write(comment.id + ". " + comment.commentOwer.username + ": ");
+                    Console.WriteLine(comment.content);
+
+                    if(comment.replies.Count > 0)
+                    {
+                        Console.WriteLine("Replies: ");
+                        foreach (var reply in comment.replies)
+                        {
+                            Console.WriteLine("Reply from " + reply.replyOwner.username + ": " + reply.content);
+                        }
+                    }
                 }
             }
             Console.WriteLine("==============================================================");
@@ -130,6 +139,9 @@ namespace csharpbasics
             user2.postComment(lol, "toxic game");
             admin1.deleteComment(AssassinsCreed, 1);
 
+            //replies
+            user2.replyToComment(AssassinsCreed, 2, "yes good game");
+            user1.replyToComment(lol, 3, "game is good");
 
             //favoritegames
             user1.addGameToFavorite(AssassinsCreed);
