@@ -23,7 +23,7 @@ namespace ClassLibrary
         public void deleteComment(Game gameToDeleteComment, int id)
         {
             /*gameToDeleteComment.Comments.Remove((Comment)gameToDeleteComment.Comments.Where(comment => comment.id ==  id));*/
-            var commentToDelete = gameToDeleteComment.Comments.Where(comment => comment.id == 1).ToList();
+            var commentToDelete = gameToDeleteComment.Comments.Where(comment => comment.id == id).ToList();
             foreach(var comment in commentToDelete)
             {
                 gameToDeleteComment.Comments.Remove(comment);

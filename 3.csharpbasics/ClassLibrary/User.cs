@@ -32,5 +32,15 @@ namespace ClassLibrary
         {
             gameToBeCommented.Comments.Add(new Comment(this, content));
         }
+
+        public void replyToComment(Game gameToBeReplied,int commentToReplyID, string content)
+        {
+            //find commentById
+            var commentToReply = gameToBeReplied.Comments.Where(comment => comment.id == commentToReplyID).ToList();
+            foreach (var comment in commentToReply)
+            {
+                comment.replies.Add(new Reply(this, comment, content));
+            }
+        }
     }
 }
