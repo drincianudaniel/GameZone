@@ -8,8 +8,6 @@ namespace ClassLibrary
 {
     public class Admin : User
     {
-        private IEnumerable<Comment> commentToBeDeleted;
-
         public string adminName { get; set; }
 
         public Admin(string adminName, string email, string username, string password)
@@ -23,11 +21,16 @@ namespace ClassLibrary
         public void deleteComment(Game gameToDeleteComment, int id)
         {
             /*gameToDeleteComment.Comments.Remove((Comment)gameToDeleteComment.Comments.Where(comment => comment.id ==  id));*/
-            var commentToDelete = gameToDeleteComment.Comments.Where(comment => comment.id == id).ToList();
-            foreach(var comment in commentToDelete)
+            var commentToDelete = gameToDeleteComment.Comments.Where(comment => comment.id == id).FirstOrDefault();
+          /*  foreach(var comment in commentToDelete)
             {
                 gameToDeleteComment.Comments.Remove(comment);
+            }*/
+            if(commentToDelete != null)
+            {
+               gameToDeleteComment.Comments.Remove(commentToDelete);
             }
+          
         }
     }
   

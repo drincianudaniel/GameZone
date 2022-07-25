@@ -36,10 +36,14 @@ namespace ClassLibrary
         public void replyToComment(Game gameToBeReplied,int commentToReplyID, string content)
         {
             //find commentById
-            var commentToReply = gameToBeReplied.Comments.Where(comment => comment.id == commentToReplyID).ToList();
-            foreach (var comment in commentToReply)
+            var commentToReply = gameToBeReplied.Comments.Where(comment => comment.id == commentToReplyID).FirstOrDefault();
+            /* foreach (var comment in commentToReply)
+             {
+                 comment.replies.Add(new Reply(this, comment, content));
+             }*/
+            if(commentToReply != null)
             {
-                comment.replies.Add(new Reply(this, comment, content));
+                commentToReply.replies.Add(new Reply(this, commentToReply, content));
             }
         }
     }
