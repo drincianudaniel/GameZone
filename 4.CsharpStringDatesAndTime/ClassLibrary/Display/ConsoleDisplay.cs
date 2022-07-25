@@ -14,7 +14,7 @@ namespace GameZone.Domain.Display
             Console.WriteLine($"Id: {user.id}");
             Console.WriteLine($"Email: {user.email}");
             Console.WriteLine($"Username: {user.username}");
-            Console.WriteLine("Name: " + user.firstName + " " + user.lastName);
+            Console.WriteLine($"Name: {user.firstName} {user.lastName}");
             if (user.FavoriteGames.Count > 0)
             {
                 Console.WriteLine("Favorite Games: ");
@@ -29,8 +29,8 @@ namespace GameZone.Domain.Display
                 Console.WriteLine("User Reviews: ");
                 foreach (var userReview in user.userReviews)
                 {
-                    Console.WriteLine("Game: " + userReview.reviewedGame.name + " Rating: " + userReview.rating);
-                    Console.WriteLine(userReview.content + " ");
+                    Console.WriteLine($"Game: {userReview.reviewedGame.name} Rating: {userReview.rating}");
+                    Console.WriteLine($"Review content: {userReview.content}");
                     Console.WriteLine("---------------");
                 }
             }
@@ -38,11 +38,11 @@ namespace GameZone.Domain.Display
         }
         public void displayGame(Game game)
         {
-            Console.WriteLine("Id: " + game.id);
-            Console.WriteLine("Name: " + game.name);
-            Console.WriteLine("Release date: " + game.releaseDate.ToLongDateString());
-            Console.WriteLine("Rating: " + game.calculateTotalRating());
-            Console.WriteLine("Game details: " + game.gameDetails);
+            Console.WriteLine($"Id: {game.id}");
+            Console.WriteLine($"Name: {game.name}");
+            Console.WriteLine($"Release date: {game.releaseDate.ToLongDateString()}");
+            Console.WriteLine($"Rating: {game.calculateTotalRating()}");
+            Console.WriteLine($"Game details: {game.gameDetails}");
 
             Console.Write("Developers: ");
             foreach (var developer in game.Developers)
@@ -89,7 +89,7 @@ namespace GameZone.Domain.Display
                         Console.WriteLine("Replies: ");
                         foreach (var reply in comment.replies)
                         {
-                            Console.WriteLine("Reply from " + reply.replyOwner.username + ": " + reply.content);
+                            Console.WriteLine($"Reply from {reply.replyOwner.username}: {reply.content}");
                         }
                     }
                 }

@@ -62,13 +62,12 @@ namespace GameZone.Console
 
             //display
             ConsoleDisplay consoleDisplay = new ConsoleDisplay();
-            //display games
-            consoleDisplay.displayGame(AssassinsCreed);
-            consoleDisplay.displayGame(lol);
-
             //display user info
             consoleDisplay.displayRegularUserInfo(user1);
             consoleDisplay.displayRegularUserInfo(user2);
+            //display games
+            consoleDisplay.displayGame(AssassinsCreed);
+            consoleDisplay.displayGame(lol);
         }
     }
 }
