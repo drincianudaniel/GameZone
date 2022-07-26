@@ -103,7 +103,7 @@ namespace GameZone.ConsoleProject
                             break;
                         case 3:
                             Console.WriteLine("Enter id: ");
-                            consoleDisplay.displayGame(Game.returnGameById(allGames, int.Parse(Console.ReadKey().KeyChar.ToString())));                   
+                            consoleDisplay.displayGame(Game.returnGameById(allGames, int.Parse(Console.ReadLine().ToString())));                   
                             break;
                         default:
                             Console.WriteLine("Invalid selection");

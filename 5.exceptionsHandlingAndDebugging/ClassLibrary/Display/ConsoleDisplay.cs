@@ -110,9 +110,9 @@ namespace GameZone.Domain.Display
                 }
                 Console.WriteLine("==============================================================");
             }
-            catch(NullReferenceException ex)
+            catch(NullReferenceException)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine("Game not found");
             }
         }
 

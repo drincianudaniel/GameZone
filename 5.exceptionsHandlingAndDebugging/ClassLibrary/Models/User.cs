@@ -76,7 +76,6 @@ namespace GameZoneModels
             catch (NullReferenceException)
             {
                 throw new NullReferenceException($"Comment with id: {id} does not exist.");
-
             }
         }
     }
