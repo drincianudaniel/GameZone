@@ -9,21 +9,27 @@ namespace GameZone.Domain.Display
 {
     public class ConsoleDisplay
     {
-        public void displayRegularUserInfo(RegularUser user)
+        private StringBuilder sb = new StringBuilder();
+        public void displayRegularUserInfo(User user)
         {
             Console.WriteLine($"Id: {user.id}");
             Console.WriteLine($"Email: {user.email}");
             Console.WriteLine($"Username: {user.username}");
             Console.WriteLine($"Name: {user.firstName} {user.lastName}");
+
             if (user.FavoriteGames.Count > 0)
             {
-                Console.WriteLine("Favorite Games: ");
+                Console.Write("Favorite Games: ");
                 foreach (var favoriteGame in user.FavoriteGames)
                 {
-                    Console.Write(favoriteGame.name + " ");
+                   if(favoriteGame != user.FavoriteGames.Last())
+                    {
+                       sb.Append(favoriteGame.name + ",");
+                    }
                 }
+                Console.WriteLine(sb.ToString());
             }
-            Console.WriteLine("");
+
             if (user.userReviews.Count > 0)
             {
                 Console.WriteLine("User Reviews: ");

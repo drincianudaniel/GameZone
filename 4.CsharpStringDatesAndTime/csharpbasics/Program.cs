@@ -9,9 +9,9 @@ namespace GameZone.Console
         static void Main(string[] args)
         {
             //users
-            RegularUser user1 = new RegularUser("regularuser1@gmail.com", "regularuser123123", "password", "Regular", "User");
-            RegularUser user2 = new RegularUser("regularuser2@gmail.com", "regularuser2", "password", "Another Regular", "User");
-            Admin admin1 = new Admin("adminName", "admin1@gmail.com", "admin1231123", "password");
+            User user1 = new User("regularuser1@gmail.com", "regularuser123123", "password", "Regular", "User");
+            User user2 = new User("regularuser2@gmail.com", "regularuser2", "password", "Another Regular", "User");
+            User admin1 = new User("admin@gmail.com", "adminuser", "password", "Admin User", "Admin");
             //game developers
             Developer Ubisoft = new Developer("Ubisoft");
             Developer RiotGames = new Developer("Riot Games");

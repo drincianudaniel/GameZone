@@ -10,11 +10,11 @@ namespace GameZoneModels
     {
         private static int serial = 1;
         public int id { get; set; }
-        public RegularUser reviewer { get; set; }
+        public User reviewer { get; set; }
         public Game reviewedGame { get; set; }
         public double rating { get; set; }
         public string? content { get; set; }
-        public Review(RegularUser reviewer, Game reviewedGame, double rating, string content)
+        public Review(User reviewer, Game reviewedGame, double rating, string content)
         {
             this.reviewer = reviewer;
             this.reviewedGame = reviewedGame;
