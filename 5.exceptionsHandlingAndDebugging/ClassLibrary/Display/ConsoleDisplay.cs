@@ -142,6 +142,10 @@ namespace GameZone.Domain.Display
             {
                 Console.WriteLine(ex.Message);
             }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.StackTrace);
+            }
             #if DEBUG
             finally
             {
@@ -150,7 +154,6 @@ namespace GameZone.Domain.Display
             }
             #endif
         }
-
         public void displayAllUsers(List<User> users)
         {
             try
@@ -168,6 +171,10 @@ namespace GameZone.Domain.Display
             catch(UserException ex)
             {
                 Console.WriteLine(ex.Message);
+            }
+            catch(Exception ex)
+            {
+                Debug.WriteLine(ex.StackTrace);
             }
             #if DEBUG
             finally
