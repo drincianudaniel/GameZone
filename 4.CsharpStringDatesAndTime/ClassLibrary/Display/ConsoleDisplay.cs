@@ -22,12 +22,14 @@ namespace GameZone.Domain.Display
                 Console.Write("Favorite Games: ");
                 foreach (var favoriteGame in user.FavoriteGames)
                 {
-                   if(favoriteGame != user.FavoriteGames.Last())
+                    sb.Append(favoriteGame.name);
+                    if (favoriteGame != user.FavoriteGames.Last())
                     {
-                       sb.Append(favoriteGame.name + ",");
+                        sb.Append(", ");
                     }
                 }
                 Console.WriteLine(sb.ToString());
+                sb.Clear();
             }
 
             if (user.userReviews.Count > 0)
