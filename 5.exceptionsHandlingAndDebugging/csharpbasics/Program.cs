@@ -91,19 +91,24 @@ namespace GameZone.ConsoleProject
                 do
                 {
                     consoleDisplay.displayMenu();
+                    Console.Write("Enter number: ");
                     string s = Console.ReadLine();
                     int n = Int32.Parse(s);
                     switch (n)
                     {
                         case 1:
-                            consoleDisplay.displayAllGames(emptyList);
+                            consoleDisplay.displayAllGames(allGames);
                             break;
                         case 2:
                             consoleDisplay.displayAllUsers(allUsers);
                             break;
                         case 3:
-                            Console.WriteLine("Enter id: ");
+                            Console.Write("Enter id: ");
                             consoleDisplay.displayGame(Game.returnGameById(allGames, int.Parse(Console.ReadLine().ToString())));                   
+                            break;
+                        case 4:
+                            Game newGame = admin1.createGame("naruto", 2000, 10, 2, "NarutoGame");
+                            allGames.Add(newGame);
                             break;
                         default:
                             Console.WriteLine("Invalid selection");
@@ -112,7 +117,7 @@ namespace GameZone.ConsoleProject
                     Console.WriteLine("Would you like to repeat? Y/N");
                     input = Convert.ToChar(Console.ReadLine());
                     repeat = (input == 'Y');
-                } while (input == 'y') ;
+                } while (input == 'Y' || input == 'y') ;
             Console.WriteLine("Press any key to exit.");
             Console.ReadKey();
 

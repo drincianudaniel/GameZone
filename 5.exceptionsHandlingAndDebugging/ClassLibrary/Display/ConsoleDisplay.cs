@@ -122,6 +122,7 @@ namespace GameZone.Domain.Display
             Console.WriteLine("1. Display all games");
             Console.WriteLine("2. Display all users");
             Console.WriteLine("3. Display game by id");
+            Console.WriteLine("4. Create a game entity");
         }
 
         public void displayAllGames(List<Game> gamelist)
