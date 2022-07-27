@@ -56,23 +56,23 @@ namespace GameZone.ConsoleProject
                 allGames.Add(AssassinsCreed);
                 allGames.Add(lol);
                 //reviews
-                user1.postReview(AssassinsCreed, 8.5, "good game");
-                user1.postReview(lol, 4, "bad game");
-                user2.postReview(AssassinsCreed, 7.5, "ok game");
+                user1.PostReview(AssassinsCreed, 8.5, "good game");
+                user1.PostReview(lol, 4, "bad game");
+                user2.PostReview(AssassinsCreed, 7.5, "ok game");
 
                 //comments
-                user1.postComment(AssassinsCreed, "i liked it");
-                admin1.postComment(AssassinsCreed, "i liked it too");
-                user2.postComment(lol, "toxic game");
-                admin1.deleteComment(AssassinsCreed, 1);
+                user1.PostComment(AssassinsCreed, "i liked it");
+                admin1.PostComment(AssassinsCreed, "i liked it too");
+                user2.PostComment(lol, "toxic game");
+                admin1.DeleteComment(AssassinsCreed, 1);
 
                 //replies
-                user2.replyToComment(AssassinsCreed, 2, "yes good game");
-                user1.replyToComment(lol, 3, "game is good");
+                user2.ReplyToComment(AssassinsCreed, 2, "yes good game");
+                user1.ReplyToComment(lol, 3, "game is good");
 
                 //favoritegames
-                user1.addGameToFavorite(AssassinsCreed);
-                user1.addGameToFavorite(lol);
+                user1.AddGameToFavorite(AssassinsCreed);
+                user1.AddGameToFavorite(lol);
 
                 //display
                 ConsoleDisplay consoleDisplay = new ConsoleDisplay();
@@ -90,24 +90,24 @@ namespace GameZone.ConsoleProject
                 char input;
                 do
                 {
-                    consoleDisplay.displayMenu();
+                    consoleDisplay.DisplayMenu();
                     Console.Write("Enter number: ");
                     string s = Console.ReadLine();
                     int n = Int32.Parse(s);
                     switch (n)
                     {
                         case 1:
-                            consoleDisplay.displayAllGames(allGames);
+                            consoleDisplay.DisplayAllGames(allGames);
                             break;
                         case 2:
-                            consoleDisplay.displayAllUsers(allUsers);
+                            consoleDisplay.DisplayAllUsers(allUsers);
                             break;
                         case 3:
                             Console.Write("Enter id: ");
-                            consoleDisplay.displayGame(Game.returnGameById(allGames, int.Parse(Console.ReadLine().ToString())));                   
+                            consoleDisplay.DisplayGame(Game.ReturnGameById(allGames, int.Parse(Console.ReadLine().ToString())));                   
                             break;
                         case 4:
-                            Game newGame = admin1.createGame("naruto", 2000, 10, 2, "NarutoGame");
+                            Game newGame = admin1.CreateGame("naruto", 2000, 10, 2, "NarutoGame");
                             allGames.Add(newGame);
                             break;
                         default:

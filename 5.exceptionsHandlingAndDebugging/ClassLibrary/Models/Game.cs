@@ -29,7 +29,7 @@ namespace GameZoneModels
             this.id = serial++;
         }
 
-        public double calculateTotalRating()
+        public double CalculateTotalRating()
         {
             foreach (var i in Reviews)
             {
@@ -37,7 +37,7 @@ namespace GameZoneModels
             }
             return this.totalRating / Reviews.Count();
         }
-        public static Game returnGameById(List<Game> gameslist, int id)
+        public static Game ReturnGameById(List<Game> gameslist, int id)
         {
             try
             {

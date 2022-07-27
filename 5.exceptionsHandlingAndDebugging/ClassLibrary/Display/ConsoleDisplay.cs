@@ -12,7 +12,7 @@ namespace GameZone.Domain.Display
     public class ConsoleDisplay
     {
         private StringBuilder sb = new StringBuilder();
-        public void displayUser(User user)
+        public void DisplayUser(User user)
         {
             Console.WriteLine("");
             Console.WriteLine($"Id: {user.id}");
@@ -47,7 +47,7 @@ namespace GameZone.Domain.Display
             }
             Console.WriteLine("==============================================================");
         }
-        public void displayGame(Game game)
+        public void DisplayGame(Game game)
         {
             try
             {
@@ -55,7 +55,7 @@ namespace GameZone.Domain.Display
                 Console.WriteLine($"Id: {game.id}");
                 Console.WriteLine($"Name: {game.name}");
                 Console.WriteLine($"Release date: {game.releaseDate.ToLongDateString()}");
-                Console.WriteLine($"Rating: {game.calculateTotalRating()}");
+                Console.WriteLine($"Rating: {game.CalculateTotalRating()}");
                 Console.WriteLine($"Game details: {game.gameDetails}");
 
                 Console.Write("Developers: ");
@@ -116,7 +116,7 @@ namespace GameZone.Domain.Display
             }
         }
 
-        public void displayMenu()
+        public void DisplayMenu()
         {
             Console.WriteLine("Welcome. Please enter your command: ");
             Console.WriteLine("1. Display all games");
@@ -125,7 +125,7 @@ namespace GameZone.Domain.Display
             Console.WriteLine("4. Create a game entity");
         }
 
-        public void displayAllGames(List<Game> gamelist)
+        public void DisplayAllGames(List<Game> gamelist)
         {
             try
             {
@@ -136,7 +136,7 @@ namespace GameZone.Domain.Display
                 }
                 foreach (var game in gamelist)
                 {
-                    displayGame(game);
+                    DisplayGame(game);
                 }
             }
             catch (GameException ex)
@@ -155,7 +155,7 @@ namespace GameZone.Domain.Display
             }
             #endif
         }
-        public void displayAllUsers(List<User> users)
+        public void DisplayAllUsers(List<User> users)
         {
             try
             {
@@ -166,7 +166,7 @@ namespace GameZone.Domain.Display
                 }
                 foreach (var user in users)
                 {
-                    displayUser(user);
+                    DisplayUser(user);
                 }
             }
             catch(UserException ex)

@@ -39,21 +39,21 @@ namespace GameZoneModels
             Console.WriteLine("User logged out");
         }
 
-        public void postReview(Game gameToBeReviewed, double rating, string content)
+        public void PostReview(Game gameToBeReviewed, double rating, string content)
         {
             Review review = new Review(this, gameToBeReviewed, rating, content);
             gameToBeReviewed.Reviews.Add(review);
             userReviews.Add(review);
         }
-        public void addGameToFavorite(Game favoriteGame)
+        public void AddGameToFavorite(Game favoriteGame)
         {
             FavoriteGames.Add(favoriteGame);
         }
-        public void postComment(Game gameToBeCommented, string content)
+        public void PostComment(Game gameToBeCommented, string content)
         {
             gameToBeCommented.Comments.Add(new Comment(this, content));
         }
-        public void replyToComment(Game gameToBeReplied, int commentToReplyID, string content)
+        public void ReplyToComment(Game gameToBeReplied, int commentToReplyID, string content)
         {
             //find commentById 
             try
@@ -66,7 +66,7 @@ namespace GameZoneModels
                 throw new NullReferenceException($"Comment with id: {commentToReplyID} does not exist.");
             }
         }
-        public void deleteComment(Game gameToDeleteComment, int id)
+        public void DeleteComment(Game gameToDeleteComment, int id)
         {
             try
             {
@@ -79,7 +79,7 @@ namespace GameZoneModels
             }
         }
 
-        public Game createGame(string name, int year, int month, int day, string gameDetails)
+        public Game CreateGame(string name, int year, int month, int day, string gameDetails)
         {
             var game = new Game(name, new DateTime(year, month, day), gameDetails);
 
