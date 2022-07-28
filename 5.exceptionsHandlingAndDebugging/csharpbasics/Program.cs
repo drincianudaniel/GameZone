@@ -131,6 +131,9 @@ namespace GameZone.ConsoleProject
                                 {
                                     case 1:
                                         consoleDisplay.DisplayDevelopers(DevelopersList);
+                                        Console.WriteLine("Choose a developer: ");
+                                        int developerId = int.Parse(Console.ReadLine().ToString());
+                                        game.AddDeveloperToGameByID(DevelopersList, developerId);
                                         break;
                                     case 2:
                                         consoleDisplay.DisplayGenres(GenresList);

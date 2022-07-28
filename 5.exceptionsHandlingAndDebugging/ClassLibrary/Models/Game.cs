@@ -53,5 +53,17 @@ namespace GameZoneModels
                 throw new NullReferenceException($"Game with id {id} doesn't exist.");
             }
         }
+
+        public void AddDeveloperToGameByID(List<Developer> developers, int id)
+        {
+            try
+            {
+                var developerToAdd = developers.Where(developer => developer.id == id).FirstOrDefault();
+                Developers.Add(developerToAdd);
+            } catch (NullReferenceException)
+            {
+                throw new NullReferenceException($"Developer with {id} doesn't exist.");
+            }
+        }
     }
 }
