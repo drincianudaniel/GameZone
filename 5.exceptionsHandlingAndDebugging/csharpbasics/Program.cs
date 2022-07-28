@@ -26,14 +26,18 @@ namespace GameZone.ConsoleProject
                 //game developers
                 Developer Ubisoft = new Developer("Ubisoft");
                 Developer RiotGames = new Developer("Riot Games");
+                List<Developer> DevelopersList = new List<Developer>{ Ubisoft, RiotGames};
 
                 //genres
                 Genre Action = new Genre("Action");
                 Genre Adventure = new Genre("Adventure");
+                Genre Simulation = new Genre("Simulation");
+                List<Genre> GenresList = new List<Genre> { Action, Adventure };
 
                 //platform
                 Platform ps4 = new Platform("PlayStation 4");
                 Platform pc = new Platform("Pc");
+                List<Platform> PlatformList = new List<Platform> { ps4, pc };
 
                 //games
                 Game AssassinsCreed = new Game("Assassins Creed", new DateTime(2007, 11, 13), "Assassin's Creed is an open-world action-adventure stealth video game franchise published by Ubisoft and developed mainly by its studio Ubisoft Montreal using the game engine Anvil and its more advanced derivatives. Created by Patrice Désilets, Jade Raymond, and Corey May, the Assassin's Creed series depicts a fictional millennia-old struggle between the Assassins, who fight for peace and free will, and the Templars, who desire peace through order and control. ");
@@ -91,7 +95,7 @@ namespace GameZone.ConsoleProject
                 do
                 {
                     consoleDisplay.DisplayMenu();
-                    Console.Write("Enter number: ");
+                    Console.Write("Choose an options: ");
                     string s = Console.ReadLine();
                     int n = Int32.Parse(s);
                     switch (n)
@@ -107,8 +111,44 @@ namespace GameZone.ConsoleProject
                             consoleDisplay.DisplayGame(Game.ReturnGameById(allGames, int.Parse(Console.ReadLine().ToString())));                   
                             break;
                         case 4:
+                            //hard coded for now
                             Game newGame = admin1.CreateGame("naruto", 2000, 10, 2, "NarutoGame");
                             allGames.Add(newGame);
+                            break;
+                        case 5:                      
+                            do
+                            {
+                                consoleDisplay.DisplayAllGames(allGames);
+                                Console.WriteLine("Choose a game from the list to manage: ");
+                                int gameId = int.Parse(Console.ReadLine().ToString());
+                                var game = Game.ReturnGameById(allGames, gameId);
+                                Console.WriteLine($"The choosen game is {game.name}");
+                                consoleDisplay.DisplayGameMenu();
+                                Console.Write("Choose an option: ");
+                                s = Console.ReadLine();
+                                n = Int32.Parse(s);
+                                switch (n)
+                                {
+                                    case 1:
+                                        consoleDisplay.DisplayDevelopers(DevelopersList);
+                                        break;
+                                    case 2:
+                                        consoleDisplay.DisplayGenres(GenresList);
+                                        break;
+                                    case 3:
+                                        consoleDisplay.DisplayPlatforms(PlatformList);
+                                        break;
+                                    case 4:
+                                        break;
+                                    default:
+                                        Console.WriteLine("Invalid selection");
+                                        break;
+                                }
+                                Console.WriteLine("Would you like to repeat? Y/N");
+                                input = Convert.ToChar(Console.ReadLine());
+                            } while (input == 'Y' || input == 'y');
+                            Console.WriteLine("Press any key to exit.");
+                            Console.ReadKey();
                             break;
                         default:
                             Console.WriteLine("Invalid selection");
@@ -116,11 +156,10 @@ namespace GameZone.ConsoleProject
                     }
                     Console.WriteLine("Would you like to repeat? Y/N");
                     input = Convert.ToChar(Console.ReadLine());
-                    repeat = (input == 'Y');
+                    repeat = (input == 'Y' || input == 'y');
                 } while (input == 'Y' || input == 'y') ;
             Console.WriteLine("Press any key to exit.");
             Console.ReadKey();
-
             }
             catch (NullReferenceException exception)
             {

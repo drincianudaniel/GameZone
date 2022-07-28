@@ -123,6 +123,15 @@ namespace GameZone.Domain.Display
             Console.WriteLine("2. Display all users");
             Console.WriteLine("3. Display game by id");
             Console.WriteLine("4. Create a game entity");
+            Console.WriteLine("5. Manage Game");
+        }
+
+        public void DisplayGameMenu()
+        {
+            Console.WriteLine("1. Add Developer to game");
+            Console.WriteLine("2. Add Genre to game");
+            Console.WriteLine("3. Add Platform to game");
+            Console.WriteLine("4. Add comment to game");
         }
 
         public void DisplayAllGames(List<Game> gamelist)
@@ -184,6 +193,42 @@ namespace GameZone.Domain.Display
                 Console.WriteLine("Function display all users executed");
             }
             #endif
+        }
+
+        public void DisplayDevelopers(List<Developer> developers)
+        {
+            if (developers.Count == 0)
+            {
+                throw new NullReferenceException("Developers list is null");
+            }
+            foreach(var developer in developers)
+            {
+                Console.WriteLine($"{developer.id} {developer.name}");
+            }
+        }
+
+        public void DisplayGenres(List<Genre> genres)
+        {
+            if (genres.Count == 0)
+            {
+                throw new NullReferenceException("Genres list is null");
+            }
+            foreach (var genre in genres)
+            {
+                Console.WriteLine($"{genre.id} {genre.name}");
+            }
+        }
+
+        public void DisplayPlatforms(List<Platform> platforms)
+        {
+            if (platforms.Count == 0)
+            {
+                throw new NullReferenceException("Platforms list is null");
+            }
+            foreach (var platform in platforms)
+            {
+                Console.WriteLine($"{platform.id} {platform.name}");
+            }
         }
     }
 }
