@@ -137,6 +137,9 @@ namespace GameZone.ConsoleProject
                                         break;
                                     case 2:
                                         consoleDisplay.DisplayGenres(GenresList);
+                                        Console.WriteLine("Choose a Genre: ");
+                                        int genreId = int.Parse(Console.ReadLine().ToString());
+                                        game.AddGenreToGameByID(GenresList, genreId);
                                         break;
                                     case 3:
                                         consoleDisplay.DisplayPlatforms(PlatformList);

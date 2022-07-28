@@ -61,6 +61,31 @@ namespace GameZoneModels
                 throw new NullReferenceException($"Developer with {id} doesn't exist.");
             }
         }
+        public void AddGenreToGameByID(List<Genre> genres, int id)
+        {
+            try
+            {
+                var genreToAdd = genres.Where(genre => genre.id == id).FirstOrDefault();
+                Genres.Add(genreToAdd);
+            }
+            catch (NullReferenceException)
+            {
+                throw new NullReferenceException($"Genre with {id} doesn't exist.");
+            }
+        }
+
+        public void AddPlatformToGameByID(List<Platform> platforms, int id)
+        {
+            try
+            {
+                var platformsToAdd = platforms.Where(platform => platform.id == id).FirstOrDefault();
+                Platforms.Add(platformsToAdd);
+            }
+            catch (NullReferenceException)
+            {
+                throw new NullReferenceException($"Platform with {id} doesn't exist.");
+            }
+        }
 
         public static List<Game> GenerateTopList(List<Game> gameList)
         {
