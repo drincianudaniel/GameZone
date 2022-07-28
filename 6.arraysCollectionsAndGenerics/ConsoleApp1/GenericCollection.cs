@@ -52,18 +52,17 @@ namespace ConsoleApp1
         //index swap
         public void Swap(int index1, int index2)
         {
-            T temp = items[index1];
+            /*T temp = items[index1];
             items[index1] = items[index2];
-            items[index2] = temp;
+            items[index2] = temp;*/
+            Swap(ref items[index1], ref items[index2]);
         }
 
         //index and item swap
         public void Swap(int index1, ref T item2)
         {
             int index2 = Array.IndexOf(items, item2);
-            T temp = items[index1];
-            items[index1] = items[index2];
-            items[index2] = temp;
+            Swap(index1, index2);
         }
      
     }
