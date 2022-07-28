@@ -174,6 +174,10 @@ namespace GameZone.ConsoleProject
             {
                 Console.WriteLine(exception.Message);
             }
+            catch (DuplicateWaitObjectException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
     }
 }

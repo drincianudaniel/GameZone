@@ -50,11 +50,15 @@ namespace GameZoneModels
             }
         }
 
-        public void AddDeveloperToGameByID(List<Developer> developers, int id)
+        public void AddDeveloperToGameByID(List<Developer> developersList, int id)
         {
             try
             {
-                var developerToAdd = developers.Where(developer => developer.id == id).FirstOrDefault();
+                var developerToAdd = developersList.Where(developer => developer.id == id).FirstOrDefault();
+                if(Developers.Any(item => item.id == developerToAdd.id))
+                {
+                    throw new DuplicateWaitObjectException("Object is already in list");
+                }
                 Developers.Add(developerToAdd);
             } catch (NullReferenceException)
             {
