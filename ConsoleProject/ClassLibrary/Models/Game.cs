@@ -1,4 +1,5 @@
 ﻿using GameZone.Domain.Exceptions;
+using GameZone.Domain.Models;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,10 +9,9 @@ using System.Threading.Tasks;
 
 namespace GameZoneModels 
 {
-    public class Game
+    public class Game : Entity
     {
         private static int serial = 1;
-        public int id { get; set; }
         public string Name { get; set; }
         public DateTime ReleaseDate { get; set; }
         public double TotalRating { get; set; }
@@ -26,7 +26,7 @@ namespace GameZoneModels
             this.Name = name;
             this.ReleaseDate = releaseDate;
             this.GameDetails = gameDetails;
-            this.id = serial++;
+            this.Id = serial++;
         }
 
         public void CalculateTotalRating()
@@ -40,7 +40,7 @@ namespace GameZoneModels
                 Game gameToReturn = null;
                 foreach (var game in gameslist)
                 {
-                    gameToReturn = gameslist.Where(game => game.id == id).FirstOrDefault();
+                    gameToReturn = gameslist.Where(game => game.Id == id).FirstOrDefault();
                 }
                 return gameToReturn;
             }
@@ -54,8 +54,8 @@ namespace GameZoneModels
         {
             try
             {
-                var developerToAdd = developersList.Where(developer => developer.id == id).FirstOrDefault();
-                if(Developers.Any(item => item.id == developerToAdd.id))
+                var developerToAdd = developersList.Where(developer => developer.Id == id).FirstOrDefault();
+                if(Developers.Any(item => item.Id == developerToAdd.Id))
                 {
                     throw new DuplicateWaitObjectException("Object is already in list");
                 }
@@ -69,7 +69,7 @@ namespace GameZoneModels
         {
             try
             {
-                var genreToAdd = genres.Where(genre => genre.id == id).FirstOrDefault();
+                var genreToAdd = genres.Where(genre => genre.Id == id).FirstOrDefault();
                 Genres.Add(genreToAdd);
             }
             catch (NullReferenceException)
@@ -82,7 +82,7 @@ namespace GameZoneModels
         {
             try
             {
-                var platformsToAdd = platforms.Where(platform => platform.id == id).FirstOrDefault();
+                var platformsToAdd = platforms.Where(platform => platform.Id == id).FirstOrDefault();
                 Platforms.Add(platformsToAdd);
             }
             catch (NullReferenceException)

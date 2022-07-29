@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GameZone.Domain.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,10 +7,9 @@ using System.Threading.Tasks;
 
 namespace GameZoneModels
 {
-    public class Review
+    public class Review : Entity
     {
         private static int serial = 1;
-        public int id { get; set; }
         public User Reviewer { get; set; }
         public Game ReviewedGame { get; set; }
         public double Rating { get; set; }
@@ -20,7 +20,7 @@ namespace GameZoneModels
             this.ReviewedGame = reviewedGame;
             this.Rating = rating;
             this.Content = content;
-            this.id = serial++;
+            this.Id = serial++;
         }
     }
 }

@@ -15,7 +15,7 @@ namespace GameZone.Domain.Display
         public void DisplayUser(User user)
         {
             Console.WriteLine("");
-            Console.WriteLine($"Id: {user.id}");
+            Console.WriteLine($"Id: {user.Id}");
             Console.WriteLine($"Email: {user.Email}");
             Console.WriteLine($"Username: {user.Username}");
             Console.WriteLine($"Name: {user.FirstName} {user.LastName}");
@@ -52,7 +52,7 @@ namespace GameZone.Domain.Display
             try
             {
                 Console.WriteLine("");
-                Console.WriteLine($"Id: {game.id}");
+                Console.WriteLine($"Id: {game.Id}");
                 Console.WriteLine($"Name: {game.Name}");
                 Console.WriteLine($"Release date: {game.ReleaseDate.ToLongDateString()}");
                 Console.WriteLine($"Rating: {game.TotalRating}");
@@ -95,7 +95,7 @@ namespace GameZone.Domain.Display
                     Console.WriteLine("Comments: ");
                     foreach (var comment in game.Comments)
                     {
-                        Console.Write(comment.id + ". " + comment.CommentOwer.Username + ": ");
+                        Console.Write(comment.Id + ". " + comment.CommentOwer.Username + ": ");
                         Console.WriteLine(comment.Content);
 
                         if (comment.Replies.Count > 0)
@@ -204,7 +204,7 @@ namespace GameZone.Domain.Display
             }
             foreach(var developer in developers)
             {
-                Console.WriteLine($"{developer.id} {developer.Name}");
+                Console.WriteLine($"{developer.Id} {developer.Name}");
             }
         }
 
@@ -216,7 +216,7 @@ namespace GameZone.Domain.Display
             }
             foreach (var genre in genres)
             {
-                Console.WriteLine($"{genre.id} {genre.Name}");
+                Console.WriteLine($"{genre.Id} {genre.Name}");
             }
         }
 
@@ -228,7 +228,7 @@ namespace GameZone.Domain.Display
             }
             foreach (var platform in platforms)
             {
-                Console.WriteLine($"{platform.id} {platform.Name}");
+                Console.WriteLine($"{platform.Id} {platform.Name}");
             }
         }
     }

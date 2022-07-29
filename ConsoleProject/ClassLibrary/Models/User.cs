@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GameZone.Domain.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,10 +7,9 @@ using System.Threading.Tasks;
 
 namespace GameZoneModels
 {
-    public class User
+    public class User : Entity
     {
         private static int serial = 1;
-        public int id { get; set; }
         public string? Username { get; set; }
         public string? Email { get; set; }
         public string? Password { get; set; }
@@ -20,7 +20,6 @@ namespace GameZoneModels
 
         public User(string email, string username, string password, string firstName, string lastName)
         {
-            this.id = serial++;
             this.Email = email;
             this.Username = username;
             this.Password = password;
@@ -28,6 +27,7 @@ namespace GameZoneModels
             this.LastName = lastName;
             FavoriteGames = new List<Game>();
             userReviews = new List<Review>();
+            this.Id = serial++;
         }
         public void Login()
         {
@@ -59,7 +59,7 @@ namespace GameZoneModels
             //find commentById 
             try
             {
-                var commentToReply = gameToBeReplied.Comments.Where(comment => comment.id == commentToReplyID).FirstOrDefault();
+                var commentToReply = gameToBeReplied.Comments.Where(comment => comment.Id == commentToReplyID).FirstOrDefault();
                 commentToReply.Replies.Add(new Reply(this, commentToReply, content));
             }
             catch (NullReferenceException)
@@ -71,7 +71,7 @@ namespace GameZoneModels
         {
             try
             {
-                var commentToDelete = gameToDeleteComment.Comments.Where(comment => comment.id == id).FirstOrDefault();
+                var commentToDelete = gameToDeleteComment.Comments.Where(comment => comment.Id == id).FirstOrDefault();
                 gameToDeleteComment.Comments.Remove(commentToDelete);
             }
             catch (NullReferenceException)
