@@ -1,4 +1,5 @@
-﻿using GameZone.Domain.Display;
+﻿using Gamezone.Data;
+using GameZone.Domain.Display;
 using GameZone.Domain.Exceptions;
 using GameZoneModels;
 using System;
@@ -89,7 +90,8 @@ namespace GameZone.ConsoleProject
 
                 //Game.returnGameById(allGames, 1231230);
                 //consoleDisplay.displayGame(returnedGame);
-
+                GamesRepository gamesRepository = new GamesRepository();
+                gamesRepository.AddGamesToFile(allGames);
                 bool repeat = false;
                 char input;
                 do
@@ -172,6 +174,9 @@ namespace GameZone.ConsoleProject
                             break;
                         case 6:
                             consoleDisplay.DisplayAllGames(Game.GenerateTopList(allGames));
+                            break;
+                        case 7:
+                            Console.WriteLine(gamesRepository.ReadGamesFromFile());
                             break;
                         default:
                             Console.WriteLine("Invalid selection");

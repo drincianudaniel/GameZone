@@ -125,6 +125,7 @@ namespace GameZone.Domain.Display
             Console.WriteLine("4. Create a game entity");
             Console.WriteLine("5. Manage Game");
             Console.WriteLine("6. Display Game TOP");
+            Console.WriteLine("7. Display Game TOP");
         }
 
         public void DisplayGameMenu()
