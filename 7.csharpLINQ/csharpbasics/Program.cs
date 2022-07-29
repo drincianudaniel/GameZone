@@ -131,20 +131,27 @@ namespace GameZone.ConsoleProject
                                 {
                                     case 1:
                                         consoleDisplay.DisplayDevelopers(DevelopersList);
-                                        Console.WriteLine("Choose a developer: ");
+                                        Console.WriteLine("Choose a developer to add: ");
                                         int developerId = int.Parse(Console.ReadLine().ToString());
                                         game.AddDeveloperToGameByID(DevelopersList, developerId);
                                         break;
                                     case 2:
                                         consoleDisplay.DisplayGenres(GenresList);
-                                        Console.WriteLine("Choose a Genre: ");
+                                        Console.WriteLine("Choose a Genre to add: ");
                                         int genreId = int.Parse(Console.ReadLine().ToString());
                                         game.AddGenreToGameByID(GenresList, genreId);
                                         break;
                                     case 3:
                                         consoleDisplay.DisplayPlatforms(PlatformList);
+                                        Console.WriteLine("Choose a Platform to add: ");
+                                        int platformId = int.Parse(Console.ReadLine().ToString());
+                                        game.AddGenreToGameByID(GenresList, platformId);
+                                        consoleDisplay.DisplayPlatforms(PlatformList);
                                         break;
                                     case 4:
+                                        Console.WriteLine("Post a comment: ");
+                                        string comment = Console.ReadLine();
+                                        admin1.PostComment(game, comment);
                                         break;
                                     default:
                                         Console.WriteLine("Invalid selection");
@@ -153,8 +160,6 @@ namespace GameZone.ConsoleProject
                                 Console.WriteLine("Would you like to repeat? Y/N");
                                 input = Convert.ToChar(Console.ReadLine());
                             } while (input == 'Y' || input == 'y');
-                            Console.WriteLine("Press any key to exit.");
-                            Console.ReadKey();
                             break;
                         case 6:
                             consoleDisplay.DisplayAllGames(Game.GenerateTopList(allGames));
@@ -167,8 +172,6 @@ namespace GameZone.ConsoleProject
                     input = Convert.ToChar(Console.ReadLine());
                     repeat = (input == 'Y' || input == 'y');
                 } while (input == 'Y' || input == 'y') ;
-            Console.WriteLine("Press any key to exit.");
-            Console.ReadKey();
             }
             catch (NullReferenceException exception)
             {
