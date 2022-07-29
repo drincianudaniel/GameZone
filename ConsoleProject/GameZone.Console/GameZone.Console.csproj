@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\GameZone.Domain\GameZone.Domain.csproj" />
+    <ProjectReference Include="..\GameZone.Infrastructure\GameZone.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

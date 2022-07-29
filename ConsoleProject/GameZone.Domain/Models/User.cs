@@ -43,7 +43,7 @@ namespace GameZoneModels
         {
             Review review = new Review(this, gameToBeReviewed, rating, content);
             gameToBeReviewed.Reviews.Add(review);
-            gameToBeReviewed.CalculateTotalRating();
+            //gameToBeReviewed.CalculateTotalRating();
             userReviews.Add(review);
         }
         public void AddGameToFavorite(Game favoriteGame)

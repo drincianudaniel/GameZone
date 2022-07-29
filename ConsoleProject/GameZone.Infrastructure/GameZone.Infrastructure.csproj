@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\GameZone.Domain\GameZone.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

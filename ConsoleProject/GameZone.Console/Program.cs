@@ -2,6 +2,7 @@
 using GameZone.Domain.Exceptions;
 using GameZoneModels;
 using System;
+using GameZone.Infrastructure.Repositories;
 
 namespace GameZone.ConsoleProject
 {
@@ -11,6 +12,7 @@ namespace GameZone.ConsoleProject
         {
             try
             {
+                ConsoleDisplay consoleDisplay = new ConsoleDisplay();
                 //AllGames
                 List<Game> allGames = new List<Game>();
                 List<Game> emptyList = new List<Game>();
@@ -40,24 +42,29 @@ namespace GameZone.ConsoleProject
                 List<Platform> PlatformList = new List<Platform> { ps4, pc };
 
                 //games
-                Game AssassinsCreed = new Game("Assassins Creed", new DateTime(2007, 11, 13), "Assassin's Creed is an open-world action-adventure stealth video game franchise published by Ubisoft and developed mainly by its studio Ubisoft Montreal using the game engine Anvil and its more advanced derivatives. Created by Patrice Désilets, Jade Raymond, and Corey May, the Assassin's Creed series depicts a fictional millennia-old struggle between the Assassins, who fight for peace and free will, and the Templars, who desire peace through order and control. ");
+
+                var gameRepo = new GameRepository();
+                gameRepo.CreateGame(new Game("Assassins Creed", new DateTime(2007, 11, 13), "Assassin's Creed is an open-world action-adventure stealth video game franchise published by Ubisoft and developed mainly by its studio Ubisoft Montreal using the game engine Anvil and its more advanced derivatives. Created by Patrice Désilets, Jade Raymond, and Corey May, the Assassin's Creed series depicts a fictional millennia-old struggle between the Assassins, who fight for peace and free will, and the Templars, who desire peace through order and control. "));
+                consoleDisplay.DisplayAllGames(gameRepo.Games);
+                consoleDisplay.DisplayGame(gameRepo.ReturnGameById(2));
+                /*Game AssassinsCreed = new Game("Assassins Creed", new DateTime(2007, 11, 13), "Assassin's Creed is an open-world action-adventure stealth video game franchise published by Ubisoft and developed mainly by its studio Ubisoft Montreal using the game engine Anvil and its more advanced derivatives. Created by Patrice Désilets, Jade Raymond, and Corey May, the Assassin's Creed series depicts a fictional millennia-old struggle between the Assassins, who fight for peace and free will, and the Templars, who desire peace through order and control. ");
 
                 AssassinsCreed.Developers = new List<Developer> { Ubisoft };
                 AssassinsCreed.Genres = new List<Genre> { Action, Adventure };
                 AssassinsCreed.Platforms = new List<Platform> { ps4 };
                 AssassinsCreed.Reviews = new List<Review>();
-                AssassinsCreed.Comments = new List<Comment>();
+                AssassinsCreed.Comments = new List<Comment>();*/
 
 
-                Game lol = new Game("League of Legends", new DateTime(2009, 10, 27), "League of Legends, commonly referred to as League, is a 2009 multiplayer online battle arena video game developed and published by Riot Games. Inspired by Defense of the Ancients, a custom map for Warcraft III, Riot's founders sought to develop a stand-alone game in the same genre.");
+              /*  Game lol = new Game("League of Legends", new DateTime(2009, 10, 27), "League of Legends, commonly referred to as League, is a 2009 multiplayer online battle arena video game developed and published by Riot Games. Inspired by Defense of the Ancients, a custom map for Warcraft III, Riot's founders sought to develop a stand-alone game in the same genre.");
 
                 lol.Developers = new List<Developer> { RiotGames };
                 lol.Genres = new List<Genre> { Adventure };
                 lol.Platforms = new List<Platform> { pc };
                 lol.Reviews = new List<Review>();
-                lol.Comments = new List<Comment>();
+                lol.Comments = new List<Comment>();*/
 
-                allGames.Add(AssassinsCreed);
+                /*allGames.Add(AssassinsCreed);
                 allGames.Add(lol);
                 //reviews
                 user1.PostReview(AssassinsCreed, 8.5, "good game");
@@ -76,10 +83,10 @@ namespace GameZone.ConsoleProject
 
                 //favoritegames
                 user1.AddGameToFavorite(AssassinsCreed);
-                user1.AddGameToFavorite(lol);
+                user1.AddGameToFavorite(lol);*/
 
                 //display
-                ConsoleDisplay consoleDisplay = new ConsoleDisplay();
+   
                 //display user info
                 //consoleDisplay.displayRegularUserInfo(user1);
                 //consoleDisplay.displayRegularUserInfo(user2);
@@ -90,7 +97,7 @@ namespace GameZone.ConsoleProject
                 //Game.returnGameById(allGames, 1231230);
                 //consoleDisplay.displayGame(returnedGame);
 
-                bool repeat = false;
+                /*bool repeat = false;
                 char input;
                 do
                 {
@@ -101,14 +108,14 @@ namespace GameZone.ConsoleProject
                     switch (n)
                     {
                         case 1:
-                            consoleDisplay.DisplayAllGames(allGames);
+                            consoleDisplay.DisplayAllGames(gameRepo.Games.ToList());
                             break;
                         case 2:
                             consoleDisplay.DisplayAllUsers(allUsers);
                             break;
                         case 3:
                             Console.Write("Enter id: ");
-                            consoleDisplay.DisplayGame(Game.ReturnGameById(allGames, int.Parse(Console.ReadLine().ToString())));                   
+                            //consoleDisplay.DisplayGame(Game.ReturnGameById(allGames, int.Parse(Console.ReadLine().ToString())));                   
                             break;
                         case 4:
                             Console.WriteLine("Enter game name: ");
@@ -180,7 +187,7 @@ namespace GameZone.ConsoleProject
                     Console.WriteLine("Would you like to repeat? Y/N");
                     input = Convert.ToChar(Console.ReadLine());
                     repeat = (input == 'Y' || input == 'y');
-                } while (input == 'Y' || input == 'y') ;
+                } while (input == 'Y' || input == 'y') ;*/
             }
             catch (NullReferenceException exception)
             {
