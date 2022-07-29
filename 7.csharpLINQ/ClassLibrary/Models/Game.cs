@@ -101,5 +101,16 @@ namespace GameZoneModels
                 throw new NullReferenceException($"Game list is null");
             }
         }
+
+        public static Game CreateGame(string name, int year, int month, int day, string gameDetails) 
+        {
+            var game = new Game(name, new DateTime(year, month, day), gameDetails);
+            game.Developers = new List<Developer> { };
+            game.Genres = new List<Genre> { };
+            game.Platforms = new List<Platform> { };
+            game.Reviews = new List<Review>();
+            game.Comments = new List<Comment>();
+            return game;
+        }
     }
 }

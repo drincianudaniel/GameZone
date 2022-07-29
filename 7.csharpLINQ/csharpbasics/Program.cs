@@ -111,9 +111,18 @@ namespace GameZone.ConsoleProject
                             consoleDisplay.DisplayGame(Game.ReturnGameById(allGames, int.Parse(Console.ReadLine().ToString())));                   
                             break;
                         case 4:
-                            //hard coded for now
-                            Game newGame = admin1.CreateGame("naruto", 2000, 10, 2, "NarutoGame");
-                            allGames.Add(newGame);
+                            Console.WriteLine("Enter game name: ");
+                            string gameName = Console.ReadLine();
+                            Console.WriteLine("Enter year: ");
+                            int year = int.Parse(Console.ReadLine().ToString());
+                            Console.WriteLine("Enter month: ");
+                            int month = int.Parse(Console.ReadLine().ToString());
+                            Console.WriteLine("Enter day: ");
+                            int day = int.Parse(Console.ReadLine().ToString());
+                            Console.WriteLine("Enter game details: ");
+                            string gameDetails = Console.ReadLine();
+                            Game createdGame = Game.CreateGame(gameName, year, month, day, gameDetails);
+                            allGames.Add(createdGame);
                             break;
                         case 5:                      
                             do
