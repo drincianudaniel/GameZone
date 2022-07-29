@@ -10,11 +10,11 @@ namespace GameZoneModels
     {
         private static int serial = 1;
         public int id { get; set; }
-        public string name { get; set; }
+        public string Name { get; set; }
 
         public Genre(string name)
         {
-            this.name = name;
+            this.Name = name;
             this.id = serial++;
         }
     }

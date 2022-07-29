@@ -12,10 +12,10 @@ namespace GameZoneModels
     {
         private static int serial = 1;
         public int id { get; set; }
-        public string name { get; set; }
-        public DateTime releaseDate { get; set; }
-        public double totalRating { get; set; }
-        public string gameDetails { get; set; }
+        public string Name { get; set; }
+        public DateTime ReleaseDate { get; set; }
+        public double TotalRating { get; set; }
+        public string GameDetails { get; set; }
         public List<Developer> Developers { get; set; }
         public List<Genre> Genres { get; set; }
         public List<Platform> Platforms { get; set; }
@@ -23,15 +23,15 @@ namespace GameZoneModels
         public List<Comment> Comments { get; set; }
         public Game(string name, DateTime releaseDate, string gameDetails)
         {
-            this.name = name;
-            this.releaseDate = releaseDate;
-            this.gameDetails = gameDetails;
+            this.Name = name;
+            this.ReleaseDate = releaseDate;
+            this.GameDetails = gameDetails;
             this.id = serial++;
         }
 
         public void CalculateTotalRating()
         {
-            totalRating = Reviews.Average(review => review.rating);
+            TotalRating = Reviews.Average(review => review.Rating);
         }
         public static Game ReturnGameById(List<Game> gameslist, int id)
         {
@@ -95,7 +95,7 @@ namespace GameZoneModels
         {
             try
             { 
-                return gameList.OrderByDescending(game => game.totalRating).ToList();
+                return gameList.OrderByDescending(game => game.TotalRating).ToList();
             } catch (NullReferenceException)
             {
                 throw new NullReferenceException($"Game list is null");

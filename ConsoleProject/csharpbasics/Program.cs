@@ -131,7 +131,7 @@ namespace GameZone.ConsoleProject
                                 Console.WriteLine("Choose a game from the list to manage: ");
                                 int gameId = int.Parse(Console.ReadLine().ToString());
                                 var game = Game.ReturnGameById(allGames, gameId);
-                                Console.WriteLine($"The choosen game is {game.name}");
+                                Console.WriteLine($"The choosen game is {game.Name}");
                                 consoleDisplay.DisplayGameMenu();
                                 Console.Write("Choose an option: ");
                                 s = Console.ReadLine();

@@ -10,15 +10,15 @@ namespace GameZoneModels
     {
         private static int serial = 1;
         public int id { get; set; }
-        public User commentOwer { get; set; }
-        public string content { get; set; }
-        public List<Reply> replies { get; set; }
+        public User CommentOwer { get; set; }
+        public string Content { get; set; }
+        public List<Reply> Replies { get; set; }
         public Comment(User commentOwner, string content)
         {
-            this.commentOwer = commentOwner;
-            this.content = content;
+            this.CommentOwer = commentOwner;
+            this.Content = content;
             this.id = serial++;
-            replies = new List<Reply>();
+            Replies = new List<Reply>();
         }
     }
 }

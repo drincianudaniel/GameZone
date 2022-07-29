@@ -10,22 +10,22 @@ namespace GameZoneModels
     {
         private static int serial = 1;
         public int id { get; set; }
-        public string? username { get; set; }
-        public string? email { get; set; }
-        public string? password { get; set; }
-        public string? firstName { get; set; }
-        public string? lastName { get; set; }
+        public string? Username { get; set; }
+        public string? Email { get; set; }
+        public string? Password { get; set; }
+        public string? FirstName { get; set; }
+        public string? LastName { get; set; }
         public List<Game> FavoriteGames { get; set; }
         public List<Review> userReviews { get; set; }
 
         public User(string email, string username, string password, string firstName, string lastName)
         {
             this.id = serial++;
-            this.email = email;
-            this.username = username;
-            this.password = password;
-            this.firstName = firstName;
-            this.lastName = lastName;
+            this.Email = email;
+            this.Username = username;
+            this.Password = password;
+            this.FirstName = firstName;
+            this.LastName = lastName;
             FavoriteGames = new List<Game>();
             userReviews = new List<Review>();
         }
@@ -60,7 +60,7 @@ namespace GameZoneModels
             try
             {
                 var commentToReply = gameToBeReplied.Comments.Where(comment => comment.id == commentToReplyID).FirstOrDefault();
-                commentToReply.replies.Add(new Reply(this, commentToReply, content));
+                commentToReply.Replies.Add(new Reply(this, commentToReply, content));
             }
             catch (NullReferenceException)
             {

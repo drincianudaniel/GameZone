@@ -16,16 +16,16 @@ namespace GameZone.Domain.Display
         {
             Console.WriteLine("");
             Console.WriteLine($"Id: {user.id}");
-            Console.WriteLine($"Email: {user.email}");
-            Console.WriteLine($"Username: {user.username}");
-            Console.WriteLine($"Name: {user.firstName} {user.lastName}");
+            Console.WriteLine($"Email: {user.Email}");
+            Console.WriteLine($"Username: {user.Username}");
+            Console.WriteLine($"Name: {user.FirstName} {user.LastName}");
 
             if (user.FavoriteGames.Count > 0)
             {
                 Console.Write("Favorite Games: ");
                 foreach (var favoriteGame in user.FavoriteGames)
                 {
-                    sb.Append(favoriteGame.name);
+                    sb.Append(favoriteGame.Name);
                     if (favoriteGame != user.FavoriteGames.Last())
                     {
                         sb.Append(", ");
@@ -40,8 +40,8 @@ namespace GameZone.Domain.Display
                 Console.WriteLine("User Reviews: ");
                 foreach (var userReview in user.userReviews)
                 {
-                    Console.WriteLine($"Game: {userReview.reviewedGame.name} Rating: {userReview.rating}");
-                    Console.WriteLine($"Review content: {userReview.content}");
+                    Console.WriteLine($"Game: {userReview.ReviewedGame.Name} Rating: {userReview.Rating}");
+                    Console.WriteLine($"Review content: {userReview.Content}");
                     Console.WriteLine("---------------");
                 }
             }
@@ -53,29 +53,29 @@ namespace GameZone.Domain.Display
             {
                 Console.WriteLine("");
                 Console.WriteLine($"Id: {game.id}");
-                Console.WriteLine($"Name: {game.name}");
-                Console.WriteLine($"Release date: {game.releaseDate.ToLongDateString()}");
-                Console.WriteLine($"Rating: {game.totalRating}");
-                Console.WriteLine($"Game details: {game.gameDetails}");
+                Console.WriteLine($"Name: {game.Name}");
+                Console.WriteLine($"Release date: {game.ReleaseDate.ToLongDateString()}");
+                Console.WriteLine($"Rating: {game.TotalRating}");
+                Console.WriteLine($"Game details: {game.GameDetails}");
 
                 Console.Write("Developers: ");
                 foreach (var developer in game.Developers)
                 {
-                    Console.Write(developer.name + " ");
+                    Console.Write(developer.Name + " ");
                 }
 
                 Console.WriteLine(" ");
                 Console.Write("Genres: ");
                 foreach (var genre in game.Genres)
                 {
-                    Console.Write(genre.name + " ");
+                    Console.Write(genre.Name + " ");
                 }
 
                 Console.WriteLine(" ");
                 Console.Write("Platforms: ");
                 foreach (var platform in game.Platforms)
                 {
-                    Console.Write(platform.name + " ");
+                    Console.Write(platform.Name + " ");
                 }
                 Console.WriteLine(" ");
 
@@ -84,9 +84,9 @@ namespace GameZone.Domain.Display
                     Console.WriteLine("Reviews: ");
                     foreach (var review in game.Reviews)
                     {
-                        Console.Write(review.reviewer.lastName + " " + review.reviewer.firstName + ": ");
-                        Console.Write(review.rating + " ");
-                        Console.WriteLine(review.content);
+                        Console.Write(review.Reviewer.LastName + " " + review.Reviewer.FirstName + ": ");
+                        Console.Write(review.Rating + " ");
+                        Console.WriteLine(review.Content);
                     }
                 }
 
@@ -95,15 +95,15 @@ namespace GameZone.Domain.Display
                     Console.WriteLine("Comments: ");
                     foreach (var comment in game.Comments)
                     {
-                        Console.Write(comment.id + ". " + comment.commentOwer.username + ": ");
-                        Console.WriteLine(comment.content);
+                        Console.Write(comment.id + ". " + comment.CommentOwer.Username + ": ");
+                        Console.WriteLine(comment.Content);
 
-                        if (comment.replies.Count > 0)
+                        if (comment.Replies.Count > 0)
                         {
                             Console.WriteLine("Replies: ");
-                            foreach (var reply in comment.replies)
+                            foreach (var reply in comment.Replies)
                             {
-                                Console.WriteLine($"Reply from {reply.replyOwner.username}: {reply.content}");
+                                Console.WriteLine($"Reply from {reply.ReplyOwner.Username}: {reply.Content}");
                             }
                         }
                     }
@@ -204,7 +204,7 @@ namespace GameZone.Domain.Display
             }
             foreach(var developer in developers)
             {
-                Console.WriteLine($"{developer.id} {developer.name}");
+                Console.WriteLine($"{developer.id} {developer.Name}");
             }
         }
 
@@ -216,7 +216,7 @@ namespace GameZone.Domain.Display
             }
             foreach (var genre in genres)
             {
-                Console.WriteLine($"{genre.id} {genre.name}");
+                Console.WriteLine($"{genre.id} {genre.Name}");
             }
         }
 
@@ -228,7 +228,7 @@ namespace GameZone.Domain.Display
             }
             foreach (var platform in platforms)
             {
-                Console.WriteLine($"{platform.id} {platform.name}");
+                Console.WriteLine($"{platform.id} {platform.Name}");
             }
         }
     }

@@ -9,14 +9,14 @@ namespace GameZoneModels
     public class Reply
     {
         public int id { get; set; }
-        public string content { get; set; }
-        public User replyOwner { get; set; }
-        public Comment comment { get; set; }
+        public string Content { get; set; }
+        public User ReplyOwner { get; set; }
+        public Comment Comment { get; set; }
         public Reply(User replyOwner, Comment comment, string content)
         {
-            this.replyOwner = replyOwner;
-            this.comment = comment;
-            this.content = content;
+            this.ReplyOwner = replyOwner;
+            this.Comment = comment;
+            this.Content = content;
         }
     }
 }
