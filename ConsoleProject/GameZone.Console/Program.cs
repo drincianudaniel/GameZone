@@ -44,9 +44,12 @@ namespace GameZone.ConsoleProject
                 //games
 
                 var gameRepo = new GameRepository();
-                gameRepo.CreateGame(new Game("Assassins Creed", new DateTime(2007, 11, 13), "Assassin's Creed is an open-world action-adventure stealth video game franchise published by Ubisoft and developed mainly by its studio Ubisoft Montreal using the game engine Anvil and its more advanced derivatives. Created by Patrice Désilets, Jade Raymond, and Corey May, the Assassin's Creed series depicts a fictional millennia-old struggle between the Assassins, who fight for peace and free will, and the Templars, who desire peace through order and control. "));
+                gameRepo.Create(new Game("Assassins Creed", new DateTime(2007, 11, 13), "Assassin's Creed is an open-world action-adventure stealth video game franchise published by Ubisoft and developed mainly by its studio Ubisoft Montreal using the game engine Anvil and its more advanced derivatives. Created by Patrice Désilets, Jade Raymond, and Corey May, the Assassin's Creed series depicts a fictional millennia-old struggle between the Assassins, who fight for peace and free will, and the Templars, who desire peace through order and control. "));
+                gameRepo.Create(new Game("LALALA LALALA", new DateTime(2007, 11, 13), "Assassin's Creed is an open-world action-adventure stealth video game franchise published by Ubisoft and developed mainly by its studio Ubisoft Montreal using the game engine Anvil and its more advanced derivatives. Created by Patrice Désilets, Jade Raymond, and Corey May, the Assassin's Creed series depicts a fictional millennia-old struggle between the Assassins, who fight for peace and free will, and the Templars, who desire peace through order and control. "));
                 consoleDisplay.DisplayAllGames(gameRepo.Games);
-                consoleDisplay.DisplayGame(gameRepo.ReturnGameById(2));
+                gameRepo.Delete(2);
+                consoleDisplay.DisplayAllGames(gameRepo.Games);
+                consoleDisplay.DisplayGame(gameRepo.ReturnById(1));
                 /*Game AssassinsCreed = new Game("Assassins Creed", new DateTime(2007, 11, 13), "Assassin's Creed is an open-world action-adventure stealth video game franchise published by Ubisoft and developed mainly by its studio Ubisoft Montreal using the game engine Anvil and its more advanced derivatives. Created by Patrice Désilets, Jade Raymond, and Corey May, the Assassin's Creed series depicts a fictional millennia-old struggle between the Assassins, who fight for peace and free will, and the Templars, who desire peace through order and control. ");
 
                 AssassinsCreed.Developers = new List<Developer> { Ubisoft };
@@ -56,13 +59,13 @@ namespace GameZone.ConsoleProject
                 AssassinsCreed.Comments = new List<Comment>();*/
 
 
-              /*  Game lol = new Game("League of Legends", new DateTime(2009, 10, 27), "League of Legends, commonly referred to as League, is a 2009 multiplayer online battle arena video game developed and published by Riot Games. Inspired by Defense of the Ancients, a custom map for Warcraft III, Riot's founders sought to develop a stand-alone game in the same genre.");
+                /*  Game lol = new Game("League of Legends", new DateTime(2009, 10, 27), "League of Legends, commonly referred to as League, is a 2009 multiplayer online battle arena video game developed and published by Riot Games. Inspired by Defense of the Ancients, a custom map for Warcraft III, Riot's founders sought to develop a stand-alone game in the same genre.");
 
-                lol.Developers = new List<Developer> { RiotGames };
-                lol.Genres = new List<Genre> { Adventure };
-                lol.Platforms = new List<Platform> { pc };
-                lol.Reviews = new List<Review>();
-                lol.Comments = new List<Comment>();*/
+                  lol.Developers = new List<Developer> { RiotGames };
+                  lol.Genres = new List<Genre> { Adventure };
+                  lol.Platforms = new List<Platform> { pc };
+                  lol.Reviews = new List<Review>();
+                  lol.Comments = new List<Comment>();*/
 
                 /*allGames.Add(AssassinsCreed);
                 allGames.Add(lol);
@@ -86,7 +89,7 @@ namespace GameZone.ConsoleProject
                 user1.AddGameToFavorite(lol);*/
 
                 //display
-   
+
                 //display user info
                 //consoleDisplay.displayRegularUserInfo(user1);
                 //consoleDisplay.displayRegularUserInfo(user2);

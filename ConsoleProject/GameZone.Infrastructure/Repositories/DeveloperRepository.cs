@@ -10,29 +10,35 @@ namespace GameZone.Infrastructure.Repositories
 {
     public class DeveloperRepository : IDeveloperRepository
     {
-        public List<Developer> Games { get; set; }
+        public List<Developer> Developers { get; set; }
 
         public DeveloperRepository()
         {
-            Games = new List<Developer>();
+            Developers = new List<Developer>();
         }
 
-        public void CreateGame(Developer Developer)
+        public void Create(Developer Developer)
         {
-            Games.Add(Developer);
+            Developers.Add(Developer);
         }
 
-        public Developer ReturnGameById(int id)
+        public Developer ReturnById(int id)
         {
-            try
+            var developerToReturn = Developers.Find(developer => developer.Id == id);
+            if (developerToReturn == null)
             {
-                var developerToReturn = Games.Where(developer => developer.Id == id).FirstOrDefault();
-                return developerToReturn;
+                throw new KeyNotFoundException("Developer not found");
             }
-            catch (NullReferenceException)
-            {
-                throw new NullReferenceException($"Developer with id {id} doesn't exist.");
-            }
+            return developerToReturn;
+        }
+        public List<Developer> ReturnAll()
+        {
+            return Developers;
+        }
+        public void Delete(int id)
+        {
+            var developerToBeDeleted = ReturnById(id);
+            Developers.Remove(developerToBeDeleted);
         }
     }
 }

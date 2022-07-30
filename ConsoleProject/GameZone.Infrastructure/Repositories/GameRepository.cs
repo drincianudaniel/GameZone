@@ -17,23 +17,37 @@ namespace GameZone.Infrastructure.Repositories
             Games = new List<Game>();
         }
 
-        public void CreateGame(Game game)
+        public void Create(Game game)
         {
             Games.Add(game);
         }
 
-        public Game ReturnGameById(int id)
+        public Game ReturnById(int id)
         {
-            try
+            var gameToReturn = Games.Find(game => game.Id == id);
+            if (gameToReturn == null)
             {
-                var gameToReturn = Games.Where(game => game.Id == id).FirstOrDefault();
-                return gameToReturn;
+                throw new KeyNotFoundException("Game not found");
             }
-            catch (NullReferenceException)
-            {
-                throw new NullReferenceException($"Game with id {id} doesn't exist.");
-            }
+            return gameToReturn;
         }
+
+        public List<Game> ReturnAll()
+        {
+            return Games;
+        }
+
+        public void Delete(int id)
+        {
+            var gameToBeDeleted = ReturnById(id);
+            Games.Remove(gameToBeDeleted);
+        }
+
+    /*    public void Update(int id, Game game)
+        {
+            var gameToBeUpdated = ReturnById(id);
+            gameToBeUpdated = game;
+        }*/
 
         public void CalculateTotalRating()
         {

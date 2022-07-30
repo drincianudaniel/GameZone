@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace GameZone.Infrastructure.Repositories
 {
-    internal class CommentRepository : ICommentRepository
+    public class CommentRepository : ICommentRepository
     {
     }
 }
