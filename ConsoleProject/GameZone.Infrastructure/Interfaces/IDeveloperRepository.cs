@@ -10,6 +10,8 @@ namespace GameZone.Infrastructure.Interfaces
     internal interface IDeveloperRepository
     {
         void Create(Developer Developer);
+        void Delete(int id);
+        List<Developer> ReturnAll();
         Developer ReturnById(int id);
     }
 }

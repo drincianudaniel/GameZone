@@ -43,11 +43,11 @@ namespace GameZone.Infrastructure.Repositories
             Games.Remove(gameToBeDeleted);
         }
 
-    /*    public void Update(int id, Game game)
+        public void Update(int id, Game game)
         {
             var gameToBeUpdated = ReturnById(id);
-            gameToBeUpdated = game;
-        }*/
+            gameToBeUpdated.Name = game.Name;
+        }
 
         public void CalculateTotalRating()
         {

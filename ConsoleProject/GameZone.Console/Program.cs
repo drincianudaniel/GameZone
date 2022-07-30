@@ -49,6 +49,7 @@ namespace GameZone.ConsoleProject
                 consoleDisplay.DisplayAllGames(gameRepo.Games);
                 gameRepo.Delete(2);
                 consoleDisplay.DisplayAllGames(gameRepo.Games);
+                gameRepo.Update(1, new Game("123123", new DateTime(2007, 11, 13), "asd"));
                 consoleDisplay.DisplayGame(gameRepo.ReturnById(1));
                 /*Game AssassinsCreed = new Game("Assassins Creed", new DateTime(2007, 11, 13), "Assassin's Creed is an open-world action-adventure stealth video game franchise published by Ubisoft and developed mainly by its studio Ubisoft Montreal using the game engine Anvil and its more advanced derivatives. Created by Patrice Désilets, Jade Raymond, and Corey May, the Assassin's Creed series depicts a fictional millennia-old struggle between the Assassins, who fight for peace and free will, and the Templars, who desire peace through order and control. ");
 

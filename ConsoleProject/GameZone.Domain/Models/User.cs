@@ -29,55 +29,5 @@ namespace GameZoneModels
             userReviews = new List<Review>();
             this.Id = serial++;
         }
-        public void Login()
-        {
-            Console.WriteLine("User logged in");
-        }
-
-        public void Logout()
-        {
-            Console.WriteLine("User logged out");
-        }
-
-        public void PostReview(Game gameToBeReviewed, double rating, string content)
-        {
-            Review review = new Review(this, gameToBeReviewed, rating, content);
-            gameToBeReviewed.Reviews.Add(review);
-            //gameToBeReviewed.CalculateTotalRating();
-            userReviews.Add(review);
-        }
-        public void AddGameToFavorite(Game favoriteGame)
-        {
-            FavoriteGames.Add(favoriteGame);
-        }
-        public void PostComment(Game gameToBeCommented, string content)
-        {
-            gameToBeCommented.Comments.Add(new Comment(this, content));
-        }
-        public void ReplyToComment(Game gameToBeReplied, int commentToReplyID, string content)
-        {
-            //find commentById 
-            try
-            {
-                var commentToReply = gameToBeReplied.Comments.Where(comment => comment.Id == commentToReplyID).FirstOrDefault();
-                commentToReply.Replies.Add(new Reply(this, commentToReply, content));
-            }
-            catch (NullReferenceException)
-            {
-                throw new NullReferenceException($"Comment with id: {commentToReplyID} does not exist.");
-            }
-        }
-        public void DeleteComment(Game gameToDeleteComment, int id)
-        {
-            try
-            {
-                var commentToDelete = gameToDeleteComment.Comments.Where(comment => comment.Id == id).FirstOrDefault();
-                gameToDeleteComment.Comments.Remove(commentToDelete);
-            }
-            catch (NullReferenceException)
-            {
-                throw new NullReferenceException($"Comment with id: {id} does not exist.");
-            }
-        }
     }
 }
