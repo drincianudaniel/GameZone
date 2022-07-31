@@ -57,58 +57,69 @@ namespace GameZone.Infrastructure.Repositories
             }
         }
 
-       /* public void AddDeveloperToGameByID(List<Developer> developersList, int id)
+        public void AddDeveloper(int gameId, Developer developer)
         {
-            try
-            {
-                var developerToAdd = developersList.Where(developer => developer.Id == id).FirstOrDefault();
-                if (Developers.Any(item => item.Id == developerToAdd.Id))
-                {
-                    throw new DuplicateWaitObjectException("Object is already in list");
-                }
-                Developers.Add(developerToAdd);
-            }
-            catch (NullReferenceException)
-            {
-                throw new NullReferenceException($"Developer with {id} doesn't exist.");
-            }
-        }
-        public void AddGenreToGameByID(List<Genre> genres, int id)
-        {
-            try
-            {
-                var genreToAdd = genres.Where(genre => genre.Id == id).FirstOrDefault();
-                Genres.Add(genreToAdd);
-            }
-            catch (NullReferenceException)
-            {
-                throw new NullReferenceException($"Genre with {id} doesn't exist.");
-            }
+            var game = ReturnById(gameId);
+            game.Developers.Add(developer);
         }
 
-        public void AddPlatformToGameByID(List<Platform> platforms, int id)
+        public void AddGenre(int gameId, Genre genre)
         {
-            try
-            {
-                var platformsToAdd = platforms.Where(platform => platform.Id == id).FirstOrDefault();
-                Platforms.Add(platformsToAdd);
-            }
-            catch (NullReferenceException)
-            {
-                throw new NullReferenceException($"Platform with {id} doesn't exist.");
-            }
-        }*/
-
-        public static List<Game> GenerateTopList(List<Game> gameList)
-        {
-            try
-            {
-                return gameList.OrderByDescending(game => game.TotalRating).ToList();
-            }
-            catch (NullReferenceException)
-            {
-                throw new NullReferenceException($"Game list is null");
-            }
+            var game = ReturnById(gameId);
+            game.Genres.Add(genre);
         }
+
+        public void AddPlatform(int gameId, Platform platform)
+        {
+            var game = ReturnById(gameId);
+            game.Platforms.Add(platform);
+        }
+
+        public List<Game> GenerateTopList()
+        {
+            return Games.OrderByDescending(game => game.TotalRating).ToList();
+        }
+
+        /* public void AddDeveloperToGameByID(List<Developer> developersList, int id)
+         {
+             try
+             {
+                 var developerToAdd = developersList.Where(developer => developer.Id == id).FirstOrDefault();
+                 if (Developers.Any(item => item.Id == developerToAdd.Id))
+                 {
+                     throw new DuplicateWaitObjectException("Object is already in list");
+                 }
+                 Developers.Add(developerToAdd);
+             }
+             catch (NullReferenceException)
+             {
+                 throw new NullReferenceException($"Developer with {id} doesn't exist.");
+             }
+         }
+         public void AddGenreToGameByID(List<Genre> genres, int id)
+         {
+             try
+             {
+                 var genreToAdd = genres.Where(genre => genre.Id == id).FirstOrDefault();
+                 Genres.Add(genreToAdd);
+             }
+             catch (NullReferenceException)
+             {
+                 throw new NullReferenceException($"Genre with {id} doesn't exist.");
+             }
+         }
+
+         public void AddPlatformToGameByID(List<Platform> platforms, int id)
+         {
+             try
+             {
+                 var platformsToAdd = platforms.Where(platform => platform.Id == id).FirstOrDefault();
+                 Platforms.Add(platformsToAdd);
+             }
+             catch (NullReferenceException)
+             {
+                 throw new NullReferenceException($"Platform with {id} doesn't exist.");
+             }
+         }*/
     }
 }

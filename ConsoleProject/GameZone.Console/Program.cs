@@ -12,52 +12,39 @@ namespace GameZone.ConsoleProject
         {
             try
             {
+                //consoledisplay 
                 ConsoleDisplay consoleDisplay = new ConsoleDisplay();
-                //AllGames
-                List<Game> allGames = new List<Game>();
-                List<Game> emptyList = new List<Game>();
-                //AllUsers
-                List<User> allUsers = new List<User>();
-                //users
-                User user1 = new User("regularuser1@gmail.com", "regularuser123123", "password", "Regular", "User");
-                User user2 = new User("regularuser2@gmail.com", "regularuser2", "password", "Another Regular", "User");
-                User admin1 = new User("admin@gmail.com", "adminuser", "password", "Admin User", "Admin");
-                allUsers.Add(user1);
-                allUsers.Add(user2);
-                allUsers.Add(admin1);
-                //game developers
-                Developer Ubisoft = new Developer("Ubisoft");
-                Developer RiotGames = new Developer("Riot Games");
-                List<Developer> DevelopersList = new List<Developer>{ Ubisoft, RiotGames};
-
-                //genres
-                Genre Action = new Genre("Action");
-                Genre Adventure = new Genre("Adventure");
-                Genre Simulation = new Genre("Simulation");
-                List<Genre> GenresList = new List<Genre> { Action, Adventure };
-
-                //platform
-                Platform ps4 = new Platform("PlayStation 4");
-                Platform pc = new Platform("Pc");
-                List<Platform> PlatformList = new List<Platform> { ps4, pc };
-
-                //games
-
+                //users repo
+                var userRepo = new UserRepository();
+                userRepo.Create(new User("user@gmail.com", "User", "qweasdzxc", "User", "1"));
+                //developers repo
+                var developerRepo = new DeveloperRepository();
+                developerRepo.Create(new Developer("Ubisoft"));
+                developerRepo.Create(new Developer("Riot Games"));
+                var ubisoft = developerRepo.ReturnById(1);
+                var riotGames = developerRepo.ReturnById(2);
+                //genres repo
+                var genreRepo = new GenreRepository();
+                genreRepo.Create(new Genre("Action"));
+                genreRepo.Create(new Genre("Adventure"));
+                //platform repo
+                var platformRepo = new PlatformRepository();
+                platformRepo.Create(new Platform("PlayStation4"));
+                platformRepo.Create(new Platform("Pc"));
+                //games repo
                 var gameRepo = new GameRepository();
                 gameRepo.Create(new Game("Assassins Creed", new DateTime(2007, 11, 13), "Assassin's Creed is an open-world action-adventure stealth video game franchise published by Ubisoft and developed mainly by its studio Ubisoft Montreal using the game engine Anvil and its more advanced derivatives. Created by Patrice Désilets, Jade Raymond, and Corey May, the Assassin's Creed series depicts a fictional millennia-old struggle between the Assassins, who fight for peace and free will, and the Templars, who desire peace through order and control. "));
-                gameRepo.Create(new Game("LALALA LALALA", new DateTime(2007, 11, 13), "Assassin's Creed is an open-world action-adventure stealth video game franchise published by Ubisoft and developed mainly by its studio Ubisoft Montreal using the game engine Anvil and its more advanced derivatives. Created by Patrice Désilets, Jade Raymond, and Corey May, the Assassin's Creed series depicts a fictional millennia-old struggle between the Assassins, who fight for peace and free will, and the Templars, who desire peace through order and control. "));
-                consoleDisplay.DisplayAllGames(gameRepo.Games);
-                gameRepo.Delete(2);
-                consoleDisplay.DisplayAllGames(gameRepo.Games);
-                gameRepo.Update(1, new Game("123123", new DateTime(2007, 11, 13), "asd"));
-                consoleDisplay.DisplayGame(gameRepo.ReturnById(1));
-                /*Game AssassinsCreed = new Game("Assassins Creed", new DateTime(2007, 11, 13), "Assassin's Creed is an open-world action-adventure stealth video game franchise published by Ubisoft and developed mainly by its studio Ubisoft Montreal using the game engine Anvil and its more advanced derivatives. Created by Patrice Désilets, Jade Raymond, and Corey May, the Assassin's Creed series depicts a fictional millennia-old struggle between the Assassins, who fight for peace and free will, and the Templars, who desire peace through order and control. ");
+                gameRepo.AddDeveloper(1, ubisoft);
+                gameRepo.Create(new Game("League of Legends", new DateTime(2009, 10, 27), "League of Legends, commonly referred to as League, is a 2009 multiplayer online battle arena video game developed and published by Riot Games. Inspired by Defense of the Ancients, a custom map for Warcraft III, Riot's founders sought to develop a stand-alone game in the same genre."));
+                gameRepo.AddDeveloper(2, riotGames);
+                //comments
 
-                AssassinsCreed.Developers = new List<Developer> { Ubisoft };
-                AssassinsCreed.Genres = new List<Genre> { Action, Adventure };
-                AssassinsCreed.Platforms = new List<Platform> { ps4 };
-                AssassinsCreed.Reviews = new List<Review>();
-                AssassinsCreed.Comments = new List<Comment>();*/
+                var commentsRepo = new CommentRepository();
+                
+                commentsRepo.Create(new Comment(userRepo.ReturnById(1), "bun joc"));
+                var AssassinsCreed = gameRepo.ReturnById(1);
+                AssassinsCreed.Comments.Add(commentsRepo.ReturnById(1));
+
 
 
                 /*  Game lol = new Game("League of Legends", new DateTime(2009, 10, 27), "League of Legends, commonly referred to as League, is a 2009 multiplayer online battle arena video game developed and published by Riot Games. Inspired by Defense of the Ancients, a custom map for Warcraft III, Riot's founders sought to develop a stand-alone game in the same genre.");
@@ -89,19 +76,7 @@ namespace GameZone.ConsoleProject
                 user1.AddGameToFavorite(AssassinsCreed);
                 user1.AddGameToFavorite(lol);*/
 
-                //display
-
-                //display user info
-                //consoleDisplay.displayRegularUserInfo(user1);
-                //consoleDisplay.displayRegularUserInfo(user2);
-                //display games
-                //consoleDisplay.displayGame(AssassinsCreed);
-                //consoleDisplay.displayGame(lol);
-
-                //Game.returnGameById(allGames, 1231230);
-                //consoleDisplay.displayGame(returnedGame);
-
-                /*bool repeat = false;
+                bool repeat = false;
                 char input;
                 do
                 {
@@ -112,14 +87,14 @@ namespace GameZone.ConsoleProject
                     switch (n)
                     {
                         case 1:
-                            consoleDisplay.DisplayAllGames(gameRepo.Games.ToList());
+                            consoleDisplay.DisplayAllGames(gameRepo.ReturnAll());
                             break;
                         case 2:
-                            consoleDisplay.DisplayAllUsers(allUsers);
+                            consoleDisplay.DisplayAllUsers(userRepo.ReturnAll());
                             break;
                         case 3:
                             Console.Write("Enter id: ");
-                            //consoleDisplay.DisplayGame(Game.ReturnGameById(allGames, int.Parse(Console.ReadLine().ToString())));                   
+                            consoleDisplay.DisplayGame(gameRepo.ReturnById(int.Parse(Console.ReadLine().ToString())));                   
                             break;
                         case 4:
                             Console.WriteLine("Enter game name: ");
@@ -132,16 +107,17 @@ namespace GameZone.ConsoleProject
                             int day = int.Parse(Console.ReadLine().ToString());
                             Console.WriteLine("Enter game details: ");
                             string gameDetails = Console.ReadLine();
-                            Game createdGame = Game.CreateGame(gameName, year, month, day, gameDetails);
-                            allGames.Add(createdGame);
+                            var createdGame = new Game(gameName, new DateTime(year, month, day), gameDetails);
+                            gameRepo.Create(createdGame);
                             break;
-                        case 5:                      
+                        case 5:
                             do
                             {
-                                consoleDisplay.DisplayAllGames(allGames);
+                                var loggedInUser = userRepo.ReturnById(1);
+                                consoleDisplay.DisplayAllGames(gameRepo.ReturnAll());
                                 Console.WriteLine("Choose a game from the list to manage: ");
                                 int gameId = int.Parse(Console.ReadLine().ToString());
-                                var game = Game.ReturnGameById(allGames, gameId);
+                                var game = gameRepo.ReturnById(gameId);
                                 Console.WriteLine($"The choosen game is {game.Name}");
                                 consoleDisplay.DisplayGameMenu();
                                 Console.Write("Choose an option: ");
@@ -150,28 +126,30 @@ namespace GameZone.ConsoleProject
                                 switch (n)
                                 {
                                     case 1:
-                                        consoleDisplay.DisplayDevelopers(DevelopersList);
+                                        consoleDisplay.DisplayDevelopers(developerRepo.ReturnAll());
                                         Console.WriteLine("Choose a developer to add: ");
                                         int developerId = int.Parse(Console.ReadLine().ToString());
-                                        game.AddDeveloperToGameByID(DevelopersList, developerId);
+                                        var developerToAdd = developerRepo.ReturnById(developerId);
+                                        gameRepo.AddDeveloper(gameId, developerToAdd);
                                         break;
                                     case 2:
-                                        consoleDisplay.DisplayGenres(GenresList);
+                                        consoleDisplay.DisplayGenres(genreRepo.ReturnAll());
                                         Console.WriteLine("Choose a Genre to add: ");
                                         int genreId = int.Parse(Console.ReadLine().ToString());
-                                        game.AddGenreToGameByID(GenresList, genreId);
+                                        var genreToAdd = genreRepo.ReturnById(genreId);
+                                        gameRepo.AddGenre(gameId, genreToAdd);
                                         break;
                                     case 3:
-                                        consoleDisplay.DisplayPlatforms(PlatformList);
+                                        consoleDisplay.DisplayPlatforms(platformRepo.ReturnAll());
                                         Console.WriteLine("Choose a Platform to add: ");
                                         int platformId = int.Parse(Console.ReadLine().ToString());
-                                        game.AddGenreToGameByID(GenresList, platformId);
-                                        consoleDisplay.DisplayPlatforms(PlatformList);
+                                        var platformToAdd = platformRepo.ReturnById(platformId);
+                                        gameRepo.AddPlatform(gameId, platformToAdd);
                                         break;
                                     case 4:
                                         Console.WriteLine("Post a comment: ");
                                         string comment = Console.ReadLine();
-                                        admin1.PostComment(game, comment);
+                                        userRepo.PostComment(game, new Comment(loggedInUser, comment));
                                         break;
                                     default:
                                         Console.WriteLine("Invalid selection");
@@ -182,7 +160,7 @@ namespace GameZone.ConsoleProject
                             } while (input == 'Y' || input == 'y');
                             break;
                         case 6:
-                            consoleDisplay.DisplayAllGames(Game.GenerateTopList(allGames));
+                            consoleDisplay.DisplayAllGames(gameRepo.GenerateTopList());
                             break;
                         default:
                             Console.WriteLine("Invalid selection");
@@ -191,7 +169,7 @@ namespace GameZone.ConsoleProject
                     Console.WriteLine("Would you like to repeat? Y/N");
                     input = Convert.ToChar(Console.ReadLine());
                     repeat = (input == 'Y' || input == 'y');
-                } while (input == 'Y' || input == 'y') ;*/
+                } while (input == 'Y' || input == 'y');
             }
             catch (NullReferenceException exception)
             {
