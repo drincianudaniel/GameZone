@@ -12,7 +12,7 @@ namespace GameZoneModels
         private static int serial = 1;
         public User CommentOwer { get; set; }
         public string Content { get; set; }
-        public List<Reply> Replies { get; set; }
+        public ICollection<Reply> Replies { get; set; }
         public Comment(User commentOwner, string content)
         {
             this.CommentOwer = commentOwner;

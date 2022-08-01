@@ -10,7 +10,7 @@ namespace GameZone.Infrastructure.Repositories
 {
     public class CommentRepository : ICommentRepository
     {
-        public List<Comment> Comments { get; set; }
+        private List<Comment> Comments { get; set; }
         public CommentRepository()
         {
             Comments = new List<Comment>();

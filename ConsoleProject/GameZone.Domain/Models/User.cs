@@ -15,8 +15,8 @@ namespace GameZoneModels
         public string? Password { get; set; }
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
-        public List<Game> FavoriteGames { get; set; }
-        public List<Review> userReviews { get; set; }
+        public ICollection<Game> FavoriteGames { get; set; }
+        public ICollection<Review> userReviews { get; set; }
 
         public User(string email, string username, string password, string firstName, string lastName)
         {

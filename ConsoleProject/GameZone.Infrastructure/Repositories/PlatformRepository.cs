@@ -10,7 +10,7 @@ namespace GameZone.Infrastructure.Repositories
 {
     public class PlatformRepository : IPlatformRepository
     {
-        public List<Platform> Platforms { get; set; }
+        private List<Platform> Platforms { get; set; }
         public PlatformRepository()
         {
             Platforms = new List<Platform>();

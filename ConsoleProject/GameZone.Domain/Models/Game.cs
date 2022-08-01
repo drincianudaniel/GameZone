@@ -16,11 +16,11 @@ namespace GameZoneModels
         public DateTime ReleaseDate { get; set; }
         public double TotalRating { get; set; }
         public string GameDetails { get; set; }
-        public List<Developer> Developers { get; set; }
-        public List<Genre> Genres { get; set; }
-        public List<Platform> Platforms { get; set; }
-        public List<Review> Reviews { get; set; }
-        public List<Comment> Comments { get; set; }
+        public ICollection<Developer> Developers { get; set; }
+        public ICollection<Genre> Genres { get; set; }
+        public ICollection<Platform> Platforms { get; set; }
+        public ICollection<Review> Reviews { get; set; }
+        public ICollection<Comment> Comments { get; set; }
         public Game(string name, DateTime releaseDate, string gameDetails)
         {
             this.Name = name;

@@ -10,7 +10,7 @@ namespace GameZone.Infrastructure.Repositories
 {
     public class UserRepository : IUserRepository
     {
-        public List<User> Users { get; set; }
+        private List<User> Users { get; set; }
         public UserRepository()
         {
             Users = new List<User>();
@@ -46,7 +46,14 @@ namespace GameZone.Infrastructure.Repositories
         {
             gameToBeCommented.Comments.Add(comment);
         }
-
+        public void PostReview(Game gameToBeReviewd, Review review)
+        {
+            gameToBeReviewd.Reviews.Add(review);
+        }
+        public void DeleteComment(Game game, Comment comment)
+        {
+            game.Comments.Remove(comment);
+        }
       /*  public void PostReview(Game gameToBeReviewed, double rating, string content)
         {
             Review review = new Review(this, gameToBeReviewed, rating, content);

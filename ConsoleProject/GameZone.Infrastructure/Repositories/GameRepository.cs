@@ -10,7 +10,7 @@ namespace GameZone.Infrastructure.Repositories
 {
     public class GameRepository : IGameRepository
     {
-        public List<Game> Games { get; set; }
+        private List<Game> Games { get; set; }
 
         public GameRepository()
         {

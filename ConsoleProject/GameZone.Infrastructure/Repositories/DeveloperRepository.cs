@@ -10,7 +10,7 @@ namespace GameZone.Infrastructure.Repositories
 {
     public class DeveloperRepository : IDeveloperRepository
     {
-        public List<Developer> Developers { get; set; }
+        private List<Developer> Developers { get; set; }
 
         public DeveloperRepository()
         {

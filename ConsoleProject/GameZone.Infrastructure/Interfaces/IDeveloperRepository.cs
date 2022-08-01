@@ -13,5 +13,6 @@ namespace GameZone.Infrastructure.Interfaces
         void Delete(int id);
         List<Developer> ReturnAll();
         Developer ReturnById(int id);
+        void Update(int id, Developer developer);
     }
 }

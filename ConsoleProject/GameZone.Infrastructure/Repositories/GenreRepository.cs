@@ -10,7 +10,7 @@ namespace GameZone.Infrastructure.Repositories
 {
     public class GenreRepository : IGenreRepository
     {
-        public List<Genre> Genres { get; set; }
+        private List<Genre> Genres { get; set; }
 
         public GenreRepository()
         {

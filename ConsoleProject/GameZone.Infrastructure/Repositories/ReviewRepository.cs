@@ -10,7 +10,7 @@ namespace GameZone.Infrastructure.Repositories
 {
     public class ReviewRepository : IReviewRepository
     {
-        public List<Review> Reviews { get; set; }
+        private List<Review> Reviews { get; set; }
 
         public ReviewRepository()
         {

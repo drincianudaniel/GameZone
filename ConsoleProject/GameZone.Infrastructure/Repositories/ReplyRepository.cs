@@ -10,7 +10,7 @@ namespace GameZone.Infrastructure.Repositories
 {
     public class ReplyRepository : IReplyRepository
     {
-        public List<Reply> Replies { get; set; }
+        private List<Reply> Replies { get; set; }
         public ReplyRepository()
         {
             Replies = new List<Reply>();
