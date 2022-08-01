@@ -36,6 +36,16 @@ namespace GameZone.Infrastructure.Repositories
             return Users;
         }
 
+        public void Update(int id, User user)
+        {
+            var userToUpdate = ReturnById(id);
+            userToUpdate.Email = user.Email;
+            userToUpdate.FirstName = user.FirstName;
+            userToUpdate.LastName = user.LastName;
+            userToUpdate.Password = user.Password;
+            userToUpdate.Username = user.Username;
+        }
+
         public void Delete(int id)
         {
             var userToBeRemoved = ReturnById(id);

@@ -30,6 +30,11 @@ namespace GameZone.Infrastructure.Repositories
             return replyToReturn;
         }
 
+        public void Update(int id, Reply reply)
+        {
+            var replyToBeEdited = ReturnById(id);
+            replyToBeEdited.Content = reply.Content;
+        }
         public List<Reply> ReturnAll()
         {
             return Replies;

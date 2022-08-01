@@ -13,5 +13,6 @@ namespace GameZone.Infrastructure.Interfaces
         void Delete(int id);
         List<Comment> ReturnAll();
         Comment ReturnById(int id);
+        void Update(int id, Comment comment);
     }
 }

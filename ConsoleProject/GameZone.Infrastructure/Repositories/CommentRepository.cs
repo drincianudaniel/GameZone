@@ -34,7 +34,12 @@ namespace GameZone.Infrastructure.Repositories
         {
             return Comments;
         }
-
+        
+        public void Update(int id, Comment comment)
+        {
+            var commmentToBeEdited = ReturnById(id);
+            commmentToBeEdited.Content = comment.Content;
+        }
         public void Delete(int id)
         {
             var commentToBeRemoved = ReturnById(id);
