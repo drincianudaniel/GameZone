@@ -34,6 +34,11 @@ namespace GameZone.Infrastructure.Repositories
         {
             return Platforms;
         }
+        public void Update(int id, Platform platform)
+        {
+            var platformToEdit = ReturnById(id);
+            platformToEdit.Name = platformToEdit.Name;
+        }
         public void Delete(int id)
         {
             var platformToBeDeleted = ReturnById(id);

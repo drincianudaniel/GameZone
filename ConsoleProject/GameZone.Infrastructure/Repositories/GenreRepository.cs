@@ -35,6 +35,12 @@ namespace GameZone.Infrastructure.Repositories
         {
             return Genres;
         }
+
+        public void Update(int id, Genre genre)
+        {
+            var genreToEdit = ReturnById(id);
+            genreToEdit.Name = genre.Name;
+        }
         public void Delete(int id)
         {
             var genreToBeDeleted = ReturnById(id);

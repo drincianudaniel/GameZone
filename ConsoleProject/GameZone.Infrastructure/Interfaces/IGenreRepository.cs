@@ -13,5 +13,6 @@ namespace GameZone.Infrastructure.Interfaces
         void Delete(int id);
         List<Genre> ReturnAll();
         Genre ReturnById(int id);
+        void Update(int id, Genre genre);
     }
 }

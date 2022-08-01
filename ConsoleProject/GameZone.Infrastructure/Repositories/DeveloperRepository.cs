@@ -35,6 +35,11 @@ namespace GameZone.Infrastructure.Repositories
         {
             return Developers;
         }
+        public void Update(int id, Developer developer)
+        {
+            var developerToEdit = ReturnById(id);
+            developerToEdit.Name = developer.Name;
+        }
         public void Delete(int id)
         {
             var developerToBeDeleted = ReturnById(id);

@@ -13,5 +13,6 @@ namespace GameZone.Infrastructure.Interfaces
         void Delete(int id);
         List<Platform> ReturnAll();
         Platform ReturnById(int id);
+        void Update(int id, Platform platform);
     }
 }
