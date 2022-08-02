@@ -1,7 +1,4 @@
-﻿using GameZone.Domain.Exceptions;
-using GameZoneModels;
-using System;
-using GameZone.Infrastructure;
+﻿using System;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using GameZone.Application;
@@ -10,6 +7,7 @@ using GameZone.Infrastructure.Repositories;
 using GameZone.Application.Genres.Queries.GetGenresList;
 using GameZone.Application.Platforms.Queries.GetPlatformsList;
 using GameZone.Application.Games.Commands.CreateGame;
+using GameZone.Application.Games.Queries.GetGameById;
 
 namespace GameZone.ConsoleProject
 {
@@ -39,6 +37,13 @@ namespace GameZone.ConsoleProject
             });
 
             Console.WriteLine($"Game with id {gameId} created");
+
+            var game = await mediator.Send(new GetGameByIdQuery
+            {
+                Id = 1,
+            });
+
+            ConsoleDisplay.DisplayGame(game);
 
             ConsoleDisplay.DisplayDevelopers(developers);
             ConsoleDisplay.DisplayGenres(genres);

@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="11.0.1" />
     <PackageReference Include="MediatR" Version="10.0.1" />
   </ItemGroup>
 
@@ -16,7 +17,6 @@
 
   <ItemGroup>
     <Folder Include="Developers\Commands\" />
-    <Folder Include="Games\Queries\" />
     <Folder Include="Genres\Commands\" />
     <Folder Include="Platforms\Commands\" />
   </ItemGroup>

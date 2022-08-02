@@ -5,7 +5,7 @@ using GameZone.Application;
 using GameZone.Application.Developers.Queries.GetDevelopersList;
 using GameZone.Application.Genres.Queries.GetGenresList;
 using GameZone.Application.Platforms.Queries.GetPlatformsList;
-
+using GameZone.Application.Games.Queries.GetGameById;
 
 namespace GameZone.ConsoleProject
 {
@@ -37,6 +37,11 @@ namespace GameZone.ConsoleProject
             {
                 Console.WriteLine($"{developer.Id} {developer.PlatformName}");
             }
+        }
+
+        public static void DisplayGame(GameDto game)
+        {
+            Console.WriteLine(game.Name);
         }
     }
 }
