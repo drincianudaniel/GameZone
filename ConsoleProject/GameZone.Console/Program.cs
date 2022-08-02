@@ -16,7 +16,7 @@ namespace GameZone.ConsoleProject
                 ConsoleDisplay consoleDisplay = new ConsoleDisplay();
                 //users repo
                 var userRepo = new UserRepository();
-                userRepo.Create(new User("user@gmail.com", "User", "qweasdzxc", "User", "1"));
+                userRepo.Create(new User("user@gmail.com", "User", "qweasdzxc", "User", "1", "Admin"));
                 var user = userRepo.ReturnById(1);
                 //developers repo
                 var developerRepo = new DeveloperRepository();
@@ -54,34 +54,8 @@ namespace GameZone.ConsoleProject
                 userRepo.PostReview(ac, new Review(user, ac, 6, "bad game"));
                 gameRepo.CalculateTotalRating(ac);
 
-                /*  Game lol = new Game("League of Legends", new DateTime(2009, 10, 27), "League of Legends, commonly referred to as League, is a 2009 multiplayer online battle arena video game developed and published by Riot Games. Inspired by Defense of the Ancients, a custom map for Warcraft III, Riot's founders sought to develop a stand-alone game in the same genre.");
-
-                  lol.Developers = new List<Developer> { RiotGames };
-                  lol.Genres = new List<Genre> { Adventure };
-                  lol.Platforms = new List<Platform> { pc };
-                  lol.Reviews = new List<Review>();
-                  lol.Comments = new List<Comment>();*/
-
-                /*allGames.Add(AssassinsCreed);
-                allGames.Add(lol);
-                //reviews
-                user1.PostReview(AssassinsCreed, 8.5, "good game");
-                user1.PostReview(lol, 4, "bad game");
-                user2.PostReview(AssassinsCreed, 7.5, "ok game");
-
-                //comments
-                user1.PostComment(AssassinsCreed, "i liked it");
-                admin1.PostComment(AssassinsCreed, "i liked it too");
-                user2.PostComment(lol, "toxic game");
-                admin1.DeleteComment(AssassinsCreed, 1);
-
-                //replies
-                user2.ReplyToComment(AssassinsCreed, 2, "yes good game");
-                user1.ReplyToComment(lol, 3, "game is good");
-
                 //favoritegames
-                user1.AddGameToFavorite(AssassinsCreed);
-                user1.AddGameToFavorite(lol);*/
+                userRepo.AddGameToFavorite(user, ac);
 
                 bool repeat = false;
                 char input;

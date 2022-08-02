@@ -71,34 +71,21 @@ namespace GameZone.Infrastructure.Repositories
             gameToBeReviewd.Reviews.Add(review);
         }
 
-        public void DeleteComment(Game game, Comment comment)
+        public void DeleteComment(User userToDeleteComment, Game game, Comment comment)
         {
-            game.Comments.Remove(comment);
+            if (userToDeleteComment.Role == "Admin")
+            {
+                game.Comments.Remove(comment);
+            }
+            else
+            {
+                throw new UnauthorizedAccessException("User not authorized");
+            }
         }
 
-      /*  public void PostReview(Game gameToBeReviewed, double rating, string content)
+        public void AddGameToFavorite(User user, Game favoriteGame)
         {
-            Review review = new Review(this, gameToBeReviewed, rating, content);
-            gameToBeReviewed.Reviews.Add(review);
-            //gameToBeReviewed.CalculateTotalRating();
-            userReviews.Add(review);
-        }*/
-      /*  public void AddGameToFavorite(Game favoriteGame)
-        {
-            FavoriteGames.Add(favoriteGame);
+            user.FavoriteGames.Add(favoriteGame);
         }
-        public void ReplyToComment(Game gameToBeReplied, int commentToReplyID, string content)
-        {
-            //find commentById 
-            try
-            {
-                var commentToReply = gameToBeReplied.Comments.Where(comment => comment.Id == commentToReplyID).FirstOrDefault();
-                commentToReply.Replies.Add(new Reply(this, commentToReply, content));
-            }
-            catch (NullReferenceException)
-            {
-                throw new NullReferenceException($"Comment with id: {commentToReplyID} does not exist.");
-            }
-        }*/
     }
 }
