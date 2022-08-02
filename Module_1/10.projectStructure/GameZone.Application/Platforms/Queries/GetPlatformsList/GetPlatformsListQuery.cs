@@ -5,9 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GameZone.Application.Developers.Queries.GetDevelopersList
+namespace GameZone.Application.Platforms.Queries.GetPlatformsList
 {
-    public class GetDevelopersListQuery : IRequest<IEnumerable<DevelopersListVm>>
+    public class GetPlatformsListQuery : IRequest<IEnumerable<PlatformsListVm>>
     {
+
     }
 }

@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GameZone.Application.Developers.Queries.GetDevelopersList
+namespace GameZone.Application.Platforms.Queries.GetPlatformsList
 {
-    public class DeveloperListVm
+    public class PlatformsListVm
     {
         public int Id { get; set; }
-        public string? DeveloperName { get; set; }
+        public string? PlatformName { get; set; }
     }
 }

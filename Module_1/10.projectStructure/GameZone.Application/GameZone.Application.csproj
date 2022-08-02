@@ -16,8 +16,9 @@
 
   <ItemGroup>
     <Folder Include="Developers\Commands\" />
-    <Folder Include="Games\Commands\" />
     <Folder Include="Games\Queries\" />
+    <Folder Include="Genres\Commands\" />
+    <Folder Include="Platforms\Commands\" />
   </ItemGroup>
 
 </Project>
