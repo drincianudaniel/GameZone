@@ -22,7 +22,7 @@ namespace GameZone.Infrastructure.Repositories
 
         public Comment ReturnById(int id)
         {
-            var commentToReturn = Comments.Find(review => review.Id == id);
+            var commentToReturn = Comments.Find(comment => comment.Id == id);
             if (commentToReturn == null)
             {
                 throw new KeyNotFoundException("Comment not found");
@@ -32,6 +32,10 @@ namespace GameZone.Infrastructure.Repositories
 
         public List<Comment> ReturnAll()
         {
+            if (Comments.Count() == 0)
+            {
+                throw new NullReferenceException("Comments list is null");
+            }
             return Comments;
         }
         

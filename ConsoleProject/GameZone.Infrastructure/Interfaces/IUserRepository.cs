@@ -11,6 +11,9 @@ namespace GameZone.Infrastructure.Interfaces
     {
         void Create(User user);
         void Delete(int id);
+        void DeleteComment(Game game, Comment comment);
+        void PostReply(Comment comment, Reply reply);
+        void PostReview(Game gameToBeReviewd, Review review);
         List<User> ReturnAll();
         User ReturnById(int id);
         void Update(int id, User user);

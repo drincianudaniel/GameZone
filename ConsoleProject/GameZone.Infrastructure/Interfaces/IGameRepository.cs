@@ -12,7 +12,7 @@ namespace GameZone.Infrastructure.Interfaces
         void AddDeveloper(int gameId, Developer developer);
         void AddGenre(int gameId, Genre genre);
         void AddPlatform(int gameId, Platform platform);
-        void CalculateTotalRating();
+        void CalculateTotalRating(Game game);
         void Create(Game game);
         void Delete(int id);
         List<Game> GenerateTopList();

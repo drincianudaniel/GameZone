@@ -33,6 +33,10 @@ namespace GameZone.Infrastructure.Repositories
         }
         public List<Genre> ReturnAll()
         {
+            if (Genres.Count() == 0)
+            {
+                throw new NullReferenceException("Genres list is null");
+            }
             return Genres;
         }
 

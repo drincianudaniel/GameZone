@@ -33,6 +33,10 @@ namespace GameZone.Infrastructure.Repositories
 
         public List<User> ReturnAll()
         {
+            if (Users.Count() == 0)
+            {
+                throw new NullReferenceException("Users list is null");
+            }
             return Users;
         }
 
@@ -56,14 +60,22 @@ namespace GameZone.Infrastructure.Repositories
         {
             gameToBeCommented.Comments.Add(comment);
         }
+
+        public void PostReply(Comment comment, Reply reply)
+        {
+            comment.Replies.Add(reply);
+        }
+
         public void PostReview(Game gameToBeReviewd, Review review)
         {
             gameToBeReviewd.Reviews.Add(review);
         }
+
         public void DeleteComment(Game game, Comment comment)
         {
             game.Comments.Remove(comment);
         }
+
       /*  public void PostReview(Game gameToBeReviewed, double rating, string content)
         {
             Review review = new Review(this, gameToBeReviewed, rating, content);
@@ -74,10 +86,6 @@ namespace GameZone.Infrastructure.Repositories
       /*  public void AddGameToFavorite(Game favoriteGame)
         {
             FavoriteGames.Add(favoriteGame);
-        }
-        public void PostComment(Game gameToBeCommented, string content)
-        {
-            gameToBeCommented.Comments.Add(new Comment(this, content));
         }
         public void ReplyToComment(Game gameToBeReplied, int commentToReplyID, string content)
         {
@@ -90,18 +98,6 @@ namespace GameZone.Infrastructure.Repositories
             catch (NullReferenceException)
             {
                 throw new NullReferenceException($"Comment with id: {commentToReplyID} does not exist.");
-            }
-        }
-        public void DeleteComment(Game gameToDeleteComment, int id)
-        {
-            try
-            {
-                var commentToDelete = gameToDeleteComment.Comments.Where(comment => comment.Id == id).FirstOrDefault();
-                gameToDeleteComment.Comments.Remove(commentToDelete);
-            }
-            catch (NullReferenceException)
-            {
-                throw new NullReferenceException($"Comment with id: {id} does not exist.");
             }
         }*/
     }

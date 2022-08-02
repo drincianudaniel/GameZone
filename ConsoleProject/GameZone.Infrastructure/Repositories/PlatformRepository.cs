@@ -32,6 +32,10 @@ namespace GameZone.Infrastructure.Repositories
         }
         public List<Platform> ReturnAll()
         {
+            if (Platforms.Count() == 0)
+            {
+                throw new NullReferenceException("Platforms list is null");
+            }
             return Platforms;
         }
         public void Update(int id, Platform platform)

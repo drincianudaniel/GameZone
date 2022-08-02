@@ -17,6 +17,7 @@ namespace GameZone.ConsoleProject
                 //users repo
                 var userRepo = new UserRepository();
                 userRepo.Create(new User("user@gmail.com", "User", "qweasdzxc", "User", "1"));
+                var user = userRepo.ReturnById(1);
                 //developers repo
                 var developerRepo = new DeveloperRepository();
                 developerRepo.Create(new Developer("Ubisoft"));
@@ -34,18 +35,24 @@ namespace GameZone.ConsoleProject
                 //games repo
                 var gameRepo = new GameRepository();
                 gameRepo.Create(new Game("Assassins Creed", new DateTime(2007, 11, 13), "Assassin's Creed is an open-world action-adventure stealth video game franchise published by Ubisoft and developed mainly by its studio Ubisoft Montreal using the game engine Anvil and its more advanced derivatives. Created by Patrice Désilets, Jade Raymond, and Corey May, the Assassin's Creed series depicts a fictional millennia-old struggle between the Assassins, who fight for peace and free will, and the Templars, who desire peace through order and control. "));
+                var ac = gameRepo.ReturnById(1);
                 gameRepo.AddDeveloper(1, ubisoft);
                 gameRepo.Create(new Game("League of Legends", new DateTime(2009, 10, 27), "League of Legends, commonly referred to as League, is a 2009 multiplayer online battle arena video game developed and published by Riot Games. Inspired by Defense of the Ancients, a custom map for Warcraft III, Riot's founders sought to develop a stand-alone game in the same genre."));
+                var lol = gameRepo.ReturnById(2);
                 gameRepo.AddDeveloper(2, riotGames);
                 //comments
-
                 var commentsRepo = new CommentRepository();
-                
-                commentsRepo.Create(new Comment(userRepo.ReturnById(1), "bun joc"));
-                var AssassinsCreed = gameRepo.ReturnById(1);
-                AssassinsCreed.Comments.Add(commentsRepo.ReturnById(1));
+                commentsRepo.Create(new Comment(user, "good game"));
+                userRepo.PostComment(ac, commentsRepo.ReturnById(1));
 
-
+                //replies
+                var replyRepo = new ReplyRepository();
+                replyRepo.Create(new Reply(user, commentsRepo.ReturnById(1), "reply1"));
+                userRepo.PostReply(commentsRepo.ReturnById(1), replyRepo.ReturnById(1));
+                //reviews
+                var reviewRepo = new ReviewRepository();
+                userRepo.PostReview(ac, new Review(user, ac, 6, "bad game"));
+                gameRepo.CalculateTotalRating(ac);
 
                 /*  Game lol = new Game("League of Legends", new DateTime(2009, 10, 27), "League of Legends, commonly referred to as League, is a 2009 multiplayer online battle arena video game developed and published by Riot Games. Inspired by Defense of the Ancients, a custom map for Warcraft III, Riot's founders sought to develop a stand-alone game in the same genre.");
 

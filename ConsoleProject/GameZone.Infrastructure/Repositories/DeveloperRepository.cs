@@ -33,6 +33,10 @@ namespace GameZone.Infrastructure.Repositories
         }
         public List<Developer> ReturnAll()
         {
+            if (Developers.Count() == 0)
+            {
+                throw new NullReferenceException("Developers list is null");
+            }
             return Developers;
         }
         public void Update(int id, Developer developer)

@@ -34,6 +34,10 @@ namespace GameZone.Infrastructure.Repositories
 
         public List<Game> ReturnAll()
         {
+            if (Games.Count() == 0)
+            {
+                throw new NullReferenceException("Games list is null");
+            }
             return Games;
         }
 
@@ -49,12 +53,9 @@ namespace GameZone.Infrastructure.Repositories
             gameToBeUpdated.Name = game.Name;
         }
 
-        public void CalculateTotalRating()
+        public void CalculateTotalRating(Game game)
         {
-            foreach (var game in Games)
-            {
-                game.TotalRating = game.Reviews.Average(review => review.Rating);
-            }
+            game.TotalRating = game.Reviews.Average(review => review.Rating);
         }
 
         public void AddDeveloper(int gameId, Developer developer)
@@ -79,47 +80,5 @@ namespace GameZone.Infrastructure.Repositories
         {
             return Games.OrderByDescending(game => game.TotalRating).ToList();
         }
-
-        /* public void AddDeveloperToGameByID(List<Developer> developersList, int id)
-         {
-             try
-             {
-                 var developerToAdd = developersList.Where(developer => developer.Id == id).FirstOrDefault();
-                 if (Developers.Any(item => item.Id == developerToAdd.Id))
-                 {
-                     throw new DuplicateWaitObjectException("Object is already in list");
-                 }
-                 Developers.Add(developerToAdd);
-             }
-             catch (NullReferenceException)
-             {
-                 throw new NullReferenceException($"Developer with {id} doesn't exist.");
-             }
-         }
-         public void AddGenreToGameByID(List<Genre> genres, int id)
-         {
-             try
-             {
-                 var genreToAdd = genres.Where(genre => genre.Id == id).FirstOrDefault();
-                 Genres.Add(genreToAdd);
-             }
-             catch (NullReferenceException)
-             {
-                 throw new NullReferenceException($"Genre with {id} doesn't exist.");
-             }
-         }
-
-         public void AddPlatformToGameByID(List<Platform> platforms, int id)
-         {
-             try
-             {
-                 var platformsToAdd = platforms.Where(platform => platform.Id == id).FirstOrDefault();
-                 Platforms.Add(platformsToAdd);
-             }
-             catch (NullReferenceException)
-             {
-                 throw new NullReferenceException($"Platform with {id} doesn't exist.");
-             }
-         }*/
     }
 }

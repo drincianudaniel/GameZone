@@ -39,6 +39,10 @@ namespace GameZone.Infrastructure.Repositories
 
         public List<Review> ReturnAll()
         {
+            if (Reviews.Count() == 0)
+            {
+                throw new NullReferenceException("Reviews list is null");
+            }
             return Reviews;
         }
 

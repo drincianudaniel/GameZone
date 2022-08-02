@@ -37,6 +37,10 @@ namespace GameZone.Infrastructure.Repositories
         }
         public List<Reply> ReturnAll()
         {
+            if (Replies.Count() == 0)
+            {
+                throw new NullReferenceException("Replies list is null");
+            }
             return Replies;
         }
 
