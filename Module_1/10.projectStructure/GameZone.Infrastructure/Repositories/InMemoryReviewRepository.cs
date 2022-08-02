@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace GameZone.Infrastructure.Repositories
 {
-    public class ReviewRepository : IReviewRepository
+    public class InMemoryReviewRepository : IReviewRepository
     {
-        private List<Review> Reviews { get; set; }
+        private readonly List<Review> Reviews;
 
-        public ReviewRepository()
+        public InMemoryReviewRepository()
         {
             Reviews = new List<Review>();
         }

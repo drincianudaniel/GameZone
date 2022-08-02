@@ -8,7 +8,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\GameZone.Domain\GameZone.Domain.csproj" />
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="10.0.1" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\GameZone.Application\GameZone.Application.csproj" />
     <ProjectReference Include="..\GameZone.Infrastructure\GameZone.Infrastructure.csproj" />
   </ItemGroup>
 

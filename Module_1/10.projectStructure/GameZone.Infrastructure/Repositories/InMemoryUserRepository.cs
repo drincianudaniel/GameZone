@@ -8,12 +8,16 @@ using System.Threading.Tasks;
 
 namespace GameZone.Infrastructure.Repositories
 {
-    public class UserRepository : IUserRepository
+    public class InMemoryUserRepository : IUserRepository
     {
-        private List<User> Users { get; set; }
-        public UserRepository()
+        private readonly List<User> Users;
+        public InMemoryUserRepository()
         {
-            Users = new List<User>();
+            Users = new List<User>
+            {
+                new("admin@gmail.com", "Admin", "qweasdzxc", "Admin", "one", "Admin"),
+                new("user@gmail.com", "User", "qweasdzxc", "User", "one", "User")
+            };
         }
 
         public void Create(User user)

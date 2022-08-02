@@ -8,22 +8,28 @@ using System.Threading.Tasks;
 
 namespace GameZone.Infrastructure.Repositories
 {
-    public class PlatformRepository : IPlatformRepository
+    public class InMemoryPlatformRepository : IPlatformRepository
     {
-        private List<Platform> Platforms { get; set; }
-        public PlatformRepository()
+        private readonly List<Platform> _platforms;
+        public InMemoryPlatformRepository()
         {
-            Platforms = new List<Platform>();
+            _platforms = new List<Platform>
+            {
+                new("Pc"),
+                new("Xbox One"),
+                new("PlayStation 4"),
+                new("PlayStation 5")
+            };
         }
 
         public void Create(Platform platform)
         {
-            Platforms.Add(platform);
+            _platforms.Add(platform);
         }
 
         public Platform ReturnById(int id)
         {
-            var platformToReturn = Platforms.Find(platform => platform.Id == id);
+            var platformToReturn = _platforms.Find(platform => platform.Id == id);
             if (platformToReturn == null)
             {
                 throw new KeyNotFoundException("Platform not found");
@@ -32,11 +38,11 @@ namespace GameZone.Infrastructure.Repositories
         }
         public List<Platform> ReturnAll()
         {
-            if (Platforms.Count() == 0)
+            if (_platforms.Count() == 0)
             {
                 throw new NullReferenceException("Platforms list is null");
             }
-            return Platforms;
+            return _platforms;
         }
         public void Update(int id, Platform platform)
         {
@@ -46,7 +52,7 @@ namespace GameZone.Infrastructure.Repositories
         public void Delete(int id)
         {
             var platformToBeDeleted = ReturnById(id);
-            Platforms.Remove(platformToBeDeleted);
+            _platforms.Remove(platformToBeDeleted);
         }
     }
 }

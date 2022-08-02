@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace GameZone.Infrastructure.Interfaces
 {
-    internal interface IGameRepository
+    public interface IGameRepository
     {
         void AddDeveloper(int gameId, Developer developer);
         void AddGenre(int gameId, Genre genre);

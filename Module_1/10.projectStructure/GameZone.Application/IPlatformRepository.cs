@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace GameZone.Infrastructure.Interfaces
 {
-    internal interface IPlatformRepository
+    public interface IPlatformRepository
     {
         void Create(Platform platform);
         void Delete(int id);

@@ -8,23 +8,29 @@ using System.Threading.Tasks;
 
 namespace GameZone.Infrastructure.Repositories
 {
-    public class GenreRepository : IGenreRepository
+    public class InMemoryGenreRepository : IGenreRepository
     {
-        private List<Genre> Genres { get; set; }
+        private readonly List<Genre> _genres;
 
-        public GenreRepository()
+        public InMemoryGenreRepository()
         {
-            Genres = new List<Genre>();
+            _genres = new List<Genre>
+            {
+                new("Action"),
+                new("Adventure"),
+                new("Fantasy"),
+                new("Moba")
+            };
         }
 
         public void Create(Genre Genre)
         {
-            Genres.Add(Genre);
+            _genres.Add(Genre);
         }
 
         public Genre ReturnById(int id)
         {
-            var genreToReturn = Genres.Find(genre => genre.Id == id);
+            var genreToReturn = _genres.Find(genre => genre.Id == id);
             if (genreToReturn == null)
             {
                 throw new KeyNotFoundException("Genre not found");
@@ -33,11 +39,11 @@ namespace GameZone.Infrastructure.Repositories
         }
         public List<Genre> ReturnAll()
         {
-            if (Genres.Count() == 0)
+            if (_genres.Count() == 0)
             {
                 throw new NullReferenceException("Genres list is null");
             }
-            return Genres;
+            return _genres;
         }
 
         public void Update(int id, Genre genre)
@@ -48,7 +54,7 @@ namespace GameZone.Infrastructure.Repositories
         public void Delete(int id)
         {
             var genreToBeDeleted = ReturnById(id);
-            Genres.Remove(genreToBeDeleted);
+            _genres.Remove(genreToBeDeleted);
         }
     }
 }

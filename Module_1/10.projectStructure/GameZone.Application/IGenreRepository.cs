@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace GameZone.Infrastructure.Interfaces
 {
-    internal interface IReplyRepository
+    public interface IGenreRepository
     {
-        void Create(Reply reply);
+        void Create(Genre Genre);
         void Delete(int id);
-        List<Reply> ReturnAll();
-        Reply ReturnById(int id);
-        void Update(int id, Reply reply);
+        List<Genre> ReturnAll();
+        Genre ReturnById(int id);
+        void Update(int id, Genre genre);
     }
 }

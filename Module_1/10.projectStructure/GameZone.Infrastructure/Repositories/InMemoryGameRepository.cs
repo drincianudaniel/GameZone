@@ -8,23 +8,23 @@ using System.Threading.Tasks;
 
 namespace GameZone.Infrastructure.Repositories
 {
-    public class GameRepository : IGameRepository
+    public class InMemoryGameRepository : IGameRepository
     {
-        private List<Game> Games { get; set; }
+        private readonly List<Game> _games;
 
-        public GameRepository()
+        public InMemoryGameRepository()
         {
-            Games = new List<Game>();
+            _games = new List<Game>();
         }
 
         public void Create(Game game)
         {
-            Games.Add(game);
+            _games.Add(game);
         }
 
         public Game ReturnById(int id)
         {
-            var gameToReturn = Games.Find(game => game.Id == id);
+            var gameToReturn = _games.Find(game => game.Id == id);
             if (gameToReturn == null)
             {
                 throw new KeyNotFoundException("Game not found");
@@ -34,17 +34,17 @@ namespace GameZone.Infrastructure.Repositories
 
         public List<Game> ReturnAll()
         {
-            if (Games.Count() == 0)
+            if (_games.Count() == 0)
             {
                 throw new NullReferenceException("Games list is null");
             }
-            return Games;
+            return _games;
         }
 
         public void Delete(int id)
         {
             var gameToBeDeleted = ReturnById(id);
-            Games.Remove(gameToBeDeleted);
+            _games.Remove(gameToBeDeleted);
         }
 
         public void Update(int id, Game game)
@@ -78,7 +78,7 @@ namespace GameZone.Infrastructure.Repositories
 
         public List<Game> GenerateTopList()
         {
-            return Games.OrderByDescending(game => game.TotalRating).ToList();
+            return _games.OrderByDescending(game => game.TotalRating).ToList();
         }
     }
 }

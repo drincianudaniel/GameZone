@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace GameZone.Infrastructure.Interfaces
 {
-    internal interface ICommentRepository
+    public interface IReviewRepository
     {
-        void Create(Comment comment);
+        void Create(Review review);
         void Delete(int id);
-        List<Comment> ReturnAll();
-        Comment ReturnById(int id);
-        void Update(int id, Comment comment);
+        List<Review> ReturnAll();
+        Review ReturnById(int id);
+        void Update(int id, Review review);
     }
 }

@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 
 namespace GameZone.Infrastructure.Repositories
 {
-    public class ReplyRepository : IReplyRepository
+    public class InMemoryReplyRepository : IReplyRepository
     {
-        private List<Reply> Replies { get; set; }
-        public ReplyRepository()
+        private readonly List<Reply> Replies;
+        public InMemoryReplyRepository()
         {
             Replies = new List<Reply>();
         }

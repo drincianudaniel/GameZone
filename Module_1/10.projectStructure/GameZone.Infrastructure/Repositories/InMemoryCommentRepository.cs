@@ -8,21 +8,21 @@ using System.Threading.Tasks;
 
 namespace GameZone.Infrastructure.Repositories
 {
-    public class CommentRepository : ICommentRepository
+    public class InMemoryCommentRepository : ICommentRepository
     {
-        private List<Comment> Comments { get; set; }
-        public CommentRepository()
+        private readonly List<Comment> _comments;
+        public InMemoryCommentRepository()
         {
-            Comments = new List<Comment>();
+            _comments = new List<Comment>();
         }
         public void Create(Comment comment)
         {
-            Comments.Add(comment);
+            _comments.Add(comment);
         }
 
         public Comment ReturnById(int id)
         {
-            var commentToReturn = Comments.Find(comment => comment.Id == id);
+            var commentToReturn = _comments.Find(comment => comment.Id == id);
             if (commentToReturn == null)
             {
                 throw new KeyNotFoundException("Comment not found");
@@ -32,11 +32,11 @@ namespace GameZone.Infrastructure.Repositories
 
         public List<Comment> ReturnAll()
         {
-            if (Comments.Count() == 0)
+            if (_comments.Count() == 0)
             {
                 throw new NullReferenceException("Comments list is null");
             }
-            return Comments;
+            return _comments;
         }
         
         public void Update(int id, Comment comment)
@@ -47,7 +47,7 @@ namespace GameZone.Infrastructure.Repositories
         public void Delete(int id)
         {
             var commentToBeRemoved = ReturnById(id);
-            Comments.Remove(commentToBeRemoved);
+            _comments.Remove(commentToBeRemoved);
         }
     }
 }

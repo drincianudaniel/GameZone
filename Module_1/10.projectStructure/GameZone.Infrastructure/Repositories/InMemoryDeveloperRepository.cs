@@ -8,23 +8,28 @@ using System.Threading.Tasks;
 
 namespace GameZone.Infrastructure.Repositories
 {
-    public class DeveloperRepository : IDeveloperRepository
+    public class InMemoryDeveloperRepository : IDeveloperRepository
     {
-        private List<Developer> Developers { get; set; }
+        private readonly List<Developer> _developers;
 
-        public DeveloperRepository()
+        public InMemoryDeveloperRepository()
         {
-            Developers = new List<Developer>();
+            _developers = new List<Developer>
+            {
+                new("Ubisoft"),
+                new("Riot Games"),
+                new("CD PROJEKT RED")
+            };
         }
 
         public void Create(Developer Developer)
         {
-            Developers.Add(Developer);
+            _developers.Add(Developer);
         }
 
         public Developer ReturnById(int id)
         {
-            var developerToReturn = Developers.Find(developer => developer.Id == id);
+            var developerToReturn = _developers.Find(developer => developer.Id == id);
             if (developerToReturn == null)
             {
                 throw new KeyNotFoundException("Developer not found");
@@ -33,11 +38,11 @@ namespace GameZone.Infrastructure.Repositories
         }
         public List<Developer> ReturnAll()
         {
-            if (Developers.Count() == 0)
+            if (_developers.Count() == 0)
             {
                 throw new NullReferenceException("Developers list is null");
             }
-            return Developers;
+            return _developers;
         }
         public void Update(int id, Developer developer)
         {
@@ -47,7 +52,7 @@ namespace GameZone.Infrastructure.Repositories
         public void Delete(int id)
         {
             var developerToBeDeleted = ReturnById(id);
-            Developers.Remove(developerToBeDeleted);
+            _developers.Remove(developerToBeDeleted);
         }
     }
 }
