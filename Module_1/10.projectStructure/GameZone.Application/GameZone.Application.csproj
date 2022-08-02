@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -12,6 +12,12 @@
 
   <ItemGroup>
     <ProjectReference Include="..\GameZone.Domain\GameZone.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Developers\Commands\" />
+    <Folder Include="Games\Commands\" />
+    <Folder Include="Games\Queries\" />
   </ItemGroup>
 
 </Project>

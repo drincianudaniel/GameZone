@@ -1,4 +1,4 @@
-﻿using GameZone.Infrastructure.Interfaces;
+﻿using GameZone.Application;
 using GameZoneModels;
 using System;
 using System.Collections.Generic;
@@ -30,7 +30,7 @@ namespace GameZone.Infrastructure.Repositories
             return commentToReturn;
         }
 
-        public List<Comment> ReturnAll()
+        public IEnumerable<Comment> ReturnAll()
         {
             if (_comments.Count() == 0)
             {

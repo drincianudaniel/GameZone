@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GameZone.Domain.Display
+namespace GameZone.ConsoleProject
 {
     public class ConsoleDisplay
     {

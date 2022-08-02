@@ -1,4 +1,4 @@
-﻿using GameZone.Infrastructure.Interfaces;
+﻿using GameZone.Application;
 using GameZoneModels;
 using System;
 using System.Collections.Generic;
@@ -35,7 +35,7 @@ namespace GameZone.Infrastructure.Repositories
             var replyToBeEdited = ReturnById(id);
             replyToBeEdited.Content = reply.Content;
         }
-        public List<Reply> ReturnAll()
+        public IEnumerable<Reply> ReturnAll()
         {
             if (Replies.Count() == 0)
             {

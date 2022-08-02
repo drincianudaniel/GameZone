@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GameZone.Infrastructure.Interfaces
+namespace GameZone.Application
 {
     public interface IGameRepository
     {
@@ -15,8 +15,8 @@ namespace GameZone.Infrastructure.Interfaces
         void CalculateTotalRating(Game game);
         void Create(Game game);
         void Delete(int id);
-        List<Game> GenerateTopList();
-        List<Game> ReturnAll();
+        IEnumerable<Game> GenerateTopList();
+        IEnumerable<Game> ReturnAll();
         Game ReturnById(int id);
         void Update(int id, Game game);
     }

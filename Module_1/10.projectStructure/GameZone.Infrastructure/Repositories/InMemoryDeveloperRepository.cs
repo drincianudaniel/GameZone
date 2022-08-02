@@ -1,4 +1,4 @@
-﻿using GameZone.Infrastructure.Interfaces;
+﻿using GameZone.Application;
 using GameZoneModels;
 using System;
 using System.Collections.Generic;
@@ -36,7 +36,7 @@ namespace GameZone.Infrastructure.Repositories
             }
             return developerToReturn;
         }
-        public List<Developer> ReturnAll()
+        public IEnumerable<Developer> ReturnAll()
         {
             if (_developers.Count() == 0)
             {

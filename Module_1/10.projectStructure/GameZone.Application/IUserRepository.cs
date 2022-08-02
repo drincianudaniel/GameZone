@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GameZone.Infrastructure.Interfaces
+namespace GameZone.Application
 {
     public interface IUserRepository
     {
@@ -15,7 +15,7 @@ namespace GameZone.Infrastructure.Interfaces
         void DeleteComment(User userToDeleteComment, Game game, Comment comment);
         void PostReply(Comment comment, Reply reply);
         void PostReview(Game gameToBeReviewd, Review review);
-        List<User> ReturnAll();
+        IEnumerable<User> ReturnAll();
         User ReturnById(int id);
         void Update(int id, User user);
     }

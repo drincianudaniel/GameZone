@@ -1,4 +1,4 @@
-﻿using GameZone.Infrastructure.Interfaces;
+﻿using GameZone.Application;
 using GameZoneModels;
 using System;
 using System.Collections.Generic;
@@ -35,7 +35,7 @@ namespace GameZone.Infrastructure.Repositories
             return userToReturn;
         }
 
-        public List<User> ReturnAll()
+        public IEnumerable<User> ReturnAll()
         {
             if (Users.Count() == 0)
             {

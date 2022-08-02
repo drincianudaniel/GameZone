@@ -5,13 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GameZone.Infrastructure.Interfaces
+namespace GameZone.Application
 {
     public interface IGenreRepository
     {
         void Create(Genre Genre);
         void Delete(int id);
-        List<Genre> ReturnAll();
+        IEnumerable<Genre> ReturnAll();
         Genre ReturnById(int id);
         void Update(int id, Genre genre);
     }

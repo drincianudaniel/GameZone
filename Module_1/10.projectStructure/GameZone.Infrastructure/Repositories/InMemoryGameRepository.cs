@@ -1,4 +1,4 @@
-﻿using GameZone.Infrastructure.Interfaces;
+﻿using GameZone.Application;
 using GameZoneModels;
 using System;
 using System.Collections.Generic;
@@ -32,7 +32,7 @@ namespace GameZone.Infrastructure.Repositories
             return gameToReturn;
         }
 
-        public List<Game> ReturnAll()
+        public IEnumerable<Game> ReturnAll()
         {
             if (_games.Count() == 0)
             {
@@ -76,7 +76,7 @@ namespace GameZone.Infrastructure.Repositories
             game.Platforms.Add(platform);
         }
 
-        public List<Game> GenerateTopList()
+        public IEnumerable<Game> GenerateTopList()
         {
             return _games.OrderByDescending(game => game.TotalRating).ToList();
         }

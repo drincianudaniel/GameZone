@@ -5,13 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GameZone.Infrastructure.Interfaces
+namespace GameZone.Application
 {
     public interface IReplyRepository
     {
         void Create(Reply reply);
         void Delete(int id);
-        List<Reply> ReturnAll();
+        IEnumerable<Reply> ReturnAll();
         Reply ReturnById(int id);
         void Update(int id, Reply reply);
     }

@@ -1,4 +1,4 @@
-﻿using GameZone.Infrastructure.Interfaces;
+﻿using GameZone.Application;
 using GameZoneModels;
 using System;
 using System.Collections.Generic;
@@ -37,7 +37,7 @@ namespace GameZone.Infrastructure.Repositories
             }
             return genreToReturn;
         }
-        public List<Genre> ReturnAll()
+        public IEnumerable<Genre> ReturnAll()
         {
             if (_genres.Count() == 0)
             {
