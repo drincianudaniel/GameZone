@@ -133,6 +133,7 @@ namespace GameZone.Domain.Display
             Console.WriteLine("2. Add Genre to game");
             Console.WriteLine("3. Add Platform to game");
             Console.WriteLine("4. Add comment to game");
+            Console.WriteLine("5. Add game to favorite");
         }
 
         public void DisplayAllGames(List<Game> gamelist)

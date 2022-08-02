@@ -62,6 +62,8 @@ namespace GameZone.ConsoleProject
                 do
                 {
                     consoleDisplay.DisplayMenu();
+                    var loggedInUser = userRepo.ReturnById(1);
+                    Console.WriteLine($"Logged in as {loggedInUser.Username}");
                     Console.Write("Choose an options: ");
                     string s = Console.ReadLine();
                     int n = Int32.Parse(s);
@@ -94,7 +96,7 @@ namespace GameZone.ConsoleProject
                         case 5:
                             do
                             {
-                                var loggedInUser = userRepo.ReturnById(1);
+                       
                                 consoleDisplay.DisplayAllGames(gameRepo.ReturnAll());
                                 Console.WriteLine("Choose a game from the list to manage: ");
                                 int gameId = int.Parse(Console.ReadLine().ToString());
@@ -131,6 +133,9 @@ namespace GameZone.ConsoleProject
                                         Console.WriteLine("Post a comment: ");
                                         string comment = Console.ReadLine();
                                         userRepo.PostComment(game, new Comment(loggedInUser, comment));
+                                        break;
+                                    case 5:
+                                        userRepo.AddGameToFavorite(loggedInUser, game);
                                         break;
                                     default:
                                         Console.WriteLine("Invalid selection");
