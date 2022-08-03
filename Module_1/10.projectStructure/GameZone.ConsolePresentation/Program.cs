@@ -17,7 +17,8 @@ namespace GameZone.ConsoleProject
         private static async Task Main(string[] args)
         {
             var diContainer = new ServiceCollection()
-                .AddMediatR(typeof(IDeveloperRepository))
+                .AddMediatR(typeof(IAssemblyMarker))
+                .AddAutoMapper(typeof(IAssemblyMarker))
                 .AddScoped<IGameRepository, InMemoryGameRepository>()
                 .AddScoped<IDeveloperRepository, InMemoryDeveloperRepository>()
                 .AddScoped<IGenreRepository, InMemoryGenreRepository>()
