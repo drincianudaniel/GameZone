@@ -10,6 +10,7 @@ using GameZone.Application.Games.Queries.GetGameById;
 using GameZone.Application.Genres.Commands.CreateGenre;
 using GameZone.Application.Developers.Queries.GetDeveloperById;
 using GameZone.Application.DTOs;
+using GameZone.Application.Games.Queries.GetGamesList;
 
 namespace GameZone.ConsoleProject
 {
@@ -27,10 +28,6 @@ namespace GameZone.ConsoleProject
                 .BuildServiceProvider();
 
             var mediator = diContainer.GetRequiredService<IMediator>();
-
-            var developers = await mediator.Send(new GetDevelopersListQuery());
-            var genres = await mediator.Send(new GetGenresListQuery());
-            var platforms = await mediator.Send(new GetPlatformsListQuery());
 
             await mediator.Send(new CreateGenreCommand
             {
@@ -61,20 +58,43 @@ namespace GameZone.ConsoleProject
                 }
             });
 
-            Console.WriteLine($"Game with id {ac} created");
+            var lol = await mediator.Send(new CreateGameCommand
+            {
+                Name = "League of Legends",
+                ReleaseDate = new DateTime(2000, 06, 16),
+                GameDetails = "Game Details",
+                Developers = new List<DeveloperDto>
+                {
+                    developer,
+                },
+                Genres = new List<GenreDto>
+                {
+
+                },
+                Platforms = new List<PlatformDto>
+                {
+
+                }
+            });
+
+            var developers = await mediator.Send(new GetDevelopersListQuery());
+            var genres = await mediator.Send(new GetGenresListQuery());
+            var platforms = await mediator.Send(new GetPlatformsListQuery());
+            var games = await mediator.Send(new GetGameListQuery());
 
             var game = await mediator.Send(new GetGameByIdQuery
             {
                 Id = 1,
             });
 
+            ConsoleDisplay.DisplayGames(games);
+            
+            /*ConsoleDisplay.DisplayDeveloper(developer);
+            ConsoleDisplay.DisplayGame(game);
 
-            ConsoleDisplay.DisplayDeveloper(developer);
-            //ConsoleDisplay.DisplayGame(game);
-
-            //ConsoleDisplay.DisplayDevelopers(developers);
-            //ConsoleDisplay.DisplayGenres(genres);
-            //ConsoleDisplay.DisplayPlatforms(platforms);
+            ConsoleDisplay.DisplayDevelopers(developers);
+            ConsoleDisplay.DisplayGenres(genres);
+            ConsoleDisplay.DisplayPlatforms(platforms);*/
         }
     }
 }

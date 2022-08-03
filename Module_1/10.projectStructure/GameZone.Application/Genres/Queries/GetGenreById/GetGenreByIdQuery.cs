@@ -3,7 +3,8 @@ using MediatR;
 
 namespace GameZone.Application.Genres.Queries.GetGenreById
 {
-    internal class GetGenreByIdQuery : IRequest<GenreDto>
+    public class GetGenreByIdQuery : IRequest<GenreDto>
     {
+        public int Id { get; set; }
     }
 }

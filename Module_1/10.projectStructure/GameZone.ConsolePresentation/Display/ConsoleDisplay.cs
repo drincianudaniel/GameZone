@@ -1,14 +1,18 @@
-﻿using System.Text;
-using GameZone.Application.Genres.Queries.GetGenresList;
-using GameZone.Application.Platforms.Queries.GetPlatformsList;
-using GameZone.Application.Games.Queries.GetGameById;
+﻿
 using GameZone.Application.DTOs;
 
 namespace GameZone.ConsoleProject
 {
     public class ConsoleDisplay
     {
-        private StringBuilder sb = new StringBuilder();
+        public static void DisplayGames(IEnumerable<GameDto> games)
+        {
+            var gamelist = games.ToList();
+            foreach (var game in gamelist)
+            {
+                DisplayGame(game);
+            }
+        }
         public static void DisplayDevelopers(IEnumerable<DeveloperDto> developers)
         {
             var developerList = developers.ToList();
