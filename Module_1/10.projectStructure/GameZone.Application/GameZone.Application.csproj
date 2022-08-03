@@ -17,7 +17,7 @@
 
   <ItemGroup>
     <Folder Include="Developers\Commands\" />
-    <Folder Include="Genres\Commands\" />
+    <Folder Include="Genres\Queries\GetGenreById\" />
     <Folder Include="Platforms\Commands\" />
   </ItemGroup>
 

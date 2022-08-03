@@ -16,9 +16,9 @@ namespace GameZone.Infrastructure.Repositories
         {
             _developers = new List<Developer>
             {
-                new("Ubisoft"),
-                new("Riot Games"),
-                new("CD PROJEKT RED")
+                new("Ubisoft", "Montreul, France"),
+                new("Riot Games", "West Los Angeles, California, United States"),
+                new("CD PROJEKT RED", "Warsaw, Poland")
             };
         }
 

@@ -9,6 +9,7 @@ namespace GameZone.Application.Developers.Queries.GetDevelopersList
     public class DevelopersListVm
     {
         public int Id { get; set; }
-        public string? DeveloperName { get; set; }
+        public string DeveloperName { get; set; } = string.Empty;
+        public string Headquarters { get; set; } =  string.Empty;
     }
 }

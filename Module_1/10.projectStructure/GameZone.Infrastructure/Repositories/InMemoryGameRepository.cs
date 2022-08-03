@@ -58,22 +58,30 @@ namespace GameZone.Infrastructure.Repositories
             game.TotalRating = game.Reviews.Average(review => review.Rating);
         }
 
+      /*  public void AddDeveloper(int gameId, params Developer[] developers)
+        {
+            var game = ReturnById(gameId);
+            foreach (var developer in developers)
+            {
+                game.AddDeveloper(developer);
+            }
+        }*/
         public void AddDeveloper(int gameId, Developer developer)
         {
             var game = ReturnById(gameId);
-            game.Developers.Add(developer);
+            game.AddDeveloper(developer);
         }
 
         public void AddGenre(int gameId, Genre genre)
         {
             var game = ReturnById(gameId);
-            game.Genres.Add(genre);
+            game.AddGenre(genre);
         }
 
         public void AddPlatform(int gameId, Platform platform)
         {
             var game = ReturnById(gameId);
-            game.Platforms.Add(platform);
+            game.AddPlatform(platform);
         }
 
         public IEnumerable<Game> GenerateTopList()

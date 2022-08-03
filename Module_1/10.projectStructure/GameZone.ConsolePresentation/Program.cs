@@ -8,6 +8,7 @@ using GameZone.Application.Genres.Queries.GetGenresList;
 using GameZone.Application.Platforms.Queries.GetPlatformsList;
 using GameZone.Application.Games.Commands.CreateGame;
 using GameZone.Application.Games.Queries.GetGameById;
+using GameZone.Application.Genres.Commands.CreateGenre;
 
 namespace GameZone.ConsoleProject
 {
@@ -29,14 +30,31 @@ namespace GameZone.ConsoleProject
             var genres = await mediator.Send(new GetGenresListQuery());
             var platforms = await mediator.Send(new GetPlatformsListQuery());
 
-            var gameId = await mediator.Send(new CreateGameCommand
+            await mediator.Send(new CreateGenreCommand
+            {
+                Name = "Sports"
+            });
+
+            var ac = await mediator.Send(new CreateGameCommand
             {
                 Name = "Assassin's Creed",
                 ReleaseDate = new DateTime(2000, 06, 16),
-                GameDetails = "Game Details"
+                GameDetails = "Game Details",
+                Developers = new List<DeveloperDto>
+                {
+                    new(){Name = "asdas"}
+                },
+                Genres = new List<GenreDto>
+                {
+
+                },
+                Platforms = new List<PlatformDto>
+                {
+
+                }
             });
 
-            Console.WriteLine($"Game with id {gameId} created");
+            Console.WriteLine($"Game with id {ac} created");
 
             var game = await mediator.Send(new GetGameByIdQuery
             {

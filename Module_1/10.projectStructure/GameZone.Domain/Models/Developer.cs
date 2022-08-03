@@ -11,9 +11,12 @@ namespace GameZoneModels
     {
         private static int serial = 1;
         public string Name { get; set; }
-        public Developer(string name)
+
+        public string Headquarters { get; set; }
+        public Developer(string name, string headquarters)
         {
             this.Name = name;
+            this.Headquarters = headquarters;
             this.Id = serial++;
         }
     }

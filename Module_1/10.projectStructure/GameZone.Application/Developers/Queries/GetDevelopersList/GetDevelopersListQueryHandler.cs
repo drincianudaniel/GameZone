@@ -21,7 +21,8 @@ namespace GameZone.Application.Developers.Queries.GetDevelopersList
             var result = _developerRepository.ReturnAll().Select(developer => new DevelopersListVm
             {
                 Id = developer.Id,
-                DeveloperName = developer.Name
+                DeveloperName = developer.Name,
+                Headquarters = developer.Headquarters
             });
 
             return Task.FromResult(result);
