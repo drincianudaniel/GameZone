@@ -1,5 +1,7 @@
 ﻿using GameZone.Domain.Display;
 using GameZone.Domain.Exceptions;
+using GameZone.Domain.Models.Factories;
+using GameZone.Domain.Models.Interfaces;
 using GameZoneModels;
 using System;
 
@@ -11,15 +13,18 @@ namespace GameZone.ConsoleProject
         {
             try
             {
+                var regularUserFactory = new RegularUserFactory();
+                var adminFactory = new AdminFactory();
                 //AllGames
                 List<Game> allGames = new List<Game>();
                 List<Game> emptyList = new List<Game>();
                 //AllUsers
-                List<User> allUsers = new List<User>();
+                List<IUser> allUsers = new List<IUser>();
                 //users
-                User user1 = new User("regularuser1@gmail.com", "regularuser123123", "password", "Regular", "User");
-                User user2 = new User("regularuser2@gmail.com", "regularuser2", "password", "Another Regular", "User");
-                User admin1 = new User("admin@gmail.com", "adminuser", "password", "Admin User", "Admin");
+
+                IUser user1 = regularUserFactory.CreateUser(email : "regularuser1@gmail.com", username : "regularuser123123", password: "password", firstName: "Regular", lastName: "User");
+                IUser user2 = regularUserFactory.CreateUser(email : "regularuser2@gmail.com", username : "regularuser2", password: "password", firstName: "Another Regular", lastName: "User");
+                IUser admin1 = regularUserFactory.CreateUser(email : "admin@gmail.com", username : "adminuser", password: "password", firstName: "Admin User", lastName: "Admin");
                 allUsers.Add(user1);
                 allUsers.Add(user2);
                 allUsers.Add(admin1);

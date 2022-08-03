@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GameZone.Domain.Models.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,10 +11,10 @@ namespace GameZoneModels
     {
         private static int serial = 1;
         public int id { get; set; }
-        public User commentOwer { get; set; }
+        public IUser commentOwer { get; set; }
         public string content { get; set; }
         public List<Reply> replies { get; set; }
-        public Comment(User commentOwner, string content)
+        public Comment(IUser commentOwner, string content)
         {
             this.commentOwer = commentOwner;
             this.content = content;

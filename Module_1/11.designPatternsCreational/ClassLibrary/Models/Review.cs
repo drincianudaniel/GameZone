@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GameZone.Domain.Models.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,11 +11,11 @@ namespace GameZoneModels
     {
         private static int serial = 1;
         public int id { get; set; }
-        public User reviewer { get; set; }
+        public IUser reviewer { get; set; }
         public Game reviewedGame { get; set; }
         public double rating { get; set; }
         public string? content { get; set; }
-        public Review(User reviewer, Game reviewedGame, double rating, string content)
+        public Review(IUser reviewer, Game reviewedGame, double rating, string content)
         {
             this.reviewer = reviewer;
             this.reviewedGame = reviewedGame;

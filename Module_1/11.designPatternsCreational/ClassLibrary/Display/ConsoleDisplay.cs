@@ -1,4 +1,5 @@
 ﻿using GameZone.Domain.Exceptions;
+using GameZone.Domain.Models.Interfaces;
 using GameZoneModels;
 using System;
 using System.Collections.Generic;
@@ -26,13 +27,13 @@ namespace GameZone.Domain.Display
             private set { } 
         }
 
-        public void DisplayUser(User user)
+        public void DisplayUser(IUser user)
         {
             Console.WriteLine("");
-            Console.WriteLine($"Id: {user.id}");
-            Console.WriteLine($"Email: {user.email}");
-            Console.WriteLine($"Username: {user.username}");
-            Console.WriteLine($"Name: {user.firstName} {user.lastName}");
+            Console.WriteLine($"Id: {user.Id}");
+            Console.WriteLine($"Email: {user.Email}");
+            Console.WriteLine($"Username: {user.Username}");
+            Console.WriteLine($"Name: {user.FirstName} {user.LastName}");
 
             if (user.FavoriteGames.Count > 0)
             {
@@ -98,7 +99,7 @@ namespace GameZone.Domain.Display
                     Console.WriteLine("Reviews: ");
                     foreach (var review in game.Reviews)
                     {
-                        Console.Write(review.reviewer.lastName + " " + review.reviewer.firstName + ": ");
+                        Console.Write(review.reviewer.LastName + " " + review.reviewer.FirstName + ": ");
                         Console.Write(review.rating + " ");
                         Console.WriteLine(review.content);
                     }
@@ -109,7 +110,7 @@ namespace GameZone.Domain.Display
                     Console.WriteLine("Comments: ");
                     foreach (var comment in game.Comments)
                     {
-                        Console.Write(comment.id + ". " + comment.commentOwer.username + ": ");
+                        Console.Write(comment.id + ". " + comment.commentOwer.Username + ": ");
                         Console.WriteLine(comment.content);
 
                         if (comment.replies.Count > 0)
@@ -117,7 +118,7 @@ namespace GameZone.Domain.Display
                             Console.WriteLine("Replies: ");
                             foreach (var reply in comment.replies)
                             {
-                                Console.WriteLine($"Reply from {reply.replyOwner.username}: {reply.content}");
+                                Console.WriteLine($"Reply from {reply.replyOwner.Username}: {reply.content}");
                             }
                         }
                     }
@@ -179,7 +180,7 @@ namespace GameZone.Domain.Display
             }
             #endif
         }
-        public void DisplayAllUsers(List<User> users)
+        public void DisplayAllUsers(List<IUser> users)
         {
             try
             {
