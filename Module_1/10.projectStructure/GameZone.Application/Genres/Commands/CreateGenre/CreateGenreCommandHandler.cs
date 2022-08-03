@@ -21,7 +21,7 @@ namespace GameZone.Application.Genres.Commands.CreateGenre
             var genre = new Genre(request.Name);
             _genreRepository.Create(genre);
 
-            return Task.FromResult(0);
+            return Task.FromResult(genre.Id);
         }
     }
 }

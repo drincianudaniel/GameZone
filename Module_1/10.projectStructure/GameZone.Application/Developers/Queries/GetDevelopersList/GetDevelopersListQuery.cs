@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using GameZone.Application.Developers.Queries.GetDeveloperById;
+using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace GameZone.Application.Developers.Queries.GetDevelopersList
 {
-    public class GetDevelopersListQuery : IRequest<IEnumerable<DevelopersListVm>>
+    public class GetDevelopersListQuery : IRequest<IEnumerable<DeveloperDto>>
     {
     }
 }

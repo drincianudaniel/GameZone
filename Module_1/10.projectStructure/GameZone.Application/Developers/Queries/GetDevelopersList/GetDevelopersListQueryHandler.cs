@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using GameZone.Application.Developers.Queries.GetDeveloperById;
+using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace GameZone.Application.Developers.Queries.GetDevelopersList
 {
-    public class GetDevelopersListQueryHandler : IRequestHandler<GetDevelopersListQuery, IEnumerable<DevelopersListVm>>
+    public class GetDevelopersListQueryHandler : IRequestHandler<GetDevelopersListQuery, IEnumerable<DeveloperDto>>
     {
         private readonly IDeveloperRepository _developerRepository;
 
@@ -16,12 +17,12 @@ namespace GameZone.Application.Developers.Queries.GetDevelopersList
             _developerRepository = developerRepository;
         }
 
-        public Task<IEnumerable<DevelopersListVm>> Handle(GetDevelopersListQuery request, CancellationToken cancellationToken)
+        public Task<IEnumerable<DeveloperDto>> Handle(GetDevelopersListQuery request, CancellationToken cancellationToken)
         {
-            var result = _developerRepository.ReturnAll().Select(developer => new DevelopersListVm
+            var result = _developerRepository.ReturnAll().Select(developer => new DeveloperDto
             {
                 Id = developer.Id,
-                DeveloperName = developer.Name,
+                Name = developer.Name,
                 Headquarters = developer.Headquarters
             });
 
