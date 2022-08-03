@@ -18,21 +18,21 @@ namespace GameZone.ConsoleProject
             }
         }
 
-        public static void DisplayGenres(IEnumerable<GenresListVm> genres)
+        public static void DisplayGenres(IEnumerable<GenreDto> genres)
         {
             var genresList = genres.ToList();
             foreach (var genre in genresList)
             {
-                Console.WriteLine($"{genre.Id} {genre.GenreName}");
+                Console.WriteLine($"{genre.Id} {genre.Name}");
             }
         }
 
-        public static void DisplayPlatforms(IEnumerable<PlatformsListVm> platforms)
+        public static void DisplayPlatforms(IEnumerable<PlatformDto> platforms)
         {
             var platformList = platforms.ToList();
             foreach (var developer in platformList)
             {
-                Console.WriteLine($"{developer.Id} {developer.PlatformName}");
+                Console.WriteLine($"{developer.Id} {developer.Name}");
             }
         }
 

@@ -1,13 +1,10 @@
-﻿using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using GameZone.Application.DTOs;
+using MediatR;
+
 
 namespace GameZone.Application.Genres.Queries.GetGenresList
 {
-    public class GetGenresListQueryHandler : IRequestHandler<GetGenresListQuery, IEnumerable<GenresListVm>>
+    public class GetGenresListQueryHandler : IRequestHandler<GetGenresListQuery, IEnumerable<GenreDto>>
     {
         private readonly IGenreRepository _genreRepository;
 
@@ -16,12 +13,12 @@ namespace GameZone.Application.Genres.Queries.GetGenresList
             _genreRepository = genreRepository;
         }
 
-        public Task<IEnumerable<GenresListVm>> Handle(GetGenresListQuery request, CancellationToken cancellationToken)
+        public Task<IEnumerable<GenreDto>> Handle(GetGenresListQuery request, CancellationToken cancellationToken)
         {
-            var result = _genreRepository.ReturnAll().Select(genre => new GenresListVm
+            var result = _genreRepository.ReturnAll().Select(genre => new GenreDto
             {
                 Id = genre.Id,
-                GenreName = genre.Name
+                Name = genre.Name
             });
 
             return Task.FromResult(result);

@@ -1,13 +1,9 @@
-﻿using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using GameZone.Application.DTOs;
+using MediatR;
 
 namespace GameZone.Application.Platforms.Queries.GetPlatformsList
 {
-    public class GetPlatformsListQuery : IRequest<IEnumerable<PlatformsListVm>>
+    public class GetPlatformsListQuery : IRequest<IEnumerable<PlatformDto>>
     {
 
     }

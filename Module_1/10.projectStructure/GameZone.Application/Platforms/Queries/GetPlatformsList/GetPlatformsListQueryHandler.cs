@@ -1,13 +1,10 @@
-﻿using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using GameZone.Application.DTOs;
+using MediatR;
+
 
 namespace GameZone.Application.Platforms.Queries.GetPlatformsList
 {
-    public class GetPlatformsListQueryHandler : IRequestHandler<GetPlatformsListQuery, IEnumerable<PlatformsListVm>>
+    public class GetPlatformsListQueryHandler : IRequestHandler<GetPlatformsListQuery, IEnumerable<PlatformDto>>
     {
         private readonly IPlatformRepository _platformRepository;
 
@@ -16,12 +13,12 @@ namespace GameZone.Application.Platforms.Queries.GetPlatformsList
             _platformRepository = platformRepository;
         }
 
-        public Task<IEnumerable<PlatformsListVm>> Handle(GetPlatformsListQuery request, CancellationToken cancellationToken)
+        public Task<IEnumerable<PlatformDto>> Handle(GetPlatformsListQuery request, CancellationToken cancellationToken)
         {
-            var result = _platformRepository.ReturnAll().Select(platform => new PlatformsListVm
+            var result = _platformRepository.ReturnAll().Select(platform => new PlatformDto
             {
                 Id = platform.Id,
-                PlatformName = platform.Name
+                Name = platform.Name
             });
 
             return Task.FromResult(result);

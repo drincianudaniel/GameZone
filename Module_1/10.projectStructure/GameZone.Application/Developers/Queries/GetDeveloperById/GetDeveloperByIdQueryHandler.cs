@@ -4,11 +4,11 @@ using MediatR;
 
 namespace GameZone.Application.Developers.Queries.GetDeveloperById
 {
-    public class GetDeveloperByIdHandler : IRequestHandler<GetDeveloperByIdQuery, DeveloperDto>
+    public class GetDeveloperByIdQueryHandler : IRequestHandler<GetDeveloperByIdQuery, DeveloperDto>
     {
         private readonly IDeveloperRepository _developerRepository;
         private readonly IMapper _mapper;
-        public GetDeveloperByIdHandler(IDeveloperRepository developerRepository, IMapper mapper)
+        public GetDeveloperByIdQueryHandler(IDeveloperRepository developerRepository, IMapper mapper)
         {
             _developerRepository = developerRepository;
             _mapper = mapper;
