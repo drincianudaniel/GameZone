@@ -2,7 +2,7 @@
 using GameZone.Application.Genres.Queries.GetGenresList;
 using GameZone.Application.Platforms.Queries.GetPlatformsList;
 using GameZone.Application.Games.Queries.GetGameById;
-using GameZone.Application.Developers.Queries.GetDeveloperById;
+using GameZone.Application.DTOs;
 
 namespace GameZone.ConsoleProject
 {

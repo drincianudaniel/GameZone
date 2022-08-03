@@ -1,6 +1,4 @@
-﻿
-
-namespace GameZone.Application.Developers.Queries.GetDeveloperById
+﻿namespace GameZone.Application.DTOs
 {
     public class DeveloperDto
     {

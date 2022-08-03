@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using GameZone.Application.DTOs;
 using MediatR;
 
 namespace GameZone.Application.Developers.Queries.GetDeveloperById

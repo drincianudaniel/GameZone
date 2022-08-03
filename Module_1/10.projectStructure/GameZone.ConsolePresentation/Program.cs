@@ -1,5 +1,4 @@
-﻿using System;
-using MediatR;
+﻿using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using GameZone.Application;
 using GameZone.Application.Developers.Queries.GetDevelopersList;
@@ -9,6 +8,8 @@ using GameZone.Application.Platforms.Queries.GetPlatformsList;
 using GameZone.Application.Games.Commands.CreateGame;
 using GameZone.Application.Games.Queries.GetGameById;
 using GameZone.Application.Genres.Commands.CreateGenre;
+using GameZone.Application.Developers.Queries.GetDeveloperById;
+using GameZone.Application.DTOs;
 
 namespace GameZone.ConsoleProject
 {
@@ -36,6 +37,11 @@ namespace GameZone.ConsoleProject
                 Name = "Sports"
             });
 
+            var developer = await mediator.Send(new GetDeveloperByIdQuery
+            {
+                Id = 1
+            });
+
             var ac = await mediator.Send(new CreateGameCommand
             {
                 Name = "Assassin's Creed",
@@ -43,7 +49,7 @@ namespace GameZone.ConsoleProject
                 GameDetails = "Game Details",
                 Developers = new List<DeveloperDto>
                 {
-                    new(){Name = "asdas"}
+                    developer,
                 },
                 Genres = new List<GenreDto>
                 {
@@ -62,11 +68,13 @@ namespace GameZone.ConsoleProject
                 Id = 1,
             });
 
-            ConsoleDisplay.DisplayGame(game);
 
-            ConsoleDisplay.DisplayDevelopers(developers);
-            ConsoleDisplay.DisplayGenres(genres);
-            ConsoleDisplay.DisplayPlatforms(platforms);
+            ConsoleDisplay.DisplayDeveloper(developer);
+            //ConsoleDisplay.DisplayGame(game);
+
+            //ConsoleDisplay.DisplayDevelopers(developers);
+            //ConsoleDisplay.DisplayGenres(genres);
+            //ConsoleDisplay.DisplayPlatforms(platforms);
         }
     }
 }

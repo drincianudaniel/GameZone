@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using GameZone.Application.Developers.Queries.GetDeveloperById;
+using GameZone.Application.DTOs;
 using GameZoneModels;
 
 namespace GameZone.Application.AutoMapperProfiles
