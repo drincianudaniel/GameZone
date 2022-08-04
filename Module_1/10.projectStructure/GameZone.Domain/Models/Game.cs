@@ -21,7 +21,7 @@ namespace GameZoneModels
         public ICollection<Platform> Platforms { get; set; }
         public ICollection<Review> Reviews { get; set; }
         public ICollection<Comment> Comments { get; set; }
-        public Game(string name, DateTime releaseDate, string gameDetails, List<Developer> developers, List<Genre> genres, List<Platform> platforms)
+        public Game(string name, DateTime releaseDate, string gameDetails, ICollection<Developer> developers, ICollection<Genre> genres, ICollection<Platform> platforms)
         {
             this.Name = name;
             this.ReleaseDate = releaseDate;

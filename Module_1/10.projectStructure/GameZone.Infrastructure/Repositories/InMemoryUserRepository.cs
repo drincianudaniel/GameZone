@@ -1,10 +1,5 @@
 ﻿using GameZone.Application;
 using GameZoneModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GameZone.Infrastructure.Repositories
 {
@@ -15,8 +10,8 @@ namespace GameZone.Infrastructure.Repositories
         {
             Users = new List<User>
             {
-                new("admin@gmail.com", "Admin", "qweasdzxc", "Admin", "one", "Admin"),
-                new("user@gmail.com", "User", "qweasdzxc", "User", "one", "User")
+                new("admin@gmail.com", "Admin", "qweasdzxc", "Admin", "one", "Admin", new List<Game>()),
+                new("user@gmail.com", "User", "qweasdzxc", "User", "one", "User", new List<Game>())
             };
         }
 

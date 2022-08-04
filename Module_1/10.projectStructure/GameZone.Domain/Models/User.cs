@@ -19,7 +19,7 @@ namespace GameZoneModels
         public ICollection<Review> userReviews { get; set; }
         public string Role { get; set; }
 
-        public User(string email, string username, string password, string firstName, string lastName, string role)
+        public User(string email, string username, string password, string firstName, string lastName, string role, ICollection<Game> favoriteGames)
         {
             this.Email = email;
             this.Username = username;
@@ -27,7 +27,7 @@ namespace GameZoneModels
             this.FirstName = firstName;
             this.LastName = lastName;
             this.Role = role;
-            FavoriteGames = new List<Game>();
+            FavoriteGames = favoriteGames ?? throw new ArgumentNullException(nameof(favoriteGames));
             userReviews = new List<Review>();
             this.Id = serial++;
         }
