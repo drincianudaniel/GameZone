@@ -1,13 +1,6 @@
-﻿using GameZone.Domain.Exceptions;
-using GameZone.Domain.Models;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using GameZone.Domain.Models;
 
-namespace GameZoneModels 
+namespace GameZoneModels
 {
     public class Game : Entity
     {

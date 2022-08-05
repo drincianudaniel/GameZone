@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace GameZone.ConsolePresentation.Forms
+﻿namespace GameZone.ConsolePresentation.Forms
 {
     public class MenuForms
     {
@@ -16,6 +10,7 @@ namespace GameZone.ConsolePresentation.Forms
             Console.WriteLine("3. Display game by id");
             Console.WriteLine("4. Display user by id");
             Console.WriteLine("5. Manage game");
+            Console.WriteLine("6. Remove game");
         }
 
         public static void DisplayGameMenu()

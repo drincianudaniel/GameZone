@@ -16,6 +16,7 @@ using GameZone.Application.Users.Queries.GetUserById;
 using GameZone.ConsolePresentation.Forms;
 using GameZone.Application.Users.Commands.AddFavoriteGame;
 using GameZone.Application.Users.Queries.GetUsersList;
+using GameZone.Application.Games.Commands.DeleteGame;
 
 namespace GameZone.ConsoleProject
 {
@@ -192,6 +193,14 @@ namespace GameZone.ConsoleProject
                                 input = Convert.ToChar(Console.ReadLine());
                             } while (input == 'Y' || input == 'y');
                             break;
+                    case 6:
+                        Console.WriteLine("Enter id of the game you want to remove: ");
+                        int idgameToRemove = int.Parse(Console.ReadLine().ToString());
+                        var gameToRemove = await mediator.Send(new DeleteGameCommand
+                        {
+                            Id = idgameToRemove
+                        });
+                        break;
                     default:
                         Console.WriteLine("Invalid selection");
                         break;

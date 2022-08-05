@@ -1,6 +1,4 @@
-﻿using GameZoneModels;
-using MediatR;
-
+﻿using MediatR;
 
 namespace GameZone.Application.Users.Commands.AddFavoriteGame
 {
