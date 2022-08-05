@@ -97,6 +97,17 @@ namespace GameZone.ConsoleProject
             {
                 Console.Write($"{favoriteGame.Name} ");
             }
+            Console.WriteLine("");
+        }
+
+        public static void DisplayUsers(IEnumerable<UserDto> users)
+        {
+            var usersList = users.ToList();
+            foreach(var user in usersList)
+            {
+                DisplayUser(user);
+            }
+            Console.WriteLine("");
         }
     }
 

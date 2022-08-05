@@ -15,6 +15,7 @@ using GameZone.Application.Users.Commands.CreateUser;
 using GameZone.Application.Users.Queries.GetUserById;
 using GameZone.ConsolePresentation.Forms;
 using GameZone.Application.Users.Commands.AddFavoriteGame;
+using GameZone.Application.Users.Queries.GetUsersList;
 
 namespace GameZone.ConsoleProject
 {
@@ -100,7 +101,7 @@ namespace GameZone.ConsoleProject
                 FirstName = "Regular",
                 LastName = "User",
                 Role = "Admin",
-                FavoriteGames = new List<GameDto> { ac }
+                FavoriteGames = new List<GameDto> { }
 
             });
 
@@ -108,31 +109,25 @@ namespace GameZone.ConsoleProject
             var genres = await mediator.Send(new GetGenresListQuery());
             var platforms = await mediator.Send(new GetPlatformsListQuery());
             var games = await mediator.Send(new GetGameListQuery());
+            var users = await mediator.Send(new GetUsersListQuery());
 
             var favgameadded = await mediator.Send(new AddFavoriteGameCommand
             {
                 IdUser = 3,
                 IdGame = 2
             });
-            var user1 = await mediator.Send(new GetUserByIdQuery
-            {
-                Id = user1Id
-            });
-            ConsoleDisplay.DisplayUser(user1);
 
-            /*ConsoleDisplay.DisplayDeveloper(developer);
-            ConsoleDisplay.DisplayGame(game);
 
-            ConsoleDisplay.DisplayDevelopers(developers);
-            ConsoleDisplay.DisplayGenres(genres);
-            ConsoleDisplay.DisplayPlatforms(platforms);*/
-            Console.WriteLine("");
             bool repeat = false;
             char input;
             do
             {
-                MenuForms.DisplayMenu();
+                var user1 = await mediator.Send(new GetUserByIdQuery
+                {
+                    Id = user1Id
+                });
                 var loggedInUser = user1;
+                MenuForms.DisplayMenu();
                 Console.WriteLine($"Logged in as {loggedInUser.Username}");
                 Console.Write("Choose an options: ");
                 string s = Console.ReadLine();
@@ -142,6 +137,61 @@ namespace GameZone.ConsoleProject
                     case 1:
                         ConsoleDisplay.DisplayGames(games);
                         break;
+                    case 2:
+                        ConsoleDisplay.DisplayUsers(users);
+                        break;
+                    case 3:
+                        Console.Write("Enter ID: ");
+                        int idGame = int.Parse(Console.ReadLine().ToString());
+                        var game = await mediator.Send(new GetGameByIdQuery
+                        {
+                            Id= idGame
+                        });
+                        ConsoleDisplay.DisplayGame(game);
+                        break;
+                    case 4:
+                        Console.Write("Enter ID: ");
+                        int idUser = int.Parse(Console.ReadLine().ToString());
+                        var user = await mediator.Send(new GetUserByIdQuery
+                        {
+                            Id = idUser
+                        });
+                        ConsoleDisplay.DisplayUser(user);
+                        break;
+                        case 5:
+                            do
+                            {
+
+                                ConsoleDisplay.DisplayGames(games);
+                                Console.WriteLine("Choose a game from the list to manage: ");
+                                int gameId = int.Parse(Console.ReadLine().ToString());
+                                var gameChoosed = await mediator.Send(new GetGameByIdQuery
+                                {
+                                    Id= gameId
+                                });
+                                Console.WriteLine($"The choosen game is {gameChoosed.Name}");
+                                MenuForms.DisplayGameMenu();
+                                Console.Write("Choose an option: ");
+                                s = Console.ReadLine();
+                                n = Int32.Parse(s);
+                                switch (n)
+                                {
+                                    case 1:
+                                        var gameToBeAdded = await mediator.Send(new AddFavoriteGameCommand
+                                        {
+                                            IdUser = loggedInUser.Id,
+                                            IdGame = gameChoosed.Id
+                                        });
+                                        Console.WriteLine("Game added");
+                                    break;
+                                    default:
+                                        Console.WriteLine("Invalid selection");
+                                        break;
+                                }
+                                Console.WriteLine("Would you like to repeat? Y/N");
+                                input = Convert.ToChar(Console.ReadLine());
+                            } while (input == 'Y' || input == 'y');
+                            break;
                     default:
                         Console.WriteLine("Invalid selection");
                         break;
