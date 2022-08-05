@@ -95,7 +95,7 @@ namespace GameZone.ConsoleProject
             Console.Write("Favorite Games: ");
             foreach (var favoriteGame in user.FavoriteGames)
             {
-                Console.Write(favoriteGame.Name);
+                Console.Write($"{favoriteGame.Name} ");
             }
         }
     }

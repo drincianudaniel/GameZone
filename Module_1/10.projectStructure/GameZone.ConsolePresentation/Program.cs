@@ -14,6 +14,7 @@ using GameZone.Application.Games.Queries.GetGamesList;
 using GameZone.Application.Users.Commands.CreateUser;
 using GameZone.Application.Users.Queries.GetUserById;
 using GameZone.ConsolePresentation.Forms;
+using GameZone.Application.Users.Commands.AddFavoriteGame;
 
 namespace GameZone.ConsoleProject
 {
@@ -66,6 +67,7 @@ namespace GameZone.ConsoleProject
             {
                 Id= acId
             });
+
             var lolId = await mediator.Send(new CreateGameCommand
             {
                 Name = "League of Legends",
@@ -85,6 +87,11 @@ namespace GameZone.ConsoleProject
                 }
             });
 
+            var lol = await mediator.Send(new GetGameByIdQuery
+            {
+                Id= lolId
+            });
+
             var user1Id = await mediator.Send(new CreateUserCommand
             {
                 Username = "Regular User",
@@ -97,15 +104,21 @@ namespace GameZone.ConsoleProject
 
             });
 
-            var user1 = await mediator.Send(new GetUserByIdQuery
-            {
-                Id = user1Id
-            });
-
             var developers = await mediator.Send(new GetDevelopersListQuery());
             var genres = await mediator.Send(new GetGenresListQuery());
             var platforms = await mediator.Send(new GetPlatformsListQuery());
             var games = await mediator.Send(new GetGameListQuery());
+
+            var favgameadded = await mediator.Send(new AddFavoriteGameCommand
+            {
+                IdUser = 3,
+                IdGame = 2
+            });
+            var user1 = await mediator.Send(new GetUserByIdQuery
+            {
+                Id = user1Id
+            });
+            ConsoleDisplay.DisplayUser(user1);
 
             /*ConsoleDisplay.DisplayDeveloper(developer);
             ConsoleDisplay.DisplayGame(game);
@@ -113,6 +126,7 @@ namespace GameZone.ConsoleProject
             ConsoleDisplay.DisplayDevelopers(developers);
             ConsoleDisplay.DisplayGenres(genres);
             ConsoleDisplay.DisplayPlatforms(platforms);*/
+            Console.WriteLine("");
             bool repeat = false;
             char input;
             do
@@ -135,6 +149,7 @@ namespace GameZone.ConsoleProject
                 Console.WriteLine("Would you like to repeat? Y/N");
                 input = Convert.ToChar(Console.ReadLine());
                 repeat = (input == 'Y' || input == 'y');
+                Console.Clear();
             } while (input == 'Y' || input == 'y');
         }
     }
