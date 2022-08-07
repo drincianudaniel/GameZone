@@ -28,8 +28,5 @@
     <ProjectReference Include="..\GameZone.Infrastructure\GameZone.Infrastructure.csproj" />
   </ItemGroup>
 
-	<ItemGroup>
-		<FrameworkReference Include="Microsoft.AspNetCore.App" />
-	</ItemGroup>
 
 </Project>

@@ -15,9 +15,9 @@ namespace GameZone.ConsolePresentation
             services.AddMediatR(typeof(IAssemblyMarker));
             services.AddAutoMapper(typeof(IAssemblyMarker));
             services.AddScoped<IGameRepository, GameRepository>();
-            services.AddScoped<IDeveloperRepository, InMemoryDeveloperRepository>();
+            services.AddScoped<IDeveloperRepository, DeveloperRepository>();
             services.AddScoped<IGenreRepository, InMemoryGenreRepository>();
-            services.AddScoped<IPlatformRepository, InMemoryPlatformRepository>();
+            services.AddScoped<IPlatformRepository, PlatformRepository>();
             services.AddScoped<IUserRepository, InMemoryUserRepository>();
             services.AddDbContext<GameZoneContext>(options => options.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=GameZoneTest;Trusted_Connection=True;ConnectRetryCount=0"));
             

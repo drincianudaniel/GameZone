@@ -8,6 +8,6 @@ namespace GameZone.Application
         void Delete(Guid id);
         IEnumerable<Developer> ReturnAll();
         Developer ReturnById(Guid id);
-        void Update(Guid id, Developer developer);
+        void Update(Developer developer);
     }
 }
