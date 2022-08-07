@@ -2,8 +2,8 @@
 
 namespace GameZone.Application.Users.Commands.DeleteUser
 {
-    public class DeleteUserCommand : IRequest<int>
+    public class DeleteUserCommand : IRequest<Guid>
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
     }
 }

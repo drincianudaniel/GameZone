@@ -2,8 +2,8 @@
 
 namespace GameZone.Application.Genres.Commands.DeleteGenre
 {
-    public class DeleteGenreCommand : IRequest<int>
+    public class DeleteGenreCommand : IRequest<Guid>
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
     }
 }

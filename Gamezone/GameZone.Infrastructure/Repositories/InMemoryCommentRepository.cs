@@ -15,7 +15,7 @@ namespace GameZone.Infrastructure.Repositories
             _comments.Add(comment);
         }
 
-        public Comment ReturnById(int id)
+        public Comment ReturnById(Guid id)
         {
             var commentToReturn = _comments.Find(comment => comment.Id == id);
             if (commentToReturn == null)
@@ -34,12 +34,12 @@ namespace GameZone.Infrastructure.Repositories
             return _comments;
         }
         
-        public void Update(int id, Comment comment)
+        public void Update(Guid id, Comment comment)
         {
             var commmentToBeEdited = ReturnById(id);
             commmentToBeEdited.Content = comment.Content;
         }
-        public void Delete(int id)
+        public void Delete(Guid id)
         {
             var commentToBeRemoved = ReturnById(id);
             _comments.Remove(commentToBeRemoved);

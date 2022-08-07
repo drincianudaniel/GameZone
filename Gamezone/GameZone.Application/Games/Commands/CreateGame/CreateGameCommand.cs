@@ -4,7 +4,7 @@ using MediatR;
 
 namespace GameZone.Application.Games.Commands.CreateGame
 {
-    public class CreateGameCommand : IRequest<int>
+    public class CreateGameCommand : IRequest<Guid>
     {
         public string Name { get; set; } = string.Empty;
         public DateTime ReleaseDate { get; set; }

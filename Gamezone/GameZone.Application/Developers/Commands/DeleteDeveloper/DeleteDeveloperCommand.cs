@@ -2,8 +2,8 @@
 
 namespace GameZone.Application.Developers.Commands.DeleteDeveloper
 {
-    public class DeleteDeveloperCommand : IRequest<int>
+    public class DeleteDeveloperCommand : IRequest<Guid>
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
     }
 }

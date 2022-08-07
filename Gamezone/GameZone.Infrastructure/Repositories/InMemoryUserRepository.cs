@@ -10,8 +10,8 @@ namespace GameZone.Infrastructure.Repositories
         {
             Users = new List<User>
             {
-                new("admin@gmail.com", "Admin", "qweasdzxc", "Admin", "one", "Admin", new List<Game>()),
-                new("user@gmail.com", "User", "qweasdzxc", "User", "one", "User", new List<Game>())
+                /*new("admin@gmail.com", "Admin", "qweasdzxc", "Admin", "one", "Admin", new List<Game>()),
+                new("user@gmail.com", "User", "qweasdzxc", "User", "one", "User", new List<Game>())*/
             };
         }
 
@@ -20,7 +20,7 @@ namespace GameZone.Infrastructure.Repositories
             Users.Add(user);
         }
 
-        public User ReturnById(int id)
+        public User ReturnById(Guid id)
         {
             var userToReturn = Users.Find(user => user.Id == id);
             if (userToReturn == null)
@@ -39,7 +39,7 @@ namespace GameZone.Infrastructure.Repositories
             return Users;
         }
 
-        public void Update(int id, User user)
+        public void Update(Guid id, User user)
         {
             var userToUpdate = ReturnById(id);
             userToUpdate.Email = user.Email;
@@ -49,7 +49,7 @@ namespace GameZone.Infrastructure.Repositories
             userToUpdate.Username = user.Username;
         }
 
-        public void Delete(int id)
+        public void Delete(Guid id)
         {
             var userToBeRemoved = ReturnById(id);
             Users.Remove(userToBeRemoved);
@@ -84,7 +84,7 @@ namespace GameZone.Infrastructure.Repositories
 
         public void AddGameToFavorite(User user, Game favoriteGame)
         {
-            user.FavoriteGames.Add(favoriteGame);
+            user.Games.Add(favoriteGame);
         }
     }
 }

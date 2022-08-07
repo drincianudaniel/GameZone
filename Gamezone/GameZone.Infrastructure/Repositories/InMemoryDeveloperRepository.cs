@@ -9,12 +9,12 @@ namespace GameZone.Infrastructure.Repositories
 
         public InMemoryDeveloperRepository()
         {
-            _developers = new List<Developer>
+           /* _developers = new List<Developer>
             {
                 new("Ubisoft", "Montreul, France"),
                 new("Riot Games", "West Los Angeles, California, United States"),
                 new("CD PROJEKT RED", "Warsaw, Poland")
-            };
+            };*/
         }
 
         public void Create(Developer Developer)
@@ -22,7 +22,7 @@ namespace GameZone.Infrastructure.Repositories
             _developers.Add(Developer);
         }
 
-        public Developer ReturnById(int id)
+        public Developer ReturnById(Guid id)
         {
             var developerToReturn = _developers.Find(developer => developer.Id == id);
             if (developerToReturn == null)
@@ -39,12 +39,12 @@ namespace GameZone.Infrastructure.Repositories
             }
             return _developers;
         }
-        public void Update(int id, Developer developer)
+        public void Update(Guid id, Developer developer)
         {
             var developerToEdit = ReturnById(id);
             developerToEdit.Name = developer.Name;
         }
-        public void Delete(int id)
+        public void Delete(Guid id)
         {
             var developerToBeDeleted = ReturnById(id);
             _developers.Remove(developerToBeDeleted);

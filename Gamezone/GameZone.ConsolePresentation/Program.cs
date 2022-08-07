@@ -1,41 +1,54 @@
-﻿using MediatR;
-using Microsoft.Extensions.DependencyInjection;
-using GameZone.Application;
-using GameZone.Application.Developers.Queries.GetDevelopersList;
-using GameZone.Infrastructure.Repositories;
-using GameZone.Application.Genres.Queries.GetGenresList;
-using GameZone.Application.Platforms.Queries.GetPlatformsList;
+﻿using Microsoft.Extensions.Hosting;
+using Microsoft.AspNetCore.Hosting;
+using GameZone.ConsolePresentation;
+using MediatR;
 using GameZone.Application.Games.Commands.CreateGame;
 using GameZone.Application.Games.Queries.GetGameById;
 using GameZone.Application.Genres.Commands.CreateGenre;
-using GameZone.Application.Developers.Queries.GetDeveloperById;
-using GameZone.Application.DTOs;
-using GameZone.Application.Games.Queries.GetGamesList;
-using GameZone.Application.Users.Commands.CreateUser;
-using GameZone.Application.Users.Queries.GetUserById;
-using GameZone.ConsolePresentation.Forms;
-using GameZone.Application.Users.Commands.AddFavoriteGame;
-using GameZone.Application.Users.Queries.GetUsersList;
-using GameZone.Application.Games.Commands.DeleteGame;
+using GameZone.Application.Genres.Queries.GetGenreById;
 
 namespace GameZone.ConsoleProject
 {
-    internal class Program
+    public class Program
     {
-        private static async Task Main(string[] args)
+        public static async Task Main(string[] args)
         {
-            var diContainer = new ServiceCollection()
-                .AddMediatR(typeof(IAssemblyMarker))
-                .AddAutoMapper(typeof(IAssemblyMarker))
-                .AddScoped<IGameRepository, InMemoryGameRepository>()
-                .AddScoped<IDeveloperRepository, InMemoryDeveloperRepository>()
-                .AddScoped<IGenreRepository, InMemoryGenreRepository>()
-                .AddScoped<IPlatformRepository, InMemoryPlatformRepository>()
-                .AddScoped<IUserRepository, InMemoryUserRepository>()
-                .BuildServiceProvider();
+            var host = CreateHostBuilder(args).Build();
+            using(var scope = host.Services.CreateScope())
+            {
+                var services = scope.ServiceProvider;
+                var mediator = services.GetRequiredService<IMediator>();
 
-            var mediator = diContainer.GetRequiredService<IMediator>();
+                var AdventureId = new Guid("D433CFD8-659B-4EA3-C10A-08DA784C18A8");
+                var Adventure = await mediator.Send(new GetGenreByIdQuery
+                {
+                    Id = AdventureId
+                });
 
+                /*var minecraft = await mediator.Send(new CreateGameCommand
+                  {
+                      Name = "Minecraft",
+                      ReleaseDate = new DateTime(2000, 06, 16),
+                      GameDetails = "Game Details",
+                      Genres = { Adventure }
+                  });*/
+
+                var minecraftId = new Guid("220C20C9-DC4F-4273-D21A-08DA784C5713");
+
+                var minecraft = await mediator.Send(new GetGameByIdQuery
+                {
+                    Id= minecraftId,
+                });
+
+               ConsoleDisplay.DisplayGame(minecraft);
+            }
+
+         
+
+            host.Run();
+            //var mediator = diContainer.GetRequiredService<IMediator>();
+
+            /*
             await mediator.Send(new CreateGenreCommand
             {
                 Name = "Sports"
@@ -210,6 +223,13 @@ namespace GameZone.ConsoleProject
                 repeat = (input == 'Y' || input == 'y');
                 Console.Clear();
             } while (input == 'Y' || input == 'y');
+        }*/
         }
+        public static IHostBuilder CreateHostBuilder(string[] args) =>
+            Host.CreateDefaultBuilder(args)
+              .ConfigureWebHostDefaults(webBuilder =>
+              {
+                  webBuilder.UseStartup<Startup>();
+              });
     }
 }

@@ -6,12 +6,12 @@ namespace GameZone.Application
     {
         void AddGameToFavorite(User user, Game favoriteGame);
         void Create(User user);
-        void Delete(int id);
+        void Delete(Guid id);
         void DeleteComment(User userToDeleteComment, Game game, Comment comment);
         void PostReply(Comment comment, Reply reply);
         void PostReview(Game gameToBeReviewd, Review review);
         IEnumerable<User> ReturnAll();
-        User ReturnById(int id);
-        void Update(int id, User user);
+        User ReturnById(Guid id);
+        void Update(Guid id, User user);
     }
 }

@@ -5,9 +5,9 @@ namespace GameZone.Application
     public interface IPlatformRepository
     {
         void Create(Platform platform);
-        void Delete(int id);
+        void Delete(Guid id);
         IEnumerable<Platform> ReturnAll();
-        Platform ReturnById(int id);
-        void Update(int id, Platform platform);
+        Platform ReturnById(Guid id);
+        void Update(Platform platform);
     }
 }

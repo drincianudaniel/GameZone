@@ -15,7 +15,7 @@ namespace GameZone.Application.Genres.Queries.GetGenreById
         }
         public Task<GenreDto> Handle(GetGenreByIdQuery request, CancellationToken cancellationToken)
         {
-            int id = request.Id;
+            Guid id = request.Id;
             var result = _genreRepository.ReturnById(id);
             var genreDto = _mapper.Map<GenreDto>(result);
             return Task.FromResult(genreDto);

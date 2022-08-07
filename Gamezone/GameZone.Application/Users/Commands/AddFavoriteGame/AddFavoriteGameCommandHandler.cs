@@ -3,7 +3,7 @@ using MediatR;
 
 namespace GameZone.Application.Users.Commands.AddFavoriteGame
 {
-    public class AddFavoriteGameCommandHandler : IRequestHandler<AddFavoriteGameCommand, int>
+    public class AddFavoriteGameCommandHandler : IRequestHandler<AddFavoriteGameCommand, Guid>
     {
         private readonly IUserRepository _userRepository;
         private readonly IGameRepository _gameRepository;
@@ -15,7 +15,7 @@ namespace GameZone.Application.Users.Commands.AddFavoriteGame
             _gameRepository = gameRepository;
             _mapper = mapper;
         }
-        public Task<int> Handle(AddFavoriteGameCommand request, CancellationToken cancellationToken)
+        public Task<Guid> Handle(AddFavoriteGameCommand request, CancellationToken cancellationToken)
         {
             var user = _userRepository.ReturnById(request.IdUser);
             var game = _gameRepository.ReturnById(request.IdGame);

@@ -2,8 +2,8 @@
 
 namespace GameZone.Application.Platforms.Commands.DeletePlatform
 {
-    public class DeletePlatformCommand : IRequest<int>
+    public class DeletePlatformCommand : IRequest<Guid>
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
     }
 }

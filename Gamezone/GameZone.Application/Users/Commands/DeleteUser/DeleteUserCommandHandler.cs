@@ -2,7 +2,7 @@
 
 namespace GameZone.Application.Users.Commands.DeleteUser
 {
-    public class DeleteUserCommandHandler : IRequestHandler<DeleteUserCommand, int>
+    public class DeleteUserCommandHandler : IRequestHandler<DeleteUserCommand, Guid>
     {
         private readonly IUserRepository _userRepository;
 
@@ -10,7 +10,7 @@ namespace GameZone.Application.Users.Commands.DeleteUser
         {
             _userRepository = userRepository;
         }
-        public Task<int> Handle(DeleteUserCommand request, CancellationToken cancellationToken)
+        public Task<Guid> Handle(DeleteUserCommand request, CancellationToken cancellationToken)
         {
             var user = _userRepository.ReturnById(request.Id);
             _userRepository.Delete(user.Id);

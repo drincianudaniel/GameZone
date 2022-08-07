@@ -16,13 +16,13 @@ namespace GameZone.Infrastructure.Repositories
         {
             Reviews.Add(review);
         }
-        public void Update(int id, Review review)
+        public void Update(Guid id, Review review)
         {
             var reviewToBeEdited = ReturnById(id);
             reviewToBeEdited.Content = review.Content;
             reviewToBeEdited.Rating = review.Rating;
         }
-        public Review ReturnById(int id)
+        public Review ReturnById(Guid id)
         {
             var reviewToReturn = Reviews.Find(review => review.Id == id);
             if (reviewToReturn == null)
@@ -41,7 +41,7 @@ namespace GameZone.Infrastructure.Repositories
             return Reviews;
         }
 
-        public void Delete(int id)
+        public void Delete(Guid id)
         {
             var reviewToBeRemoved = ReturnById(id);
             Reviews.Remove(reviewToBeRemoved);

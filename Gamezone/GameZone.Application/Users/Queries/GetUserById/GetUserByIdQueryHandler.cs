@@ -16,7 +16,7 @@ namespace GameZone.Application.Users.Queries.GetUserById
         }
         public Task<UserDto> Handle(GetUserByIdQuery request, CancellationToken cancellationToken)
         {
-            int id = request.Id;
+            Guid id = request.Id;
             var result = _userRepository.ReturnById(id);
             var userDto = _mapper.Map<UserDto>(result);
             return Task.FromResult(userDto);

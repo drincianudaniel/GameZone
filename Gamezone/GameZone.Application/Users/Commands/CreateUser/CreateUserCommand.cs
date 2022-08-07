@@ -3,7 +3,7 @@ using MediatR;
 
 namespace GameZone.Application.Users.Commands.CreateUser
 {
-    public class CreateUserCommand : IRequest<int>
+    public class CreateUserCommand : IRequest<Guid>
     {
         public string Username { get; set; } = string.Empty;
         public string Email { get; set; } = string.Empty;

@@ -17,7 +17,7 @@ namespace GameZone.Application.Platforms.Queries.GetPlatformById
         }
         public Task<PlatformDto> Handle(GetPlatformByIdQuery request, CancellationToken cancellationToken)
         {
-            int id = request.Id;
+            Guid id = request.Id;
             var result = _platformRepository.ReturnById(id);
             var platformDto = _mapper.Map<PlatformDto>(result);
             return Task.FromResult(platformDto);

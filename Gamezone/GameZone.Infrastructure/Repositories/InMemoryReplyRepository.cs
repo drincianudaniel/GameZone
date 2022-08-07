@@ -15,7 +15,7 @@ namespace GameZone.Infrastructure.Repositories
             Replies.Add(reply);
         }
 
-        public Reply ReturnById(int id)
+        public Reply ReturnById(Guid id)
         {
             var replyToReturn = Replies.Find(review => review.Id == id);
             if (replyToReturn == null)
@@ -25,7 +25,7 @@ namespace GameZone.Infrastructure.Repositories
             return replyToReturn;
         }
 
-        public void Update(int id, Reply reply)
+        public void Update(Guid id, Reply reply)
         {
             var replyToBeEdited = ReturnById(id);
             replyToBeEdited.Content = reply.Content;
@@ -39,7 +39,7 @@ namespace GameZone.Infrastructure.Repositories
             return Replies;
         }
 
-        public void Delete(int id)
+        public void Delete(Guid id)
         {
             var replyToBeRemoved = ReturnById(id);
             Replies.Remove(replyToBeRemoved);

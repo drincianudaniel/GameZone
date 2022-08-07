@@ -3,7 +3,7 @@ using MediatR;
 
 namespace GameZone.Application.Genres.Commands.CreateGenre
 {
-    public class CreateGenreCommandHandler : IRequestHandler<CreateGenreCommand, int>
+    public class CreateGenreCommandHandler : IRequestHandler<CreateGenreCommand, Guid>
     {
         private readonly IGenreRepository _genreRepository;
 
@@ -11,9 +11,9 @@ namespace GameZone.Application.Genres.Commands.CreateGenre
         {
             _genreRepository = genreRepository;
         }
-        public Task<int> Handle(CreateGenreCommand request, CancellationToken cancellationToken)
+        public Task<Guid> Handle(CreateGenreCommand request, CancellationToken cancellationToken)
         {
-            var genre = new Genre(request.Name);
+            var genre = new Genre { Name = request.Name };
             _genreRepository.Create(genre);
 
             return Task.FromResult(genre.Id);

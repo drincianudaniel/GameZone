@@ -2,8 +2,8 @@
 
 namespace GameZone.Application.Games.Commands.DeleteGame
 {
-    public class DeleteGameCommand : IRequest<int>
+    public class DeleteGameCommand : IRequest<Guid>
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
     }
 }

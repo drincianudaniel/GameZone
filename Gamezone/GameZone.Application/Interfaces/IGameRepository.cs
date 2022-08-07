@@ -4,15 +4,15 @@ namespace GameZone.Application
 {
     public interface IGameRepository
     {
-        void AddDeveloper(int gameId, Developer developer);
-        void AddGenre(int gameId, Genre genre);
-        void AddPlatform(int gameId, Platform platform);
+        void AddDeveloper(Guid gameId, Developer developer);
+        void AddGenre(Guid gameId, Genre genre);
+        void AddPlatform(Guid gameId, Platform platform);
         void CalculateTotalRating(Game game);
         void Create(Game game);
-        void Delete(int id);
+        void Delete(Guid id);
         IEnumerable<Game> GenerateTopList();
         IEnumerable<Game> ReturnAll();
-        Game ReturnById(int id);
-        void Update(int id, Game game);
+        Game ReturnById(Guid id);
+        void Update(Game game);
     }
 }

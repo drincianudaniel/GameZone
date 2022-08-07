@@ -17,7 +17,7 @@ namespace GameZone.Application.Games.Queries.GetGameById
         }
         public Task<GameDto> Handle(GetGameByIdQuery request, CancellationToken cancellationToken)
         {
-            int id = request.Id;
+            Guid id = request.Id;
             var result = _gameRepository.ReturnById(id);
             var gameDTO = _mapper.Map<GameDto>(result);
             return Task.FromResult(gameDTO);

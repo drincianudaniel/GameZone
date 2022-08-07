@@ -5,9 +5,9 @@ namespace GameZone.Application
     public interface IReplyRepository
     {
         void Create(Reply reply);
-        void Delete(int id);
+        void Delete(Guid id);
         IEnumerable<Reply> ReturnAll();
-        Reply ReturnById(int id);
-        void Update(int id, Reply reply);
+        Reply ReturnById(Guid id);
+        void Update(Guid id, Reply reply);
     }
 }

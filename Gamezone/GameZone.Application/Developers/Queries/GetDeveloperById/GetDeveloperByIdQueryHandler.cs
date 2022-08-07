@@ -15,7 +15,7 @@ namespace GameZone.Application.Developers.Queries.GetDeveloperById
         }
         public Task<DeveloperDto> Handle(GetDeveloperByIdQuery request, CancellationToken cancellationToken)
         {
-            int id = request.Id;
+            Guid id = request.Id;
             var result = _developerRepository.ReturnById(id);
             var developerDto = _mapper.Map<DeveloperDto>(result);
             return Task.FromResult(developerDto);
