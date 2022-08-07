@@ -4,11 +4,11 @@ using GameZoneModels;
 
 namespace GameZone.Infrastructure.Repositories
 {
-    public class InMemoryGenreRepository : IGenreRepository
+    public class GenreRepository : IGenreRepository
     {
         private readonly GameZoneContext _context;
 
-        public InMemoryGenreRepository(GameZoneContext context)
+        public GenreRepository(GameZoneContext context)
         {
             _context = context;
         }
