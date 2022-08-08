@@ -9,6 +9,7 @@ namespace GameZone.Application.AutoMapperProfiles
         public UserProfile()
         {
             CreateMap<User, UserDto>();
+            CreateMap<UserDto, User>();
         }
     }
 }

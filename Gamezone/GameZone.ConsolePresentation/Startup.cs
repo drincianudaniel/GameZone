@@ -1,5 +1,5 @@
 ﻿using GameZone.Application;
-using GameZone.Domain;
+using GameZone.Infrastructure;
 using GameZone.Infrastructure.Repositories;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -17,6 +17,7 @@ namespace GameZone.ConsolePresentation
             services.AddScoped<IGenreRepository, GenreRepository>();
             services.AddScoped<IPlatformRepository, PlatformRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<ICommentRepository, CommentRepository>();
             services.AddDbContext<GameZoneContext>(options => options.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=GameZoneTest;Trusted_Connection=True;ConnectRetryCount=0"));
             
         }

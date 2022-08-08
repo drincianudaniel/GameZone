@@ -4,12 +4,11 @@ using GameZoneModels;
 
 namespace GameZone.Application.AutoMapperProfiles
 {
-    public class GameProfile : Profile
+    public class CommentProfile : Profile
     {
-        public GameProfile()
+        public CommentProfile()
         {
-            CreateMap<Game, GameDto>();
-            CreateMap<GameDto, Game>();
+            CreateMap<Comment, CommentDto>();
         }
     }
 }

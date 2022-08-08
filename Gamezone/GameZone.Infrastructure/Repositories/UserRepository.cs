@@ -1,5 +1,4 @@
 ﻿using GameZone.Application;
-using GameZone.Domain;
 using GameZoneModels;
 using Microsoft.EntityFrameworkCore;
 
