@@ -8,6 +8,6 @@ namespace GameZone.Application
         void Delete(Guid id);
         IEnumerable<Comment> ReturnAll();
         Comment ReturnById(Guid id);
-        void Update(Guid id, Comment comment);
+        void Update(Comment comment);
     }
 }

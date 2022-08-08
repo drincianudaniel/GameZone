@@ -3,8 +3,6 @@ using GameZone.Domain;
 using GameZone.Infrastructure.Repositories;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.Hosting;
 
 namespace GameZone.ConsolePresentation
 {
@@ -24,7 +22,6 @@ namespace GameZone.ConsolePresentation
         }
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            
         }
     }
 }

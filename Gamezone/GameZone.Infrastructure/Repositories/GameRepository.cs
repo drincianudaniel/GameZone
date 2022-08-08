@@ -32,7 +32,7 @@ namespace GameZone.Infrastructure.Repositories
 
         public IEnumerable<Game> ReturnAll()
         {
-            var games = _context.Games.Include("Genres").Include("Platforms").Include("Developers").ToList();
+            var games = _context.Games.Include("Genres").Include("Platforms").Include("Developers");
             return games;
         }
 
