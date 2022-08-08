@@ -1,28 +1,27 @@
 ﻿using GameZone.Application;
+using GameZone.Domain;
 using GameZoneModels;
+using Microsoft.EntityFrameworkCore;
 
 namespace GameZone.Infrastructure.Repositories
 {
-    public class InMemoryUserRepository : IUserRepository
+    public class UserRepository : IUserRepository
     {
-        private readonly List<User> Users;
-        public InMemoryUserRepository()
+        private readonly GameZoneContext _context;
+        public UserRepository(GameZoneContext context)
         {
-            Users = new List<User>
-            {
-                /*new("admin@gmail.com", "Admin", "qweasdzxc", "Admin", "one", "Admin", new List<Game>()),
-                new("user@gmail.com", "User", "qweasdzxc", "User", "one", "User", new List<Game>())*/
-            };
+            _context = context;
         }
 
         public void Create(User user)
         {
-            Users.Add(user);
+            _context.Users.Add(user);
+            _context.SaveChanges();
         }
 
         public User ReturnById(Guid id)
         {
-            var userToReturn = Users.Find(user => user.Id == id);
+            var userToReturn = _context.Users.Include("Games").Where(user => user.Id == id).FirstOrDefault();
             if (userToReturn == null)
             {
                 throw new KeyNotFoundException("User not found");
@@ -32,27 +31,26 @@ namespace GameZone.Infrastructure.Repositories
 
         public IEnumerable<User> ReturnAll()
         {
-            if (Users.Count() == 0)
-            {
-                throw new NullReferenceException("Users list is null");
-            }
-            return Users;
+            return _context.Users.Include("Games");
         }
 
-        public void Update(Guid id, User user)
+        public void Update(User user)
         {
-            var userToUpdate = ReturnById(id);
-            userToUpdate.Email = user.Email;
-            userToUpdate.FirstName = user.FirstName;
-            userToUpdate.LastName = user.LastName;
-            userToUpdate.Password = user.Password;
-            userToUpdate.Username = user.Username;
+            var userAux = _context.Users.Where(user => user.Id == user.Id).FirstOrDefault();
+            if (userAux == null)
+            {
+                throw new NullReferenceException("User doesnt exist");
+            }
+            _context.Users.Remove(userAux);
+            _context.Users.Add(user);
+            _context.SaveChanges();
         }
 
         public void Delete(Guid id)
         {
             var userToBeRemoved = ReturnById(id);
-            Users.Remove(userToBeRemoved);
+            _context.Users.Remove(userToBeRemoved);
+            _context.SaveChanges();
         }
 
         public void PostComment(Game gameToBeCommented, Comment comment)

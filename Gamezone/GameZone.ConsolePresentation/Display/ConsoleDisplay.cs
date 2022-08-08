@@ -93,7 +93,7 @@ namespace GameZone.ConsoleProject
             Console.WriteLine($"Name: {user.FirstName} {user.LastName}");
             Console.WriteLine($"Role: {user.Role}");
             Console.Write("Favorite Games: ");
-            foreach (var favoriteGame in user.FavoriteGames)
+            foreach (var favoriteGame in user.Games)
             {
                 Console.Write($"{favoriteGame.Name} ");
             }

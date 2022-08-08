@@ -12,6 +12,6 @@ namespace GameZone.Application
         void PostReview(Game gameToBeReviewd, Review review);
         IEnumerable<User> ReturnAll();
         User ReturnById(Guid id);
-        void Update(Guid id, User user);
+        void Update(User user);
     }
 }

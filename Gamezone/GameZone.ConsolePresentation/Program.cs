@@ -6,6 +6,10 @@ using GameZone.Application.Games.Commands.CreateGame;
 using GameZone.Application.Games.Queries.GetGameById;
 using GameZone.Application.Genres.Commands.CreateGenre;
 using GameZone.Application.Genres.Queries.GetGenreById;
+using GameZone.Application.Users.Commands.CreateUser;
+using GameZone.Application.DTOs;
+using GameZone.Application.Users.Queries.GetUserById;
+using GameZone.Application.Users.Queries.GetUsersList;
 
 namespace GameZone.ConsoleProject
 {
@@ -40,7 +44,29 @@ namespace GameZone.ConsoleProject
                     Id= minecraftId,
                 });
 
-               ConsoleDisplay.DisplayGame(minecraft);
+                /*var user1Id = await mediator.Send(new CreateUserCommand
+                {
+                    Username = "Regular User",
+                    Email = "regularuser@gmail.com",
+                    Password = "password",
+                    FirstName = "Regular",
+                    LastName = "User",
+                    Role = "Admin",
+                    FavoriteGames =  { minecraft }
+
+                });*/
+                ConsoleDisplay.DisplayGame(minecraft);
+
+                var userId = new Guid("74AE82D3-0493-4ED4-C4A7-08DA790CED40");
+                var user = await mediator.Send(new GetUserByIdQuery
+                {
+                    Id = userId,
+                });
+
+                
+                ConsoleDisplay.DisplayUser(user);
+                var users = await mediator.Send(new GetUsersListQuery());
+                ConsoleDisplay.DisplayUsers(users);
             }
 
          

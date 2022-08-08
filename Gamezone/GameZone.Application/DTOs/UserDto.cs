@@ -10,7 +10,7 @@ namespace GameZone.Application.DTOs
         public string Password { get; set; } = string.Empty;
         public string FirstName { get; set; } = string.Empty;
         public string LastName { get; set; } = string.Empty;
-        public ICollection<Game> FavoriteGames { get; set; } = new List<Game>();
+        public ICollection<Game> Games { get; set; } = new List<Game>();
         public string Role { get; set; } = string.Empty;
     }
 }

@@ -22,7 +22,7 @@ namespace GameZone.Application.Users.Queries.GetUsersList
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 Role = user.Role,
-                FavoriteGames = user.Games,
+                Games = user.Games,
 
             });
 
