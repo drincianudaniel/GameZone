@@ -22,7 +22,7 @@ namespace GameZone.Infrastructure.Repositories
 
         public Game ReturnById(Guid id)
         {
-            var gameToReturn = _context.Games.Include("Genres").Include("Platforms").Include("Developers").Where(game => game.Id == id).FirstOrDefault();
+            var gameToReturn = _context.Games.Include("Genres").Include("Platforms").Include("Developers").Include("Comments").Where(game => game.Id == id).FirstOrDefault();
             if (gameToReturn == null)
             {
                 throw new KeyNotFoundException("Game not found");
@@ -32,7 +32,7 @@ namespace GameZone.Infrastructure.Repositories
 
         public IEnumerable<Game> ReturnAll()
         {
-            var games = _context.Games.Include("Genres").Include("Platforms").Include("Developers");
+            var games = _context.Games.Include("Genres").Include("Platforms").Include("Developers").Include("Comments");
             return games;
         }
 

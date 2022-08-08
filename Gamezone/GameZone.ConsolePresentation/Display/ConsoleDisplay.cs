@@ -32,6 +32,11 @@ namespace GameZone.ConsoleProject
                 Console.Write(platform.Name + " ");
             }
             Console.WriteLine(" ");
+            Console.WriteLine("Comments");
+            foreach (var comment in game.Comments)
+            {
+                Console.Write($"User: {comment.User.Username}: {comment.Content}");
+            }
         }
 
         public static void DisplayDeveloper(DeveloperDto developer)

@@ -22,6 +22,7 @@ namespace GameZone.Application.Games.Queries.GetGamesList
                 Developers = game.Developers,
                 Genres = game.Genres,
                 Platforms = game.Platforms,
+                Comments = game.Comments
             });
 
             return Task.FromResult(result);

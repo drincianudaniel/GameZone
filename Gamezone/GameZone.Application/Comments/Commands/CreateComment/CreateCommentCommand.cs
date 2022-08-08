@@ -11,8 +11,8 @@ namespace GameZone.Application.Comments.Commands.CreateComment
 {
     public class CreateCommentCommand : IRequest<Guid>
     {
-        public UserDto User { get; set; }
-        public GameDto Game { get; set; }
+        public Guid UserId { get; set; }
+        public Guid GameId { get; set; }
         public string Content { get; set; }
     }
 }

@@ -70,12 +70,12 @@ namespace GameZone.ConsoleProject
 
                 /*var commentId = await mediator.Send(new CreateCommentCommand
                 {
-                    User = user,
-                    Game = minecraft,
+                    UserId = user.Id,
+                    GameId = minecraft.Id,
                     Content = "good game"
                 });*/
 
-
+                ConsoleDisplay.DisplayGame(minecraft);
                 ConsoleDisplay.DisplayUser(user);
                 var users = await mediator.Send(new GetUsersListQuery());
                 ConsoleDisplay.DisplayUsers(users);

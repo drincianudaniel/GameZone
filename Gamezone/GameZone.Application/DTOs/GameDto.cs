@@ -12,5 +12,6 @@ namespace GameZone.Application.DTOs
         public ICollection<Developer> Developers { get; set; } = new List<Developer>();
         public ICollection<Genre> Genres { get; set; } = new List<Genre>();
         public ICollection<Platform> Platforms { get; set; } = new List<Platform>();
+        public ICollection<Comment> Comments { get; set; } = new List<Comment>();
     }
 }
