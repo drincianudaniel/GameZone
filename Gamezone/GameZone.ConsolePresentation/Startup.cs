@@ -18,6 +18,8 @@ namespace GameZone.ConsolePresentation
             services.AddScoped<IPlatformRepository, PlatformRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<ICommentRepository, CommentRepository>();
+            services.AddScoped<IReviewRepository, ReviewRepository>();
+            services.AddScoped<IReplyRepository, ReplyRepository>();
             services.AddDbContext<GameZoneContext>(options => options.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=GameZoneTest;Trusted_Connection=True;ConnectRetryCount=0"));
             
         }

@@ -15,8 +15,4 @@
     <ProjectReference Include="..\GameZone.Domain\GameZone.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Comments\Queries\" />
-  </ItemGroup>
-
 </Project>

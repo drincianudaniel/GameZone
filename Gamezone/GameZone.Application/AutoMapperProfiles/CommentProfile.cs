@@ -9,6 +9,7 @@ namespace GameZone.Application.AutoMapperProfiles
         public CommentProfile()
         {
             CreateMap<Comment, CommentDto>();
+            CreateMap<CommentDto, Comment>();
         }
     }
 }
