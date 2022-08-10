@@ -11,12 +11,12 @@ namespace GameZone.Application.Genres.Commands.CreateGenre
         {
             _genreRepository = genreRepository;
         }
-        public Task<Guid> Handle(CreateGenreCommand request, CancellationToken cancellationToken)
+        public async Task<Guid> Handle(CreateGenreCommand request, CancellationToken cancellationToken)
         {
             var genre = new Genre { Name = request.Name };
-            _genreRepository.Create(genre);
+            await _genreRepository.CreateAsync(genre);
 
-            return Task.FromResult(genre.Id);
+            return genre.Id;
         }
     }
 }

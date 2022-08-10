@@ -1,4 +1,5 @@
-﻿using GameZone.Application.DTOs;
+﻿using AutoMapper;
+using GameZone.Application.DTOs;
 using MediatR;
 
 namespace GameZone.Application.Replies.Queries.GetRepliesList
@@ -6,23 +7,19 @@ namespace GameZone.Application.Replies.Queries.GetRepliesList
     public class GetRepliesListQueryHandler : IRequestHandler<GetRepliesListQuery, IEnumerable<ReplyDto>>
     {
         private readonly IReplyRepository _replyRepository;
+        private readonly IMapper _mapper;
 
-        public GetRepliesListQueryHandler(IReplyRepository replyRepository)
+        public GetRepliesListQueryHandler(IReplyRepository replyRepository, IMapper mapper)
         {
             _replyRepository=replyRepository;
+            _mapper=mapper;
         }
 
-        public Task<IEnumerable<ReplyDto>> Handle(GetRepliesListQuery request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<ReplyDto>> Handle(GetRepliesListQuery request, CancellationToken cancellationToken)
         {
-            var result = _replyRepository.ReturnAll().Select(reply => new ReplyDto
-            {
-                Id = reply.Id,
-                User = reply.User,
-                Comment = reply.Comment,
-                Content = reply.Content,
-            });
-
-            return Task.FromResult(result);
+            var query = await _replyRepository.ReturnAllAsync();
+            var mappedResult = _mapper.Map<IEnumerable<ReplyDto>>(query);
+            return mappedResult;
         }
     }
 }

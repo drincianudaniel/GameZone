@@ -4,10 +4,10 @@ namespace GameZone.Application
 {
     public interface IDeveloperRepository
     {
-        void Create(Developer Developer);
-        void Delete(Guid id);
-        IEnumerable<Developer> ReturnAll();
-        Developer ReturnById(Guid id);
-        void Update(Developer developer);
+        Task CreateAsync(Developer Developer);
+        Task DeleteAsync(Developer developer);
+        Task<IEnumerable<Developer>> ReturnAllAsync();
+        Task<Developer> ReturnByIdAsync(Guid id);
+        Task UpdateAsync(Developer developer);
     }
 }

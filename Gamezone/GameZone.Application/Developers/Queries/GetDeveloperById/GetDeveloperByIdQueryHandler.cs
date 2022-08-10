@@ -13,12 +13,12 @@ namespace GameZone.Application.Developers.Queries.GetDeveloperById
             _developerRepository = developerRepository;
             _mapper = mapper;
         }
-        public Task<DeveloperDto> Handle(GetDeveloperByIdQuery request, CancellationToken cancellationToken)
+        public async Task<DeveloperDto> Handle(GetDeveloperByIdQuery request, CancellationToken cancellationToken)
         {
             Guid id = request.Id;
-            var result = _developerRepository.ReturnById(id);
+            var result = await _developerRepository.ReturnByIdAsync(id);
             var developerDto = _mapper.Map<DeveloperDto>(result);
-            return Task.FromResult(developerDto);
+            return developerDto;
         }
     }
 }

@@ -19,14 +19,15 @@ namespace GameZone.Application.Comments.Commands.CreateComment
             _userRepository=userRepository;
         }
 
-        public Task<Guid> Handle(CreateCommentCommand request, CancellationToken cancellationToken)
+        public async Task<Guid> Handle(CreateCommentCommand request, CancellationToken cancellationToken)
         {
-
-            var userDto = _mapper.Map<User>(_userRepository.ReturnById(request.UserId));
-            var gameDto = _mapper.Map<Game>(_gameRepository.ReturnById(request.GameId));
+            var user = await _userRepository.ReturnByIdAsync(request.UserId);
+            var game = await _gameRepository.ReturnByIdAsync(request.GameId);
+            var userDto = _mapper.Map<User>(user);
+            var gameDto = _mapper.Map<Game>(game);
             var comment = new Comment { User = userDto, Game= gameDto, Content = request.Content };
-            _commentRepository.Create(comment);
-            return Task.FromResult(comment.Id);
+            await _commentRepository.CreateAsync(comment);
+            return comment.Id;
         }
     }
 }

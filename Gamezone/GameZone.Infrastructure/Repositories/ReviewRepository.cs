@@ -1,6 +1,7 @@
 ﻿using GameZone.Application;
 using GameZone.Domain;
 using GameZoneModels;
+using Microsoft.EntityFrameworkCore;
 
 namespace GameZone.Infrastructure.Repositories
 {
@@ -13,42 +14,35 @@ namespace GameZone.Infrastructure.Repositories
             _context = context;
         }
 
-        public void Create(Review review)
+        public async Task CreateAsync(Review review)
         {
             _context.Reviews.Add(review);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
       
-        public Review ReturnById(Guid id)
+        public async Task<Review> ReturnByIdAsync(Guid id)
         {
-            var reviewToReturn = _context.Reviews.Where(review => review.Id == id).FirstOrDefault();
+            var reviewToReturn = _context.Reviews.Where(review => review.Id == id).FirstOrDefaultAsync();
             if (reviewToReturn == null)
             {
                 throw new KeyNotFoundException("Review not found");
             }
-            return reviewToReturn;
+            return await reviewToReturn;
         }
 
-        public IEnumerable<Review> ReturnAll()
+        public async Task<IEnumerable<Review>> ReturnAllAsync()
         {
-            return _context.Reviews;
+            return await _context.Reviews.ToListAsync();
         }
-        public void Update(Review review)
+        public async Task UpdateAsync(Review review)
         {
-            var reviewAux = _context.Reviews.Where(review => review.Id == review.Id).FirstOrDefault();
-            if (reviewAux == null)
-            {
-                throw new NullReferenceException("Review doesnt exist");
-            }
-            _context.Reviews.Remove(reviewAux);
-            _context.Reviews.Add(review);
-            _context.SaveChanges();
+            _context.Update(review);
+            await _context.SaveChangesAsync();
         }
-        public void Delete(Guid id)
+        public async Task DeleteAsync(Review review)
         {
-            var reviewToBeRemoved = ReturnById(id);
-            _context.Reviews.Remove(reviewToBeRemoved);
-            _context.SaveChanges();
+            _context.Reviews.Remove(review);
+            await _context.SaveChangesAsync();
         }
     }
 }

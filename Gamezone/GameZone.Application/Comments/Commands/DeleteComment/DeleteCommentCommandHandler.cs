@@ -11,10 +11,11 @@ namespace GameZone.Application.Comments.Commands.DeleteComment
             _commentRepository = commentRepository;
         }
 
-        public Task<Guid> Handle(DeleteCommentCommand request, CancellationToken cancellationToken)
+        public async Task<Guid> Handle(DeleteCommentCommand request, CancellationToken cancellationToken)
         {
-            _commentRepository.Delete(request.Id);
-            return Task.FromResult(request.Id);
+            var comment = await _commentRepository.ReturnByIdAsync(request.Id);
+            await _commentRepository.DeleteAsync(comment);
+            return request.Id;
         }
     }
 }

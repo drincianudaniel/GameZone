@@ -1,4 +1,5 @@
-﻿using GameZone.Application.DTOs;
+﻿using AutoMapper;
+using GameZone.Application.DTOs;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -11,23 +12,20 @@ namespace GameZone.Application.Comments.Queries.GetCommentsList
     public class GetCommentsListQueryHandler : IRequestHandler<GetCommentsListQuery, IEnumerable<CommentDto>>
     {
         private readonly ICommentRepository _commentRepository;
+        private readonly IMapper _mapper;
 
-        public GetCommentsListQueryHandler(ICommentRepository commentRepository)
+        public GetCommentsListQueryHandler(ICommentRepository commentRepository, IMapper mapper)
         {
             _commentRepository=commentRepository;
+            _mapper=mapper;
         }
 
-        public Task<IEnumerable<CommentDto>> Handle(GetCommentsListQuery request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<CommentDto>> Handle(GetCommentsListQuery request, CancellationToken cancellationToken)
         {
-            var result = _commentRepository.ReturnAll().Select(comment => new CommentDto
-            {
-                Id = comment.Id,
-                User = comment.User,
-                Game = comment.Game,
-                Content = comment.Content,
-            });
+            var query = await _commentRepository.ReturnAllAsync();
+            var mappedResult = _mapper.Map<IEnumerable<CommentDto>>(query);
 
-            return Task.FromResult(result);
+            return mappedResult;
         }
     }
 }

@@ -19,13 +19,15 @@ namespace GameZone.Application.Replies.Commands.CreateReply
             _mapper=mapper;
         }
 
-        public Task<Guid> Handle(CreateReplyCommand request, CancellationToken cancellationToken)
+        public async Task<Guid> Handle(CreateReplyCommand request, CancellationToken cancellationToken)
         {
-            var userDto = _mapper.Map<User>(_userRepository.ReturnById(request.UserId));
-            var commentDto = _mapper.Map<Comment>(_commentRepository.ReturnById(request.CommentId));
+            var user = await _userRepository.ReturnByIdAsync(request.UserId);
+            var comment = await _commentRepository.ReturnByIdAsync(request.CommentId);
+            var userDto = _mapper.Map<User>(user);
+            var commentDto = _mapper.Map<Comment>(comment);
             var reply = new Reply { User = userDto, Comment = commentDto, Content = request.Content };
-            _replyRepository.Create(reply);
-            return Task.FromResult(reply.Id);
+            await _replyRepository.CreateAsync(reply);
+            return reply.Id;
         }
     }
 }

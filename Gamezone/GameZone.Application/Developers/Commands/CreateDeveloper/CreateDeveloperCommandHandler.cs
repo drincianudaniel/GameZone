@@ -11,12 +11,12 @@ namespace GameZone.Application.Developers.Commands.CreateDeveloper
         {
             _developerRepository = developerRepository;
         }
-        public Task<Guid> Handle(CreateDeveloperCommand request, CancellationToken cancellationToken)
+        public async Task<Guid> Handle(CreateDeveloperCommand request, CancellationToken cancellationToken)
         {
             var developer = new Developer { Name = request.Name, Headquarters = request.HeadQuarters };
-            _developerRepository.Create(developer);
+            await _developerRepository.CreateAsync(developer);
             
-            return Task.FromResult(developer.Id);
+            return developer.Id;
         }
     }
 }

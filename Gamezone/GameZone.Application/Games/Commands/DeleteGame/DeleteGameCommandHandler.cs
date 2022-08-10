@@ -10,11 +10,11 @@ namespace GameZone.Application.Games.Commands.DeleteGame
             _gameRepository = gameRepository;
         }
 
-        public Task<Guid> Handle(DeleteGameCommand request, CancellationToken cancellationToken)
+        public async Task<Guid> Handle(DeleteGameCommand request, CancellationToken cancellationToken)
         {
-            var game = _gameRepository.ReturnById(request.Id);
-            _gameRepository.Delete(game.Id);
-            return Task.FromResult(game.Id);
+            var game = await _gameRepository.ReturnByIdAsync(request.Id);
+            await _gameRepository.DeleteAsync(game);
+            return game.Id;
         }
     }
 }

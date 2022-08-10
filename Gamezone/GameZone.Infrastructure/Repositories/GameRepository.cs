@@ -14,45 +14,37 @@ namespace GameZone.Infrastructure.Repositories
             _context = context;
         }
 
-        public void Create(Game game)
+        public async Task CreateAsync(Game game)
         {
             _context.Games.Add(game);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        public Game ReturnById(Guid id)
+        public async Task<Game> ReturnByIdAsync(Guid id)
         {
-            var gameToReturn = _context.Games.Include("Genres").Include("Platforms").Include("Developers").Include("Comments").Where(game => game.Id == id).FirstOrDefault();
+            var gameToReturn = _context.Games.Include("Genres").Include("Platforms").Include("Developers").Include("Comments").Include("Users").Where(game => game.Id == id).FirstOrDefaultAsync();
             if (gameToReturn == null)
             {
                 throw new KeyNotFoundException("Game not found");
             }
-            return gameToReturn;
+            return await gameToReturn;
         }
 
-        public IEnumerable<Game> ReturnAll()
+        public async Task<IEnumerable<Game>> ReturnAllAsync()
         {
-            var games = _context.Games.Include("Genres").Include("Platforms").Include("Developers").Include("Comments");
-            return games;
+            return await _context.Games.Include("Genres").Include("Platforms").Include("Developers").Include("Comments").Include("Users").ToListAsync();
         }
 
-        public void Delete(Guid id)
+        public async Task DeleteAsync(Game game)
         {
-            var gameToBeDeleted = ReturnById(id);
-            _context.Games.Remove(gameToBeDeleted);
-            _context.SaveChanges();
+            _context.Games.Remove(game);
+            await _context.SaveChangesAsync();
         }
 
-        public void Update(Game game)
+        public async Task UpdateAsync(Game game)
         {
-            var gameAux = _context.Games.Where(game => game.Id == game.Id).FirstOrDefault();
-            if(gameAux == null)
-            {
-                throw new NullReferenceException("Game doesnt exist");
-            }
-            _context.Games.Remove(gameAux);
-            _context.Games.Add(game);
-            _context.SaveChanges();
+            _context.Games.Update(game);
+            await _context.SaveChangesAsync();
         }
 
         public void CalculateTotalRating(Game game)
@@ -68,7 +60,7 @@ namespace GameZone.Infrastructure.Repositories
                 game.AddDeveloper(developer);
             }
         }*/
-        public void AddDeveloper(Guid gameId, Developer developer)
+    /*    public void AddDeveloper(Guid gameId, Developer developer)
         {
             var game = ReturnById(gameId);
             game.AddDeveloper(developer);
@@ -89,6 +81,6 @@ namespace GameZone.Infrastructure.Repositories
         public IEnumerable<Game> GenerateTopList()
         {
             return _context.Games.OrderByDescending(game => game.TotalRating).ToList();
-        }
+        }*/
     }
 }

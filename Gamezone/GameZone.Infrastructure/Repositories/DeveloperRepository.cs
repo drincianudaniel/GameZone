@@ -1,6 +1,7 @@
 ﻿using GameZone.Application;
 using GameZone.Domain;
 using GameZoneModels;
+using Microsoft.EntityFrameworkCore;
 
 namespace GameZone.Infrastructure.Repositories
 {
@@ -13,41 +14,34 @@ namespace GameZone.Infrastructure.Repositories
             _context = context;
         }
 
-        public void Create(Developer Developer)
+        public async Task CreateAsync(Developer Developer)
         {
             _context.Developers.Add(Developer);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        public Developer ReturnById(Guid id)
+        public async Task<Developer> ReturnByIdAsync(Guid id)
         {
-            var developerToReturn = _context.Developers.Where(developer => developer.Id == id).FirstOrDefault();
+            var developerToReturn = _context.Developers.Where(developer => developer.Id == id).FirstOrDefaultAsync();
             if (developerToReturn == null)
             {
                 throw new KeyNotFoundException("Developer not found");
             }
-            return developerToReturn;
+            return await developerToReturn;
         }
-        public IEnumerable<Developer> ReturnAll()
+        public async Task<IEnumerable<Developer>> ReturnAllAsync()
         {
-            return _context.Developers;
+            return await _context.Developers.ToListAsync();
         }
-        public void Update(Developer developer)
+        public async Task UpdateAsync(Developer developer)
         {
-            var developerAux = _context.Developers.Where(developer => developer.Id == developer.Id).FirstOrDefault();
-            if (developerAux == null)
-            {
-                throw new NullReferenceException("Developer doesnt exist");
-            }
-            _context.Developers.Remove(developerAux);
-            _context.Developers.Add(developer);
-            _context.SaveChanges();
+            _context.Update(developer);
+            await _context.SaveChangesAsync();
         }
-        public void Delete(Guid id)
+        public async Task DeleteAsync(Developer developer)
         {
-            var developerToBeDeleted = ReturnById(id);
-            _context.Developers.Remove(developerToBeDeleted);
-            _context.SaveChanges();
+            _context.Developers.Remove(developer);
+            await _context.SaveChangesAsync();
         }
     }
 }

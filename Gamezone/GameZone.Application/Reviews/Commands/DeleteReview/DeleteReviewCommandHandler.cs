@@ -11,10 +11,11 @@ namespace GameZone.Application.Reviews.Commands.DeleteReview
             _reviewRepository = reviewRepository;
         }
 
-        public Task<Guid> Handle(DeleteReviewCommand request, CancellationToken cancellationToken)
+        public async Task<Guid> Handle(DeleteReviewCommand request, CancellationToken cancellationToken)
         {
-            _reviewRepository.Delete(request.Id);
-            return Task.FromResult(request.Id);
+            var review = await _reviewRepository.ReturnByIdAsync(request.Id);
+            await _reviewRepository.DeleteAsync(review);
+            return review.Id;
         }
     }
 }

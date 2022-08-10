@@ -4,10 +4,10 @@ namespace GameZone.Application
 {
     public interface IPlatformRepository
     {
-        void Create(Platform platform);
-        void Delete(Guid id);
-        IEnumerable<Platform> ReturnAll();
-        Platform ReturnById(Guid id);
-        void Update(Platform platform);
+        Task CreateAsync(Platform platform);
+        Task DeleteAsync(Platform platform);
+        Task<IEnumerable<Platform>> ReturnAllAsync();
+        Task<Platform> ReturnByIdAsync(Guid id);
+        Task UpdateAsync(Platform platform);
     }
 }

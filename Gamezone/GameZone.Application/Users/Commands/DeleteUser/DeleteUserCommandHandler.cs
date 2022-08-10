@@ -10,11 +10,11 @@ namespace GameZone.Application.Users.Commands.DeleteUser
         {
             _userRepository = userRepository;
         }
-        public Task<Guid> Handle(DeleteUserCommand request, CancellationToken cancellationToken)
+        public async Task<Guid> Handle(DeleteUserCommand request, CancellationToken cancellationToken)
         {
-            var user = _userRepository.ReturnById(request.Id);
-            _userRepository.Delete(user.Id);
-            return Task.FromResult(user.Id);
+            var user = await _userRepository.ReturnByIdAsync(request.Id);
+            await _userRepository.DeleteAsync(user);
+            return user.Id;
         }
     }
 }

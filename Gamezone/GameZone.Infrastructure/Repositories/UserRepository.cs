@@ -12,47 +12,45 @@ namespace GameZone.Infrastructure.Repositories
             _context = context;
         }
 
-        public void Create(User user)
+        public async Task CreateAsync(User user)
         {
             _context.Users.Add(user);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        public User ReturnById(Guid id)
+        public async Task<User> ReturnByIdAsync(Guid id)
         {
-            var userToReturn = _context.Users.Include("Games").Where(user => user.Id == id).FirstOrDefault();
+            var userToReturn = _context.Users.Include("Games").Include("Comments").Where(user => user.Id == id).FirstOrDefaultAsync();
             if (userToReturn == null)
             {
                 throw new KeyNotFoundException("User not found");
             }
-            return userToReturn;
+            return await userToReturn;
         }
 
-        public IEnumerable<User> ReturnAll()
+        public async Task<IEnumerable<User>> ReturnAllAsync()
         {
-            return _context.Users.Include("Games");
+            return await _context.Users.Include("Games").Include("Comments").ToListAsync();
         }
 
-        public void Update(User user)
+        public async Task UpdateAsync(User user)
         {
-            var userAux = _context.Users.Where(user => user.Id == user.Id).FirstOrDefault();
-            if (userAux == null)
-            {
-                throw new NullReferenceException("User doesnt exist");
-            }
-            _context.Users.Remove(userAux);
-            _context.Users.Add(user);
-            _context.SaveChanges();
+            _context.Update(user);
+            await _context.SaveChangesAsync();
         }
 
-        public void Delete(Guid id)
+        public async Task DeleteAsync(User user)
         {
-            var userToBeRemoved = ReturnById(id);
-            _context.Users.Remove(userToBeRemoved);
-            _context.SaveChanges();
+            _context.Users.Remove(user);
+            await _context.SaveChangesAsync();
+        }
+        public async Task AddGameToFavorite(User user, Game favoriteGame)
+        {
+            user.Games.Add(favoriteGame);
+            await _context.SaveChangesAsync();
         }
 
-        public void PostComment(Game gameToBeCommented, Comment comment)
+        /*public void PostComment(Game gameToBeCommented, Comment comment)
         {
             gameToBeCommented.Comments.Add(comment);
         }
@@ -79,9 +77,6 @@ namespace GameZone.Infrastructure.Repositories
             }
         }
 
-        public void AddGameToFavorite(User user, Game favoriteGame)
-        {
-            user.Games.Add(favoriteGame);
-        }
+       */
     }
 }

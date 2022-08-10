@@ -11,15 +11,16 @@ namespace GameZone.Application.Games.Commands.CreateGame
         {
             _gameRepository = gameRepository;
         }
-        public Task<Guid> Handle(CreateGameCommand request, CancellationToken cancellationToken)
+        public async Task<Guid> Handle(CreateGameCommand request, CancellationToken cancellationToken)
         {
             var developers = request.Developers.Select(developerDto => new Developer { Name = developerDto.Name, Headquarters = developerDto.Headquarters });
             var genres = request.Genres.Select(genreDto => new Genre{Name = genreDto.Name});
             var platforms = request.Platforms.Select(platformDto => new Platform { Name = platformDto.Name });
-            var game = new Game { Name = request.Name, ReleaseDate = request.ReleaseDate, GameDetails = request.GameDetails, Developers = developers.ToList(), Genres = genres.ToList(), Platforms = platforms.ToList()};
-            _gameRepository.Create(game);
+            var comments = request.Comments.Select(commentDto => new Comment { User = commentDto.User, Game = commentDto.Game, Content = commentDto.Content });
+            var game = new Game { Name = request.Name, ReleaseDate = request.ReleaseDate, GameDetails = request.GameDetails, Developers = developers.ToList(), Genres = genres.ToList(), Platforms = platforms.ToList(), Comments= comments.ToList()};
+            await _gameRepository.CreateAsync(game);
 
-            return Task.FromResult(game.Id);
+            return game.Id;
         }
     }
 }

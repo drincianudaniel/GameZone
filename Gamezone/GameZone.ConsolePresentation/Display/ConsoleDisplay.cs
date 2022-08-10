@@ -33,6 +33,7 @@ namespace GameZone.ConsoleProject
             }
             Console.WriteLine(" ");
             Console.WriteLine("Comments");
+
             foreach (var comment in game.Comments)
             {
                 Console.Write($"User: {comment.User.Username}: {comment.Content}");
@@ -56,8 +57,7 @@ namespace GameZone.ConsoleProject
 
         public static void DisplayGames(IEnumerable<GameDto> games)
         {
-            var gamelist = games.ToList();
-            foreach (var game in gamelist)
+            foreach (var game in games)
             {
                 DisplayGame(game);
             }

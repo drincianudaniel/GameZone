@@ -14,12 +14,12 @@ namespace GameZone.Application.Users.Queries.GetUserById
             _userRepository = userRepository;
             _mapper = mapper;
         }
-        public Task<UserDto> Handle(GetUserByIdQuery request, CancellationToken cancellationToken)
+        public async Task<UserDto> Handle(GetUserByIdQuery request, CancellationToken cancellationToken)
         {
             Guid id = request.Id;
-            var result = _userRepository.ReturnById(id);
+            var result = await _userRepository.ReturnByIdAsync(id);
             var userDto = _mapper.Map<UserDto>(result);
-            return Task.FromResult(userDto);
+            return userDto;
         }
     }
 }

@@ -4,10 +4,10 @@ namespace GameZone.Application
 {
     public interface ICommentRepository
     {
-        void Create(Comment comment);
-        void Delete(Guid id);
-        IEnumerable<Comment> ReturnAll();
-        Comment ReturnById(Guid id);
-        void Update(Comment comment);
+        Task CreateAsync(Comment comment);
+        Task DeleteAsync(Comment comment);
+        Task<IEnumerable<Comment>> ReturnAllAsync();
+        Task<Comment> ReturnByIdAsync(Guid id);
+        Task UpdateAsync(Comment comment);
     }
 }

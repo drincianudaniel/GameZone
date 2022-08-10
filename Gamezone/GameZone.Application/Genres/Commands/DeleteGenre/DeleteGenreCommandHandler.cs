@@ -9,11 +9,11 @@ namespace GameZone.Application.Genres.Commands.DeleteGenre
         {
             _genreRepository = genreRepository;
         }
-        public Task<Guid> Handle(DeleteGenreCommand request, CancellationToken cancellationToken)
+        public async Task<Guid> Handle(DeleteGenreCommand request, CancellationToken cancellationToken)
         {
-            var genre = _genreRepository.ReturnById(request.Id);
-            _genreRepository.Delete(genre.Id);
-            return Task.FromResult(genre.Id);
+            var genre = await _genreRepository.ReturnByIdAsync(request.Id);
+            await _genreRepository.DeleteAsync(genre);
+            return genre.Id;
         }
     }
 }

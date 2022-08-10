@@ -4,10 +4,10 @@ namespace GameZone.Application
 {
     public interface IGenreRepository
     {
-        void Create(Genre Genre);
-        void Delete(Guid id);
-        IEnumerable<Genre> ReturnAll();
-        Genre ReturnById(Guid id);
-        void Update(Genre genre);
+        Task CreateAsync(Genre Genre);
+        Task DeleteAsync(Genre genre);
+        Task<IEnumerable<Genre>> ReturnAllAsync();
+        Task<Genre> ReturnByIdAsync(Guid id);
+        Task UpdateAsync(Genre genre);
     }
 }

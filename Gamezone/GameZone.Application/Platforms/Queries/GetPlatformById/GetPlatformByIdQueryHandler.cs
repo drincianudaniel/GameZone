@@ -15,12 +15,12 @@ namespace GameZone.Application.Platforms.Queries.GetPlatformById
             _platformRepository = platformRepository;
             _mapper = mapper;
         }
-        public Task<PlatformDto> Handle(GetPlatformByIdQuery request, CancellationToken cancellationToken)
+        public async Task<PlatformDto> Handle(GetPlatformByIdQuery request, CancellationToken cancellationToken)
         {
             Guid id = request.Id;
-            var result = _platformRepository.ReturnById(id);
+            var result = await _platformRepository.ReturnByIdAsync(id);
             var platformDto = _mapper.Map<PlatformDto>(result);
-            return Task.FromResult(platformDto);
+            return platformDto;
         }
     }
 }

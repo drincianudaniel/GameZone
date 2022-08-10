@@ -13,12 +13,12 @@ namespace GameZone.Application.Genres.Queries.GetGenreById
             _genreRepository = genreRepository;
             _mapper = mapper;
         }
-        public Task<GenreDto> Handle(GetGenreByIdQuery request, CancellationToken cancellationToken)
+        public async Task<GenreDto> Handle(GetGenreByIdQuery request, CancellationToken cancellationToken)
         {
             Guid id = request.Id;
-            var result = _genreRepository.ReturnById(id);
+            var result = await _genreRepository.ReturnByIdAsync(id);
             var genreDto = _mapper.Map<GenreDto>(result);
-            return Task.FromResult(genreDto);
+            return genreDto;
         }
     }
 }

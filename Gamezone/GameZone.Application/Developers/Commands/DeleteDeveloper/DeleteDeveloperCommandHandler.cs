@@ -10,11 +10,11 @@ namespace GameZone.Application.Developers.Commands.DeleteDeveloper
         {
             _developerRepository = developerRepository;
         }
-        public Task<Guid> Handle(DeleteDeveloperCommand request, CancellationToken cancellationToken)
+        public async Task<Guid> Handle(DeleteDeveloperCommand request, CancellationToken cancellationToken)
         {
-            var developer = _developerRepository.ReturnById(request.Id);
-            _developerRepository.Delete(developer.Id);
-            return Task.FromResult(developer.Id);
+            var developer = await _developerRepository.ReturnByIdAsync(request.Id);
+            await _developerRepository.DeleteAsync(developer);
+            return developer.Id;
         }
     }
 }

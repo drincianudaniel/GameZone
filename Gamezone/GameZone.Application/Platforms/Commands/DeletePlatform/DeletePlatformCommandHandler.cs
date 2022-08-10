@@ -9,11 +9,11 @@ namespace GameZone.Application.Platforms.Commands.DeletePlatform
         {
             _platformRepository = platformRepository;
         }
-        public Task<Guid> Handle(DeletePlatformCommand request, CancellationToken cancellationToken)
+        public async Task<Guid> Handle(DeletePlatformCommand request, CancellationToken cancellationToken)
         {
-            var platform = _platformRepository.ReturnById(request.Id);
-            _platformRepository.Delete(platform.Id);
-            return Task.FromResult(platform.Id);
+            var platform = await _platformRepository.ReturnByIdAsync(request.Id);
+            await _platformRepository.DeleteAsync(platform);
+            return platform.Id;
         }
     }
 }

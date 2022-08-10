@@ -12,6 +12,7 @@ namespace GameZone.Application.Games.Commands.CreateGame
         public ICollection<DeveloperDto> Developers { get; set; } = new List<DeveloperDto>();
         public ICollection<GenreDto> Genres { get; set; } = new List<GenreDto>();
         public ICollection<PlatformDto> Platforms { get; set; } = new List<PlatformDto>();
+        public ICollection<CommentDto> Comments { get; set; } = new List<CommentDto>();
 
     }
 }

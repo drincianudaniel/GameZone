@@ -4,10 +4,10 @@ namespace GameZone.Application
 {
     public interface IReplyRepository
     {
-        void Create(Reply reply);
-        void Delete(Guid id);
-        IEnumerable<Reply> ReturnAll();
-        Reply ReturnById(Guid id);
-        void Update(Reply reply);
+        Task CreateAsync(Reply reply);
+        Task DeleteAsync(Reply reply);
+        Task<IEnumerable<Reply>> ReturnAllAsync();
+        Task<Reply> ReturnByIdAsync(Guid id);
+        Task UpdateAsync(Reply reply);
     }
 }

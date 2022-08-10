@@ -11,6 +11,8 @@ using GameZone.Application.DTOs;
 using GameZone.Application.Users.Queries.GetUserById;
 using GameZone.Application.Users.Queries.GetUsersList;
 using GameZone.Application.Comments.Commands.CreateComment;
+using GameZone.Application.Games.Queries.GetGamesList;
+using GameZone.Application.Developers.Commands.CreateDeveloper;
 
 namespace GameZone.ConsoleProject
 {
@@ -42,7 +44,7 @@ namespace GameZone.ConsoleProject
                      Genres = { Adventure }
                  });*/
 
-                var minecraftId = new Guid("5B82037F-8BA7-4AC2-E488-08DA792B4393");
+                var minecraftId = new Guid("7A6CB079-A67B-43F4-8C4B-08DA7ABF3CAD");
 
                 var minecraft = await mediator.Send(new GetGameByIdQuery
                 {
@@ -68,17 +70,25 @@ namespace GameZone.ConsoleProject
                     Id = userId,
                 });
 
-                /*var commentId = await mediator.Send(new CreateCommentCommand
+               /* var commentId = await mediator.Send(new CreateCommentCommand
                 {
                     UserId = user.Id,
                     GameId = minecraft.Id,
-                    Content = "good game"
+                    Content = "test test"
                 });*/
 
+                /* var developer = await mediator.Send(new CreateDeveloperCommand
+                 {
+                     Name = "Ubisoft",
+                     HeadQuarters = "Montreal"
+                 });*/
                 ConsoleDisplay.DisplayGame(minecraft);
                 ConsoleDisplay.DisplayUser(user);
                 var users = await mediator.Send(new GetUsersListQuery());
                 ConsoleDisplay.DisplayUsers(users);
+
+                var games = await mediator.Send(new GetGameListQuery());
+                ConsoleDisplay.DisplayGames(games);
             }
             host.Run();
             //var mediator = diContainer.GetRequiredService<IMediator>();

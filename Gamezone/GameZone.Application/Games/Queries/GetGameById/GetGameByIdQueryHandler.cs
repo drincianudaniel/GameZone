@@ -15,12 +15,12 @@ namespace GameZone.Application.Games.Queries.GetGameById
             _gameRepository = gameRepository;
             _mapper = mapper;
         }
-        public Task<GameDto> Handle(GetGameByIdQuery request, CancellationToken cancellationToken)
+        public async Task<GameDto> Handle(GetGameByIdQuery request, CancellationToken cancellationToken)
         {
             Guid id = request.Id;
-            var result = _gameRepository.ReturnById(id);
+            var result = await _gameRepository.ReturnByIdAsync(id);
             var gameDTO = _mapper.Map<GameDto>(result);
-            return Task.FromResult(gameDTO);
+            return gameDTO;
         }
     }
 }

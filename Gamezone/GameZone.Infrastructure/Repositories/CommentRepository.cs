@@ -1,6 +1,7 @@
 ﻿using GameZone.Application;
 using GameZone.Domain;
 using GameZoneModels;
+using Microsoft.EntityFrameworkCore;
 
 namespace GameZone.Infrastructure.Repositories
 {
@@ -13,43 +14,36 @@ namespace GameZone.Infrastructure.Repositories
             _context = context;
         }
 
-        public void Create(Comment comment)
+        public async Task CreateAsync(Comment comment)
         {
             _context.Comments.Add(comment);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        public Comment ReturnById(Guid id)
+        public async Task<Comment> ReturnByIdAsync(Guid id)
         {
-            var commentToReturn = _context.Comments.Where(comment => comment.Id == id).FirstOrDefault();
+            var commentToReturn = _context.Comments.Where(comment => comment.Id == id).FirstOrDefaultAsync();
             if (commentToReturn == null)
             {
                 throw new KeyNotFoundException("Comment not found");
             }
-            return commentToReturn;
+            return await commentToReturn;
         }
 
-        public IEnumerable<Comment> ReturnAll()
+        public async Task<IEnumerable<Comment>> ReturnAllAsync()
         {
-            return _context.Comments;
+            return await _context.Comments.ToListAsync();
         }
         
-        public void Update(Comment comment)
+        public async Task UpdateAsync(Comment comment)
         {
-            var commentAux = _context.Comments.Where(genre => genre.Id == genre.Id).FirstOrDefault();
-            if (commentAux == null)
-            {
-                throw new NullReferenceException("Comment doesnt exist");
-            }
-            _context.Comments.Remove(commentAux);
-            _context.Comments.Add(comment);
-            _context.SaveChanges();
+            _context.Comments.Update(comment);
+            await _context.SaveChangesAsync();
         }
-        public void Delete(Guid id)
+        public async Task DeleteAsync(Comment comment)
         {
-            var commentToBeRemoved = ReturnById(id);
-            _context.Comments.Remove(commentToBeRemoved);
-            _context.SaveChanges();
+            _context.Comments.Remove(comment);
+            await _context.SaveChangesAsync();
         }
     }
 }

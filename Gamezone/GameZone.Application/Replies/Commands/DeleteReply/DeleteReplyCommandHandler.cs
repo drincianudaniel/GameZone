@@ -11,10 +11,11 @@ namespace GameZone.Application.Replies.Commands.DeleteReply
             _replyRepository=replyRepository;
         }
 
-        public Task<Guid> Handle(DeleteReplyCommand request, CancellationToken cancellationToken)
+        public async Task<Guid> Handle(DeleteReplyCommand request, CancellationToken cancellationToken)
         {
-            _replyRepository.Delete(request.Id);
-            return Task.FromResult(request.Id);
+            var reply = await _replyRepository.ReturnByIdAsync(request.Id);
+            await _replyRepository.DeleteAsync(reply);
+            return reply.Id;
         }
     }
 }

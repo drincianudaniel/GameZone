@@ -19,13 +19,15 @@ namespace GameZone.Application.Reviews.Commands.CreateReview
             _userRepository=userRepository;
         }
 
-        public Task<Guid> Handle(CreateReviewCommand request, CancellationToken cancellationToken)
+        public async Task<Guid> Handle(CreateReviewCommand request, CancellationToken cancellationToken)
         {
-            var userDto = _mapper.Map<User>(_userRepository.ReturnById(request.UserId));
-            var gameDto = _mapper.Map<Game>(_gameRepository.ReturnById(request.GameId));
+            var user = await _userRepository.ReturnByIdAsync(request.UserId);
+            var game = await _gameRepository.ReturnByIdAsync(request.GameId);
+            var userDto = _mapper.Map<User>(user);
+            var gameDto = _mapper.Map<Game>(game);
             var review = new Review { User = userDto, Game= gameDto, Content = request.Content, Rating = request.Rating };
-            _reviewRepository.Create(review);
-            return Task.FromResult(review.Id);
+            await _reviewRepository.CreateAsync(review);
+            return review.Id;
         }
     }
 }

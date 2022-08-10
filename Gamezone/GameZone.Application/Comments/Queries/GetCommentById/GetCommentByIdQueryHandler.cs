@@ -14,12 +14,12 @@ namespace GameZone.Application.Comments.Queries.GetCommentById
             _commentRepository=commentRepository;
             _mapper=mapper;
         }
-        public Task<CommentDto> Handle(GetCommentByIdQuery request, CancellationToken cancellationToken)
+        public async Task<CommentDto> Handle(GetCommentByIdQuery request, CancellationToken cancellationToken)
         {
             Guid id = request.Id;
-            var result = _commentRepository.ReturnById(id);
+            var result = await _commentRepository.ReturnByIdAsync(id);
             var commentDto = _mapper.Map<CommentDto>(result);
-            return Task.FromResult(commentDto);
+            return commentDto;
         }
     }
 }

@@ -10,12 +10,12 @@ namespace GameZone.Application.Platforms.Commands.CreatePlatform
         {
             _platformRepository = platformRepository;
         }
-        public Task<Guid> Handle(CreatePlatformCommand request, CancellationToken cancellationToken)
+        public async Task<Guid> Handle(CreatePlatformCommand request, CancellationToken cancellationToken)
         {
             var platform = new Platform { Name = request.Name };
-            _platformRepository.Create(platform);
+            await _platformRepository.CreateAsync(platform);
 
-            return Task.FromResult(platform.Id);
+            return platform.Id;
         }
     }
 }

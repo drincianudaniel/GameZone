@@ -1,6 +1,7 @@
 ﻿using GameZone.Application;
 using GameZone.Domain;
 using GameZoneModels;
+using Microsoft.EntityFrameworkCore;
 
 namespace GameZone.Infrastructure.Repositories
 {
@@ -12,41 +13,34 @@ namespace GameZone.Infrastructure.Repositories
             _context = context;
         }
 
-        public void Create(Platform platform)
+        public async Task CreateAsync(Platform platform)
         {
             _context.Platforms.Add(platform);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        public Platform ReturnById(Guid id)
+        public async Task<Platform> ReturnByIdAsync(Guid id)
         {
-            var platformToReturn = _context.Platforms.Where(p => p.Id == id).FirstOrDefault();
+            var platformToReturn = _context.Platforms.Where(p => p.Id == id).FirstOrDefaultAsync();
             if (platformToReturn == null)
             {
                 throw new KeyNotFoundException("Platform not found");
             }
-            return platformToReturn;
+            return await platformToReturn;
         }
-        public IEnumerable<Platform> ReturnAll()
+        public async Task<IEnumerable<Platform>> ReturnAllAsync()
         {
-            return _context.Platforms;
+            return await _context.Platforms.ToListAsync();
         }
-        public void Update(Platform platform)
+        public async Task UpdateAsync(Platform platform)
         {
-            var platformAux = _context.Platforms.Where(platform => platform.Id == platform.Id).FirstOrDefault();
-            if (platformAux == null)
-            {
-                throw new NullReferenceException("Platform doesnt exist");
-            }
-            _context.Platforms.Remove(platformAux);
-            _context.Platforms.Add(platform);
-            _context.SaveChanges();
+            _context.Platforms.Update(platform);
+            await _context.SaveChangesAsync();
         }
-        public void Delete(Guid id)
+        public async Task DeleteAsync(Platform platform)
         {
-            var platformToBeDeleted = ReturnById(id);
-            _context.Platforms.Remove(platformToBeDeleted);
-            _context.SaveChanges();
+            _context.Platforms.Remove(platform);
+            await _context.SaveChangesAsync();
         }
     }
 }

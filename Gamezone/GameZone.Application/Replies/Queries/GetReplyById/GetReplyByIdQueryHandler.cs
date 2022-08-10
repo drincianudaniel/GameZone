@@ -14,12 +14,12 @@ namespace GameZone.Application.Replies.Queries.GetReplyById
             _replyRepository=replyRepository;
             _mapper=mapper;
         }
-        public Task<ReplyDto> Handle(GetReplyByIdQuery request, CancellationToken cancellationToken)
+        public async Task<ReplyDto> Handle(GetReplyByIdQuery request, CancellationToken cancellationToken)
         {
             Guid id = request.Id;
-            var result = _replyRepository.ReturnById(id);
+            var result = await _replyRepository.ReturnByIdAsync(id);
             var replyDto = _mapper.Map<ReplyDto>(result);
-            return Task.FromResult(replyDto);
+            return replyDto;
         }
     }
 }

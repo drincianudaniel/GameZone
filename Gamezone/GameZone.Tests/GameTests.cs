@@ -6,14 +6,15 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace GameZone.Tests
 {
-    public class UnitTest1
+    public class GameTests
     {
         [Fact]
-        public void AddGames()
+        public async Task AddGames()
         {
             IGameRepository sut = GetInMemoryGameRepository();
             var guid = new Guid("e9c21e27-a987-4c6d-8d7d-1807ee9243ab");
@@ -25,9 +26,10 @@ namespace GameZone.Tests
                 ReleaseDate= DateTime.UtcNow,
             };
 
-            sut.Create(game);
-            var savedGame = sut.ReturnById(guid);
-
+            await sut.CreateAsync(game);
+            var savedGame = await sut.ReturnByIdAsync(guid);
+            var list = await sut.ReturnAllAsync();
+            Assert.Single(list);
             Assert.Equal("Ac", savedGame.Name);
         }
 

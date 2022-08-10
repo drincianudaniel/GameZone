@@ -15,12 +15,12 @@ namespace GameZone.Application.Reviews.Queries.GetReviewById
             _mapper = mapper;
         }
 
-        public Task<ReviewDto> Handle(GetReviewByIdQuery request, CancellationToken cancellationToken)
+        public async Task<ReviewDto> Handle(GetReviewByIdQuery request, CancellationToken cancellationToken)
         {
             Guid id = request.Id;
-            var result = _reviewRepository.ReturnById(id);
+            var result = await _reviewRepository.ReturnByIdAsync(id);
             var reviewDto = _mapper.Map<ReviewDto>(result);
-            return Task.FromResult(reviewDto);
+            return reviewDto;
         }
     }
 }

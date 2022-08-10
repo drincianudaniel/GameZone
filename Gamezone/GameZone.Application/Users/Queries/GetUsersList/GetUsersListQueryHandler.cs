@@ -1,4 +1,5 @@
-﻿using GameZone.Application.DTOs;
+﻿using AutoMapper;
+using GameZone.Application.DTOs;
 using MediatR;
 
 namespace GameZone.Application.Users.Queries.GetUsersList
@@ -6,27 +7,18 @@ namespace GameZone.Application.Users.Queries.GetUsersList
     public class GetUsersListQueryHandler : IRequestHandler<GetUsersListQuery, IEnumerable<UserDto>>
     {
         private readonly IUserRepository _userRepository;
+        private readonly IMapper _mapper;
 
-        public GetUsersListQueryHandler(IUserRepository userRepository)
+        public GetUsersListQueryHandler(IUserRepository userRepository, IMapper mapper)
         {
             _userRepository = userRepository;
+            _mapper=mapper;
         }
-        public Task<IEnumerable<UserDto>> Handle(GetUsersListQuery request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<UserDto>> Handle(GetUsersListQuery request, CancellationToken cancellationToken)
         {
-            var result = _userRepository.ReturnAll().Select(user => new UserDto
-            {
-                Id = user.Id,
-                Email = user.Email,
-                Username = user.Username,
-                Password = user.Password,
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                Role = user.Role,
-                Games = user.Games,
-
-            });
-
-            return Task.FromResult(result);
+            var query = await _userRepository.ReturnAllAsync();
+            var mappedResult = _mapper.Map<IEnumerable<UserDto>>(query);
+            return mappedResult;
         }
     }
 }

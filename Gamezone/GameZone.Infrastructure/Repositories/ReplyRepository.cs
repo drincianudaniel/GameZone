@@ -1,6 +1,7 @@
 ﻿using GameZone.Application;
 using GameZone.Domain;
 using GameZoneModels;
+using Microsoft.EntityFrameworkCore;
 
 namespace GameZone.Infrastructure.Repositories
 {
@@ -13,45 +14,38 @@ namespace GameZone.Infrastructure.Repositories
             _context = context;
         }
 
-        public void Create(Reply reply)
+        public async Task CreateAsync(Reply reply)
         {
             _context.Replies.Add(reply);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        public Reply ReturnById(Guid id)
+        public async Task<Reply> ReturnByIdAsync(Guid id)
         {
-            var replyToReturn = _context.Replies.Where(reply => reply.Id == id).FirstOrDefault();
+            var replyToReturn = _context.Replies.Where(reply => reply.Id == id).FirstOrDefaultAsync();
             if (replyToReturn == null)
             {
                 throw new KeyNotFoundException("Reply not found");
             }
-            return replyToReturn;
+            return await replyToReturn;
         }
 
-        public IEnumerable<Reply> ReturnAll()
+        public async Task<IEnumerable<Reply>> ReturnAllAsync()
         {
-            return _context.Replies;
+            return await _context.Replies.ToListAsync();
         }
 
-        public void Update(Reply reply)
+        public async Task UpdateAsync(Reply reply)
         {
-            var replyAux = _context.Replies.Where(reply => reply.Id == reply.Id).FirstOrDefault();
-            if (replyAux == null)
-            {
-                throw new NullReferenceException("Reply doesnt exist");
-            }
-            _context.Replies.Remove(replyAux);
-            _context.Replies.Add(reply);
-            _context.SaveChanges();
+            _context.Replies.Update(reply);
+            await _context.SaveChangesAsync();
         }
    
 
-        public void Delete(Guid id)
+        public async Task DeleteAsync(Reply reply)
         {
-            var replyToBeRemoved = ReturnById(id);
-            _context.Replies.Remove(replyToBeRemoved);
-            _context.SaveChanges();
+            _context.Replies.Remove(reply);
+            await _context.SaveChangesAsync();
         }
     }
 }

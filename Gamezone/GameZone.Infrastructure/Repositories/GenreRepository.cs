@@ -1,6 +1,7 @@
 ﻿using GameZone.Application;
 using GameZone.Domain;
 using GameZoneModels;
+using Microsoft.EntityFrameworkCore;
 
 namespace GameZone.Infrastructure.Repositories
 {
@@ -13,43 +14,35 @@ namespace GameZone.Infrastructure.Repositories
             _context = context;
         }
 
-        public void Create(Genre Genre)
+        public async Task CreateAsync(Genre Genre)
         {
             _context.Genres.Add(Genre);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        public Genre ReturnById(Guid id)
+        public async Task<Genre> ReturnByIdAsync(Guid id)
         {
-            var genreToReturn = _context.Genres.Find(id);
+            var genreToReturn = _context.Genres.Where(genre => genre.Id == id).FirstOrDefaultAsync();
             if (genreToReturn == null)
             {
                 throw new KeyNotFoundException("Genre not found");
             }
-            return genreToReturn;
+            return await genreToReturn;
         }
-        public IEnumerable<Genre> ReturnAll()
+        public async Task<IEnumerable<Genre>> ReturnAllAsync()
         {
-            return _context.Genres;
+            return await _context.Genres.ToListAsync();
         }
 
-        public void Update(Genre genre)
+        public async Task UpdateAsync(Genre genre)
         {
-            var genreAux = _context.Genres.Where(genre => genre.Id == genre.Id).FirstOrDefault();
-            if (genreAux == null)
-            {
-                throw new NullReferenceException("Genre doesnt exist");
-            }
-            _context.Genres.Remove(genreAux);
-            _context.Genres.Add(genre);
-            _context.SaveChanges();
-
+            _context.Genres.Update(genre);
+            await _context.SaveChangesAsync();
         }
-        public void Delete(Guid id)
+        public async Task DeleteAsync(Genre genre)
         {
-            var genreToBeDeleted = ReturnById(id);
-            _context.Genres.Remove(genreToBeDeleted);
-            _context.SaveChanges();
+            _context.Genres.Remove(genre);
+            await _context.SaveChangesAsync();
         }
     }
 }
