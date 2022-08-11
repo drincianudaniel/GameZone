@@ -22,7 +22,7 @@ namespace GameZone.Infrastructure.Repositories
 
         public async Task<Game> ReturnByIdAsync(Guid id)
         {
-            var gameToReturn = _context.Games.Include("Genres").Include("Platforms").Include("Developers").Include("Comments").Include("Users").Where(game => game.Id == id).FirstOrDefaultAsync();
+            var gameToReturn = _context.Games.Include("Genres").Include("Platforms").Include("Developers").Include("Comments").Include("Users").Include("Reviews").Where(game => game.Id == id).FirstOrDefaultAsync();
             if (gameToReturn == null)
             {
                 throw new KeyNotFoundException("Game not found");
@@ -32,7 +32,7 @@ namespace GameZone.Infrastructure.Repositories
 
         public async Task<IEnumerable<Game>> ReturnAllAsync()
         {
-            return await _context.Games.Include("Genres").Include("Platforms").Include("Developers").Include("Comments").Include("Users").ToListAsync();
+            return await _context.Games.Include("Genres").Include("Platforms").Include("Developers").Include("Comments").Include("Users").Include("Reviews").ToListAsync();
         }
 
         public async Task DeleteAsync(Game game)
@@ -47,9 +47,13 @@ namespace GameZone.Infrastructure.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public void CalculateTotalRating(Game game)
+        public async Task CalculateTotalRatingAsync(Game game)
         {
-            game.TotalRating = game.Reviews.Average(review => review.Rating);
+            if(game.Reviews.Count != 0)
+            {
+                game.TotalRating = game.Reviews.Average(review => review.Rating);
+                await _context.SaveChangesAsync();
+            }
         }
 
         public async Task AddDeveloperListAsync(Game game, List<Developer> developers)

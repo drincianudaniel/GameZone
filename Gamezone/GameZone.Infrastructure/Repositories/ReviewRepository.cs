@@ -22,7 +22,7 @@ namespace GameZone.Infrastructure.Repositories
       
         public async Task<Review> ReturnByIdAsync(Guid id)
         {
-            var reviewToReturn = _context.Reviews.Where(review => review.Id == id).FirstOrDefaultAsync();
+            var reviewToReturn = _context.Reviews.Include("Games").Where(review => review.Id == id).FirstOrDefaultAsync();
             if (reviewToReturn == null)
             {
                 throw new KeyNotFoundException("Review not found");
@@ -32,7 +32,7 @@ namespace GameZone.Infrastructure.Repositories
 
         public async Task<IEnumerable<Review>> ReturnAllAsync()
         {
-            return await _context.Reviews.ToListAsync();
+            return await _context.Reviews.Include("Games").ToListAsync();
         }
         public async Task UpdateAsync(Review review)
         {

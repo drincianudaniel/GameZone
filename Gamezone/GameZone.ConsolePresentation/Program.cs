@@ -14,6 +14,7 @@ using GameZone.Application.Comments.Commands.CreateComment;
 using GameZone.Application.Games.Queries.GetGamesList;
 using GameZone.Application.Developers.Commands.CreateDeveloper;
 using GameZone.Application.Platforms.Commands.CreatePlatform;
+using GameZone.Application.Reviews.Commands.CreateReview;
 
 namespace GameZone.ConsoleProject
 {
@@ -67,6 +68,7 @@ namespace GameZone.ConsoleProject
                     Id= minecraftId,
                 });
 
+               
                 /*  var user1Id = await mediator.Send(new CreateUserCommand
                  {
                      Username = "Regular User",
@@ -92,7 +94,13 @@ namespace GameZone.ConsoleProject
                      GameId = minecraft.Id,
                      Content = "test test"
                  });*/
-
+               /* var review = await mediator.Send(new CreateReviewCommand
+                {
+                    GameId = minecraftId,
+                    UserId = userId,
+                    Rating = 8,
+                    Content = "average game"
+                });*/
                 var developer = await mediator.Send(new CreateDeveloperCommand
                 {
                     Name = "asdasdasd",

@@ -27,6 +27,7 @@ namespace GameZone.Application.Reviews.Commands.CreateReview
             var gameDto = _mapper.Map<Game>(game);
             var review = new Review { User = userDto, Game= gameDto, Content = request.Content, Rating = request.Rating };
             await _reviewRepository.CreateAsync(review);
+            await _gameRepository.CalculateTotalRatingAsync(game);
             return review.Id;
         }
     }

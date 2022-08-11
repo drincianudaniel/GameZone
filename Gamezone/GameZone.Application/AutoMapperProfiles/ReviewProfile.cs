@@ -9,6 +9,7 @@ namespace GameZone.Application.AutoMapperProfiles
         public ReviewProfile()
         {
             CreateMap<Review, ReviewDto>();
+            CreateMap<ReviewDto, Review>();
         }
     }
 }

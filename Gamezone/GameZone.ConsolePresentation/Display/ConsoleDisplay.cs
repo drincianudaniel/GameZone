@@ -11,7 +11,7 @@ namespace GameZone.ConsoleProject
             Console.WriteLine($"Name: {game.Name}");
             Console.WriteLine($"Date: {game.ReleaseDate.ToLongDateString()}");
             Console.WriteLine($"Game Details: {game.GameDetails}");
-
+            Console.WriteLine($"Total Rating: {game.TotalRating}");
             Console.Write("Developers: ");
             foreach (var developer in game.Developers)
             {
@@ -32,11 +32,21 @@ namespace GameZone.ConsoleProject
                 Console.Write(platform.Name + " ");
             }
             Console.WriteLine(" ");
-            Console.WriteLine("Comments");
+            Console.WriteLine("Comments:");
 
             foreach (var comment in game.Comments)
             {
                 Console.Write($"User: {comment.User.Username}: {comment.Content}");
+                Console.WriteLine(" ");
+            }
+
+            Console.WriteLine("Reviews:");
+            Console.WriteLine(" ");
+
+            foreach (var review in game.Reviews)
+            {
+                Console.Write($"User: {review.User.Username}: {review.Rating} {review.Content}");
+                Console.WriteLine(" ");
             }
         }
 
