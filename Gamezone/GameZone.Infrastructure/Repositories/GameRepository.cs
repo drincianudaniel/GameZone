@@ -52,33 +52,53 @@ namespace GameZone.Infrastructure.Repositories
             game.TotalRating = game.Reviews.Average(review => review.Rating);
         }
 
-      /*  public void AddDeveloper(int gameId, params Developer[] developers)
+        public async Task AddDeveloperListAsync(Game game, List<Developer> developers)
         {
-            var game = ReturnById(gameId);
             foreach (var developer in developers)
             {
-                game.AddDeveloper(developer);
+                game.Developers.Add(developer);
             }
-        }*/
-    /*    public void AddDeveloper(Guid gameId, Developer developer)
-        {
-            var game = ReturnById(gameId);
-            game.AddDeveloper(developer);
+
+            await _context.SaveChangesAsync();
         }
 
-        public void AddGenre(Guid gameId, Genre genre)
+        public async Task AddGenreListAsync(Game game, List<Genre> genres)
         {
-            var game = ReturnById(gameId);
+            foreach (var genre in genres)
+            {
+                game.Genres.Add(genre);
+            }
+
+            await _context.SaveChangesAsync();
+        }
+        public async Task AddPlatformListAsync(Game game, List<Platform> platforms)
+        {
+            foreach (var platform in platforms)
+            {
+                game.Platforms.Add(platform);
+            }
+
+            await _context.SaveChangesAsync();
+        }
+        public void AddDeveloper(Game game, Developer developer)
+        {
+            game.Developers.Add(developer);
+            _context.SaveChanges();
+        }
+
+        public async Task AddGenreAsync(Game game, Genre genre)
+        {
             game.AddGenre(genre);
+            await _context.SaveChangesAsync();
         }
 
-        public void AddPlatform(Guid gameId, Platform platform)
+        public async Task AddPlatformAsync(Game game, Platform platform)
         {
-            var game = ReturnById(gameId);
             game.AddPlatform(platform);
+            await _context.SaveChangesAsync();
         }
 
-        public IEnumerable<Game> GenerateTopList()
+        /*public IEnumerable<Game> GenerateTopList()
         {
             return _context.Games.OrderByDescending(game => game.TotalRating).ToList();
         }*/

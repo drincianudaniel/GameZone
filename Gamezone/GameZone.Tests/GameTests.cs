@@ -13,24 +13,49 @@ namespace GameZone.Tests
 {
     public class GameTests
     {
+        Game game = new Game()
+        {
+            Id = new Guid("e9c21e27-a987-4c6d-8d7d-1807ee9243ab"),
+            Name = "Ac",
+            GameDetails= "game",
+            ReleaseDate= DateTime.UtcNow,
+        };
+
         [Fact]
-        public async Task AddGames()
+        public async Task AddGamesTest()
         {
             IGameRepository sut = GetInMemoryGameRepository();
             var guid = new Guid("e9c21e27-a987-4c6d-8d7d-1807ee9243ab");
-            Game game = new Game()
-            {
-                Id = new Guid("e9c21e27-a987-4c6d-8d7d-1807ee9243ab"),
-                Name = "Ac",
-                GameDetails= "game",
-                ReleaseDate= DateTime.UtcNow,
-            };
-
             await sut.CreateAsync(game);
             var savedGame = await sut.ReturnByIdAsync(guid);
             var list = await sut.ReturnAllAsync();
             Assert.Single(list);
             Assert.Equal("Ac", savedGame.Name);
+            Assert.Equal("game", savedGame.GameDetails);
+        }
+
+        [Fact]
+        public async Task DeleteGamesTest()
+        {
+            IGameRepository sut = GetInMemoryGameRepository();
+            var guid = new Guid("e9c21e27-a987-4c6d-8d7d-1807ee9243ab");
+            await sut.CreateAsync(game);
+            var savedGame = await sut.ReturnByIdAsync(guid);
+            await sut.DeleteAsync(savedGame);
+            var list = await sut.ReturnAllAsync();
+
+            Assert.Empty(list);
+        }
+
+        [Fact]
+        public async Task GetGameByIdTest()
+        {
+            IGameRepository sut = GetInMemoryGameRepository();
+            var guid = new Guid("e9c21e27-a987-4c6d-8d7d-1807ee9243ab");
+            await sut.CreateAsync(game);
+            var savedGame = await sut.ReturnByIdAsync(guid);
+
+            Assert.IsType<Game>(savedGame);
         }
 
         private IGameRepository GetInMemoryGameRepository()

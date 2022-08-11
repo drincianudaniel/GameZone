@@ -15,10 +15,6 @@ namespace GameZoneModels
         public ICollection<Review> Reviews { get; set; }
         public ICollection<Comment> Comments { get; set; }
         
-        public void AddDeveloper(Developer developer)
-        {
-            Developers.Add(developer);
-        }
 
         public void AddGenre(Genre genre)
         {

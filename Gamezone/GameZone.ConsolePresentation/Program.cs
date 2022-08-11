@@ -13,6 +13,7 @@ using GameZone.Application.Users.Queries.GetUsersList;
 using GameZone.Application.Comments.Commands.CreateComment;
 using GameZone.Application.Games.Queries.GetGamesList;
 using GameZone.Application.Developers.Commands.CreateDeveloper;
+using GameZone.Application.Platforms.Commands.CreatePlatform;
 
 namespace GameZone.ConsoleProject
 {
@@ -26,23 +27,38 @@ namespace GameZone.ConsoleProject
                 var services = scope.ServiceProvider;
                 var mediator = services.GetRequiredService<IMediator>();
 
-                /*  var adventure = await mediator.Send(new CreateGenreCommand
-                  {
-                      Name = "Adventure"
-                  });*/
+                /*var adventure = await mediator.Send(new CreateGenreCommand
+                {
+                    Name = "Actions"
+                });*/
+
+                /*var platform = await mediator.Send(new CreatePlatformCommand
+                {
+                    Name= "Pc"
+                });*/
+
                 var AdventureId = new Guid("9FD822B7-826E-43B1-9FFE-08DA792AEF73");
+                var ActionId = new Guid("97ae9a77-fb0a-4996-76c2-08da7b7557cd");
+
+                var Playstation = new Guid("BB03BFDB-2BCD-425A-394D-08DA7B7599EE");
+                var PC = new Guid("83C05113-FC33-4030-339A-08DA7B75A419");
+
                 var Adventure = await mediator.Send(new GetGenreByIdQuery
                 {
                     Id = AdventureId
                 });
 
-                /* var minecraft = await mediator.Send(new CreateGameCommand
-                 {
-                     Name = "Minecraft",
-                     ReleaseDate = new DateTime(2000, 06, 16),
-                     GameDetails = "Game Details",
-                     Genres = { Adventure }
-                 });*/
+                var UbisoftId = new Guid("D1589C7A-F8E8-4093-C3FC-08DA7AC8530D");
+
+           /*     var ac = await mediator.Send(new CreateGameCommand
+                {
+                    Name = "TEST GAME",
+                    ReleaseDate = new DateTime(2000, 06, 16),
+                    GameDetails = "Game Details",
+                    DeveloperList = { UbisoftId },
+                    GenreList = {AdventureId, ActionId},
+                    PlatformList = {Playstation,PC},
+                });*/
 
                 var minecraftId = new Guid("7A6CB079-A67B-43F4-8C4B-08DA7ABF3CAD");
 
@@ -70,18 +86,18 @@ namespace GameZone.ConsoleProject
                     Id = userId,
                 });
 
-               /* var commentId = await mediator.Send(new CreateCommentCommand
-                {
-                    UserId = user.Id,
-                    GameId = minecraft.Id,
-                    Content = "test test"
-                });*/
-
-                /* var developer = await mediator.Send(new CreateDeveloperCommand
+                /* var commentId = await mediator.Send(new CreateCommentCommand
                  {
-                     Name = "Ubisoft",
-                     HeadQuarters = "Montreal"
+                     UserId = user.Id,
+                     GameId = minecraft.Id,
+                     Content = "test test"
                  });*/
+
+                var developer = await mediator.Send(new CreateDeveloperCommand
+                {
+                    Name = "asdasdasd",
+                    HeadQuarters = "Montasdassadasreal"
+                });
                 ConsoleDisplay.DisplayGame(minecraft);
                 ConsoleDisplay.DisplayUser(user);
                 var users = await mediator.Send(new GetUsersListQuery());

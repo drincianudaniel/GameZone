@@ -9,10 +9,9 @@ namespace GameZone.Application.Games.Commands.CreateGame
         public string Name { get; set; } = string.Empty;
         public DateTime ReleaseDate { get; set; }
         public string GameDetails { get; set; } = string.Empty;
-        public ICollection<DeveloperDto> Developers { get; set; } = new List<DeveloperDto>();
-        public ICollection<GenreDto> Genres { get; set; } = new List<GenreDto>();
-        public ICollection<PlatformDto> Platforms { get; set; } = new List<PlatformDto>();
-        public ICollection<CommentDto> Comments { get; set; } = new List<CommentDto>();
+        public List<Guid> DeveloperList { get; set; } = new List<Guid>();
+        public List<Guid> GenreList { get; set; } = new List<Guid>();
+        public List<Guid> PlatformList { get; set; } = new List<Guid>();
 
     }
 }
