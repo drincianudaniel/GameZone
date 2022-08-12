@@ -2,7 +2,7 @@
 
 namespace GameZone.Application
 {
-    public interface IGameRepository
+    public interface IGameRepository : IBaseRepository<Game>
     {
         void AddDeveloper(Game game, Developer developer);
         Task AddDeveloperListAsync(Game game, List<Developer> developers);
@@ -11,10 +11,5 @@ namespace GameZone.Application
         Task AddPlatformAsync(Game game, Platform platform);
         Task AddPlatformListAsync(Game game, List<Platform> platforms);
         Task CalculateTotalRatingAsync(Game game);
-        Task CreateAsync(Game game);
-        Task DeleteAsync(Game game);
-        Task<IEnumerable<Game>> ReturnAllAsync();
-        Task<Game> ReturnByIdAsync(Guid id);
-        Task UpdateAsync(Game game);
     }
 }

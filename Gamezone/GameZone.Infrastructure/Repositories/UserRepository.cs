@@ -20,17 +20,25 @@ namespace GameZone.Infrastructure.Repositories
 
         public async Task<User> ReturnByIdAsync(Guid id)
         {
-            var userToReturn = _context.Users.Include("Games").Include("Comments").Where(user => user.Id == id).FirstOrDefaultAsync();
+            var userToReturn = await _context.Users
+                .Include(x => x.Games)
+                .Include(x => x.Comments)
+                .Include(x => x.Reviews)
+                .Where(user => user.Id == id).FirstOrDefaultAsync();
             if (userToReturn == null)
             {
                 throw new KeyNotFoundException("User not found");
             }
-            return await userToReturn;
+            return userToReturn;
         }
 
         public async Task<IEnumerable<User>> ReturnAllAsync()
         {
-            return await _context.Users.Include("Games").Include("Comments").ToListAsync();
+            return await _context.Users
+                .Include(x => x.Games)
+                .Include(x => x.Comments)
+                .Include(x => x.Reviews)
+                .ToListAsync();
         }
 
         public async Task UpdateAsync(User user)

@@ -2,12 +2,7 @@
 
 namespace GameZone.Application
 {
-    public interface IReviewRepository
+    public interface IReviewRepository : IBaseRepository<Review>
     {
-        Task CreateAsync(Review review);
-        Task DeleteAsync(Review review);
-        Task<IEnumerable<Review>> ReturnAllAsync();
-        Task<Review> ReturnByIdAsync(Guid id);
-        Task UpdateAsync(Review review);
     }
 }

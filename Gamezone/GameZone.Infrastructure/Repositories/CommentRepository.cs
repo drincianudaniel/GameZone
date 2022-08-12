@@ -22,17 +22,21 @@ namespace GameZone.Infrastructure.Repositories
 
         public async Task<Comment> ReturnByIdAsync(Guid id)
         {
-            var commentToReturn = _context.Comments.Where(comment => comment.Id == id).FirstOrDefaultAsync();
+            var commentToReturn = await _context.Comments
+                .Where(comment => comment.Id == id)
+                .Include(x => x.Replies)
+                .Include(x => x.User)
+                .FirstOrDefaultAsync();
             if (commentToReturn == null)
             {
                 throw new KeyNotFoundException("Comment not found");
             }
-            return await commentToReturn;
+            return commentToReturn;
         }
 
         public async Task<IEnumerable<Comment>> ReturnAllAsync()
         {
-            return await _context.Comments.ToListAsync();
+            return await _context.Comments.Include(x => x.Replies).ToListAsync();
         }
         
         public async Task UpdateAsync(Comment comment)

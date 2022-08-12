@@ -22,16 +22,16 @@ namespace GameZone.Infrastructure.Repositories
 
         public async Task<Developer> ReturnByIdAsync(Guid id)
         {
-            var developerToReturn = _context.Developers.Where(developer => developer.Id == id).FirstOrDefaultAsync();
+            var developerToReturn = await _context.Developers.Include(x => x.Games).Where(developer => developer.Id == id).FirstOrDefaultAsync();
             if (developerToReturn == null)
             {
                 throw new KeyNotFoundException("Developer not found");
             }
-            return await developerToReturn;
+            return developerToReturn;
         }
         public async Task<IEnumerable<Developer>> ReturnAllAsync()
         {
-            return await _context.Developers.ToListAsync();
+            return await _context.Developers.Include(x => x.Games).ToListAsync();
         }
         public async Task UpdateAsync(Developer developer)
         {

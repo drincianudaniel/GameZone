@@ -1,20 +1,10 @@
-﻿using Microsoft.Extensions.Hosting;
-using Microsoft.AspNetCore.Hosting;
-using GameZone.ConsolePresentation;
+﻿using GameZone.ConsolePresentation;
 using MediatR;
-using GameZone.Application.Games.Commands.CreateGame;
 using GameZone.Application.Games.Queries.GetGameById;
-using GameZone.Application.Genres.Commands.CreateGenre;
 using GameZone.Application.Genres.Queries.GetGenreById;
-using GameZone.Application.Users.Commands.CreateUser;
-using GameZone.Application.DTOs;
 using GameZone.Application.Users.Queries.GetUserById;
 using GameZone.Application.Users.Queries.GetUsersList;
-using GameZone.Application.Comments.Commands.CreateComment;
 using GameZone.Application.Games.Queries.GetGamesList;
-using GameZone.Application.Developers.Commands.CreateDeveloper;
-using GameZone.Application.Platforms.Commands.CreatePlatform;
-using GameZone.Application.Reviews.Commands.CreateReview;
 
 namespace GameZone.ConsoleProject
 {
@@ -68,7 +58,13 @@ namespace GameZone.ConsoleProject
                     Id= minecraftId,
                 });
 
-               
+                var TestGameId = new Guid("ED3011BA-8A71-449F-94A1-08DA7B75E7C7");
+
+                var ac = await mediator.Send(new GetGameByIdQuery
+                {
+                    Id= TestGameId,
+                });
+
                 /*  var user1Id = await mediator.Send(new CreateUserCommand
                  {
                      Username = "Regular User",
@@ -101,12 +97,13 @@ namespace GameZone.ConsoleProject
                     Rating = 8,
                     Content = "average game"
                 });*/
-                var developer = await mediator.Send(new CreateDeveloperCommand
+                /*var developer = await mediator.Send(new CreateDeveloperCommand
                 {
                     Name = "asdasdasd",
                     HeadQuarters = "Montasdassadasreal"
-                });
+                });*/
                 ConsoleDisplay.DisplayGame(minecraft);
+                ConsoleDisplay.DisplayGame(ac);
                 ConsoleDisplay.DisplayUser(user);
                 var users = await mediator.Send(new GetUsersListQuery());
                 ConsoleDisplay.DisplayUsers(users);

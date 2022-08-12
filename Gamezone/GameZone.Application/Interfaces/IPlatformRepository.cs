@@ -2,12 +2,7 @@
 
 namespace GameZone.Application
 {
-    public interface IPlatformRepository
+    public interface IPlatformRepository : IBaseRepository<Platform>
     {
-        Task CreateAsync(Platform platform);
-        Task DeleteAsync(Platform platform);
-        Task<IEnumerable<Platform>> ReturnAllAsync();
-        Task<Platform> ReturnByIdAsync(Guid id);
-        Task UpdateAsync(Platform platform);
     }
 }

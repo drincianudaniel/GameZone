@@ -12,6 +12,5 @@ namespace GameZone.Application.Games.Commands.CreateGame
         public List<Guid> DeveloperList { get; set; } = new List<Guid>();
         public List<Guid> GenreList { get; set; } = new List<Guid>();
         public List<Guid> PlatformList { get; set; } = new List<Guid>();
-
     }
 }

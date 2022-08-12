@@ -22,12 +22,12 @@ namespace GameZone.Infrastructure.Repositories
 
         public async Task<Reply> ReturnByIdAsync(Guid id)
         {
-            var replyToReturn = _context.Replies.Where(reply => reply.Id == id).FirstOrDefaultAsync();
+            var replyToReturn = await _context.Replies.Where(reply => reply.Id == id).FirstOrDefaultAsync();
             if (replyToReturn == null)
             {
                 throw new KeyNotFoundException("Reply not found");
             }
-            return await replyToReturn;
+            return replyToReturn;
         }
 
         public async Task<IEnumerable<Reply>> ReturnAllAsync()

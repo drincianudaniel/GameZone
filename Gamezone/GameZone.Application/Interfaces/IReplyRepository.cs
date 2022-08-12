@@ -2,12 +2,7 @@
 
 namespace GameZone.Application
 {
-    public interface IReplyRepository
+    public interface IReplyRepository : IBaseRepository<Reply>
     {
-        Task CreateAsync(Reply reply);
-        Task DeleteAsync(Reply reply);
-        Task<IEnumerable<Reply>> ReturnAllAsync();
-        Task<Reply> ReturnByIdAsync(Guid id);
-        Task UpdateAsync(Reply reply);
     }
 }

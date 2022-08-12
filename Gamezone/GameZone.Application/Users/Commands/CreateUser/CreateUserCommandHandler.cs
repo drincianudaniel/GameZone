@@ -13,8 +13,7 @@ namespace GameZone.Application.Users.Commands.CreateUser
         }
         public async Task<Guid> Handle(CreateUserCommand request, CancellationToken cancellationToken)
         {
-            var games = request.FavoriteGames.Select(gameDto => new Game { Name = gameDto.Name, ReleaseDate = gameDto.ReleaseDate, GameDetails = gameDto.GameDetails, Developers = gameDto.Developers, Genres = gameDto.Genres, Platforms = gameDto.Platforms});
-            var user = new User { Email = request.Email, Username = request.Username, Password = request.Password, FirstName = request.FirstName, LastName = request.LastName, Role = request.Role, Games = games.ToList() };
+            var user = new User { Email = request.Email, Username = request.Username, Password = request.Password, FirstName = request.FirstName, LastName = request.LastName, Role = request.Role};
             await _userRepository.CreateAsync(user);
             return user.Id;
         }

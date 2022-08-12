@@ -22,17 +22,33 @@ namespace GameZone.Infrastructure.Repositories
 
         public async Task<Game> ReturnByIdAsync(Guid id)
         {
-            var gameToReturn = _context.Games.Include("Genres").Include("Platforms").Include("Developers").Include("Comments").Include("Users").Include("Reviews").Where(game => game.Id == id).FirstOrDefaultAsync();
+            var gameToReturn = await _context.Games
+                .Where(x => x.Id == id)
+                .Include(x => x.Genres)
+                .Include(x => x.Platforms)
+                .Include(x => x.Developers)
+                .Include(x => x.Comments)
+                .Include(x => x.Users)
+                .Include(x => x.Reviews)
+                .FirstOrDefaultAsync();
+
             if (gameToReturn == null)
             {
                 throw new KeyNotFoundException("Game not found");
             }
-            return await gameToReturn;
+            return gameToReturn;
         }
 
         public async Task<IEnumerable<Game>> ReturnAllAsync()
         {
-            return await _context.Games.Include("Genres").Include("Platforms").Include("Developers").Include("Comments").Include("Users").Include("Reviews").ToListAsync();
+            return await _context.Games
+                .Include(x => x.Genres)
+                .Include(x => x.Platforms)
+                .Include(x => x.Developers)
+                .Include(x => x.Comments)
+                .Include(x => x.Users)
+                .Include(x => x.Reviews)
+                .ToListAsync();
         }
 
         public async Task DeleteAsync(Game game)

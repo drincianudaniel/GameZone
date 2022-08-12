@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameZone.Domain", "..\GameZ
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameZone.Application", "..\GameZone.Application\GameZone.Application.csproj", "{394766F3-FFF7-4963-8C7E-360606D52F0A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameZone.Tests", "..\GameZone.Tests\GameZone.Tests.csproj", "{9217E9CD-332D-41BD-9086-DA18B15AA81B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameZone.Tests", "..\GameZone.Tests\GameZone.Tests.csproj", "{9217E9CD-332D-41BD-9086-DA18B15AA81B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameZone.Api", "..\GameZone.Api\GameZone.Api.csproj", "{90240CD1-CC10-46DA-BBFE-7F62E152BDB8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{9217E9CD-332D-41BD-9086-DA18B15AA81B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9217E9CD-332D-41BD-9086-DA18B15AA81B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9217E9CD-332D-41BD-9086-DA18B15AA81B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{90240CD1-CC10-46DA-BBFE-7F62E152BDB8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{90240CD1-CC10-46DA-BBFE-7F62E152BDB8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{90240CD1-CC10-46DA-BBFE-7F62E152BDB8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{90240CD1-CC10-46DA-BBFE-7F62E152BDB8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

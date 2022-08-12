@@ -2,10 +2,8 @@ using GameZone.Application;
 using GameZone.Infrastructure;
 using GameZone.Infrastructure.Repositories;
 using GameZoneModels;
-using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -37,6 +35,9 @@ namespace GameZone.Tests
         [Fact]
         public async Task DeleteGamesTest()
         {
+            // arange: one game exists
+            // action: delete
+            // assert empty
             IGameRepository sut = GetInMemoryGameRepository();
             var guid = new Guid("e9c21e27-a987-4c6d-8d7d-1807ee9243ab");
             await sut.CreateAsync(game);
@@ -50,6 +51,7 @@ namespace GameZone.Tests
         [Fact]
         public async Task GetGameByIdTest()
         {
+            // expectedId = x;
             IGameRepository sut = GetInMemoryGameRepository();
             var guid = new Guid("e9c21e27-a987-4c6d-8d7d-1807ee9243ab");
             await sut.CreateAsync(game);
