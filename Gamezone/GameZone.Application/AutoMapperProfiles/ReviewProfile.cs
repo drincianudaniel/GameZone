@@ -8,7 +8,9 @@ namespace GameZone.Application.AutoMapperProfiles
     {
         public ReviewProfile()
         {
-            CreateMap<Review, ReviewDto>();
+            CreateMap<Review, ReviewDto>()
+                .ForMember(c => c.Username, opt => opt.MapFrom(s => s.User.Username))
+                .ForMember(c => c.Gamename, opt => opt.MapFrom(s => s.Game.Name));
             CreateMap<ReviewDto, Review>();
         }
     }

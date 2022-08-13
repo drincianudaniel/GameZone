@@ -5,6 +5,8 @@ using GameZone.Application.Genres.Queries.GetGenreById;
 using GameZone.Application.Users.Queries.GetUserById;
 using GameZone.Application.Users.Queries.GetUsersList;
 using GameZone.Application.Games.Queries.GetGamesList;
+using GameZone.Application.Users.Commands.CreateUser;
+using GameZone.Application.Comments.Commands.CreateComment;
 
 namespace GameZone.ConsoleProject
 {
@@ -28,7 +30,7 @@ namespace GameZone.ConsoleProject
                     Name= "Pc"
                 });*/
 
-                var AdventureId = new Guid("9FD822B7-826E-43B1-9FFE-08DA792AEF73");
+                /*var AdventureId = new Guid("9FD822B7-826E-43B1-9FFE-08DA792AEF73");
                 var ActionId = new Guid("97ae9a77-fb0a-4996-76c2-08da7b7557cd");
 
                 var Playstation = new Guid("BB03BFDB-2BCD-425A-394D-08DA7B7599EE");
@@ -39,77 +41,80 @@ namespace GameZone.ConsoleProject
                     Id = AdventureId
                 });
 
-                var UbisoftId = new Guid("D1589C7A-F8E8-4093-C3FC-08DA7AC8530D");
+                var UbisoftId = new Guid("D1589C7A-F8E8-4093-C3FC-08DA7AC8530D");*/
 
-           /*     var ac = await mediator.Send(new CreateGameCommand
-                {
-                    Name = "TEST GAME",
-                    ReleaseDate = new DateTime(2000, 06, 16),
-                    GameDetails = "Game Details",
-                    DeveloperList = { UbisoftId },
-                    GenreList = {AdventureId, ActionId},
-                    PlatformList = {Playstation,PC},
-                });*/
+                /*     var ac = await mediator.Send(new CreateGameCommand
+                     {
+                         Name = "TEST GAME",
+                         ReleaseDate = new DateTime(2000, 06, 16),
+                         GameDetails = "Game Details",
+                         DeveloperList = { UbisoftId },
+                         GenreList = {AdventureId, ActionId},
+                         PlatformList = {Playstation,PC},
+                     });*/
 
-                var minecraftId = new Guid("7A6CB079-A67B-43F4-8C4B-08DA7ABF3CAD");
+                /*    var minecraftId = new Guid("7A6CB079-A67B-43F4-8C4B-08DA7ABF3CAD");
 
-                var minecraft = await mediator.Send(new GetGameByIdQuery
-                {
-                    Id= minecraftId,
-                });
+                    var minecraft = await mediator.Send(new GetGameByIdQuery
+                    {
+                        Id= minecraftId,
+                    });
 
-                var TestGameId = new Guid("ED3011BA-8A71-449F-94A1-08DA7B75E7C7");
+                    var TestGameId = new Guid("ED3011BA-8A71-449F-94A1-08DA7B75E7C7");
 
-                var ac = await mediator.Send(new GetGameByIdQuery
-                {
-                    Id= TestGameId,
-                });
+                    var ac = await mediator.Send(new GetGameByIdQuery
+                    {
+                        Id= TestGameId,
+                    });*/
 
-                /*  var user1Id = await mediator.Send(new CreateUserCommand
+                /*    var user1Id = await mediator.Send(new CreateUserCommand
+                    {
+                        Username = "Dani",
+                        Email = "Dani@gmail.com",
+                        Password = "password",
+                        FirstName = "Dani",
+                        LastName = "Dani",
+                        Role = "Admin",
+
+                    });*/
+
+
+                /*  var userId = new Guid("C097E69D-4EE3-4386-8434-08DA7D0383A0");
+                  var user = await mediator.Send(new GetUserByIdQuery
+                  {
+                      Id = userId,
+                  });
+
+                  var commentId = await mediator.Send(new CreateCommentCommand
+                  {
+                      UserId = user.Id,
+                      GameId = ac.Id,
+                      Content = "COMMENT"
+                  });*/
+                /* var review = await mediator.Send(new CreateReviewCommand
                  {
-                     Username = "Regular User",
-                     Email = "regularuser@gmail.com",
-                     Password = "password",
-                     FirstName = "Regular",
-                     LastName = "User",
-                     Role = "Admin",
-                     FavoriteGames =  { minecraft }
-
-                 });
- */
-
-                var userId = new Guid("01114767-38B3-4207-4CFA-08DA792B9F95");
-                var user = await mediator.Send(new GetUserByIdQuery
-                {
-                    Id = userId,
-                });
-
-                /* var commentId = await mediator.Send(new CreateCommentCommand
-                 {
-                     UserId = user.Id,
-                     GameId = minecraft.Id,
-                     Content = "test test"
+                     GameId = minecraftId,
+                     UserId = userId,
+                     Rating = 8,
+                     Content = "average game"
                  });*/
-               /* var review = await mediator.Send(new CreateReviewCommand
-                {
-                    GameId = minecraftId,
-                    UserId = userId,
-                    Rating = 8,
-                    Content = "average game"
-                });*/
                 /*var developer = await mediator.Send(new CreateDeveloperCommand
                 {
                     Name = "asdasdasd",
                     HeadQuarters = "Montasdassadasreal"
                 });*/
-                ConsoleDisplay.DisplayGame(minecraft);
-                ConsoleDisplay.DisplayGame(ac);
-                ConsoleDisplay.DisplayUser(user);
-                var users = await mediator.Send(new GetUsersListQuery());
-                ConsoleDisplay.DisplayUsers(users);
-
-                var games = await mediator.Send(new GetGameListQuery());
-                ConsoleDisplay.DisplayGames(games);
+                /*    ConsoleDisplay.DisplayGame(minecraft);
+                    ConsoleDisplay.DisplayGame(ac);
+                    ConsoleDisplay.DisplayUser(user);
+                    var users = await mediator.Send(new GetUsersListQuery());
+                    ConsoleDisplay.DisplayUsers(users);*/
+                var id = new Guid("C097E69D-4EE3-4386-8434-08DA7D0383A0");
+                var user = await mediator.Send(new GetUserByIdQuery
+                {
+                    Id = id
+                });
+                /*var games = await mediator.Send(new GetGameListQuery());
+                ConsoleDisplay.DisplayGames(games);*/
             }
             host.Run();
             //var mediator = diContainer.GetRequiredService<IMediator>();

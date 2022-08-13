@@ -1,5 +1,4 @@
 ﻿using GameZone.Application;
-using GameZone.Domain;
 using GameZoneModels;
 using Microsoft.EntityFrameworkCore;
 
@@ -23,13 +22,13 @@ namespace GameZone.Infrastructure.Repositories
         public async Task<Game> ReturnByIdAsync(Guid id)
         {
             var gameToReturn = await _context.Games
-                .Where(x => x.Id == id)
+                .Include(x => x.Users)
                 .Include(x => x.Genres)
                 .Include(x => x.Platforms)
                 .Include(x => x.Developers)
-                .Include(x => x.Comments)
-                .Include(x => x.Users)
-                .Include(x => x.Reviews)
+                .Include(x => x.Comments).ThenInclude(m => m.User)
+                .Include(x => x.Reviews).ThenInclude(x => x.User)
+                .Where(x => x.Id == id)
                 .FirstOrDefaultAsync();
 
             if (gameToReturn == null)
@@ -45,9 +44,9 @@ namespace GameZone.Infrastructure.Repositories
                 .Include(x => x.Genres)
                 .Include(x => x.Platforms)
                 .Include(x => x.Developers)
-                .Include(x => x.Comments)
+                .Include(x => x.Comments).ThenInclude(m => m.User)
                 .Include(x => x.Users)
-                .Include(x => x.Reviews)
+                .Include(x => x.Reviews).ThenInclude(x => x.User)
                 .ToListAsync();
         }
 
@@ -108,13 +107,13 @@ namespace GameZone.Infrastructure.Repositories
 
         public async Task AddGenreAsync(Game game, Genre genre)
         {
-            game.AddGenre(genre);
+            game.Genres.Add(genre);
             await _context.SaveChangesAsync();
         }
 
         public async Task AddPlatformAsync(Game game, Platform platform)
         {
-            game.AddPlatform(platform);
+            game.Platforms.Add(platform);
             await _context.SaveChangesAsync();
         }
 

@@ -26,6 +26,7 @@ namespace GameZone.Infrastructure.Repositories
                 .Where(comment => comment.Id == id)
                 .Include(x => x.Replies)
                 .Include(x => x.User)
+                .Include(x => x.Game)
                 .FirstOrDefaultAsync();
             if (commentToReturn == null)
             {
@@ -36,7 +37,11 @@ namespace GameZone.Infrastructure.Repositories
 
         public async Task<IEnumerable<Comment>> ReturnAllAsync()
         {
-            return await _context.Comments.Include(x => x.Replies).ToListAsync();
+            return await _context.Comments
+                .Include(x => x.Replies)
+                .Include(x => x.User)
+                .Include(x => x.Game)
+                .ToListAsync();
         }
         
         public async Task UpdateAsync(Comment comment)

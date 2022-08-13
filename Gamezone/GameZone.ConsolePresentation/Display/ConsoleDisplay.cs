@@ -36,18 +36,18 @@ namespace GameZone.ConsoleProject
 
             foreach (var comment in game.Comments)
             {
-                Console.Write($"User: {comment.User.Username}: {comment.Content}");
+                Console.Write($"User: {comment.Username}: {comment.Content}");
                 Console.WriteLine(" ");
             }
 
             Console.WriteLine("Reviews:");
             Console.WriteLine(" ");
 
-            foreach (var review in game.Reviews)
+         /*   foreach (var review in game.Reviews)
             {
                 Console.Write($"User: {review.User.Username}: {review.Rating} {review.Content}");
                 Console.WriteLine(" ");
-            }
+            }*/
         }
 
         public static void DisplayDeveloper(DeveloperDto developer)

@@ -15,15 +15,5 @@ namespace GameZoneModels
         public ICollection<Review> Reviews { get; set; }
         public ICollection<Comment> Comments { get; set; }
         
-
-        public void AddGenre(Genre genre)
-        {
-            Genres.Add(genre);
-        }
-
-        public void AddPlatform(Platform platform)
-        {
-            Platforms.Add(platform);
-        }
     }
 }

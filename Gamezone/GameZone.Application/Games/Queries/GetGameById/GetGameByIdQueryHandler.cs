@@ -24,3 +24,4 @@ namespace GameZone.Application.Games.Queries.GetGameById
         }
     }
 }
+
