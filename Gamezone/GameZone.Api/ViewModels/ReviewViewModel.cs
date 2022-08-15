@@ -1,10 +1,6 @@
-﻿using GameZone.Application.DTOs;
-using MediatR;
-
-
-namespace GameZone.Application.Reviews.Commands.CreateReview
+﻿namespace GameZone.Api.ViewModels
 {
-    public class CreateReviewCommand : IRequest<ReviewDto>
+    public class ReviewViewModel
     {
         public Guid UserId { get; set; }
         public Guid GameId { get; set; }

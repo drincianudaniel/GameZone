@@ -1,10 +1,11 @@
 ﻿using AutoMapper;
+using GameZone.Application.DTOs;
 using GameZoneModels;
 using MediatR;
 
 namespace GameZone.Application.Comments.Commands.CreateComment
 {
-    public class CreateCommentCommandHandler : IRequestHandler<CreateCommentCommand, Guid>
+    public class CreateCommentCommandHandler : IRequestHandler<CreateCommentCommand, CommentDto>
     {
         private readonly ICommentRepository _commentRepository;
         private readonly IGameRepository _gameRepository;
@@ -19,7 +20,7 @@ namespace GameZone.Application.Comments.Commands.CreateComment
             _userRepository=userRepository;
         }
 
-        public async Task<Guid> Handle(CreateCommentCommand request, CancellationToken cancellationToken)
+        public async Task<CommentDto> Handle(CreateCommentCommand request, CancellationToken cancellationToken)
         {
             var user = await _userRepository.ReturnByIdAsync(request.UserId);
             var game = await _gameRepository.ReturnByIdAsync(request.GameId);
@@ -27,7 +28,9 @@ namespace GameZone.Application.Comments.Commands.CreateComment
             var gameDto = _mapper.Map<Game>(game);
             var comment = new Comment { User = userDto, Game= gameDto, Content = request.Content };
             await _commentRepository.CreateAsync(comment);
-            return comment.Id;
+
+            var commentDto = _mapper.Map<CommentDto>(comment);
+            return commentDto;
         }
     }
 }

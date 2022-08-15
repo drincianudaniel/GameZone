@@ -7,13 +7,11 @@ namespace GameZone.Application.Users.Commands.AddFavoriteGame
     {
         private readonly IUserRepository _userRepository;
         private readonly IGameRepository _gameRepository;
-        private readonly IMapper _mapper;
 
-        public AddFavoriteGameCommandHandler(IUserRepository userRepository, IGameRepository gameRepository, IMapper mapper)
+        public AddFavoriteGameCommandHandler(IUserRepository userRepository, IGameRepository gameRepository)
         {
             _userRepository = userRepository;
             _gameRepository = gameRepository;
-            _mapper = mapper;
         }
         public async Task<Guid> Handle(AddFavoriteGameCommand request, CancellationToken cancellationToken)
         {

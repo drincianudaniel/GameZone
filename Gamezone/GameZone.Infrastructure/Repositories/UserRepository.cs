@@ -61,6 +61,12 @@ namespace GameZone.Infrastructure.Repositories
             await _context.SaveChangesAsync();
         }
 
+        public async Task RemoveGameFromFavorites(User user, Game favoriteGame)
+        {
+            user.Games.Remove(favoriteGame);
+            await _context.SaveChangesAsync();
+        }
+
         /*public void PostComment(Game gameToBeCommented, Comment comment)
         {
             gameToBeCommented.Comments.Add(comment);

@@ -1,21 +1,26 @@
-﻿using GameZoneModels;
+﻿using AutoMapper;
+using GameZone.Application.DTOs;
+using GameZoneModels;
 using MediatR;
 
 namespace GameZone.Application.Users.Commands.CreateUser
 {
-    public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, Guid>
+    public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, UserDto>
     {
         private readonly IUserRepository _userRepository;
+        private readonly IMapper _mapper;
 
-        public CreateUserCommandHandler(IUserRepository userRepository)
+        public CreateUserCommandHandler(IUserRepository userRepository, IMapper mapper)
         {
             _userRepository = userRepository;
+            _mapper=mapper;
         }
-        public async Task<Guid> Handle(CreateUserCommand request, CancellationToken cancellationToken)
+        public async Task<UserDto> Handle(CreateUserCommand request, CancellationToken cancellationToken)
         {
             var user = new User { Email = request.Email, Username = request.Username, Password = request.Password, FirstName = request.FirstName, LastName = request.LastName, Role = request.Role};
             await _userRepository.CreateAsync(user);
-            return user.Id;
+            var userDto = _mapper.Map<UserDto>(user);
+            return userDto;
         }
     }
 }

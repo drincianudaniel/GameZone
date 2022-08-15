@@ -1,8 +1,9 @@
-﻿using MediatR;
+﻿using GameZone.Application.DTOs;
+using MediatR;
 
 namespace GameZone.Application.Developers.Commands.CreateDeveloper
 {
-    public class CreateDeveloperCommand : IRequest<Guid>
+    public class CreateDeveloperCommand : IRequest<DeveloperDto>
     {
         public string Name { get; set; } = string.Empty;
         public string HeadQuarters { get; set; } = string.Empty;
