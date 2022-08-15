@@ -27,6 +27,7 @@ namespace GameZone.Infrastructure.Repositories
                 .Include(x => x.Platforms)
                 .Include(x => x.Developers)
                 .Include(x => x.Comments).ThenInclude(m => m.User)
+                .Include(x => x.Comments).ThenInclude(m => m.Replies).ThenInclude(m => m.User)
                 .Include(x => x.Reviews).ThenInclude(x => x.User)
                 .Where(x => x.Id == id)
                 .FirstOrDefaultAsync();
@@ -45,6 +46,7 @@ namespace GameZone.Infrastructure.Repositories
                 .Include(x => x.Platforms)
                 .Include(x => x.Developers)
                 .Include(x => x.Comments).ThenInclude(m => m.User)
+                .Include(x => x.Comments).ThenInclude(m => m.Replies).ThenInclude(m => m.User)
                 .Include(x => x.Users)
                 .Include(x => x.Reviews).ThenInclude(x => x.User)
                 .ToListAsync();

@@ -66,34 +66,5 @@ namespace GameZone.Infrastructure.Repositories
             user.Games.Remove(favoriteGame);
             await _context.SaveChangesAsync();
         }
-
-        /*public void PostComment(Game gameToBeCommented, Comment comment)
-        {
-            gameToBeCommented.Comments.Add(comment);
-        }
-
-        public void PostReply(Comment comment, Reply reply)
-        {
-            comment.Replies.Add(reply);
-        }
-
-        public void PostReview(Game gameToBeReviewd, Review review)
-        {
-            gameToBeReviewd.Reviews.Add(review);
-        }
-
-        public void DeleteComment(User userToDeleteComment, Game game, Comment comment)
-        {
-            if (userToDeleteComment.Role == "Admin")
-            {
-                game.Comments.Remove(comment);
-            }
-            else
-            {
-                throw new UnauthorizedAccessException("User not authorized");
-            }
-        }
-
-       */
     }
 }

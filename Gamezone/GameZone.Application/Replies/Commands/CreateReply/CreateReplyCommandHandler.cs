@@ -1,10 +1,11 @@
 ﻿using AutoMapper;
+using GameZone.Application.DTOs;
 using GameZoneModels;
 using MediatR;
 
 namespace GameZone.Application.Replies.Commands.CreateReply
 {
-    public class CreateReplyCommandHandler : IRequestHandler<CreateReplyCommand, Guid>
+    public class CreateReplyCommandHandler : IRequestHandler<CreateReplyCommand, ReplyDto>
     {
         private readonly IReplyRepository _replyRepository;
         private readonly IUserRepository _userRepository;
@@ -19,7 +20,7 @@ namespace GameZone.Application.Replies.Commands.CreateReply
             _mapper=mapper;
         }
 
-        public async Task<Guid> Handle(CreateReplyCommand request, CancellationToken cancellationToken)
+        public async Task<ReplyDto> Handle(CreateReplyCommand request, CancellationToken cancellationToken)
         {
             var user = await _userRepository.ReturnByIdAsync(request.UserId);
             var comment = await _commentRepository.ReturnByIdAsync(request.CommentId);
@@ -27,7 +28,9 @@ namespace GameZone.Application.Replies.Commands.CreateReply
             var commentDto = _mapper.Map<Comment>(comment);
             var reply = new Reply { User = userDto, Comment = commentDto, Content = request.Content };
             await _replyRepository.CreateAsync(reply);
-            return reply.Id;
+
+            var replyDto = _mapper.Map<ReplyDto>(reply);
+            return replyDto;
         }
     }
 }

@@ -8,6 +8,6 @@ namespace GameZone.Application.DTOs
         public string Username { get; set; }
         public string Gamename { get; set; }
         public string Content { get; set; }
-        public ICollection<Reply> Replies { get; set; } = new List<Reply>();
+        public ICollection<ReplyDto> Replies { get; set; } = new List<ReplyDto>();
     }
 }

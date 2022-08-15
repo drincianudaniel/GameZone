@@ -11,7 +11,6 @@ namespace GameZone.Application.DTOs
     {
         public Guid Id { get; set; }
         public string Content { get; set; }
-        public User User { get; set; }
-        public Comment Comment { get; set; }
+        public string Username { get; set; }
     }
 }

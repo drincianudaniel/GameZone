@@ -24,7 +24,7 @@ namespace GameZone.Infrastructure.Repositories
         {
             var commentToReturn = await _context.Comments
                 .Where(comment => comment.Id == id)
-                .Include(x => x.Replies)
+                .Include(x => x.Replies).ThenInclude(x => x.User)
                 .Include(x => x.User)
                 .Include(x => x.Game)
                 .FirstOrDefaultAsync();
@@ -38,7 +38,7 @@ namespace GameZone.Infrastructure.Repositories
         public async Task<IEnumerable<Comment>> ReturnAllAsync()
         {
             return await _context.Comments
-                .Include(x => x.Replies)
+                .Include(x => x.Replies).ThenInclude(x => x.User)
                 .Include(x => x.User)
                 .Include(x => x.Game)
                 .ToListAsync();
