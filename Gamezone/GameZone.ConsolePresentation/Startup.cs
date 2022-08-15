@@ -20,7 +20,7 @@ namespace GameZone.ConsolePresentation
             services.AddScoped<ICommentRepository, CommentRepository>();
             services.AddScoped<IReviewRepository, ReviewRepository>();
             services.AddScoped<IReplyRepository, ReplyRepository>();
-            services.AddDbContext<GameZoneContext>(options => options.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=GameZoneTest;Trusted_Connection=True;ConnectRetryCount=0"));
+            services.AddDbContext<GameZoneContext>(options => options.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=GameZone;Trusted_Connection=True;ConnectRetryCount=0"));
             
         }
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

@@ -5,7 +5,7 @@ using MediatR;
 
 namespace GameZone.Application.Platforms.Queries.GetPlatformById
 {
-    internal class GetPlatformByIdQueryHandler : IRequestHandler<GetPlatformByIdQuery, PlatformDto>
+    public class GetPlatformByIdQueryHandler : IRequestHandler<GetPlatformByIdQuery, PlatformDto>
     {
         private readonly IPlatformRepository _platformRepository;
         private readonly IMapper _mapper;

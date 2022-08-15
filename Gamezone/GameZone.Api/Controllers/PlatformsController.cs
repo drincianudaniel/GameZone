@@ -1,22 +1,22 @@
 ﻿using AutoMapper;
-using GameZone.Application.Genres.Commands.CreateGenre;
-using GameZone.Application.Genres.Queries.GetGenreById;
-using GameZone.Api.ViewModels;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using GameZone.Application.Genres.Queries.GetGenresList;
-using GameZone.Application.Genres.Commands.DeleteGenre;
+using GameZone.Application.Platforms.Queries.GetPlatformById;
+using GameZone.Application.Platforms.Queries.GetPlatformsList;
+using GameZone.Api.ViewModels;
+using GameZone.Application.Platforms.Commands.CreatePlatform;
+using GameZone.Application.Platforms.Commands.DeletePlatform;
 
 namespace GameZone.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class GenresController : ControllerBase
+    public class PlatformsController : ControllerBase
     {
         public readonly IMapper _mapper;
         public readonly IMediator _mediator;
 
-        public GenresController(IMapper mapper, IMediator mediator)
+        public PlatformsController(IMapper mapper, IMediator mediator)
         {
             _mediator = mediator;
             _mapper = mapper;
@@ -26,31 +26,31 @@ namespace GameZone.Api.Controllers
         [Route("{Id}")]
         public async Task<IActionResult> GetById(Guid Id)
         {
-            var query = new GetGenreByIdQuery { Id = Id };
+            var query = new GetPlatformByIdQuery { Id = Id };
             var result = await _mediator.Send(query);
 
-            if(result == null)
+            if (result == null)
                 return NotFound();
 
             return Ok(result);
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetGenres()
+        public async Task<IActionResult> GetPlatforms()
         {
-            var result = await _mediator.Send(new GetGenresListQuery());
+            var result = await _mediator.Send(new GetPlatformsListQuery());
             return Ok(result);
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateGenre([FromBody] GenreViewModel genre)
+        public async Task<IActionResult> CreatePlatform([FromBody] PlatformViewModel platform)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var command = new CreateGenreCommand
+            var command = new CreatePlatformCommand
             {
-                Name = genre.Name,
+                Name = platform.Name,
             };
             var result = await _mediator.Send(command);
 
@@ -59,9 +59,9 @@ namespace GameZone.Api.Controllers
 
         [HttpDelete]
         [Route("{Id}")]
-        public async Task<IActionResult> DeleteGenre(Guid id)
+        public async Task<IActionResult> DeletePlatform(Guid id)
         {
-            var command = new DeleteGenreCommand { Id = id };
+            var command = new DeletePlatformCommand { Id = id };
             await _mediator.Send(command);
 
             return NoContent();

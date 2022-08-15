@@ -7,6 +7,7 @@ namespace GameZone.Application.DTOs
     {
         public Guid Id { get; set; }
         public string Name { get; set; } = string.Empty;
+        public string ImageSrc { get; set; } = string.Empty;
         public DateTime ReleaseDate { get; set; }
         public string GameDetails { get; set; } = string.Empty;
         public double TotalRating { get; set; }

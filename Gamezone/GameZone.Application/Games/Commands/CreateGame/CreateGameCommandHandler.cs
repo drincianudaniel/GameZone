@@ -1,27 +1,30 @@
 ﻿using AutoMapper;
+using GameZone.Application.DTOs;
 using GameZoneModels;
 using MediatR;
 
 namespace GameZone.Application.Games.Commands.CreateGame
 {
-    public class CreateGameCommandHandler : IRequestHandler<CreateGameCommand, Guid>
+    public class CreateGameCommandHandler : IRequestHandler<CreateGameCommand, GameDto>
     {
         private readonly IGameRepository _gameRepository;
         private readonly IDeveloperRepository _developerRepository;
         private readonly IGenreRepository _genreRepository;
         private readonly IPlatformRepository _platformRepository;
+        private readonly IMapper _mapper;
 
-        public CreateGameCommandHandler(IGameRepository gameRepository, IDeveloperRepository developerRepository, IGenreRepository genreRepository, IPlatformRepository platformRepository)
+        public CreateGameCommandHandler(IGameRepository gameRepository, IDeveloperRepository developerRepository, IGenreRepository genreRepository, IPlatformRepository platformRepository, IMapper mapper)
         {
             _gameRepository = gameRepository;
             _developerRepository=developerRepository;
             _genreRepository=genreRepository;
             _platformRepository=platformRepository;
+            _mapper=mapper;
         }
-        public async Task<Guid> Handle(CreateGameCommand request, CancellationToken cancellationToken)
+        public async Task<GameDto> Handle(CreateGameCommand request, CancellationToken cancellationToken)
         {
             
-            var game = new Game { Name = request.Name, ReleaseDate = request.ReleaseDate, GameDetails = request.GameDetails};
+            var game = new Game { Name = request.Name, ReleaseDate = request.ReleaseDate, ImageSrc = request.ImageSrc, GameDetails = request.GameDetails};
             await _gameRepository.CreateAsync(game);
             var gameToAdd = await _gameRepository.ReturnByIdAsync(game.Id);
 
@@ -58,7 +61,8 @@ namespace GameZone.Application.Games.Commands.CreateGame
                 await _gameRepository.AddPlatformListAsync(gameToAdd, platformList);
             }
 
-            return game.Id;
+            var gameDto = _mapper.Map<GameDto>(game);
+            return gameDto;
         }
     }
 }
