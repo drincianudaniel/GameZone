@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameZone.Application", "..\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameZone.Tests", "..\GameZone.Tests\GameZone.Tests.csproj", "{9217E9CD-332D-41BD-9086-DA18B15AA81B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameZone.Api", "..\GameZone.Api\GameZone.Api.csproj", "{90240CD1-CC10-46DA-BBFE-7F62E152BDB8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameZone.Api", "..\GameZone.Api\GameZone.Api.csproj", "{90240CD1-CC10-46DA-BBFE-7F62E152BDB8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

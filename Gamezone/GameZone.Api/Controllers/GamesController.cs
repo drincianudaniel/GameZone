@@ -2,6 +2,7 @@
 using GameZone.Api.ViewModels;
 using GameZone.Application.Games.Commands.CreateGame;
 using GameZone.Application.Games.Commands.DeleteGame;
+using GameZone.Application.Games.Commands.UpdateGame;
 using GameZone.Application.Games.Queries.GetGameById;
 using GameZone.Application.Games.Queries.GetGamesList;
 using GameZone.Application.Games.Queries.GetGamesTop;
@@ -73,6 +74,29 @@ namespace GameZone.Api.Controllers
             return CreatedAtAction(nameof(GetById), new { Id = result.Id }, result);
         }
 
+        // not fully working yet
+        [HttpPut]
+        [Route("{Id}")]
+        public async Task<IActionResult> UpdateGame(Guid Id, [FromBody] GameViewModel game)
+        {
+            var command = new UpdateGameCommand
+            {
+                Id = Id,
+                Name = game.Name,
+                ReleaseDate = game.ReleaseDate,
+                ImageSrc = game.ImageSrc,
+                GameDetails = game.GameDetails,
+                DeveloperList = game.DeveloperList,
+                GenreList = game.GenreList,
+                PlatformList = game.PlatformList,
+            };
+            var result = await _mediator.Send(command);
+
+            if (result == null)
+                return NotFound();
+
+            return NoContent();
+        }
 
         [HttpDelete]
         [Route("{Id}")]

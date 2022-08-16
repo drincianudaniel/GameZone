@@ -3,9 +3,9 @@ using GameZone.Application.DTOs;
 using GameZoneModels;
 using MediatR;
 
-namespace GameZone.Application.Games.Commands.CreateGame
+namespace GameZone.Application.Games.Commands.UpdateGame
 {
-    public class CreateGameCommandHandler : IRequestHandler<CreateGameCommand, GameDto>
+    public class UpdateGameCommandHandler : IRequestHandler<UpdateGameCommand, GameDto>
     {
         private readonly IGameRepository _gameRepository;
         private readonly IDeveloperRepository _developerRepository;
@@ -13,7 +13,7 @@ namespace GameZone.Application.Games.Commands.CreateGame
         private readonly IPlatformRepository _platformRepository;
         private readonly IMapper _mapper;
 
-        public CreateGameCommandHandler(IGameRepository gameRepository, IDeveloperRepository developerRepository,
+        public UpdateGameCommandHandler(IGameRepository gameRepository, IDeveloperRepository developerRepository,
             IGenreRepository genreRepository, IPlatformRepository platformRepository, IMapper mapper)
         {
             _gameRepository = gameRepository;
@@ -22,22 +22,25 @@ namespace GameZone.Application.Games.Commands.CreateGame
             _platformRepository=platformRepository;
             _mapper=mapper;
         }
-        public async Task<GameDto> Handle(CreateGameCommand request, CancellationToken cancellationToken)
+
+        public async Task<GameDto> Handle(UpdateGameCommand request, CancellationToken cancellationToken)
         {
-            
-            var game = new Game { Name = request.Name, ReleaseDate = request.ReleaseDate, ImageSrc = request.ImageSrc, GameDetails = request.GameDetails};
-            await _gameRepository.CreateAsync(game);
-            var gameToAdd = await _gameRepository.ReturnByIdAsync(game.Id);
+            var gameToUpdate = new Game();
+            gameToUpdate.Id = request.Id;
+            gameToUpdate.Name = request.Name;
+            gameToUpdate.ReleaseDate = request.ReleaseDate;
+            gameToUpdate.ImageSrc = request.ImageSrc;
+            gameToUpdate.GameDetails = request.ImageSrc;
 
             if (request.DeveloperList.Count != 0)
             {
                 var developerList = new List<Developer>();
-                foreach(var id in request.DeveloperList)
+                foreach (var id in request.DeveloperList)
                 {
                     var developerId = await _developerRepository.ReturnByIdAsync(id);
-                    developerList.Add(developerId);     
+                    developerList.Add(developerId);
                 }
-                await _gameRepository.AddDeveloperListAsync(gameToAdd, developerList);
+                await _gameRepository.AddDeveloperListAsync(gameToUpdate, developerList);
             }
 
             if (request.GenreList.Count != 0)
@@ -48,7 +51,7 @@ namespace GameZone.Application.Games.Commands.CreateGame
                     var genreId = await _genreRepository.ReturnByIdAsync(id);
                     genreList.Add(genreId);
                 }
-                await _gameRepository.AddGenreListAsync(gameToAdd, genreList);
+                await _gameRepository.AddGenreListAsync(gameToUpdate, genreList);
             }
 
             if (request.PlatformList.Count != 0)
@@ -59,10 +62,11 @@ namespace GameZone.Application.Games.Commands.CreateGame
                     var platformId = await _platformRepository.ReturnByIdAsync(id);
                     platformList.Add(platformId);
                 }
-                await _gameRepository.AddPlatformListAsync(gameToAdd, platformList);
+                await _gameRepository.AddPlatformListAsync(gameToUpdate, platformList);
             }
 
-            var gameDto = _mapper.Map<GameDto>(game);
+            await _gameRepository.UpdateAsync(gameToUpdate);
+            var gameDto = _mapper.Map<GameDto>(gameToUpdate);
             return gameDto;
         }
     }
