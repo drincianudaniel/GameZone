@@ -6,6 +6,7 @@ using GameZone.Application.Platforms.Queries.GetPlatformsList;
 using GameZone.Api.ViewModels;
 using GameZone.Application.Platforms.Commands.CreatePlatform;
 using GameZone.Application.Platforms.Commands.DeletePlatform;
+using GameZone.Application.Platforms.Commands.UpdatePlatform;
 
 namespace GameZone.Api.Controllers
 {
@@ -57,11 +58,28 @@ namespace GameZone.Api.Controllers
             return CreatedAtAction(nameof(GetById), new { Id = result }, result);
         }
 
+        [HttpPut]
+        [Route("{Id}")]
+        public async Task<IActionResult> UpdatePlatform(Guid Id, [FromBody] PlatformViewModel platform)
+        {
+            var command = new UpdatePlatformCommand
+            {
+                Id = Id,
+                Name= platform.Name
+            };
+            var result = await _mediator.Send(command);
+
+            if (result == null)
+                return NotFound();
+
+            return NoContent();
+        }
+
         [HttpDelete]
         [Route("{Id}")]
-        public async Task<IActionResult> DeletePlatform(Guid id)
+        public async Task<IActionResult> DeletePlatform(Guid Id)
         {
-            var command = new DeletePlatformCommand { Id = id };
+            var command = new DeletePlatformCommand { Id = Id };
             await _mediator.Send(command);
 
             return NoContent();

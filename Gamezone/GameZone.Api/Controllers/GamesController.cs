@@ -4,6 +4,7 @@ using GameZone.Application.Games.Commands.CreateGame;
 using GameZone.Application.Games.Commands.DeleteGame;
 using GameZone.Application.Games.Queries.GetGameById;
 using GameZone.Application.Games.Queries.GetGamesList;
+using GameZone.Application.Games.Queries.GetGamesTop;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -45,6 +46,14 @@ namespace GameZone.Api.Controllers
             return Ok(result);
         }
 
+        [HttpGet]
+        [Route("top")]
+        public async Task<IActionResult> GetTop()
+        {
+            var result = await _mediator.Send(new GetGamesTopQuery());
+            return Ok(result);
+        }
+
         [HttpPost]
         public async Task<IActionResult> CreateGame([FromBody] GameViewModel game)
         {
@@ -67,9 +76,9 @@ namespace GameZone.Api.Controllers
 
         [HttpDelete]
         [Route("{Id}")]
-        public async Task<IActionResult> DeleteGame(Guid id)
+        public async Task<IActionResult> DeleteGame(Guid Id)
         {
-            var command = new DeleteGameCommand { Id = id };
+            var command = new DeleteGameCommand { Id = Id };
             await _mediator.Send(command);
 
             return NoContent();

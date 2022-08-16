@@ -57,9 +57,9 @@ namespace GameZone.Api.Controllers
 
         [HttpDelete]
         [Route("{Id}")]
-        public async Task<IActionResult> DeleteDeveloper(Guid id)
+        public async Task<IActionResult> DeleteDeveloper(Guid Id)
         {
-            var command = new DeleteDeveloperCommand { Id = id };
+            var command = new DeleteDeveloperCommand { Id = Id };
             await _mediator.Send(command);
 
             return NoContent();

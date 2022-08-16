@@ -10,6 +10,8 @@ namespace GameZone.Application.AutoMapperProfiles
         {
             CreateMap<Game, GameDto>();
             CreateMap<GameDto, Game>();
+            CreateMap<SimpleGameDto,Game>();
+            CreateMap<Game, SimpleGameDto>();
         }
     }
 }

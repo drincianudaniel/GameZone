@@ -119,9 +119,9 @@ namespace GameZone.Infrastructure.Repositories
             await _context.SaveChangesAsync();
         }
 
-        /*public IEnumerable<Game> GenerateTopList()
+        public async Task<IEnumerable<Game>> GenerateTopList()
         {
-            return _context.Games.OrderByDescending(game => game.TotalRating).ToList();
-        }*/
+            return await _context.Games.OrderByDescending(game => game.TotalRating).ToListAsync();
+        }
     }
 }

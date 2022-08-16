@@ -6,6 +6,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using GameZone.Application.Genres.Queries.GetGenresList;
 using GameZone.Application.Genres.Commands.DeleteGenre;
+using GameZone.Application.Genres.Commands.UpdateGenre;
 
 namespace GameZone.Api.Controllers
 {
@@ -57,11 +58,28 @@ namespace GameZone.Api.Controllers
             return CreatedAtAction(nameof(GetById), new { Id = result }, result);
         }
 
+        [HttpPut]
+        [Route("{Id}")]
+        public async Task<IActionResult> UpdateGenre(Guid Id, [FromBody] GenreViewModel genre)
+        {
+            var command = new UpdateGenreCommand
+            {
+                Id = Id,
+                Name= genre.Name
+            };
+            var result = await _mediator.Send(command);
+
+            if (result == null)
+                return NotFound();
+
+            return NoContent();
+        }
+
         [HttpDelete]
         [Route("{Id}")]
-        public async Task<IActionResult> DeleteGenre(Guid id)
+        public async Task<IActionResult> DeleteGenre(Guid Id)
         {
-            var command = new DeleteGenreCommand { Id = id };
+            var command = new DeleteGenreCommand { Id = Id };
             await _mediator.Send(command);
 
             return NoContent();
