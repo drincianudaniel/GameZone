@@ -18,9 +18,12 @@ namespace GameZone.Infrastructure
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Reply>().HasOne(u => u.User).WithMany(u=> u.Replies).OnDelete(DeleteBehavior.Restrict);
-            modelBuilder.Entity<Reply>().HasOne(u => u.Comment).WithMany(u=> u.Replies).OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Reply>().HasOne(u => u.User).WithMany(u=> u.Replies).OnDelete(DeleteBehavior.NoAction);
+            modelBuilder.Entity<Reply>().HasOne(u => u.Comment).WithMany(u=> u.Replies).OnDelete(DeleteBehavior.NoAction);
             modelBuilder.Entity<Comment>().HasOne<User>(s => s.User).WithMany(g => g.Comments).HasForeignKey(s => s.UserId);
+
+            modelBuilder.Entity<Game>().HasAlternateKey(x => x.Name);
+            modelBuilder.Entity<User>().HasAlternateKey(x => x.Username);
             base.OnModelCreating(modelBuilder);
         }
     }
