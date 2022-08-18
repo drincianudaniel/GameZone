@@ -6,6 +6,7 @@ using GameZone.Application.Games.Commands.UpdateGame;
 using GameZone.Application.Games.Queries.GetGameById;
 using GameZone.Application.Games.Queries.GetGamesList;
 using GameZone.Application.Games.Queries.GetGamesTop;
+using GameZone.Application.Games.Queries.SearchGames;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -52,6 +53,18 @@ namespace GameZone.Api.Controllers
         public async Task<IActionResult> GetTop()
         {
             var result = await _mediator.Send(new GetGamesTopQuery());
+            return Ok(result);
+        }
+
+        [HttpGet]
+        [Route("search/{searchString}")]
+        public async Task<IActionResult> SearchGames(string searchString)
+        {
+            var result = await _mediator.Send(new SearchGamesQuery
+            {
+                searchString = searchString
+            });
+
             return Ok(result);
         }
 

@@ -101,10 +101,10 @@ namespace GameZone.Infrastructure.Repositories
 
             await _context.SaveChangesAsync();
         }
-        public void AddDeveloper(Game game, Developer developer)
+        public async Task AddDeveloper(Game game, Developer developer)
         {
             game.Developers.Add(developer);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
         public async Task AddGenreAsync(Game game, Genre genre)
@@ -119,9 +119,39 @@ namespace GameZone.Infrastructure.Repositories
             await _context.SaveChangesAsync();
         }
 
+        public async Task RemoveDeveloperAsync(Game game, Developer developer)
+        {
+            game.Developers.Remove(developer);
+            await _context.SaveChangesAsync();
+        }
+        
+        public async Task RemoveGenreAsync(Game game, Genre genre)
+        {
+            game.Genres.Remove(genre);
+            await _context.SaveChangesAsync();
+        }
+        
+        public async Task RemovePlatformAsync(Game game, Platform platform)
+        {
+            game.Platforms.Remove(platform);
+            await _context.SaveChangesAsync();
+        }
+
         public async Task<IEnumerable<Game>> GenerateTopList()
         {
             return await _context.Games.OrderByDescending(game => game.TotalRating).ToListAsync();
+        }
+
+        public async Task<IEnumerable<Game>> SearchGameAsync(string searchString)
+        {
+            var games = from g in _context.Games select g;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                games = games.Where(s => s.Name.Contains(searchString));
+            }
+
+            return await games.ToListAsync();
         }
     }
 }
