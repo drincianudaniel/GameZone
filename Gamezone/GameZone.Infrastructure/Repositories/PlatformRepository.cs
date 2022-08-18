@@ -21,7 +21,9 @@ namespace GameZone.Infrastructure.Repositories
 
         public async Task<Platform> ReturnByIdAsync(Guid id)
         {
-            var platformToReturn = await _context.Platforms.Include(x => x.Games).Where(p => p.Id == id).FirstOrDefaultAsync();
+            var platformToReturn = await _context.Platforms.Include(x => x.Games).Where(p => p.Id == id)
+                .AsNoTracking()
+                .FirstOrDefaultAsync();
             if (platformToReturn == null)
             {
                 throw new KeyNotFoundException("Platform not found");
@@ -30,7 +32,9 @@ namespace GameZone.Infrastructure.Repositories
         }
         public async Task<IEnumerable<Platform>> ReturnAllAsync()
         {
-            return await _context.Platforms.Include(x => x.Games).ToListAsync();
+            return await _context.Platforms.Include(x => x.Games)
+                .AsNoTracking()
+                .ToListAsync();
         }
         public async Task UpdateAsync(Platform platform)
         {

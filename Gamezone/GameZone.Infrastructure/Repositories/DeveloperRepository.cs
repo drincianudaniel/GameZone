@@ -22,7 +22,10 @@ namespace GameZone.Infrastructure.Repositories
 
         public async Task<Developer> ReturnByIdAsync(Guid id)
         {
-            var developerToReturn = await _context.Developers.Include(x => x.Games).Where(developer => developer.Id == id).FirstOrDefaultAsync();
+            var developerToReturn = await _context.Developers.Include(x => x.Games)
+                .Where(developer => developer.Id == id)
+                .AsNoTracking()
+                .FirstOrDefaultAsync();
             if (developerToReturn == null)
             {
                 throw new KeyNotFoundException("Developer not found");
@@ -31,7 +34,10 @@ namespace GameZone.Infrastructure.Repositories
         }
         public async Task<IEnumerable<Developer>> ReturnAllAsync()
         {
-            return await _context.Developers.Include(x => x.Games).ToListAsync();
+            return await _context.Developers
+                .Include(x => x.Games)
+                .AsNoTracking()
+                .ToListAsync();
         }
         public async Task UpdateAsync(Developer developer)
         {

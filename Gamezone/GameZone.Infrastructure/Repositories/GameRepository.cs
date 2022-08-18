@@ -30,6 +30,7 @@ namespace GameZone.Infrastructure.Repositories
                 .Include(x => x.Comments).ThenInclude(m => m.Replies).ThenInclude(m => m.User)
                 .Include(x => x.Reviews).ThenInclude(x => x.User)
                 .Where(x => x.Id == id)
+                .AsNoTracking()
                 .FirstOrDefaultAsync();
 
             if (gameToReturn == null)
@@ -49,6 +50,7 @@ namespace GameZone.Infrastructure.Repositories
                 .Include(x => x.Comments).ThenInclude(m => m.Replies).ThenInclude(m => m.User)
                 .Include(x => x.Users)
                 .Include(x => x.Reviews).ThenInclude(x => x.User)
+                .AsNoTracking()
                 .ToListAsync();
         }
 
@@ -139,7 +141,7 @@ namespace GameZone.Infrastructure.Repositories
 
         public async Task<IEnumerable<Game>> GenerateTopList()
         {
-            return await _context.Games.OrderByDescending(game => game.TotalRating).ToListAsync();
+            return await _context.Games.OrderByDescending(game => game.TotalRating).AsNoTracking().ToListAsync();
         }
 
         public async Task<IEnumerable<Game>> SearchGameAsync(string searchString)
@@ -151,7 +153,7 @@ namespace GameZone.Infrastructure.Repositories
                 games = games.Where(s => s.Name.Contains(searchString));
             }
 
-            return await games.ToListAsync();
+            return await games.AsNoTracking().ToListAsync();
         }
     }
 }

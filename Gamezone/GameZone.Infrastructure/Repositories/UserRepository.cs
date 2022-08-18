@@ -26,6 +26,7 @@ namespace GameZone.Infrastructure.Repositories
                 .Include(x => x.Comments).ThenInclude(x => x.Game)
                 .Include(x => x.Replies)
                 .Include(x => x.Reviews).ThenInclude(x => x.Game)
+                .AsNoTracking()
                 .FirstOrDefaultAsync();
             if (userToReturn == null)
             {
@@ -40,7 +41,8 @@ namespace GameZone.Infrastructure.Repositories
                 .Include(x => x.Games)
                 .Include(x => x.Comments).ThenInclude(x => x.Game)
                 .Include(x => x.Replies)
-                .Include(x => x.Reviews).ThenInclude(x=> x.Game)
+                .Include(x => x.Reviews).ThenInclude(x => x.Game)
+                .AsNoTracking();
                 .ToListAsync();
         }
 

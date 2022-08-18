@@ -26,6 +26,7 @@ namespace GameZone.Infrastructure.Repositories
                 .Include(x => x.Game)
                 .Include(x => x.User)
                 .Where(review => review.Id == id)
+                .AsNoTracking()
                 .FirstOrDefaultAsync();
             if (reviewToReturn == null)
             {
@@ -39,6 +40,7 @@ namespace GameZone.Infrastructure.Repositories
             return await _context.Reviews
                 .Include(x => x.Game)
                 .Include(x => x.User)
+                .AsNoTracking()
                 .ToListAsync();
         }
         public async Task UpdateAsync(Review review)
