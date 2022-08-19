@@ -22,8 +22,7 @@ namespace GameZone.Infrastructure
             modelBuilder.Entity<Reply>().HasOne(u => u.Comment).WithMany(u=> u.Replies).OnDelete(DeleteBehavior.NoAction);
             modelBuilder.Entity<Comment>().HasOne<User>(s => s.User).WithMany(g => g.Comments).HasForeignKey(s => s.UserId);
 
-            modelBuilder.Entity<Game>().HasAlternateKey(x => x.Name);
-            modelBuilder.Entity<User>().HasAlternateKey(x => x.Username);
+            modelBuilder.Entity<User>().HasIndex(x => x.Username).IsUnique();
             base.OnModelCreating(modelBuilder);
         }
     }

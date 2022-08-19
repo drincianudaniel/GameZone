@@ -28,6 +28,7 @@ namespace GameZone.Infrastructure.Repositories
                 .Include(x => x.Reviews).ThenInclude(x => x.Game)
                 .AsNoTracking()
                 .FirstOrDefaultAsync();
+
             if (userToReturn == null)
             {
                 throw new KeyNotFoundException("User not found");
@@ -42,7 +43,7 @@ namespace GameZone.Infrastructure.Repositories
                 .Include(x => x.Comments).ThenInclude(x => x.Game)
                 .Include(x => x.Replies)
                 .Include(x => x.Reviews).ThenInclude(x => x.Game)
-                .AsNoTracking();
+                .AsNoTracking()
                 .ToListAsync();
         }
 
