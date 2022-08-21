@@ -22,7 +22,6 @@ namespace GameZone.Infrastructure.Repositories
         public async Task<Platform> ReturnByIdAsync(Guid id)
         {
             var platformToReturn = await _context.Platforms.Include(x => x.Games).Where(p => p.Id == id)
-                .AsNoTracking()
                 .FirstOrDefaultAsync();
             if (platformToReturn == null)
             {

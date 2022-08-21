@@ -30,7 +30,6 @@ namespace GameZone.Infrastructure.Repositories
                 .Include(x => x.Comments).ThenInclude(m => m.Replies).ThenInclude(m => m.User)
                 .Include(x => x.Reviews).ThenInclude(x => x.User)
                 .Where(x => x.Id == id)
-                .AsNoTracking()
                 .FirstOrDefaultAsync();
 
             if (gameToReturn == null)

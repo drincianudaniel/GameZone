@@ -24,7 +24,6 @@ namespace GameZone.Infrastructure.Repositories
         {
             var genreToReturn = await _context.Genres.Include(x => x.Games)
                 .Where(genre => genre.Id == id)
-                .AsNoTracking()
                 .FirstOrDefaultAsync();
             if (genreToReturn == null)
             {

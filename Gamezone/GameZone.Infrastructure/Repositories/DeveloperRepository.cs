@@ -24,7 +24,6 @@ namespace GameZone.Infrastructure.Repositories
         {
             var developerToReturn = await _context.Developers.Include(x => x.Games)
                 .Where(developer => developer.Id == id)
-                .AsNoTracking()
                 .FirstOrDefaultAsync();
             if (developerToReturn == null)
             {
