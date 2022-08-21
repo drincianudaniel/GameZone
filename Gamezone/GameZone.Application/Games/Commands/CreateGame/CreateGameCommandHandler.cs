@@ -62,7 +62,7 @@ namespace GameZone.Application.Games.Commands.CreateGame
                 await _gameRepository.AddPlatformListAsync(gameToAdd, platformList);
             }
 
-            var gameDto = _mapper.Map<GameDto>(game);
+            var gameDto = _mapper.Map<GameDto>(gameToAdd);
             return gameDto;
         }
     }

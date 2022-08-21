@@ -7,6 +7,7 @@ using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
 
 var builder = WebApplication.CreateBuilder(args);
+var policyName = "_myAllowSpecificOrigins";
 
 // Add services to the container.
 
@@ -29,6 +30,18 @@ builder.Services.AddAutoMapper(typeof(IAssemblyMarker));
 builder.Services.AddControllers().AddNewtonsoftJson(options =>
             options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: policyName,
+                      builder =>
+                      {
+                          builder
+                            .WithOrigins("http://localhost:3000")
+                            .AllowAnyHeader()
+                            .AllowAnyMethod();
+                      });
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -45,7 +58,7 @@ app.UseStaticFiles();
 app.UseHttpsRedirection();
 app.UseRouting();
 app.UseAuthorization();
-
+app.UseCors(policyName);
 app.MapControllers();
 
 app.Run();
