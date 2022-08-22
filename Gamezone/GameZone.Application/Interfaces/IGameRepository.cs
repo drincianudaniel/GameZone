@@ -15,6 +15,7 @@ namespace GameZone.Application
         Task RemoveDeveloperAsync(Game game, Developer developer);
         Task RemoveGenreAsync(Game game, Genre genre);
         Task RemovePlatformAsync(Game game, Platform platform);
+        Task<IEnumerable<Game>> ReturnPagedAsync(int? page);
         Task<IEnumerable<Game>> SearchGameAsync(string searchString);
     }
 }

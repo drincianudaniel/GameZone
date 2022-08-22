@@ -1,6 +1,7 @@
 ﻿using GameZone.Application;
 using GameZone.Domain.Models;
 using Microsoft.EntityFrameworkCore;
+using X.PagedList;
 
 namespace GameZone.Infrastructure.Repositories
 {
@@ -36,6 +37,23 @@ namespace GameZone.Infrastructure.Repositories
             return gameToReturn;
         }
 
+        public async Task<IEnumerable<Game>> ReturnPagedAsync(int? page)
+        {
+            int pageSize = 4;
+            int pageNumber = (page ?? 1);
+
+            return await _context.Games
+                .Include(x => x.Genres)
+                .Include(x => x.Platforms)
+                .Include(x => x.Developers)
+                .Include(x => x.Comments).ThenInclude(m => m.User)
+                .Include(x => x.Comments).ThenInclude(m => m.Replies).ThenInclude(m => m.User)
+                .Include(x => x.Users)
+                .Include(x => x.Reviews).ThenInclude(x => x.User)
+                .AsNoTracking()
+                .ToPagedListAsync(pageNumber, pageSize);
+                
+        }
         public async Task<IEnumerable<Game>> ReturnAllAsync()
         {
             return await _context.Games
@@ -48,8 +66,8 @@ namespace GameZone.Infrastructure.Repositories
                 .Include(x => x.Reviews).ThenInclude(x => x.User)
                 .AsNoTracking()
                 .ToListAsync();
-        }
 
+        }
         public async Task DeleteAsync(Game game)
         {
             _context.Games.Remove(game);

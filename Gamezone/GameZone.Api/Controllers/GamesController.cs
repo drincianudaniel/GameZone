@@ -5,6 +5,7 @@ using GameZone.Application.Games.Commands.DeleteGame;
 using GameZone.Application.Games.Commands.UpdateGame;
 using GameZone.Application.Games.Queries.GetGameById;
 using GameZone.Application.Games.Queries.GetGamesList;
+using GameZone.Application.Games.Queries.GetGamesPaged;
 using GameZone.Application.Games.Queries.GetGamesTop;
 using GameZone.Application.Games.Queries.SearchGames;
 using MediatR;
@@ -53,6 +54,17 @@ namespace GameZone.Api.Controllers
         public async Task<IActionResult> GetTop()
         {
             var result = await _mediator.Send(new GetGamesTopQuery());
+            return Ok(result);
+        }
+
+        [HttpGet]
+        [Route("page/{page}")]
+        public async Task<IActionResult> GetGamesPaged(int page)
+        {
+            var result = await _mediator.Send(new GetGamesPagedQuery
+            {
+                Page = page
+            });
             return Ok(result);
         }
 
