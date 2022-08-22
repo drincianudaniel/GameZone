@@ -33,10 +33,6 @@ namespace GameZone.Infrastructure.Repositories
                 .FirstOrDefaultAsync();
             
             //make null
-            if (gameToReturn == null)
-            {
-                throw new KeyNotFoundException("Game not found");
-            }
             return gameToReturn;
         }
 

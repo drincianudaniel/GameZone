@@ -29,10 +29,6 @@ namespace GameZone.Infrastructure.Repositories
                 .AsNoTracking()
                 .FirstOrDefaultAsync();
 
-            if (userToReturn == null)
-            {
-                throw new KeyNotFoundException("User not found");
-            }
             return userToReturn;
         }
 

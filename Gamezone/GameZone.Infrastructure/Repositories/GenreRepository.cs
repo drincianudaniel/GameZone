@@ -25,10 +25,7 @@ namespace GameZone.Infrastructure.Repositories
             var genreToReturn = await _context.Genres.Include(x => x.Games)
                 .Where(genre => genre.Id == id)
                 .FirstOrDefaultAsync();
-            if (genreToReturn == null)
-            {
-                throw new KeyNotFoundException("Genre not found");
-            }
+
             return genreToReturn;
         }
         public async Task<IEnumerable<Genre>> ReturnAllAsync()

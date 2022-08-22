@@ -28,10 +28,7 @@ namespace GameZone.Infrastructure.Repositories
                 .Include(x => x.Game)
                 .AsNoTracking()
                 .FirstOrDefaultAsync();
-            if (commentToReturn == null)
-            {
-                throw new KeyNotFoundException("Comment not found");
-            }
+
             return commentToReturn;
         }
 

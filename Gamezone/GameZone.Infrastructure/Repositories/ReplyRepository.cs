@@ -25,10 +25,7 @@ namespace GameZone.Infrastructure.Repositories
             var replyToReturn = await _context.Replies.Where(reply => reply.Id == id).Include(x => x.User)
                 .AsNoTracking()
                 .FirstOrDefaultAsync();
-            if (replyToReturn == null)
-            {
-                throw new KeyNotFoundException("Reply not found");
-            }
+
             return replyToReturn;
         }
 

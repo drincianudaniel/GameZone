@@ -28,10 +28,7 @@ namespace GameZone.Infrastructure.Repositories
                 .Where(review => review.Id == id)
                 .AsNoTracking()
                 .FirstOrDefaultAsync();
-            if (reviewToReturn == null)
-            {
-                throw new KeyNotFoundException("Review not found");
-            }
+
             return reviewToReturn;
         }
 

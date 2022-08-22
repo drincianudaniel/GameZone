@@ -23,10 +23,7 @@ namespace GameZone.Infrastructure.Repositories
         {
             var platformToReturn = await _context.Platforms.Include(x => x.Games).Where(p => p.Id == id)
                 .FirstOrDefaultAsync();
-            if (platformToReturn == null)
-            {
-                throw new KeyNotFoundException("Platform not found");
-            }
+
             return platformToReturn;
         }
         public async Task<IEnumerable<Platform>> ReturnAllAsync()
