@@ -18,10 +18,14 @@ namespace GameZone.Application.Comments.Commands.CreateComment
 
         public async Task<CommentDto> Handle(CreateCommentCommand request, CancellationToken cancellationToken)
         {
-            var commentToAdd = new Comment { UserId = request.UserId, GameId= request.GameId, Content = request.Content };
-            await _commentRepository.CreateAsync(commentToAdd);
-            var getComment = await _commentRepository.ReturnByIdAsync(commentToAdd.Id);
-            var commentDto = _mapper.Map<CommentDto>(getComment);
+            var commentToAdd = new Comment { UserId = request.UserId, GameId = request.GameId, Content = request.Content };
+
+            var comment = await _commentRepository.CreateAsync(commentToAdd);
+
+            // TODO: return the result of CreateAsync, instead of calling .ReturnByIdAsync
+            // var getComment = await _commentRepository.ReturnByIdAsync(commentToAdd.Id);
+
+            var commentDto = _mapper.Map<CommentDto>(comment);
 
             return commentDto;
         }

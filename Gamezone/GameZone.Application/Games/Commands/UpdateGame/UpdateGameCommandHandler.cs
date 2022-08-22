@@ -32,7 +32,7 @@ namespace GameZone.Application.Games.Commands.UpdateGame
             gameToUpdate.ImageSrc = request.ImageSrc;
             gameToUpdate.GameDetails = request.ImageSrc;
 
-            if (request.DeveloperList.Count != 0)
+/*            if (request.DeveloperList.Count != 0)
             {
                 var developerList = new List<Developer>();
                 foreach (var id in request.DeveloperList)
@@ -41,7 +41,7 @@ namespace GameZone.Application.Games.Commands.UpdateGame
                     developerList.Add(developerId);
                 }
                 await _gameRepository.AddDeveloperListAsync(gameToUpdate, developerList);
-            }
+            }*/
 
             if (request.GenreList.Count != 0)
             {

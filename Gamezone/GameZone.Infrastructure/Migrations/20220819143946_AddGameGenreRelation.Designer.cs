@@ -4,6 +4,7 @@ using GameZone.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GameZone.Infrastructure.Migrations
 {
     [DbContext(typeof(GameZoneContext))]
-    partial class GameZoneContextModelSnapshot : ModelSnapshot
+    [Migration("20220819143946_AddGameGenreRelation")]
+    partial class AddGameGenreRelation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

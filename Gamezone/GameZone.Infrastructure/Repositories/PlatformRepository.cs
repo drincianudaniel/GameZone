@@ -13,10 +13,11 @@ namespace GameZone.Infrastructure.Repositories
             _context = context;
         }
 
-        public async Task CreateAsync(Platform platform)
+        public async Task<Platform> CreateAsync(Platform platform)
         {
             _context.Platforms.Add(platform);
             await _context.SaveChangesAsync();
+            return platform;
         }
 
         public async Task<Platform> ReturnByIdAsync(Guid id)

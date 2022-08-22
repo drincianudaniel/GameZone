@@ -9,10 +9,11 @@ namespace GameZoneModels
         public string Password { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public string Role { get; set; }
+
         public virtual ICollection<Game> Games { get; set; }
         public ICollection<Comment> Comments { get; set; }
         public ICollection<Reply> Replies { get; set; }
         public ICollection<Review> Reviews { get; set; }
-        public string Role { get; set; }
     }
 }

@@ -5,19 +5,17 @@ VisualStudioVersion = 17.1.32319.34
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameZone.ConsolePresentation", "GameZone.ConsolePresentation.csproj", "{642DEB1A-555F-4531-A0F2-4D06447FE641}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameZone.Infrastructure", "..\GameZone.Infrastructure\GameZone.Infrastructure.csproj", "{4E1D75D8-6411-40E3-ABBB-438BE0D7FC6C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameZone.Infrastructure", ".\GameZone.Infrastructure\GameZone.Infrastructure.csproj", "{4E1D75D8-6411-40E3-ABBB-438BE0D7FC6C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameZone.Domain", "..\GameZone.Domain\GameZone.Domain.csproj", "{CF112537-96B5-49A2-BB0E-D582EC86A75D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameZone.Domain", ".\GameZone.Domain\GameZone.Domain.csproj", "{CF112537-96B5-49A2-BB0E-D582EC86A75D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameZone.Application", "..\GameZone.Application\GameZone.Application.csproj", "{394766F3-FFF7-4963-8C7E-360606D52F0A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameZone.Application", ".\GameZone.Application\GameZone.Application.csproj", "{394766F3-FFF7-4963-8C7E-360606D52F0A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameZone.Tests", "..\GameZone.Tests\GameZone.Tests.csproj", "{9217E9CD-332D-41BD-9086-DA18B15AA81B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameZone.Tests", ".\GameZone.Tests\GameZone.Tests.csproj", "{9217E9CD-332D-41BD-9086-DA18B15AA81B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameZone.Api", "..\GameZone.Api\GameZone.Api.csproj", "{90240CD1-CC10-46DA-BBFE-7F62E152BDB8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameZone.Api", ".\GameZone.Api\GameZone.Api.csproj", "{90240CD1-CC10-46DA-BBFE-7F62E152BDB8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameZone.Application.IntegrationTests", "..\GameZone.Application.IntegrationTests\GameZone.Application.IntegrationTests.csproj", "{1BA31CAF-2DAD-4A63-8402-C42D751DA50F}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{BC01DC2E-ED8D-4871-81A9-9F27D631133F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameZone.Application.IntegrationTests", ".\GameZone.Application.IntegrationTests\GameZone.Application.IntegrationTests.csproj", "{1BA31CAF-2DAD-4A63-8402-C42D751DA50F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

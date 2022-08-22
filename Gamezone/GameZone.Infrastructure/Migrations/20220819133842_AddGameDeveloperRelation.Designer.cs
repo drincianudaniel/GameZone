@@ -4,6 +4,7 @@ using GameZone.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GameZone.Infrastructure.Migrations
 {
     [DbContext(typeof(GameZoneContext))]
-    partial class GameZoneContextModelSnapshot : ModelSnapshot
+    [Migration("20220819133842_AddGameDeveloperRelation")]
+    partial class AddGameDeveloperRelation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -34,7 +36,7 @@ namespace GameZone.Infrastructure.Migrations
 
                     b.HasIndex("GenresId");
 
-                    b.ToTable("GameGenres", (string)null);
+                    b.ToTable("GameGenre");
                 });
 
             modelBuilder.Entity("GamePlatform", b =>
@@ -75,11 +77,14 @@ namespace GameZone.Infrastructure.Migrations
                     b.Property<Guid>("GameId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("DeveloperId", "GameId");
 
                     b.HasIndex("GameId");
 
-                    b.ToTable("GameDevelopers");
+                    b.ToTable("GameDeveloper");
                 });
 
             modelBuilder.Entity("GameZoneModels.Comment", b =>

@@ -4,6 +4,7 @@ using GameZone.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GameZone.Infrastructure.Migrations
 {
     [DbContext(typeof(GameZoneContext))]
-    partial class GameZoneContextModelSnapshot : ModelSnapshot
+    [Migration("20220819125354_ChangeCommentAndReply2")]
+    partial class ChangeCommentAndReply2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,6 +23,21 @@ namespace GameZone.Infrastructure.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+
+            modelBuilder.Entity("DeveloperGame", b =>
+                {
+                    b.Property<Guid>("DevelopersId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("GamesId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("DevelopersId", "GamesId");
+
+                    b.HasIndex("GamesId");
+
+                    b.ToTable("DeveloperGame");
+                });
 
             modelBuilder.Entity("GameGenre", b =>
                 {
@@ -34,7 +51,7 @@ namespace GameZone.Infrastructure.Migrations
 
                     b.HasIndex("GenresId");
 
-                    b.ToTable("GameGenres", (string)null);
+                    b.ToTable("GameGenre");
                 });
 
             modelBuilder.Entity("GamePlatform", b =>
@@ -65,21 +82,6 @@ namespace GameZone.Infrastructure.Migrations
                     b.HasIndex("UsersId");
 
                     b.ToTable("GameUser");
-                });
-
-            modelBuilder.Entity("GameZone.Domain.Models.GameDeveloper", b =>
-                {
-                    b.Property<Guid>("DeveloperId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("GameId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("DeveloperId", "GameId");
-
-                    b.HasIndex("GameId");
-
-                    b.ToTable("GameDevelopers");
                 });
 
             modelBuilder.Entity("GameZoneModels.Comment", b =>
@@ -307,6 +309,21 @@ namespace GameZone.Infrastructure.Migrations
                         });
                 });
 
+            modelBuilder.Entity("DeveloperGame", b =>
+                {
+                    b.HasOne("GameZoneModels.Developer", null)
+                        .WithMany()
+                        .HasForeignKey("DevelopersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("GameZoneModels.Game", null)
+                        .WithMany()
+                        .HasForeignKey("GamesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("GameGenre", b =>
                 {
                     b.HasOne("GameZoneModels.Game", null)
@@ -350,25 +367,6 @@ namespace GameZone.Infrastructure.Migrations
                         .HasForeignKey("UsersId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("GameZone.Domain.Models.GameDeveloper", b =>
-                {
-                    b.HasOne("GameZoneModels.Developer", "Developer")
-                        .WithMany("Games")
-                        .HasForeignKey("DeveloperId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("GameZoneModels.Game", "Game")
-                        .WithMany("Developers")
-                        .HasForeignKey("GameId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Developer");
-
-                    b.Navigation("Game");
                 });
 
             modelBuilder.Entity("GameZoneModels.Comment", b =>
@@ -430,16 +428,9 @@ namespace GameZone.Infrastructure.Migrations
                     b.Navigation("Replies");
                 });
 
-            modelBuilder.Entity("GameZoneModels.Developer", b =>
-                {
-                    b.Navigation("Games");
-                });
-
             modelBuilder.Entity("GameZoneModels.Game", b =>
                 {
                     b.Navigation("Comments");
-
-                    b.Navigation("Developers");
 
                     b.Navigation("Reviews");
                 });

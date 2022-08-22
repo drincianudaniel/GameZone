@@ -14,22 +14,23 @@ namespace GameZone.Infrastructure.Repositories
             _context = context;
         }
 
-        public async Task CreateAsync(Developer Developer)
+        public async Task<Developer> CreateAsync(Developer developer)
         {
-            _context.Developers.Add(Developer);
+            _context.Developers.Add(developer);
             await _context.SaveChangesAsync();
+            return developer;
         }
 
         public async Task<Developer> ReturnByIdAsync(Guid id)
         {
-            var developerToReturn = await _context.Developers.Include(x => x.Games)
-                .Where(developer => developer.Id == id)
-                .AsNoTracking()
-                .FirstOrDefaultAsync();
+            var developerToReturn = await _context.Developers
+                .FirstOrDefaultAsync(developer => developer.Id == id);
+
             if (developerToReturn == null)
             {
                 throw new KeyNotFoundException("Developer not found");
             }
+
             return developerToReturn;
         }
         public async Task<IEnumerable<Developer>> ReturnAllAsync()

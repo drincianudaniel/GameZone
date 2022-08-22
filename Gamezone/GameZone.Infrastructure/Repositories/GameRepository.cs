@@ -1,4 +1,5 @@
 ﻿using GameZone.Application;
+using GameZone.Domain.Models;
 using GameZoneModels;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,9 +14,16 @@ namespace GameZone.Infrastructure.Repositories
             _context = context;
         }
 
-        public async Task CreateAsync(Game game)
+        public async Task<Game> CreateAsync(Game game)
         {
             _context.Games.Add(game);
+            await _context.SaveChangesAsync();
+            return game;
+        }
+
+        public async Task AddDeveloper(GameDeveloper gameDev)
+        {
+            _context.GameDevelopers.Add(gameDev);
             await _context.SaveChangesAsync();
         }
 
@@ -29,9 +37,7 @@ namespace GameZone.Infrastructure.Repositories
                 .Include(x => x.Comments).ThenInclude(m => m.User)
                 .Include(x => x.Comments).ThenInclude(m => m.Replies).ThenInclude(m => m.User)
                 .Include(x => x.Reviews).ThenInclude(x => x.User)
-                .Where(x => x.Id == id)
-                .AsNoTracking()
-                .FirstOrDefaultAsync();
+                .FirstOrDefaultAsync(x => x.Id == id);
 
             if (gameToReturn == null)
             {
@@ -75,16 +81,6 @@ namespace GameZone.Infrastructure.Repositories
             }
         }
 
-        public async Task AddDeveloperListAsync(Game game, List<Developer> developers)
-        {
-            foreach (var developer in developers)
-            {
-                game.Developers.Add(developer);
-            }
-
-            await _context.SaveChangesAsync();
-        }
-
         public async Task AddGenreListAsync(Game game, List<Genre> genres)
         {
             foreach (var genre in genres)
@@ -103,11 +99,6 @@ namespace GameZone.Infrastructure.Repositories
 
             await _context.SaveChangesAsync();
         }
-        public async Task AddDeveloper(Game game, Developer developer)
-        {
-            game.Developers.Add(developer);
-            await _context.SaveChangesAsync();
-        }
 
         public async Task AddGenreAsync(Game game, Genre genre)
         {
@@ -118,12 +109,6 @@ namespace GameZone.Infrastructure.Repositories
         public async Task AddPlatformAsync(Game game, Platform platform)
         {
             game.Platforms.Add(platform);
-            await _context.SaveChangesAsync();
-        }
-
-        public async Task RemoveDeveloperAsync(Game game, Developer developer)
-        {
-            game.Developers.Remove(developer);
             await _context.SaveChangesAsync();
         }
         

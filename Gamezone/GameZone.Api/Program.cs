@@ -3,8 +3,6 @@ using GameZone.Infrastructure;
 using GameZone.Infrastructure.Repositories;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.OpenApi.Models;
-using Newtonsoft.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,7 +21,10 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<ICommentRepository, CommentRepository>();
 builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
 builder.Services.AddScoped<IReplyRepository, ReplyRepository>();
-builder.Services.AddDbContext<GameZoneContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
+
+builder.Services.AddDbContext<GameZoneContext>(options => 
+    options.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
+
 builder.Services.AddMediatR(typeof(IAssemblyMarker));
 builder.Services.AddAutoMapper(typeof(IAssemblyMarker));
 builder.Services.AddControllers().AddNewtonsoftJson(options =>

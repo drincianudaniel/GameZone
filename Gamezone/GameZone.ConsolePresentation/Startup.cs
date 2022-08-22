@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GameZone.ConsolePresentation
 {
+    // TODO: Remove this project
     public class Startup
     {
         public void ConfigureServices(IServiceCollection services)
@@ -20,6 +21,7 @@ namespace GameZone.ConsolePresentation
             services.AddScoped<ICommentRepository, CommentRepository>();
             services.AddScoped<IReviewRepository, ReviewRepository>();
             services.AddScoped<IReplyRepository, ReplyRepository>();
+
             services.AddDbContext<GameZoneContext>(options => options.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=GameZone;Trusted_Connection=True;ConnectRetryCount=0"));
             
         }

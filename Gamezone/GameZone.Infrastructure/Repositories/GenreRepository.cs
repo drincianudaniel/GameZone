@@ -14,10 +14,11 @@ namespace GameZone.Infrastructure.Repositories
             _context = context;
         }
 
-        public async Task CreateAsync(Genre Genre)
+        public async Task<Genre> CreateAsync(Genre genre)
         {
-            _context.Genres.Add(Genre);
+            _context.Genres.Add(genre);
             await _context.SaveChangesAsync();
+            return genre;
         }
 
         public async Task<Genre> ReturnByIdAsync(Guid id)

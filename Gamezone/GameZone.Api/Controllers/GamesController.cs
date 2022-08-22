@@ -28,7 +28,7 @@ namespace GameZone.Api.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet]
+        [HttpGet("{top?}")]
         public async Task<IActionResult> GetGames()
         {
             var result = await _mediator.Send(new GetGameListQuery());
@@ -52,6 +52,7 @@ namespace GameZone.Api.Controllers
         [Route("top")]
         public async Task<IActionResult> GetTop()
         {
+            // TODO: maybe add param to get top 10 games
             var result = await _mediator.Send(new GetGamesTopQuery());
             return Ok(result);
         }

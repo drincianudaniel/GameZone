@@ -12,10 +12,11 @@ namespace GameZone.Infrastructure.Repositories
             _context = context;
         }
 
-        public async Task CreateAsync(User user)
+        public async Task<User> CreateAsync(User user)
         {
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
+            return user;
         }
 
         public async Task<User> ReturnByIdAsync(Guid id)
@@ -42,7 +43,7 @@ namespace GameZone.Infrastructure.Repositories
                 .Include(x => x.Comments).ThenInclude(x => x.Game)
                 .Include(x => x.Replies)
                 .Include(x => x.Reviews).ThenInclude(x => x.Game)
-                .AsNoTracking();
+                .AsNoTracking()
                 .ToListAsync();
         }
 

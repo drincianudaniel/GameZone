@@ -14,10 +14,11 @@ namespace GameZone.Infrastructure.Repositories
             _context = context;
         }
 
-        public async Task CreateAsync(Review review)
+        public async Task<Review> CreateAsync(Review review)
         {
             _context.Reviews.Add(review);
             await _context.SaveChangesAsync();
+            return review;
         }
       
         public async Task<Review> ReturnByIdAsync(Guid id)
