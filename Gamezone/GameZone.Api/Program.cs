@@ -1,4 +1,5 @@
 using GameZone.Application;
+using GameZone.Application.Interfaces;
 using GameZone.Infrastructure;
 using GameZone.Infrastructure.Repositories;
 using MediatR;
@@ -15,7 +16,7 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IGameRepository, GameRepository>();
 builder.Services.AddScoped<IDeveloperRepository, DeveloperRepository>();
 builder.Services.AddScoped<IGenreRepository, GenreRepository>();

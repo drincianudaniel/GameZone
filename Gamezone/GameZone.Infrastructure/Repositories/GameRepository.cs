@@ -17,7 +17,6 @@ namespace GameZone.Infrastructure.Repositories
         public async Task CreateAsync(Game game)
         {
             _context.Games.Add(game);
-            await _context.SaveChangesAsync();
         }
 
         public async Task<Game> ReturnByIdAsync(Guid id)
@@ -71,13 +70,11 @@ namespace GameZone.Infrastructure.Repositories
         public async Task DeleteAsync(Game game)
         {
             _context.Games.Remove(game);
-            await _context.SaveChangesAsync();
         }
 
         public async Task UpdateAsync(Game game)
         {
             _context.Games.Update(game);
-            await _context.SaveChangesAsync();
         }
 
         public async Task CalculateTotalRatingAsync(Game game)
@@ -85,7 +82,6 @@ namespace GameZone.Infrastructure.Repositories
             if(game.Reviews.Count != 0)
             {
                 game.TotalRating = game.Reviews.Average(review => review.Rating);
-                await _context.SaveChangesAsync();
             }
         }
 
@@ -96,7 +92,6 @@ namespace GameZone.Infrastructure.Repositories
                 game.Developers.Add(developer);
             }
 
-            await _context.SaveChangesAsync();
         }
 
         public async Task AddGenreListAsync(Game game, List<Genre> genres)
@@ -105,8 +100,6 @@ namespace GameZone.Infrastructure.Repositories
             {
                 game.Genres.Add(genre);
             }
-
-            await _context.SaveChangesAsync();
         }
         public async Task AddPlatformListAsync(Game game, List<Platform> platforms)
         {
@@ -114,43 +107,35 @@ namespace GameZone.Infrastructure.Repositories
             {
                 game.Platforms.Add(platform);
             }
-
-            await _context.SaveChangesAsync();
         }
         public async Task AddDeveloper(Game game, Developer developer)
         {
             game.Developers.Add(developer);
-            await _context.SaveChangesAsync();
         }
 
         public async Task AddGenreAsync(Game game, Genre genre)
         {
             game.Genres.Add(genre);
-            await _context.SaveChangesAsync();
         }
 
         public async Task AddPlatformAsync(Game game, Platform platform)
         {
             game.Platforms.Add(platform);
-            await _context.SaveChangesAsync();
         }
 
         public async Task RemoveDeveloperAsync(Game game, Developer developer)
         {
             game.Developers.Remove(developer);
-            await _context.SaveChangesAsync();
         }
         
         public async Task RemoveGenreAsync(Game game, Genre genre)
         {
             game.Genres.Remove(genre);
-            await _context.SaveChangesAsync();
         }
         
         public async Task RemovePlatformAsync(Game game, Platform platform)
         {
             game.Platforms.Remove(platform);
-            await _context.SaveChangesAsync();
         }
 
         public async Task<IEnumerable<Game>> GenerateTopList()

@@ -17,7 +17,6 @@ namespace GameZone.Infrastructure.Repositories
         public async Task CreateAsync(Developer Developer)
         {
             _context.Developers.Add(Developer);
-            await _context.SaveChangesAsync();
         }
 
         public async Task<Developer> ReturnByIdAsync(Guid id)
@@ -38,12 +37,10 @@ namespace GameZone.Infrastructure.Repositories
         public async Task UpdateAsync(Developer developer)
         {
             _context.Update(developer);
-            await _context.SaveChangesAsync();
         }
         public async Task DeleteAsync(Developer developer)
         {
             _context.Developers.Remove(developer);
-            await _context.SaveChangesAsync();
         }
     }
 }

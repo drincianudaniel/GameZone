@@ -1,19 +1,23 @@
-﻿using MediatR;
+﻿using GameZone.Application.Interfaces;
+using MediatR;
 
 namespace GameZone.Application.Games.Commands.DeleteGame
 {
     public class DeleteGameCommandHandler : IRequestHandler<DeleteGameCommand, Guid>
     {
-        private readonly IGameRepository _gameRepository;
-        public DeleteGameCommandHandler(IGameRepository gameRepository)
+        private readonly IUnitOfWork _unitOfWork;
+        public DeleteGameCommandHandler(IUnitOfWork unitOfWork)
         {
-            _gameRepository = gameRepository;
+            _unitOfWork = unitOfWork;
         }
 
         public async Task<Guid> Handle(DeleteGameCommand request, CancellationToken cancellationToken)
         {
-            var game = await _gameRepository.ReturnByIdAsync(request.Id);
-            await _gameRepository.DeleteAsync(game);
+            var game = await _unitOfWork.GameRepository.ReturnByIdAsync(request.Id);
+
+            await _unitOfWork.GameRepository.DeleteAsync(game);
+            await _unitOfWork.SaveAsync();
+
             return game.Id;
         }
     }

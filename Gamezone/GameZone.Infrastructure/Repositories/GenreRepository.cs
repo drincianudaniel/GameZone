@@ -17,7 +17,6 @@ namespace GameZone.Infrastructure.Repositories
         public async Task CreateAsync(Genre Genre)
         {
             _context.Genres.Add(Genre);
-            await _context.SaveChangesAsync();
         }
 
         public async Task<Genre> ReturnByIdAsync(Guid id)
@@ -38,12 +37,10 @@ namespace GameZone.Infrastructure.Repositories
         public async Task UpdateAsync(Genre genre)
         {
             _context.Genres.Update(genre);
-            await _context.SaveChangesAsync();
         }
         public async Task DeleteAsync(Genre genre)
         {
             _context.Genres.Remove(genre);
-            await _context.SaveChangesAsync();
         }
     }
 }

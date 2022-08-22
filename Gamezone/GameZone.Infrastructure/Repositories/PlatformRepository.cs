@@ -16,7 +16,6 @@ namespace GameZone.Infrastructure.Repositories
         public async Task CreateAsync(Platform platform)
         {
             _context.Platforms.Add(platform);
-            await _context.SaveChangesAsync();
         }
 
         public async Task<Platform> ReturnByIdAsync(Guid id)
@@ -35,12 +34,10 @@ namespace GameZone.Infrastructure.Repositories
         public async Task UpdateAsync(Platform platform)
         {
             _context.Platforms.Update(platform);
-            await _context.SaveChangesAsync();
         }
         public async Task DeleteAsync(Platform platform)
         {
             _context.Platforms.Remove(platform);
-            await _context.SaveChangesAsync();
         }
     }
 }

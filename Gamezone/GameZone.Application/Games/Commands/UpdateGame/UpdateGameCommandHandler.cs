@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using GameZone.Application.DTOs;
+using GameZone.Application.Interfaces;
 using GameZone.Domain.Models;
 using MediatR;
 
@@ -7,19 +8,12 @@ namespace GameZone.Application.Games.Commands.UpdateGame
 {
     public class UpdateGameCommandHandler : IRequestHandler<UpdateGameCommand, GameDto>
     {
-        private readonly IGameRepository _gameRepository;
-        private readonly IDeveloperRepository _developerRepository;
-        private readonly IGenreRepository _genreRepository;
-        private readonly IPlatformRepository _platformRepository;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
-        public UpdateGameCommandHandler(IGameRepository gameRepository, IDeveloperRepository developerRepository,
-            IGenreRepository genreRepository, IPlatformRepository platformRepository, IMapper mapper)
+        public UpdateGameCommandHandler(IUnitOfWork unitOfWork, IMapper mapper)
         {
-            _gameRepository = gameRepository;
-            _developerRepository=developerRepository;
-            _genreRepository=genreRepository;
-            _platformRepository=platformRepository;
+            _unitOfWork = unitOfWork;
             _mapper=mapper;
         }
 
@@ -32,6 +26,7 @@ namespace GameZone.Application.Games.Commands.UpdateGame
             gameToUpdate.ImageSrc = request.ImageSrc;
             gameToUpdate.GameDetails = request.GameDetails;
 
+            /*
             if (request.DeveloperList.Count != 0)
             {
                 var developerList = new List<Developer>();
@@ -63,9 +58,11 @@ namespace GameZone.Application.Games.Commands.UpdateGame
                     platformList.Add(platformId);
                 }
                 await _gameRepository.AddPlatformListAsync(gameToUpdate, platformList);
-            }
+            }*/
 
-            await _gameRepository.UpdateAsync(gameToUpdate);
+            await _unitOfWork.GameRepository.UpdateAsync(gameToUpdate);
+            await _unitOfWork.SaveAsync();
+
             var gameDto = _mapper.Map<GameDto>(gameToUpdate);
             return gameDto;
         }

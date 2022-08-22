@@ -1,19 +1,23 @@
-﻿using MediatR;
+﻿using GameZone.Application.Interfaces;
+using MediatR;
 
 namespace GameZone.Application.Developers.Commands.DeleteDeveloper
 {
     public class DeleteDeveloperCommandHandler : IRequestHandler<DeleteDeveloperCommand, Guid>
     {
-        private readonly IDeveloperRepository _developerRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public DeleteDeveloperCommandHandler(IDeveloperRepository developerRepository)
+        public DeleteDeveloperCommandHandler(IUnitOfWork unitOfWork)
         {
-            _developerRepository = developerRepository;
+            _unitOfWork = unitOfWork;
         }
         public async Task<Guid> Handle(DeleteDeveloperCommand request, CancellationToken cancellationToken)
         {
-            var developer = await _developerRepository.ReturnByIdAsync(request.Id);
-            await _developerRepository.DeleteAsync(developer);
+            var developer = await _unitOfWork.DeveloperRepository.ReturnByIdAsync(request.Id);
+
+            await _unitOfWork.DeveloperRepository.DeleteAsync(developer);
+            await _unitOfWork.SaveAsync();
+
             return developer.Id;
         }
     }
