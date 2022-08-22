@@ -79,7 +79,10 @@ namespace GameZone.Infrastructure.Repositories
 
         public async Task CalculateTotalRatingAsync(Game game)
         {
-            if(game.Reviews.Count != 0)
+            if (game.Reviews.Count == 0)
+            {
+                game.TotalRating = 0;
+            }else if(game.Reviews.Count > 0)
             {
                 game.TotalRating = game.Reviews.Average(review => review.Rating);
             }

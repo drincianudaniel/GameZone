@@ -1,23 +1,25 @@
-﻿using MediatR;
+﻿using GameZone.Application.Interfaces;
+using MediatR;
 
 
 namespace GameZone.Application.Users.Commands.RemoveFavoriteGame
 {
     public class RemoveFavoriteGameCommandHandler : IRequestHandler<RemoveFavoriteGameCommand, Guid>
     {
-        private readonly IUserRepository _userRepository;
-        private readonly IGameRepository _gameRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public RemoveFavoriteGameCommandHandler(IUserRepository userRepository, IGameRepository gameRepository)
+        public RemoveFavoriteGameCommandHandler(IUnitOfWork unitOfWork)
         {
-            _userRepository = userRepository;
-            _gameRepository = gameRepository;
+            _unitOfWork=unitOfWork;
         }
         public async Task<Guid> Handle(RemoveFavoriteGameCommand request, CancellationToken cancellationToken)
         {
-            var user = await _userRepository.ReturnByIdAsync(request.UserId);
-            var game = await _gameRepository.ReturnByIdAsync(request.GameId);
-            await _userRepository.RemoveGameFromFavorites(user, game);
+            var user = await _unitOfWork.UserRepository.ReturnByIdAsync(request.UserId);
+            var game = await _unitOfWork.GameRepository.ReturnByIdAsync(request.GameId);
+
+            await _unitOfWork.UserRepository.RemoveGameFromFavorites(user, game);
+            await _unitOfWork.SaveAsync();
+
             return game.Id;
         }
     }

@@ -1,23 +1,28 @@
-﻿using MediatR;
+﻿using GameZone.Application.Interfaces;
+using MediatR;
 
 namespace GameZone.Application.Reviews.Commands.DeleteReview
 {
     public class DeleteReviewCommandHandler : IRequestHandler<DeleteReviewCommand, Guid>
     {
-        private readonly IReviewRepository _reviewRepository;
-        private readonly IGameRepository _gameRepository;
-        public DeleteReviewCommandHandler(IReviewRepository reviewRepository, IGameRepository gameRepository)
+        private readonly IUnitOfWork _unitOfWork;
+        public DeleteReviewCommandHandler(IUnitOfWork unitOfWork)
         {
-            _reviewRepository = reviewRepository;
-            _gameRepository=gameRepository;
+            _unitOfWork = unitOfWork;
         }
 
         public async Task<Guid> Handle(DeleteReviewCommand request, CancellationToken cancellationToken)
         {
-            var review = await _reviewRepository.ReturnByIdAsync(request.Id);
-            var game = await _gameRepository.ReturnByIdAsync(review.GameId);
-            await _reviewRepository.DeleteAsync(review);
-            await _gameRepository.CalculateTotalRatingAsync(game);
+
+            var review = await _unitOfWork.ReviewRepository.ReturnByIdAsync(request.Id);
+            await _unitOfWork.ReviewRepository.DeleteAsync(review);
+            await _unitOfWork.SaveAsync();
+
+            //not a very good practice
+            var game = await _unitOfWork.GameRepository.ReturnByIdAsync(review.GameId);
+            await _unitOfWork.GameRepository.CalculateTotalRatingAsync(game);
+            await _unitOfWork.SaveAsync();
+
             return review.Id;
         }
     }

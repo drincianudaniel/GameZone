@@ -15,7 +15,6 @@ namespace GameZone.Infrastructure.Repositories
         public async Task CreateAsync(User user)
         {
             _context.Users.Add(user);
-            await _context.SaveChangesAsync();
         }
 
         public async Task<User> ReturnByIdAsync(Guid id)
@@ -26,7 +25,6 @@ namespace GameZone.Infrastructure.Repositories
                 .Include(x => x.Comments).ThenInclude(x => x.Game)
                 .Include(x => x.Replies)
                 .Include(x => x.Reviews).ThenInclude(x => x.Game)
-                .AsNoTracking()
                 .FirstOrDefaultAsync();
 
             return userToReturn;
@@ -46,24 +44,20 @@ namespace GameZone.Infrastructure.Repositories
         public async Task UpdateAsync(User user)
         {
             _context.Update(user);
-            await _context.SaveChangesAsync();
         }
 
         public async Task DeleteAsync(User user)
         {
             _context.Users.Remove(user);
-            await _context.SaveChangesAsync();
         }
         public async Task AddGameToFavorite(User user, Game favoriteGame)
         {
             user.Games.Add(favoriteGame);
-            await _context.SaveChangesAsync();
         }
 
         public async Task RemoveGameFromFavorites(User user, Game favoriteGame)
         {
             user.Games.Remove(favoriteGame);
-            await _context.SaveChangesAsync();
         }
     }
 }

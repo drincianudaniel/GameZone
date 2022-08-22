@@ -17,7 +17,6 @@ namespace GameZone.Infrastructure.Repositories
         public async Task CreateAsync(Review review)
         {
             _context.Reviews.Add(review);
-            await _context.SaveChangesAsync();
         }
       
         public async Task<Review> ReturnByIdAsync(Guid id)
@@ -43,12 +42,10 @@ namespace GameZone.Infrastructure.Repositories
         public async Task UpdateAsync(Review review)
         {
             _context.Update(review);
-            await _context.SaveChangesAsync();
         }
         public async Task DeleteAsync(Review review)
         {
             _context.Reviews.Remove(review);
-            await _context.SaveChangesAsync();
         }
     }
 }
