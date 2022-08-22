@@ -1,7 +1,7 @@
 ﻿using GameZone.Domain.Models;
 using System.ComponentModel.DataAnnotations;
 
-namespace GameZoneModels
+namespace GameZone.Domain.Models
 {
     public class Review : Entity
     {

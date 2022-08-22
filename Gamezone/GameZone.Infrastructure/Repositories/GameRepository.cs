@@ -1,5 +1,5 @@
 ﻿using GameZone.Application;
-using GameZoneModels;
+using GameZone.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace GameZone.Infrastructure.Repositories
@@ -31,7 +31,8 @@ namespace GameZone.Infrastructure.Repositories
                 .Include(x => x.Reviews).ThenInclude(x => x.User)
                 .Where(x => x.Id == id)
                 .FirstOrDefaultAsync();
-
+            
+            //make null
             if (gameToReturn == null)
             {
                 throw new KeyNotFoundException("Game not found");

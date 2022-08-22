@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using GameZone.Application.DTOs;
-using GameZoneModels;
+using GameZone.Domain.Models;
 
 namespace GameZone.Application.AutoMapperProfiles
 {

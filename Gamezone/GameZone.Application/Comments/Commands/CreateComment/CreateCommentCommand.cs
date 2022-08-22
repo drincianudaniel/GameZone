@@ -1,5 +1,5 @@
 ﻿using GameZone.Application.DTOs;
-using GameZoneModels;
+using GameZone.Domain.Models;
 using MediatR;
 
 namespace GameZone.Application.Comments.Commands.CreateComment

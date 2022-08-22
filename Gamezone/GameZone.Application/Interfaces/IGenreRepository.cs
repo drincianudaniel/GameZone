@@ -1,4 +1,4 @@
-﻿using GameZoneModels;
+﻿using GameZone.Domain.Models;
 
 namespace GameZone.Application
 {

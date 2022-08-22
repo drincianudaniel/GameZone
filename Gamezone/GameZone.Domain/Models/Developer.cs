@@ -1,6 +1,4 @@
-﻿using GameZone.Domain.Models;
-
-namespace GameZoneModels
+﻿namespace GameZone.Domain.Models
 {
     public class Developer : Entity
     {

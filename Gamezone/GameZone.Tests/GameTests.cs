@@ -1,7 +1,7 @@
 using GameZone.Application;
 using GameZone.Infrastructure;
 using GameZone.Infrastructure.Repositories;
-using GameZoneModels;
+using GameZone.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Threading.Tasks;

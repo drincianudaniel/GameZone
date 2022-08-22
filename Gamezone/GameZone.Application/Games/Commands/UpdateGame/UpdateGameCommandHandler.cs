@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using GameZone.Application.DTOs;
-using GameZoneModels;
+using GameZone.Domain.Models;
 using MediatR;
 
 namespace GameZone.Application.Games.Commands.UpdateGame
@@ -30,7 +30,7 @@ namespace GameZone.Application.Games.Commands.UpdateGame
             gameToUpdate.Name = request.Name;
             gameToUpdate.ReleaseDate = request.ReleaseDate;
             gameToUpdate.ImageSrc = request.ImageSrc;
-            gameToUpdate.GameDetails = request.ImageSrc;
+            gameToUpdate.GameDetails = request.GameDetails;
 
             if (request.DeveloperList.Count != 0)
             {

@@ -1,6 +1,6 @@
 ﻿using GameZone.Application;
 using GameZone.Domain;
-using GameZoneModels;
+using GameZone.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace GameZone.Infrastructure.Repositories
