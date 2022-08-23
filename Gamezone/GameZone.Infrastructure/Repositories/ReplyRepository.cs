@@ -17,7 +17,6 @@ namespace GameZone.Infrastructure.Repositories
         public async Task CreateAsync(Reply reply)
         {
             _context.Replies.Add(reply);
-            await _context.SaveChangesAsync();
         }
 
         public async Task<Reply> ReturnByIdAsync(Guid id)
@@ -39,14 +38,12 @@ namespace GameZone.Infrastructure.Repositories
         public async Task UpdateAsync(Reply reply)
         {
             _context.Replies.Update(reply);
-            await _context.SaveChangesAsync();
         }
    
 
         public async Task DeleteAsync(Reply reply)
         {
             _context.Replies.Remove(reply);
-            await _context.SaveChangesAsync();
         }
     }
 }

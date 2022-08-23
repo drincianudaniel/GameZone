@@ -16,7 +16,6 @@ namespace GameZone.Infrastructure.Repositories
         public async Task CreateAsync(Comment comment)
         {
             _context.Comments.Add(comment);
-            await _context.SaveChangesAsync();
         }
 
         public async Task<Comment> ReturnByIdAsync(Guid id)
@@ -26,7 +25,6 @@ namespace GameZone.Infrastructure.Repositories
                 .Include(x => x.Replies).ThenInclude(x => x.User)
                 .Include(x => x.User)
                 .Include(x => x.Game)
-                .AsNoTracking()
                 .FirstOrDefaultAsync();
 
             return commentToReturn;
@@ -45,12 +43,10 @@ namespace GameZone.Infrastructure.Repositories
         public async Task UpdateAsync(Comment comment)
         {
             _context.Comments.Update(comment);
-            await _context.SaveChangesAsync();
         }
         public async Task DeleteAsync(Comment comment)
         {
             _context.Comments.Remove(comment);
-            await _context.SaveChangesAsync();
         }
     }
 }
