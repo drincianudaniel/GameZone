@@ -32,7 +32,6 @@ function getStyles(name, valueName, theme) {
 export default function MultipleSelectChip(props) {
   const theme = useTheme();
   const [data, setData] = useState([]);
-  const [valueName, setvalueName] = useState([]);
   useEffect(() => {
     getData()
   }, []);
@@ -41,23 +40,16 @@ export default function MultipleSelectChip(props) {
     props.getData().then(res => setData(res))
   }  
 
-  const handleChange = (event) => {
-    const {
-      target: { value },
-    } = event;
-    setvalueName(value);
-  };
-
   return (
     <div>
-      <FormControl sx={{ m: 1, width: 300 }}>
+      <FormControl sx={{ m: 1, width: 384 }}>
         <InputLabel id="demo-multiple-chip-label">{props.name}</InputLabel>
         <Select
           labelId="demo-multiple-chip-label"
           id="demo-multiple-chip"
           multiple
-          value={valueName}
-          onChange={handleChange}
+          value={props.valueName}
+          onChange={props.handleChange}
           input={<OutlinedInput id="select-multiple-chip" label={props.name} />}
           renderValue={(selected) => (
             <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
@@ -72,7 +64,7 @@ export default function MultipleSelectChip(props) {
             <MenuItem
               key={val.id}
               value={val}
-              style={getStyles(val.name, valueName, theme)}
+              style={getStyles(val.name, props.valueName, theme)}
             >
               {val.name}
             </MenuItem>

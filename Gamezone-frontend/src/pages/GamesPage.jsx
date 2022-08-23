@@ -44,6 +44,9 @@ function GamesPage() {
     border: "2px solid #000",
     boxShadow: 24,
     p: 4,
+    display: "flex",
+    justifyContent: "center",
+    flexDirection:"column",
   };
 
   useEffect(() => {
@@ -75,28 +78,53 @@ function GamesPage() {
   };
 
   const createGame = async () => {
-    await axios
-    .post(`${process.env.REACT_APP_SERVERIP}/Games`,{
+
+    const data = {
       name: name,
       releaseDate: date,
       imageSrc: imageSrc,
-      gameDetails: details
-    })
-    .then(response => console.log(response))
+      gameDetails: details,
+      developerList: selectedDevelopers.map(e => e.id),
+      genreList: selectedGenres.map(e => e.id),
+      platformList: selectedPlatforms.map(e => e.id),
+    }
+
+    await axios
+    .post(`${process.env.REACT_APP_SERVERIP}/Games`, data)
+    .then(response => {handleClose(); getGames()})
     .catch(err => console.log(err));
   }
+
+  const handleChangeDevelopers = (event) => {
+    const {
+      target: { value },
+    } = event;
+    setSelectedDevelopers(value);
+  };
+
+  const handleChangeGenres = (event) => {
+    const {
+      target: { value },
+    } = event;
+    setSelectedGenres(value);
+  };
+
+  const handleChangePlatforms = (event) => {
+    const {
+      target: { value },
+    } = event;
+    setSelectedPlatforms(value);
+  };
 
   return (
     <div className="gamePageContent">
       <Header />
-      <Button onClick={handleOpen}>Add a new game</Button>
+      <Button variant="contained" onClick={handleOpen}>Add a new game</Button>
       <div className="games">
         {games.map((data, i) => {
           return (
             <div key={data.id}>
-              <Link style={{ textDecoration: "none" }} to={`/game/${data.id}`}>
-                <GameCard data={data} i={i} />
-              </Link>
+                <GameCard data={data} i={i} getGames={getGames} />
             </div>
           );
         })}
@@ -119,7 +147,7 @@ function GamesPage() {
             </Typography>
             <FormControl>
               <TextField
-                sx={{ m: 1, width: 300 }}
+                sx={{ m: 1}}
                 id="outlined-basic"
                 label="Name"
                 variant="outlined"
@@ -127,7 +155,7 @@ function GamesPage() {
                 onChange={e => setName(e.target.value)}
               />
               <TextField
-                sx={{ m: 1, width: 300 }}
+                sx={{ m: 1}}
                 id="outlined-basic"
                 label="Game Details"
                 variant="outlined"
@@ -135,7 +163,7 @@ function GamesPage() {
                 onChange={e => setDetails(e.target.value)}
               />
               <TextField
-                sx={{ m: 1, width: 300 }}
+                sx={{ m: 1}}
                 id="outlined-basic"
                 label="Image Link"
                 variant="outlined"
@@ -144,8 +172,8 @@ function GamesPage() {
               />
               <LocalizationProvider dateAdapter={AdapterDateFns}>
                 <DesktopDateTimePicker
-                  sx={{ m: 1, width: 300 }}
-                  label="For desktop"
+                  sx={{ m: 1}}
+                  label="Release Date"
                   value={date}
                   onChange={(newValue) => {
                     setDate(newValue);
@@ -153,10 +181,10 @@ function GamesPage() {
                   renderInput={(params) => <TextField {...params} />}
                 />
               </LocalizationProvider>
-              <MultipleSelectChip name="Developer" getData={getDevelopers} />
-              <MultipleSelectChip name="Genre" getData={getGenres} />
-              <MultipleSelectChip name="Platform" getData={getPlatforms} />
-              <Button onClick={createGame}>Create Game</Button>
+              <MultipleSelectChip name="Developer" getData={getDevelopers} handleChange={handleChangeDevelopers} valueName={selectedDevelopers} />
+              <MultipleSelectChip name="Genre" getData={getGenres} handleChange={handleChangeGenres} valueName={selectedGenres}/>
+              <MultipleSelectChip name="Platform" getData={getPlatforms} handleChange={handleChangePlatforms} valueName={selectedPlatforms}/>
+              <Button variant="contained" onClick={createGame}>Create Game</Button>
             </FormControl>
           </Box>
         </Fade>
