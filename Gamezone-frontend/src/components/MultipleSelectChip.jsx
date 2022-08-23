@@ -20,10 +20,10 @@ const MenuProps = {
   },
 };
 
-function getStyles(name, personName, theme) {
+function getStyles(name, valueName, theme) {
   return {
     fontWeight:
-      personName.indexOf(name) === -1
+      valueName.indexOf(name) === -1
         ? theme.typography.fontWeightRegular
         : theme.typography.fontWeightMedium,
   };
@@ -32,8 +32,7 @@ function getStyles(name, personName, theme) {
 export default function MultipleSelectChip(props) {
   const theme = useTheme();
   const [data, setData] = useState([]);
-  const [personName, setPersonName] = useState([]);
-  const [dataToSend, setDataToSend] = useState([]);
+  const [valueName, setvalueName] = useState([]);
   useEffect(() => {
     getData()
   }, []);
@@ -46,8 +45,7 @@ export default function MultipleSelectChip(props) {
     const {
       target: { value },
     } = event;
-    setPersonName(typeof value.id === "string" ? value.split(",") : value);
-    setDataToSend(dataToSend => [...dataToSend, value])
+    setvalueName(value);
   };
 
   return (
@@ -58,9 +56,9 @@ export default function MultipleSelectChip(props) {
           labelId="demo-multiple-chip-label"
           id="demo-multiple-chip"
           multiple
-          value={personName}
+          value={valueName}
           onChange={handleChange}
-          input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
+          input={<OutlinedInput id="select-multiple-chip" label={props.name} />}
           renderValue={(selected) => (
             <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
               {selected.map((value) => (
@@ -74,14 +72,13 @@ export default function MultipleSelectChip(props) {
             <MenuItem
               key={val.id}
               value={val}
-              style={getStyles(val.name, personName, theme)}
+              style={getStyles(val.name, valueName, theme)}
             >
               {val.name}
             </MenuItem>
           ))}
         </Select>
       </FormControl>
-      {console.log(dataToSend)}
     </div>
   );
 }

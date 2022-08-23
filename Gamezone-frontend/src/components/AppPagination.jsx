@@ -1,20 +1,6 @@
 import { Box, Pagination } from "@mui/material";
-import { makeStyles } from "@mui/styles";
 
 function AppPagination() {
-  const useStyles = makeStyles(() => ({
-    ul: {
-      "& .MuiPaginationItem-root": {
-        color: "white",
-        "&.Mui-selected": {
-          color: "white",
-          // borderRadius: '50%',
-        },
-      },
-    },
-  }));
-
-  const classes = useStyles();
 
   return (
     <Box
@@ -27,9 +13,6 @@ function AppPagination() {
         count={10}
         variant="outlined"
         color="primary"
-        classes={{
-          root: classes.ul,
-        }}
       />
     </Box>
   );

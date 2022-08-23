@@ -14,13 +14,25 @@ import Fade from "@mui/material/Fade";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import FormControl from "@mui/material/FormControl";
+import TextField from "@mui/material/TextField";
+import { DesktopDateTimePicker } from '@mui/x-date-pickers/DesktopDateTimePicker';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 
 function GamesPage() {
   const [games, setGames] = useState([]);
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
+  const [name, setName] = useState("");
+  const [date, setDate] = useState(new Date('2018-01-01T00:00:00.000Z'));
+  const [details, setDetails] = useState("");
+  const [imageSrc, setImageSrc] = useState("");
+
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+  const [selectedDevelopers, setSelectedDevelopers] = useState([]);
+  const [selectedGenres, setSelectedGenres] = useState([]);
+  const [selectedPlatforms, setSelectedPlatforms] = useState([]);
   //modal styles
   const style = {
     position: "absolute",
@@ -38,29 +50,41 @@ function GamesPage() {
     getGames();
   }, []);
 
-  const getGames = () => {
-    axios
+  const getGames = async () => {
+    await axios
       .get("https://localhost:7092/api/Games")
       .then((res) => setGames(res.data));
   };
 
-  const getDevelopers = async() => {
+  const getDevelopers = async () => {
     return await axios
       .get("https://localhost:7092/api/Developers")
       .then((res) => res.data);
   };
 
-  const getGenres = async() => {
+  const getGenres = async () => {
     return await axios
       .get("https://localhost:7092/api/Genres")
       .then((res) => res.data);
   };
 
-  const getPlatforms = async() => {
+  const getPlatforms = async () => {
     return await axios
       .get("https://localhost:7092/api/Platforms")
       .then((res) => res.data);
   };
+
+  const createGame = async () => {
+    await axios
+    .post(`${process.env.REACT_APP_SERVERIP}/Games`,{
+      name: name,
+      releaseDate: date,
+      imageSrc: imageSrc,
+      gameDetails: details
+    })
+    .then(response => console.log(response))
+    .catch(err => console.log(err));
+  }
 
   return (
     <div className="gamePageContent">
@@ -94,9 +118,45 @@ function GamesPage() {
               Create Game
             </Typography>
             <FormControl>
-              <MultipleSelectChip name="Developer" getData={getDevelopers}/>
-              <MultipleSelectChip name="Genre" getData={getGenres}/>
-              <MultipleSelectChip name="Platform" getData={getPlatforms}/>
+              <TextField
+                sx={{ m: 1, width: 300 }}
+                id="outlined-basic"
+                label="Name"
+                variant="outlined"
+                value={name}
+                onChange={e => setName(e.target.value)}
+              />
+              <TextField
+                sx={{ m: 1, width: 300 }}
+                id="outlined-basic"
+                label="Game Details"
+                variant="outlined"
+                value={details}
+                onChange={e => setDetails(e.target.value)}
+              />
+              <TextField
+                sx={{ m: 1, width: 300 }}
+                id="outlined-basic"
+                label="Image Link"
+                variant="outlined"
+                value={imageSrc}
+                onChange={e => setImageSrc(e.target.value)}
+              />
+              <LocalizationProvider dateAdapter={AdapterDateFns}>
+                <DesktopDateTimePicker
+                  sx={{ m: 1, width: 300 }}
+                  label="For desktop"
+                  value={date}
+                  onChange={(newValue) => {
+                    setDate(newValue);
+                  }}
+                  renderInput={(params) => <TextField {...params} />}
+                />
+              </LocalizationProvider>
+              <MultipleSelectChip name="Developer" getData={getDevelopers} />
+              <MultipleSelectChip name="Genre" getData={getGenres} />
+              <MultipleSelectChip name="Platform" getData={getPlatforms} />
+              <Button onClick={createGame}>Create Game</Button>
             </FormControl>
           </Box>
         </Fade>
