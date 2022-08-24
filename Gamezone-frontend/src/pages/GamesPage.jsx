@@ -18,6 +18,8 @@ import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import TextareaAutosize from "@mui/material/TextareaAutosize";
+import AddBoxIcon from '@mui/icons-material/AddBox';
+import { IconButton } from "@mui/material";
 
 function GamesPage() {
   const [games, setGames] = useState([]);
@@ -121,9 +123,9 @@ function GamesPage() {
   return (
     <div className="gamePageContent">
       <Header />
-      <Button variant="contained" onClick={handleOpen}>
-        Add a new game
-      </Button>
+      <IconButton className="addButton" size="large" onClick={handleOpen}>
+        <AddBoxIcon fontSize="large" sx={{color:"white"}}/>
+      </IconButton>
       <div className="games">
         {games.map((data, i) => {
           return (
