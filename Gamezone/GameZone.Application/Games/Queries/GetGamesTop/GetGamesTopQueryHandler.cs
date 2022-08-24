@@ -1,24 +1,22 @@
-﻿using AutoMapper;
-using GameZone.Application.DTOs;
-using GameZone.Application.Interfaces;
+﻿using GameZone.Application.Interfaces;
+using GameZone.Domain.Models;
 using MediatR;
 
 namespace GameZone.Application.Games.Queries.GetGamesTop
 {
-    public class GetGamesTopQueryHandler : IRequestHandler<GetGamesTopQuery, IEnumerable<SimpleGameDto>>
+    public class GetGamesTopQueryHandler : IRequestHandler<GetGamesTopQuery, IEnumerable<Game>>
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IMapper _mapper;
-        public GetGamesTopQueryHandler(IUnitOfWork unitOfWork, IMapper mapper)
+
+        public GetGamesTopQueryHandler(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
-            _mapper = mapper;
         }
-        public async Task<IEnumerable<SimpleGameDto>> Handle(GetGamesTopQuery request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<Game>> Handle(GetGamesTopQuery request, CancellationToken cancellationToken)
         {
             var query = await _unitOfWork.GameRepository.GenerateTopList();
-            var mappedResult = _mapper.Map<IEnumerable<SimpleGameDto>>(query);
-            return mappedResult;
+
+            return query;
         }
     }
 }

@@ -1,22 +1,18 @@
-﻿using AutoMapper;
-using GameZone.Application.DTOs;
-using GameZone.Application.Interfaces;
+﻿using GameZone.Application.Interfaces;
 using GameZone.Domain.Models;
 using MediatR;
 
 namespace GameZone.Application.Developers.Commands.UpdateDeveloper
 {
-    public class UpdateDeveloperCommandHandler : IRequestHandler<UpdateDeveloperCommand, DeveloperDto>
+    public class UpdateDeveloperCommandHandler : IRequestHandler<UpdateDeveloperCommand, Developer>
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IMapper _mapper;
 
-        public UpdateDeveloperCommandHandler(IUnitOfWork unitOfWork, IMapper mapper)
+        public UpdateDeveloperCommandHandler(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
-            _mapper=mapper;
         }
-        public async Task<DeveloperDto> Handle(UpdateDeveloperCommand request, CancellationToken cancellationToken)
+        public async Task<Developer> Handle(UpdateDeveloperCommand request, CancellationToken cancellationToken)
         {
             var developerToUpdate = new Developer();
             developerToUpdate.Id = request.Id;
@@ -26,8 +22,7 @@ namespace GameZone.Application.Developers.Commands.UpdateDeveloper
             await _unitOfWork.DeveloperRepository.UpdateAsync(developerToUpdate);
             await _unitOfWork.SaveAsync();
 
-            var developerDto = _mapper.Map<DeveloperDto>(developerToUpdate);
-            return developerDto;
+            return developerToUpdate;
         }
     }
 }

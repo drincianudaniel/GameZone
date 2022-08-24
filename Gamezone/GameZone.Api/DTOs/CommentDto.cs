@@ -1,6 +1,5 @@
-﻿using GameZone.Domain.Models;
-
-namespace GameZone.Application.DTOs
+﻿
+namespace GameZone.Api.DTOs
 {
     public class CommentDto
     {

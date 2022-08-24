@@ -1,27 +1,23 @@
-﻿using AutoMapper;
-using GameZone.Application.DTOs;
-using GameZone.Application.Interfaces;
+﻿using GameZone.Application.Interfaces;
+using GameZone.Domain.Models;
 using MediatR;
 
 namespace GameZone.Application.Reviews.Queries.GetReviewById
 {
-    public class GetReviewByIdQueryHandler : IRequestHandler<GetReviewByIdQuery, ReviewDto>
+    public class GetReviewByIdQueryHandler : IRequestHandler<GetReviewByIdQuery, Review>
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IMapper _mapper;
 
-        public GetReviewByIdQueryHandler(IUnitOfWork unitOfWork, IMapper mapper)
+        public GetReviewByIdQueryHandler(IUnitOfWork unitOfWork)
         {
             _unitOfWork=unitOfWork;
-            _mapper = mapper;
         }
 
-        public async Task<ReviewDto> Handle(GetReviewByIdQuery request, CancellationToken cancellationToken)
+        public async Task<Review> Handle(GetReviewByIdQuery request, CancellationToken cancellationToken)
         {
             Guid id = request.Id;
             var result = await _unitOfWork.ReviewRepository.ReturnByIdAsync(id);
-            var reviewDto = _mapper.Map<ReviewDto>(result);
-            return reviewDto;
+            return result;
         }
     }
 }

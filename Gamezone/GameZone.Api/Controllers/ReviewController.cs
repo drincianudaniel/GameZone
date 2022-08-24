@@ -1,4 +1,6 @@
-﻿using GameZone.Api.ViewModels;
+﻿using AutoMapper;
+using GameZone.Api.DTOs;
+using GameZone.Api.ViewModels;
 using GameZone.Application.Reviews.Commands.CreateReview;
 using GameZone.Application.Reviews.Commands.DeleteReview;
 using GameZone.Application.Reviews.Queries.GetReviewById;
@@ -13,10 +15,11 @@ namespace GameZone.Api.Controllers
     public class ReviewController : ControllerBase
     {
         public readonly IMediator _mediator;
-
-        public ReviewController(IMediator mediator)
+        public readonly IMapper _mapper;
+        public ReviewController(IMediator mediator, IMapper mapper)
         {
             _mediator = mediator;
+            _mapper=mapper;
         }
 
         [HttpGet]
@@ -29,14 +32,16 @@ namespace GameZone.Api.Controllers
             if (result == null)
                 return NotFound();
 
-            return Ok(result);
+            var mappedResult = _mapper.Map<ReviewDto>(result);
+            return Ok(mappedResult);
         }
 
         [HttpGet]
         public async Task<IActionResult> GetReviews()
         {
             var result = await _mediator.Send(new GetReviewsListQuery());
-            return Ok(result);
+            var mappedResult = _mapper.Map<IEnumerable<ReviewDto>>(result);
+            return Ok(mappedResult);
         }
 
         [HttpPost]
@@ -54,7 +59,8 @@ namespace GameZone.Api.Controllers
             };
             var result = await _mediator.Send(command);
 
-            return CreatedAtAction(nameof(GetById), new { Id = result }, result);
+            var mappedResult = _mapper.Map<ReviewDto>(result);
+            return CreatedAtAction(nameof(GetById), new { Id = mappedResult.Id }, mappedResult);
         }
 
         [HttpDelete]

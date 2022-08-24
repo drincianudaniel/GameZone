@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using GameZone.Application.DTOs;
+using GameZone.Api.DTOs;
 using GameZone.Domain.Models;
 
-namespace GameZone.Application.AutoMapperProfiles
+namespace GameZone.Api.AutoMapperProfiles
 {
     public class GenreProfile : Profile
     {

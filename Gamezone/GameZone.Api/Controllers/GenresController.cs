@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using GameZone.Application.Genres.Queries.GetGenresList;
 using GameZone.Application.Genres.Commands.DeleteGenre;
 using GameZone.Application.Genres.Commands.UpdateGenre;
+using GameZone.Api.DTOs;
 
 namespace GameZone.Api.Controllers
 {
@@ -33,14 +34,16 @@ namespace GameZone.Api.Controllers
             if(result == null)
                 return NotFound();
 
-            return Ok(result);
+            var mappedResult = _mapper.Map<GenreDto>(result);
+            return Ok(mappedResult);
         }
 
         [HttpGet]
         public async Task<IActionResult> GetGenres()
         {
             var result = await _mediator.Send(new GetGenresListQuery());
-            return Ok(result);
+            var mappedResult = _mapper.Map<IEnumerable<GenreDto>>(result);
+            return Ok(mappedResult);
         }
 
         [HttpPost]
@@ -53,9 +56,10 @@ namespace GameZone.Api.Controllers
             {
                 Name = genre.Name,
             };
-            var result = await _mediator.Send(command);
 
-            return CreatedAtAction(nameof(GetById), new { Id = result }, result);
+            var result = await _mediator.Send(command);
+            var mappedResult = _mapper.Map<GenreDto>(result);
+            return CreatedAtAction(nameof(GetById), new { Id = mappedResult.Id }, mappedResult);
         }
 
         [HttpPut]
@@ -72,6 +76,7 @@ namespace GameZone.Api.Controllers
             if (result == null)
                 return NotFound();
 
+            var mappedResult = _mapper.Map<GenreDto>(result);
             return NoContent();
         }
 

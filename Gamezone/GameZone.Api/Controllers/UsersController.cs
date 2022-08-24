@@ -1,4 +1,6 @@
-﻿using GameZone.Api.ViewModels;
+﻿using AutoMapper;
+using GameZone.Api.DTOs;
+using GameZone.Api.ViewModels;
 using GameZone.Application.Users.Commands.AddFavoriteGame;
 using GameZone.Application.Users.Commands.CreateUser;
 using GameZone.Application.Users.Commands.DeleteUser;
@@ -15,10 +17,12 @@ namespace GameZone.Api.Controllers
     public class UsersController : ControllerBase
     {
         public readonly IMediator _mediator;
+        public readonly IMapper _mapper;
 
-        public UsersController(IMediator mediator)
+        public UsersController(IMediator mediator, IMapper mapper)
         {
             _mediator = mediator;
+            _mapper=mapper;
         }
 
         [HttpGet]
@@ -31,14 +35,16 @@ namespace GameZone.Api.Controllers
             if (result == null)
                 return NotFound();
 
-            return Ok(result);
+            var mappedResult = _mapper.Map<UserDto>(result);
+            return Ok(mappedResult);
         }
 
         [HttpGet]
         public async Task<IActionResult> GetUsers()
         {
             var result = await _mediator.Send(new GetUsersListQuery());
-            return Ok(result);
+            var mappedResult = _mapper.Map<IEnumerable<UserDto>>(result);
+            return Ok(mappedResult);
         }
 
         [HttpPost]
@@ -57,8 +63,9 @@ namespace GameZone.Api.Controllers
                 Role = user.Role
             };
             var result = await _mediator.Send(command);
+            var mappedResult = _mapper.Map<UserDto>(result);
 
-            return CreatedAtAction(nameof(GetById), new { Id = result }, result);
+            return CreatedAtAction(nameof(GetById), new { Id = mappedResult.Id }, mappedResult);
         }
 
         [HttpDelete]

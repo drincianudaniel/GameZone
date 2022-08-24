@@ -1,4 +1,6 @@
-﻿using GameZone.Api.ViewModels;
+﻿using AutoMapper;
+using GameZone.Api.DTOs;
+using GameZone.Api.ViewModels;
 using GameZone.Application.Comments.Commands.CreateComment;
 using GameZone.Application.Comments.Commands.DeleteComment;
 using GameZone.Application.Comments.Queries.GetCommentById;
@@ -13,10 +15,12 @@ namespace GameZone.Api.Controllers
     public class CommentsController : ControllerBase
     { 
         public readonly IMediator _mediator;
+        public readonly IMapper _mapper;
 
-        public CommentsController(IMediator mediator)
+        public CommentsController(IMediator mediator, IMapper mapper)
         {
             _mediator = mediator;
+            _mapper=mapper;
         }
 
         [HttpGet]
@@ -29,14 +33,16 @@ namespace GameZone.Api.Controllers
             if (result == null)
                 return NotFound();
 
-            return Ok(result);
+            var mappedResult = _mapper.Map<CommentDto>(result);
+            return Ok(mappedResult);
         }
 
         [HttpGet]
         public async Task<IActionResult> GetComments()
         {
             var result = await _mediator.Send(new GetCommentsListQuery());
-            return Ok(result);
+            var mappedResult = _mapper.Map<IEnumerable<CommentDto>>(result);
+            return Ok(mappedResult);
         }
 
         [HttpPost]
@@ -52,8 +58,9 @@ namespace GameZone.Api.Controllers
                 Content = comment.Content
             };
             var result = await _mediator.Send(command);
+            var mappedResult = _mapper.Map<CommentDto>(result);
 
-            return CreatedAtAction(nameof(GetById), new { Id = result }, result);
+            return CreatedAtAction(nameof(GetById), new { Id = mappedResult.Id }, mappedResult);
         }
 
         [HttpDelete]

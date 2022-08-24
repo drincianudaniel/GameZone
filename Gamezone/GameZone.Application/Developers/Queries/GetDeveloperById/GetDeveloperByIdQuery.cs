@@ -1,9 +1,9 @@
-﻿using GameZone.Application.DTOs;
+﻿using GameZone.Domain.Models;
 using MediatR;
 
 namespace GameZone.Application.Developers.Queries.GetDeveloperById
 {
-    public class GetDeveloperByIdQuery : IRequest<DeveloperDto>
+    public class GetDeveloperByIdQuery : IRequest<Developer>
     {
         public Guid Id { get; set; }
     }

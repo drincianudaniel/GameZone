@@ -1,4 +1,6 @@
-﻿using GameZone.Api.ViewModels;
+﻿using AutoMapper;
+using GameZone.Api.DTOs;
+using GameZone.Api.ViewModels;
 using GameZone.Application.Developers.Commands.CreateDeveloper;
 using GameZone.Application.Developers.Commands.DeleteDeveloper;
 using GameZone.Application.Developers.Queries.GetDeveloperById;
@@ -13,10 +15,12 @@ namespace GameZone.Api.Controllers
     public class DevelopersController : ControllerBase
     {
         public readonly IMediator _mediator;
+        public readonly IMapper _mapper;
 
-        public DevelopersController(IMediator mediator)
+        public DevelopersController(IMediator mediator, IMapper mapper)
         {
             _mediator = mediator;
+            _mapper=mapper;
         }
 
         [HttpGet]
@@ -29,14 +33,16 @@ namespace GameZone.Api.Controllers
             if (result == null)
                 return NotFound();
 
-            return Ok(result);
+            var mappedResult = _mapper.Map<DeveloperDto>(result);
+            return Ok(mappedResult);
         }
 
         [HttpGet]
         public async Task<IActionResult> GetDevelopers()
         {
             var result = await _mediator.Send(new GetDevelopersListQuery());
-            return Ok(result);
+            var mappedResult = _mapper.Map<IEnumerable<DeveloperDto>>(result);
+            return Ok(mappedResult);
         }
 
         [HttpPost]
@@ -50,9 +56,11 @@ namespace GameZone.Api.Controllers
                 Name = developer.Name,
                 HeadQuarters = developer.HeadQuarters
             };
-            var result = await _mediator.Send(command);
 
-            return CreatedAtAction(nameof(GetById), new { Id = result }, result);
+            var result = await _mediator.Send(command);
+            var mappedResult = _mapper.Map<DeveloperDto>(result);
+
+            return CreatedAtAction(nameof(GetById), new { Id = mappedResult.Id }, mappedResult);
         }
 
         [HttpDelete]

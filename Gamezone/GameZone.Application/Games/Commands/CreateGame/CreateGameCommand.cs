@@ -1,10 +1,10 @@
-﻿using GameZone.Application.DTOs;
+﻿using GameZone.Domain.Models;
 using MediatR;
 
 
 namespace GameZone.Application.Games.Commands.CreateGame
 {
-    public class CreateGameCommand : IRequest<GameDto>
+    public class CreateGameCommand : IRequest<Game>
     {
         public string Name { get; set; } = string.Empty;
         public DateTime ReleaseDate { get; set; }

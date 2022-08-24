@@ -1,14 +1,10 @@
-﻿using GameZone.Application.DTOs;
+﻿using GameZone.Domain.Models;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace GameZone.Application.Games.Commands.UpdateGame
 {
-    public class UpdateGameCommand : IRequest<GameDto>
+    public class UpdateGameCommand : IRequest<Game>
     {
         public Guid Id { get; set; }
         public string Name { get; set; } = string.Empty;

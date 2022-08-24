@@ -1,9 +1,9 @@
-﻿using GameZone.Application.DTOs;
+﻿using GameZone.Domain.Models;
 using MediatR;
 
 namespace GameZone.Application.Games.Queries.GetGamesPaged
 {
-    public class GetGamesPagedQuery : IRequest<IEnumerable<GameDto>>
+    public class GetGamesPagedQuery : IRequest<IEnumerable<Game>>
     {
         public int Page { get; set; }
     }

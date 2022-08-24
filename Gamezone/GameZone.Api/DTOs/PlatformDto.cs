@@ -1,6 +1,6 @@
-﻿namespace GameZone.Application.DTOs
+﻿namespace GameZone.Api.DTOs
 {
-    public class GenreDto
+    public class PlatformDto
     {
         public Guid Id { get; set; }
         public string Name { get; set; } = string.Empty;

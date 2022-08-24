@@ -1,22 +1,18 @@
-﻿using AutoMapper;
-using GameZone.Application.DTOs;
-using GameZone.Application.Interfaces;
+﻿using GameZone.Application.Interfaces;
 using GameZone.Domain.Models;
 using MediatR;
 
 namespace GameZone.Application.Genres.Commands.UpdateGenre
 {
-    public class UpdateGenreCommandHandler : IRequestHandler<UpdateGenreCommand, GenreDto>
+    public class UpdateGenreCommandHandler : IRequestHandler<UpdateGenreCommand, Genre>
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IMapper _mapper;
 
-        public UpdateGenreCommandHandler(IUnitOfWork unitOfWork, IMapper mapper)
+        public UpdateGenreCommandHandler(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
-            _mapper=mapper;
         }
-        public async Task<GenreDto> Handle(UpdateGenreCommand request, CancellationToken cancellationToken)
+        public async Task<Genre> Handle(UpdateGenreCommand request, CancellationToken cancellationToken)
         {
             var genreToUpdate = new Genre();
             genreToUpdate.Id = request.Id;
@@ -25,8 +21,7 @@ namespace GameZone.Application.Genres.Commands.UpdateGenre
             await _unitOfWork.GenreRepository.UpdateAsync(genreToUpdate);
             await _unitOfWork.SaveAsync();
 
-            var genreDto = _mapper.Map<GenreDto>(genreToUpdate);
-            return genreDto;
+            return genreToUpdate;
         }
     }
 }

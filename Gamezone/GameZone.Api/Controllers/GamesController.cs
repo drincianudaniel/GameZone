@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using GameZone.Api.DTOs;
 using GameZone.Api.ViewModels;
 using GameZone.Application.Games.Commands.CreateGame;
 using GameZone.Application.Games.Commands.DeleteGame;
@@ -33,7 +34,8 @@ namespace GameZone.Api.Controllers
         public async Task<IActionResult> GetGames()
         {
             var result = await _mediator.Send(new GetGameListQuery());
-            return Ok(result);
+            var mappedResult = _mapper.Map<IEnumerable<GameDto>>(result);
+            return Ok(mappedResult);
         }
 
         [HttpGet]
@@ -46,7 +48,8 @@ namespace GameZone.Api.Controllers
             if (result == null)
                 return NotFound();
 
-            return Ok(result);
+            var mappedResult = _mapper.Map<GameDto>(result);
+            return Ok(mappedResult);
         }
 
         [HttpGet]
@@ -54,7 +57,8 @@ namespace GameZone.Api.Controllers
         public async Task<IActionResult> GetTop()
         {
             var result = await _mediator.Send(new GetGamesTopQuery());
-            return Ok(result);
+            var mappedResult = _mapper.Map<IEnumerable<SimpleGameDto>>(result);
+            return Ok(mappedResult);
         }
 
         [HttpGet]
@@ -65,7 +69,9 @@ namespace GameZone.Api.Controllers
             {
                 Page = page
             });
-            return Ok(result);
+
+            var mappedResult = _mapper.Map<IEnumerable<GameDto>>(result);
+            return Ok(mappedResult);
         }
 
         [HttpGet]
@@ -77,7 +83,8 @@ namespace GameZone.Api.Controllers
                 searchString = searchString
             });
 
-            return Ok(result);
+            var mappedResult = _mapper.Map<IEnumerable<GameDto>>(result);
+            return Ok(mappedResult);
         }
 
         [HttpPost]
@@ -98,8 +105,8 @@ namespace GameZone.Api.Controllers
             };
 
             var result = await _mediator.Send(command);
-
-            return CreatedAtAction(nameof(GetById), new { Id = result.Id }, result);
+            var mappedResult = _mapper.Map<GameDto>(result);
+            return CreatedAtAction(nameof(GetById), new { Id = mappedResult.Id }, mappedResult);
         }
 
         // not fully working yet
@@ -122,6 +129,7 @@ namespace GameZone.Api.Controllers
 
             if (result == null)
                 return NotFound();
+            var mappedResult = _mapper.Map<GameDto>(result);
 
             return NoContent();
         }

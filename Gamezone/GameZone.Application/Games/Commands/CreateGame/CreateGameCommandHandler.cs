@@ -1,22 +1,18 @@
-﻿using AutoMapper;
-using GameZone.Application.DTOs;
-using GameZone.Application.Interfaces;
+﻿using GameZone.Application.Interfaces;
 using GameZone.Domain.Models;
 using MediatR;
 
 namespace GameZone.Application.Games.Commands.CreateGame
 {
-    public class CreateGameCommandHandler : IRequestHandler<CreateGameCommand, GameDto>
+    public class CreateGameCommandHandler : IRequestHandler<CreateGameCommand, Game>
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IMapper _mapper;
 
-        public CreateGameCommandHandler(IUnitOfWork unitOfWork, IMapper mapper)
+        public CreateGameCommandHandler(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
-            _mapper =mapper;
         }
-        public async Task<GameDto> Handle(CreateGameCommand request, CancellationToken cancellationToken)
+        public async Task<Game> Handle(CreateGameCommand request, CancellationToken cancellationToken)
         {
             
             var game = new Game { Name = request.Name, ReleaseDate = request.ReleaseDate, ImageSrc = request.ImageSrc, GameDetails = request.GameDetails, Developers=new List<Developer>(), Genres = new List<Genre>(), Platforms = new List<Platform>()};
@@ -58,8 +54,8 @@ namespace GameZone.Application.Games.Commands.CreateGame
             await _unitOfWork.SaveAsync();
 
             var gameToAdd = await _unitOfWork.GameRepository.ReturnByIdAsync(game.Id);
-            var gameDto = _mapper.Map<GameDto>(gameToAdd);
-            return gameDto;
+
+            return gameToAdd;
         }
     }
 }

@@ -7,6 +7,7 @@ using GameZone.Api.ViewModels;
 using GameZone.Application.Platforms.Commands.CreatePlatform;
 using GameZone.Application.Platforms.Commands.DeletePlatform;
 using GameZone.Application.Platforms.Commands.UpdatePlatform;
+using GameZone.Api.DTOs;
 
 namespace GameZone.Api.Controllers
 {
@@ -33,14 +34,16 @@ namespace GameZone.Api.Controllers
             if (result == null)
                 return NotFound();
 
-            return Ok(result);
+            var mappedResult = _mapper.Map<PlatformDto>(result);
+            return Ok(mappedResult);
         }
 
         [HttpGet]
         public async Task<IActionResult> GetPlatforms()
         {
             var result = await _mediator.Send(new GetPlatformsListQuery());
-            return Ok(result);
+            var mappedResult = _mapper.Map<IEnumerable<PlatformDto>>(result);
+            return Ok(mappedResult);
         }
 
         [HttpPost]
@@ -55,7 +58,8 @@ namespace GameZone.Api.Controllers
             };
             var result = await _mediator.Send(command);
 
-            return CreatedAtAction(nameof(GetById), new { Id = result }, result);
+            var mappedResult = _mapper.Map<PlatformDto>(result);
+            return CreatedAtAction(nameof(GetById), new { Id = mappedResult.Id }, mappedResult);
         }
 
         [HttpPut]
@@ -72,6 +76,7 @@ namespace GameZone.Api.Controllers
             if (result == null)
                 return NotFound();
 
+            var mappedResult = _mapper.Map<PlatformDto>(result);
             return NoContent();
         }
 

@@ -1,4 +1,6 @@
-﻿using GameZone.Api.ViewModels;
+﻿using AutoMapper;
+using GameZone.Api.DTOs;
+using GameZone.Api.ViewModels;
 using GameZone.Application.Replies.Commands.CreateReply;
 using GameZone.Application.Replies.Commands.DeleteReply;
 using GameZone.Application.Replies.Queries.GetRepliesList;
@@ -14,10 +16,11 @@ namespace GameZone.Api.Controllers
     public class RepliesController : ControllerBase
     {
         public readonly IMediator _mediator;
-
-        public RepliesController(IMediator mediator)
+        public readonly IMapper _mapper;
+        public RepliesController(IMediator mediator, IMapper mapper)
         {
             _mediator = mediator;
+            _mapper=mapper;
         }
 
         [HttpGet]
@@ -30,14 +33,16 @@ namespace GameZone.Api.Controllers
             if (result == null)
                 return NotFound();
 
-            return Ok(result);
+            var mappedResult = _mapper.Map<ReplyDto>(result);
+            return Ok(mappedResult);
         }
 
         [HttpGet]
         public async Task<IActionResult> GetReplies()
         {
             var result = await _mediator.Send(new GetRepliesListQuery());
-            return Ok(result);
+            var mappedResult = _mapper.Map<IEnumerable<ReplyDto>>(result);
+            return Ok(mappedResult);
         }
 
         [HttpPost]
@@ -54,7 +59,8 @@ namespace GameZone.Api.Controllers
             };
             var result = await _mediator.Send(command);
 
-            return CreatedAtAction(nameof(GetById), new { Id = result }, result);
+            var mappedResult = _mapper.Map<ReplyDto>(result);
+            return CreatedAtAction(nameof(GetById), new { Id = mappedResult.Id }, mappedResult);
         }
 
         [HttpDelete]

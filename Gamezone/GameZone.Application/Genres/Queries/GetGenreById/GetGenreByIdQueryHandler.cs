@@ -1,26 +1,22 @@
-﻿using AutoMapper;
-using GameZone.Application.DTOs;
-using GameZone.Application.Interfaces;
+﻿using GameZone.Application.Interfaces;
+using GameZone.Domain.Models;
 using MediatR;
 
 namespace GameZone.Application.Genres.Queries.GetGenreById
 {
-    public class GetGenreByIdQueryHandler : IRequestHandler<GetGenreByIdQuery, GenreDto>
+    public class GetGenreByIdQueryHandler : IRequestHandler<GetGenreByIdQuery, Genre>
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IMapper _mapper;
-        public GetGenreByIdQueryHandler(IUnitOfWork unitOfWork, IMapper mapper)
+        public GetGenreByIdQueryHandler(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
-            _mapper = mapper;
         }
-        public async Task<GenreDto> Handle(GetGenreByIdQuery request, CancellationToken cancellationToken)
+        public async Task<Genre> Handle(GetGenreByIdQuery request, CancellationToken cancellationToken)
         {
             Guid id = request.Id;
             var result = await _unitOfWork.GenreRepository.ReturnByIdAsync(id);
-            var genreDto = _mapper.Map<GenreDto>(result);
 
-            return genreDto;
+            return result;
         }
     }
 }

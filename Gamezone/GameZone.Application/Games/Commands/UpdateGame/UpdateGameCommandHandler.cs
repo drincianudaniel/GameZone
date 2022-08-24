@@ -1,23 +1,19 @@
-﻿using AutoMapper;
-using GameZone.Application.DTOs;
-using GameZone.Application.Interfaces;
+﻿using GameZone.Application.Interfaces;
 using GameZone.Domain.Models;
 using MediatR;
 
 namespace GameZone.Application.Games.Commands.UpdateGame
 {
-    public class UpdateGameCommandHandler : IRequestHandler<UpdateGameCommand, GameDto>
+    public class UpdateGameCommandHandler : IRequestHandler<UpdateGameCommand, Game>
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IMapper _mapper;
 
-        public UpdateGameCommandHandler(IUnitOfWork unitOfWork, IMapper mapper)
+        public UpdateGameCommandHandler(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
-            _mapper=mapper;
         }
 
-        public async Task<GameDto> Handle(UpdateGameCommand request, CancellationToken cancellationToken)
+        public async Task<Game> Handle(UpdateGameCommand request, CancellationToken cancellationToken)
         {
             var gameToUpdate = new Game();
             gameToUpdate.Id = request.Id;
@@ -63,8 +59,7 @@ namespace GameZone.Application.Games.Commands.UpdateGame
             await _unitOfWork.GameRepository.UpdateAsync(gameToUpdate);
             await _unitOfWork.SaveAsync();
 
-            var gameDto = _mapper.Map<GameDto>(gameToUpdate);
-            return gameDto;
+            return gameToUpdate;
         }
     }
 }

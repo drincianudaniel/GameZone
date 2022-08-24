@@ -1,25 +1,21 @@
-﻿using AutoMapper;
-using GameZone.Application.DTOs;
-using GameZone.Application.Interfaces;
+﻿using GameZone.Application.Interfaces;
+using GameZone.Domain.Models;
 using MediatR;
 
 namespace GameZone.Application.Users.Queries.GetUsersList
 {
-    public class GetUsersListQueryHandler : IRequestHandler<GetUsersListQuery, IEnumerable<UserDto>>
+    public class GetUsersListQueryHandler : IRequestHandler<GetUsersListQuery, IEnumerable<User>>
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IMapper _mapper;
 
-        public GetUsersListQueryHandler(IUnitOfWork unitOfWork, IMapper mapper)
+        public GetUsersListQueryHandler(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
-            _mapper=mapper;
         }
-        public async Task<IEnumerable<UserDto>> Handle(GetUsersListQuery request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<User>> Handle(GetUsersListQuery request, CancellationToken cancellationToken)
         {
             var query = await _unitOfWork.UserRepository.ReturnAllAsync();
-            var mappedResult = _mapper.Map<IEnumerable<UserDto>>(query);
-            return mappedResult;
+            return query;
         }
     }
 }

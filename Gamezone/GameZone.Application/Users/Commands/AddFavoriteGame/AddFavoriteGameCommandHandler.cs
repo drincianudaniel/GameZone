@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using GameZone.Application.Interfaces;
+﻿using GameZone.Application.Interfaces;
 using MediatR;
 
 namespace GameZone.Application.Users.Commands.AddFavoriteGame

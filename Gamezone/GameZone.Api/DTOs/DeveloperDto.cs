@@ -1,4 +1,4 @@
-﻿namespace GameZone.Application.DTOs
+﻿namespace GameZone.Api.DTOs
 {
     public class DeveloperDto
     {
