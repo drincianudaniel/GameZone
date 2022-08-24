@@ -1,3 +1,4 @@
+using GameZone.Api.Middleware;
 using GameZone.Application;
 using GameZone.Application.Interfaces;
 using GameZone.Infrastructure;
@@ -60,6 +61,7 @@ app.UseStaticFiles();
 app.UseHttpsRedirection();
 app.UseRouting();
 app.UseAuthorization();
+app.UseMyMiddleware();
 app.UseCors(policyName);
 app.MapControllers();
 

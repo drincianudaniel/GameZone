@@ -5,7 +5,6 @@ import CardMedia from "@mui/material/CardMedia";
 import CardActions from "@mui/material/CardActions";
 import IconButton from "@mui/material/IconButton";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import ShareIcon from "@mui/icons-material/Share";
 import ClearIcon from '@mui/icons-material/Clear';
 import axios from "axios";
 import { Link } from "react-router-dom";
