@@ -5,7 +5,6 @@ function AppPagination() {
   return (
     <Box
       justifyContent={"center"}
-      allignItems="center"
       display={"flex"}
       sx={{ paddingBottom: "20px" }}
     >

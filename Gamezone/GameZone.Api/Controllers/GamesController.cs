@@ -83,6 +83,9 @@ namespace GameZone.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateGame([FromBody] GameViewModel game)
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
             var command = new CreateGameCommand
             {
                 Name = game.Name,

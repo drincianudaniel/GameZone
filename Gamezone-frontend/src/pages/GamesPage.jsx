@@ -5,7 +5,6 @@ import * as React from "react";
 import GameCard from "../components/GameCard";
 import AppPagination from "../components/AppPagination";
 import "./css/GamesPage.css";
-import { Link } from "react-router-dom";
 import MultipleSelectChip from "../components/MultipleSelectChip";
 import Backdrop from "@mui/material/Backdrop";
 import Box from "@mui/material/Box";
@@ -15,15 +14,16 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import FormControl from "@mui/material/FormControl";
 import TextField from "@mui/material/TextField";
-import { DesktopDateTimePicker } from '@mui/x-date-pickers/DesktopDateTimePicker';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import TextareaAutosize from "@mui/material/TextareaAutosize";
 
 function GamesPage() {
   const [games, setGames] = useState([]);
   const [open, setOpen] = useState(false);
   const [name, setName] = useState("");
-  const [date, setDate] = useState(new Date('2018-01-01T00:00:00.000Z'));
+  const [date, setDate] = useState(new Date("2018-01-01T00:00:00.000Z"));
   const [details, setDetails] = useState("");
   const [imageSrc, setImageSrc] = useState("");
 
@@ -46,7 +46,7 @@ function GamesPage() {
     p: 4,
     display: "flex",
     justifyContent: "center",
-    flexDirection:"column",
+    flexDirection: "column",
   };
 
   useEffect(() => {
@@ -55,45 +55,47 @@ function GamesPage() {
 
   const getGames = async () => {
     await axios
-      .get("https://localhost:7092/api/Games")
+      .get(`${process.env.REACT_APP_SERVERIP}/Games`)
       .then((res) => setGames(res.data));
   };
 
   const getDevelopers = async () => {
     return await axios
-      .get("https://localhost:7092/api/Developers")
+      .get(`${process.env.REACT_APP_SERVERIP}/Developers`)
       .then((res) => res.data);
   };
 
   const getGenres = async () => {
     return await axios
-      .get("https://localhost:7092/api/Genres")
+      .get(`${process.env.REACT_APP_SERVERIP}/Genres`)
       .then((res) => res.data);
   };
 
   const getPlatforms = async () => {
     return await axios
-      .get("https://localhost:7092/api/Platforms")
+      .get(`${process.env.REACT_APP_SERVERIP}/Platforms`)
       .then((res) => res.data);
   };
 
   const createGame = async () => {
-
     const data = {
       name: name,
       releaseDate: date,
       imageSrc: imageSrc,
       gameDetails: details,
-      developerList: selectedDevelopers.map(e => e.id),
-      genreList: selectedGenres.map(e => e.id),
-      platformList: selectedPlatforms.map(e => e.id),
-    }
+      developerList: selectedDevelopers.map((e) => e.id),
+      genreList: selectedGenres.map((e) => e.id),
+      platformList: selectedPlatforms.map((e) => e.id),
+    };
 
     await axios
-    .post(`${process.env.REACT_APP_SERVERIP}/Games`, data)
-    .then(response => {handleClose(); getGames()})
-    .catch(err => console.log(err));
-  }
+      .post(`${process.env.REACT_APP_SERVERIP}/Games`, data)
+      .then((response) => {
+        handleClose();
+        getGames();
+      })
+      .catch((err) => console.log(err));
+  };
 
   const handleChangeDevelopers = (event) => {
     const {
@@ -119,12 +121,14 @@ function GamesPage() {
   return (
     <div className="gamePageContent">
       <Header />
-      <Button variant="contained" onClick={handleOpen}>Add a new game</Button>
+      <Button variant="contained" onClick={handleOpen}>
+        Add a new game
+      </Button>
       <div className="games">
         {games.map((data, i) => {
           return (
             <div key={data.id}>
-                <GameCard data={data} i={i} getGames={getGames} />
+              <GameCard data={data} i={i} getGames={getGames} />
             </div>
           );
         })}
@@ -147,32 +151,45 @@ function GamesPage() {
             </Typography>
             <FormControl>
               <TextField
-                sx={{ m: 1}}
+                required
+                sx={{ m: 1 }}
                 id="outlined-basic"
                 label="Name"
                 variant="outlined"
                 value={name}
-                onChange={e => setName(e.target.value)}
+                onChange={(e) => setName(e.target.value)}
+              />
+               <TextareaAutosize
+                required
+                aria-label="empty textarea"
+                placeholder="Game Details"
+                style={{  margin: 10, maxWidth: 375, minWidth: 375, fontSize: 15 }}
+                value={details}
+                onChange={(e) => setDetails(e.target.value)}
               />
               <TextField
-                sx={{ m: 1}}
+                required
+                sx={{ m: 1 }}
                 id="outlined-basic"
                 label="Game Details"
                 variant="outlined"
                 value={details}
-                onChange={e => setDetails(e.target.value)}
+                onChange={(e) => setDetails(e.target.value)}
               />
               <TextField
-                sx={{ m: 1}}
+                required
+                sx={{ m: 1 }}
                 id="outlined-basic"
                 label="Image Link"
                 variant="outlined"
                 value={imageSrc}
-                onChange={e => setImageSrc(e.target.value)}
+                onChange={(e) => setImageSrc(e.target.value)}
               />
+             
               <LocalizationProvider dateAdapter={AdapterDateFns}>
-                <DesktopDateTimePicker
-                  sx={{ m: 1}}
+                <DesktopDatePicker
+                  required
+                  sx={{ m: 1 }}
                   label="Release Date"
                   value={date}
                   onChange={(newValue) => {
@@ -181,10 +198,27 @@ function GamesPage() {
                   renderInput={(params) => <TextField {...params} />}
                 />
               </LocalizationProvider>
-              <MultipleSelectChip name="Developer" getData={getDevelopers} handleChange={handleChangeDevelopers} valueName={selectedDevelopers} />
-              <MultipleSelectChip name="Genre" getData={getGenres} handleChange={handleChangeGenres} valueName={selectedGenres}/>
-              <MultipleSelectChip name="Platform" getData={getPlatforms} handleChange={handleChangePlatforms} valueName={selectedPlatforms}/>
-              <Button variant="contained" onClick={createGame}>Create Game</Button>
+              <MultipleSelectChip
+                name="Developer"
+                getData={getDevelopers}
+                handleChange={handleChangeDevelopers}
+                valueName={selectedDevelopers}
+              />
+              <MultipleSelectChip
+                name="Genre"
+                getData={getGenres}
+                handleChange={handleChangeGenres}
+                valueName={selectedGenres}
+              />
+              <MultipleSelectChip
+                name="Platform"
+                getData={getPlatforms}
+                handleChange={handleChangePlatforms}
+                valueName={selectedPlatforms}
+              />
+              <Button variant="contained" onClick={createGame}>
+                Create Game
+              </Button>
             </FormControl>
           </Box>
         </Fade>

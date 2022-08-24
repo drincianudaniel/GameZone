@@ -54,6 +54,7 @@ if (app.Environment.IsDevelopment())
     {
         c.InjectStylesheet("/swagger-ui/SwaggerDark.css");
     });
+    app.UseDeveloperExceptionPage();
 }
 app.UseStaticFiles();
 app.UseHttpsRedirection();

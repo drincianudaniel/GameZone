@@ -23,8 +23,8 @@ export default function GameCard(props) {
   return (
     
     <Card className="gameCard" sx={{ maxWidth: 345 }}>
-      <Link style={{ textDecoration: "none" }} to={`/game/${props.data.id}`}>
-        <CardHeader title={props.data.name} />
+      <Link style={{ textDecoration: "none", color: "black" }} to={`/game/${props.data.id}`}>
+        <CardHeader title={props.data.name}/>
         <CardMedia
           sx={{ width: 300 }}
           component="img"

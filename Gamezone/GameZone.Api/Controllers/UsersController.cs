@@ -42,7 +42,7 @@ namespace GameZone.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreatePlatform([FromBody] UserViewModel user)
+        public async Task<IActionResult> CreateUser([FromBody] UserViewModel user)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);

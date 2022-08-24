@@ -32,6 +32,7 @@ function getStyles(name, valueName, theme) {
 export default function MultipleSelectChip(props) {
   const theme = useTheme();
   const [data, setData] = useState([]);
+  
   useEffect(() => {
     getData()
   }, []);
