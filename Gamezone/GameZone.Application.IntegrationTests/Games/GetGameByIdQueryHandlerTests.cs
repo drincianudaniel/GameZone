@@ -1,6 +1,8 @@
 using AutoFixture;
 using AutoMapper;
+using GameZone.Api;
 using GameZone.Application.Games.Queries.GetGameById;
+using GameZone.Domain.Models;
 using GameZone.Infrastructure;
 using GameZone.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -23,17 +25,16 @@ namespace GameZone.Application.IntegrationTests.Games.QueryHandlers
 
             var config = new MapperConfiguration(cfg =>
             {
-                cfg.AddMaps(new[] { typeof(IAssemblyMarker) });
+                cfg.AddMaps(new[] { typeof(IAssemblyMarkerApi) });
             });
 
             var mapper = new Mapper(config);
             _fixture.Inject<IMapper>(mapper);
-
             var options = new DbContextOptionsBuilder<GameZoneContext>()
               .UseInMemoryDatabase(databaseName: nameof(GetGameByIdQueryHandlerTests))
               .Options;
 
-            var game = new GameZone.Domain.Models.Game { Id = _gameId, Name = "game 1" };
+            var game = new Game { Id = _gameId, Name = "game 1" };
             var context = new GameZoneContext(options);
             context.Games.Add(game);
             context.SaveChanges();
@@ -50,6 +51,7 @@ namespace GameZone.Application.IntegrationTests.Games.QueryHandlers
             var query = new GetGameByIdQuery { Id = _gameId };
 
             // act
+
             var handler = _fixture.Create<GetGameByIdQueryHandler>();
             var actualGame = await handler.Handle(query, cancellationToken: default);
 

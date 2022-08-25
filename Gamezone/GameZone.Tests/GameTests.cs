@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Threading.Tasks;
 using Xunit;
+using GameZone.Application.Interfaces;
 
 namespace GameZone.Tests
 {
@@ -28,6 +29,7 @@ namespace GameZone.Tests
 
             // action: add game
             await sut.CreateAsync(game);
+            await sut.SaveAsync();
             var savedGame = await sut.ReturnByIdAsync(guid);
             var list = await sut.ReturnAllAsync();
 
@@ -43,12 +45,16 @@ namespace GameZone.Tests
             // arange: one game exists
             IGameRepository sut = GetInMemoryGameRepository();
             await sut.CreateAsync(game);
+            await sut.SaveAsync();
+
             var savedGame = await sut.ReturnByIdAsync(guid);
             var list = await sut.ReturnAllAsync();
             Assert.Single(list);
 
             // action: delete
             await sut.DeleteAsync(savedGame);
+            await sut.SaveAsync();
+
             list = await sut.ReturnAllAsync();
 
             // assert empty
@@ -62,6 +68,8 @@ namespace GameZone.Tests
             // arrange: one game exists
             IGameRepository sut = GetInMemoryGameRepository();
             await sut.CreateAsync(game);
+            await sut.SaveAsync();
+
 
             // action: get by id
             var savedGame = await sut.ReturnByIdAsync(guid);
@@ -76,12 +84,16 @@ namespace GameZone.Tests
             // arrange: one game exists
             IGameRepository sut = GetInMemoryGameRepository();
             await sut.CreateAsync(game);
+            await sut.SaveAsync();
+
             var list = await sut.ReturnAllAsync();
             Assert.Single(list);
 
             //action: update game
             game.Name = "Updated name";
             await sut.UpdateAsync(game);
+            await sut.SaveAsync();
+
             var savedGame = await sut.ReturnByIdAsync(guid);
 
             //assert: check if updated
@@ -92,7 +104,7 @@ namespace GameZone.Tests
         {
             DbContextOptions<GameZoneContext> options;
             var builder = new DbContextOptionsBuilder<GameZoneContext>();
-            builder.UseInMemoryDatabase("GameZoneTest");
+            builder.UseInMemoryDatabase("GameZone");
             options = builder.Options;
             GameZoneContext gameZoneContext = new GameZoneContext(options);
             gameZoneContext.Database.EnsureDeleted();

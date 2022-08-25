@@ -157,5 +157,10 @@ namespace GameZone.Infrastructure.Repositories
 
             return await games.AsNoTracking().ToListAsync();
         }
+
+        public async Task SaveAsync()
+        {
+            await _context.SaveChangesAsync();
+        }
     }
 }
