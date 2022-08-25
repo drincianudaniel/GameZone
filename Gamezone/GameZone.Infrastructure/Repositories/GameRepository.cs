@@ -158,6 +158,11 @@ namespace GameZone.Infrastructure.Repositories
             return await games.AsNoTracking().ToListAsync();
         }
 
+        public async Task<IEnumerable<Game>> GetNumberOfGames(int number)
+        {
+            return await _context.Games.Take(number).AsNoTracking().ToListAsync();
+        }
+
         public async Task SaveAsync()
         {
             await _context.SaveChangesAsync();

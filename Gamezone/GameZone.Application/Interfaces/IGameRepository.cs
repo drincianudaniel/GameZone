@@ -12,6 +12,7 @@ namespace GameZone.Application
         Task AddPlatformListAsync(Game game, List<Platform> platforms);
         Task CalculateTotalRatingAsync(Game game);
         Task<IEnumerable<Game>> GenerateTopList();
+        Task<IEnumerable<Game>> GetNumberOfGames(int number);
         Task RemoveDeveloperAsync(Game game, Developer developer);
         Task RemoveGenreAsync(Game game, Genre genre);
         Task RemovePlatformAsync(Game game, Platform platform);

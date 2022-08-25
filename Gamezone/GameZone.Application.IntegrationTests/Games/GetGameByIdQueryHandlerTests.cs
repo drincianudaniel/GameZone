@@ -1,7 +1,10 @@
 using AutoFixture;
+using AutoFixture.AutoMoq;
+using AutoFixture.Kernel;
 using AutoMapper;
 using GameZone.Api;
 using GameZone.Application.Games.Queries.GetGameById;
+using GameZone.Application.Interfaces;
 using GameZone.Domain.Models;
 using GameZone.Infrastructure;
 using GameZone.Infrastructure.Repositories;
@@ -41,6 +44,7 @@ namespace GameZone.Application.IntegrationTests.Games.QueryHandlers
 
             var mockGameRepo = new GameRepository(context);
             _fixture.Inject<IGameRepository>(mockGameRepo);
+                
         }
 
 
@@ -51,7 +55,8 @@ namespace GameZone.Application.IntegrationTests.Games.QueryHandlers
             var query = new GetGameByIdQuery { Id = _gameId };
 
             // act
-
+            /*_fixture.Customize(new AutoMoqCustomization());*/
+            
             var handler = _fixture.Create<GetGameByIdQueryHandler>();
             var actualGame = await handler.Handle(query, cancellationToken: default);
 

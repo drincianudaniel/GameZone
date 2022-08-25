@@ -8,6 +8,7 @@ using GameZone.Application.Games.Queries.GetGameById;
 using GameZone.Application.Games.Queries.GetGamesList;
 using GameZone.Application.Games.Queries.GetGamesPaged;
 using GameZone.Application.Games.Queries.GetGamesTop;
+using GameZone.Application.Games.Queries.GetNumberOfGames;
 using GameZone.Application.Games.Queries.SearchGames;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -84,6 +85,19 @@ namespace GameZone.Api.Controllers
             });
 
             var mappedResult = _mapper.Map<IEnumerable<GameDto>>(result);
+            return Ok(mappedResult);
+        }
+
+        [HttpGet]
+        [Route("number/{Number}")]
+        public async Task<IActionResult> GetNumberOfGames(int Number)
+        {
+            var result = await _mediator.Send(new GetNumberOfGamesQuery
+            {
+                Number = Number
+            });
+
+            var mappedResult = _mapper.Map<IEnumerable<SimpleGameDto>>(result);
             return Ok(mappedResult);
         }
 
