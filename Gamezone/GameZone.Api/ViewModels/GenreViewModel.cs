@@ -9,6 +9,7 @@ namespace GameZone.Api.ViewModels
     public class GenreViewModel
     {
         [Required]
+        [MaxLength(50)]
         public string Name { get; set; }
     }
 }

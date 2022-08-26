@@ -9,6 +9,7 @@ namespace GameZone.Api.ViewModels
         [Range(1, 10)]
         public double Rating { get; set; }
         [Required]
+        [MaxLength(500)]
         public string Content { get; set; }
     }
 }
