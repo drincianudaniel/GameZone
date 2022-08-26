@@ -165,16 +165,7 @@ function GamesPage() {
                 required
                 aria-label="empty textarea"
                 placeholder="Game Details"
-                style={{  margin: 10, maxWidth: 375, minWidth: 375, fontSize: 15 }}
-                value={details}
-                onChange={(e) => setDetails(e.target.value)}
-              />
-              <TextField
-                required
-                sx={{ m: 1 }}
-                id="outlined-basic"
-                label="Game Details"
-                variant="outlined"
+                style={{  margin: 10, minHeight: 56, maxWidth: 375, minWidth: 375, fontSize: 15 }}
                 value={details}
                 onChange={(e) => setDetails(e.target.value)}
               />
