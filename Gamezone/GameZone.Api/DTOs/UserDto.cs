@@ -8,7 +8,7 @@
         public string Password { get; set; } = string.Empty;
         public string FirstName { get; set; } = string.Empty;
         public string LastName { get; set; } = string.Empty;
-        public ICollection<GameDto> Games { get; set; } = new List<GameDto>();
+        public ICollection<SimpleGameDto> Games { get; set; } = new List<SimpleGameDto>();
         public string Role { get; set; } = string.Empty;
     }
 }

@@ -3,6 +3,7 @@ using GameZone.Api.DTOs;
 using GameZone.Api.ViewModels;
 using GameZone.Application.Developers.Commands.CreateDeveloper;
 using GameZone.Application.Developers.Commands.DeleteDeveloper;
+using GameZone.Application.Developers.Commands.UpdateDeveloper;
 using GameZone.Application.Developers.Queries.GetDeveloperById;
 using GameZone.Application.Developers.Queries.GetDevelopersList;
 using MediatR;
@@ -61,6 +62,25 @@ namespace GameZone.Api.Controllers
             var mappedResult = _mapper.Map<DeveloperDto>(result);
 
             return CreatedAtAction(nameof(GetById), new { Id = mappedResult.Id }, mappedResult);
+        }
+
+        [HttpPut]
+        [Route("{Id}")]
+        public async Task<IActionResult> UpdateGenre(Guid Id, [FromBody] DeveloperViewModel developer)
+        {
+            var command = new UpdateDeveloperCommand
+            {
+                Id = Id,
+                Name= developer.Name,
+                HeadQuarters = developer.HeadQuarters
+            };
+            var result = await _mediator.Send(command);
+
+            if (result == null)
+                return NotFound();
+
+            var mappedResult = _mapper.Map<DeveloperDto>(result);
+            return NoContent();
         }
 
         [HttpDelete]

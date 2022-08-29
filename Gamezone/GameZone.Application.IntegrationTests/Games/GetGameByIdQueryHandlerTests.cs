@@ -44,7 +44,18 @@ namespace GameZone.Application.IntegrationTests.Games.QueryHandlers
 
             var mockGameRepo = new GameRepository(context);
             _fixture.Inject<IGameRepository>(mockGameRepo);
-                
+
+            var unitOfWork = new UnitOfWork(context,
+                                            new CommentRepository(context),
+                                            new DeveloperRepository(context),
+                                            new GameRepository(context),
+                                            new GenreRepository(context),
+                                            new PlatformRepository(context),
+                                            new ReplyRepository(context),
+                                            new ReviewRepository(context),
+                                            new UserRepository(context));
+            _fixture.Inject<IUnitOfWork>(unitOfWork);
+
         }
 
 
@@ -55,7 +66,7 @@ namespace GameZone.Application.IntegrationTests.Games.QueryHandlers
             var query = new GetGameByIdQuery { Id = _gameId };
 
             // act
-            /*_fixture.Customize(new AutoMoqCustomization());*/
+            
             
             var handler = _fixture.Create<GetGameByIdQueryHandler>();
             var actualGame = await handler.Handle(query, cancellationToken: default);

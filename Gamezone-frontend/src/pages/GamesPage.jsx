@@ -55,10 +55,18 @@ function GamesPage() {
     getGames();
   }, []);
 
+  //const {data, isLoading, errors} = useQuery('/Games');
+
+  // is Loading  = true
+  // finally flase
+  // return {data: data, isLoading, error ""}
+
   const getGames = async () => {
     await axios
       .get(`${process.env.REACT_APP_SERVERIP}/Games`)
-      .then((res) => setGames(res.data));
+      .then((res) => setGames(res.data))
+      .catch()
+      .finally();
   };
 
   const getDevelopers = async () => {
