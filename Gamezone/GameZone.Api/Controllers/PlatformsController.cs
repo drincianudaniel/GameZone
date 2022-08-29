@@ -11,7 +11,7 @@ using GameZone.Api.DTOs;
 
 namespace GameZone.Api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/platforms")]
     [ApiController]
     public class PlatformsController : ControllerBase
     {
@@ -25,10 +25,10 @@ namespace GameZone.Api.Controllers
         }
 
         [HttpGet]
-        [Route("{Id}")]
-        public async Task<IActionResult> GetById(Guid Id)
+        [Route("{id}")]
+        public async Task<IActionResult> GetById(Guid id)
         {
-            var query = new GetPlatformByIdQuery { Id = Id };
+            var query = new GetPlatformByIdQuery { Id = id };
             var result = await _mediator.Send(query);
 
             if (result == null)
@@ -63,12 +63,12 @@ namespace GameZone.Api.Controllers
         }
 
         [HttpPut]
-        [Route("{Id}")]
-        public async Task<IActionResult> UpdatePlatform(Guid Id, [FromBody] PlatformViewModel platform)
+        [Route("{id}")]
+        public async Task<IActionResult> UpdatePlatform(Guid id, [FromBody] PlatformViewModel platform)
         {
             var command = new UpdatePlatformCommand
             {
-                Id = Id,
+                Id = id,
                 Name= platform.Name
             };
             var result = await _mediator.Send(command);
@@ -81,10 +81,10 @@ namespace GameZone.Api.Controllers
         }
 
         [HttpDelete]
-        [Route("{Id}")]
-        public async Task<IActionResult> DeletePlatform(Guid Id)
+        [Route("{id}")]
+        public async Task<IActionResult> DeletePlatform(Guid id)
         {
-            var command = new DeletePlatformCommand { Id = Id };
+            var command = new DeletePlatformCommand { Id = id };
             await _mediator.Send(command);
 
             return NoContent();

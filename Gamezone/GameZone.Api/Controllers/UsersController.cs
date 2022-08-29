@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GameZone.Api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/users")]
     [ApiController]
     public class UsersController : ControllerBase
     {
@@ -26,10 +26,10 @@ namespace GameZone.Api.Controllers
         }
 
         [HttpGet]
-        [Route("{Id}")]
-        public async Task<IActionResult> GetById(Guid Id)
+        [Route("{id}")]
+        public async Task<IActionResult> GetById(Guid id)
         {
-            var query = new GetUserByIdQuery { Id = Id };
+            var query = new GetUserByIdQuery { Id = id };
             var result = await _mediator.Send(query);
 
             if (result == null)
@@ -69,23 +69,23 @@ namespace GameZone.Api.Controllers
         }
 
         [HttpDelete]
-        [Route("{Id}")]
-        public async Task<IActionResult> DeleteUser(Guid Id)
+        [Route("{id}")]
+        public async Task<IActionResult> DeleteUser(Guid id)
         {
-            var command = new DeleteUserCommand { Id = Id };
+            var command = new DeleteUserCommand { Id = id };
             await _mediator.Send(command);
 
             return NoContent();
         }
 
         [HttpPost]
-        [Route("{userId}/games/{gameId}")]
-        public async Task<IActionResult> AddGameToFavorite(Guid userId, Guid gameId)
+        [Route("{userid}/games/{gameid}")]
+        public async Task<IActionResult> AddGameToFavorite(Guid userid, Guid gameid)
         {
             var command = new AddFavoriteGameCommand
             {
-                IdGame = gameId,
-                IdUser = userId
+                IdGame = gameid,
+                IdUser = userid
             };
 
             await _mediator.Send(command);
@@ -93,13 +93,13 @@ namespace GameZone.Api.Controllers
         }
 
         [HttpDelete]
-        [Route("{userId}/games/{gameId}")]
-        public async Task<IActionResult> RemoveGameFromFavorite(Guid userId, Guid gameId)
+        [Route("{userid}/games/{gameid}")]
+        public async Task<IActionResult> RemoveGameFromFavorite(Guid userid, Guid gameid)
         {
             var command = new RemoveFavoriteGameCommand
             {
-                GameId = gameId,
-                UserId = userId
+                GameId = gameid,
+                UserId = userid
             };
 
             await _mediator.Send(command);

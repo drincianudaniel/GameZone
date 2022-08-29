@@ -11,7 +11,7 @@ using GameZone.Api.DTOs;
 
 namespace GameZone.Api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/genres")]
     [ApiController]
     public class GenresController : ControllerBase
     {
@@ -25,10 +25,10 @@ namespace GameZone.Api.Controllers
         }
 
         [HttpGet]
-        [Route("{Id}")]
-        public async Task<IActionResult> GetById(Guid Id)
+        [Route("{id}")]
+        public async Task<IActionResult> GetById(Guid id)
         {
-            var query = new GetGenreByIdQuery { Id = Id };
+            var query = new GetGenreByIdQuery { Id = id };
             var result = await _mediator.Send(query);
 
             if(result == null)
@@ -63,12 +63,12 @@ namespace GameZone.Api.Controllers
         }
 
         [HttpPut]
-        [Route("{Id}")]
-        public async Task<IActionResult> UpdateGenre(Guid Id, [FromBody] GenreViewModel genre)
+        [Route("{id}")]
+        public async Task<IActionResult> UpdateGenre(Guid id, [FromBody] GenreViewModel genre)
         {
             var command = new UpdateGenreCommand
             {
-                Id = Id,
+                Id = id,
                 Name= genre.Name
             };
             var result = await _mediator.Send(command);
@@ -81,10 +81,10 @@ namespace GameZone.Api.Controllers
         }
 
         [HttpDelete]
-        [Route("{Id}")]
-        public async Task<IActionResult> DeleteGenre(Guid Id)
+        [Route("{id}")]
+        public async Task<IActionResult> DeleteGenre(Guid id)
         {
-            var command = new DeleteGenreCommand { Id = Id };
+            var command = new DeleteGenreCommand { Id = id };
             await _mediator.Send(command);
 
             return NoContent();

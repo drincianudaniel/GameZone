@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GameZone.Api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/developers")]
     [ApiController]
     public class DevelopersController : ControllerBase
     {
@@ -25,10 +25,10 @@ namespace GameZone.Api.Controllers
         }
 
         [HttpGet]
-        [Route("{Id}")]
-        public async Task<IActionResult> GetById(Guid Id)
+        [Route("{id}")]
+        public async Task<IActionResult> GetById(Guid id)
         {
-            var query = new GetDeveloperByIdQuery { Id = Id };
+            var query = new GetDeveloperByIdQuery { Id = id };
             var result = await _mediator.Send(query);
 
             if (result == null)
@@ -65,12 +65,12 @@ namespace GameZone.Api.Controllers
         }
 
         [HttpPut]
-        [Route("{Id}")]
-        public async Task<IActionResult> UpdateGenre(Guid Id, [FromBody] DeveloperViewModel developer)
+        [Route("{id}")]
+        public async Task<IActionResult> UpdateGenre(Guid id, [FromBody] DeveloperViewModel developer)
         {
             var command = new UpdateDeveloperCommand
             {
-                Id = Id,
+                Id = id,
                 Name= developer.Name,
                 HeadQuarters = developer.HeadQuarters
             };
@@ -84,10 +84,10 @@ namespace GameZone.Api.Controllers
         }
 
         [HttpDelete]
-        [Route("{Id}")]
-        public async Task<IActionResult> DeleteDeveloper(Guid Id)
+        [Route("{id}")]
+        public async Task<IActionResult> DeleteDeveloper(Guid id)
         {
-            var command = new DeleteDeveloperCommand { Id = Id };
+            var command = new DeleteDeveloperCommand { Id = id };
             await _mediator.Send(command);
 
             return NoContent();

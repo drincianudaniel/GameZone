@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace GameZone.Api.Controllers
 {
 
-    [Route("api/[controller]")]
+    [Route("api/replies")]
     [ApiController]
     public class RepliesController : ControllerBase
     {
@@ -24,10 +24,10 @@ namespace GameZone.Api.Controllers
         }
 
         [HttpGet]
-        [Route("{Id}")]
-        public async Task<IActionResult> GetById(Guid Id)
+        [Route("{id}")]
+        public async Task<IActionResult> GetById(Guid id)
         {
-            var query = new GetReplyByIdQuery { Id = Id };
+            var query = new GetReplyByIdQuery { Id = id };
             var result = await _mediator.Send(query);
 
             if (result == null)
@@ -64,10 +64,10 @@ namespace GameZone.Api.Controllers
         }
 
         [HttpDelete]
-        [Route("{Id}")]
-        public async Task<IActionResult> DeleteReply(Guid Id)
+        [Route("{id}")]
+        public async Task<IActionResult> DeleteReply(Guid id)
         {
-            var command = new DeleteReplyCommand { Id = Id };
+            var command = new DeleteReplyCommand { Id = id };
             await _mediator.Send(command);
 
             return NoContent();

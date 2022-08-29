@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GameZone.Api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/comments")]
     [ApiController]
     public class CommentsController : ControllerBase
     { 
@@ -24,10 +24,10 @@ namespace GameZone.Api.Controllers
         }
 
         [HttpGet]
-        [Route("{Id}")]
-        public async Task<IActionResult> GetById(Guid Id)
+        [Route("{id}")]
+        public async Task<IActionResult> GetById(Guid id)
         {
-            var query = new GetCommentByIdQuery { Id = Id };
+            var query = new GetCommentByIdQuery { Id = id };
             var result = await _mediator.Send(query);
 
             if (result == null)
@@ -64,10 +64,10 @@ namespace GameZone.Api.Controllers
         }
 
         [HttpDelete]
-        [Route("{Id}")]
-        public async Task<IActionResult> DeleteComment(Guid Id)
+        [Route("{id}")]
+        public async Task<IActionResult> DeleteComment(Guid id)
         {
-            var command = new DeleteCommentCommand { Id = Id };
+            var command = new DeleteCommentCommand { Id = id };
             await _mediator.Send(command);
 
             return NoContent();

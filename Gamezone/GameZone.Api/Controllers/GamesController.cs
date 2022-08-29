@@ -17,7 +17,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GameZone.Api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/games")]
     [ApiController]
     public class GamesController : ControllerBase
     {
@@ -76,12 +76,12 @@ namespace GameZone.Api.Controllers
         }
 
         [HttpGet]
-        [Route("search/{searchString}")]
-        public async Task<IActionResult> SearchGames(string searchString)
+        [Route("search/{searchstring}")]
+        public async Task<IActionResult> SearchGames(string searchstring)
         {
             var result = await _mediator.Send(new SearchGamesQuery
             {
-                searchString = searchString
+                searchString = searchstring
             });
 
             var mappedResult = _mapper.Map<IEnumerable<GameDto>>(result);
@@ -89,12 +89,12 @@ namespace GameZone.Api.Controllers
         }
 
         [HttpGet]
-        [Route("number/{Number}")]
-        public async Task<IActionResult> GetNumberOfGames(int Number)
+        [Route("number/{number}")]
+        public async Task<IActionResult> GetNumberOfGames(int number)
         {
             var result = await _mediator.Send(new GetNumberOfGamesQuery
             {
-                Number = Number
+                Number = number
             });
 
             var mappedResult = _mapper.Map<IEnumerable<SimpleGameDto>>(result);
@@ -125,12 +125,12 @@ namespace GameZone.Api.Controllers
 
         // not fully working yet
         [HttpPut]
-        [Route("{Id}")]
-        public async Task<IActionResult> UpdateGame(Guid Id, [FromBody] GameViewModel game)
+        [Route("{id}")]
+        public async Task<IActionResult> UpdateGame(Guid id, [FromBody] GameViewModel game)
         {
             var command = new UpdateGameCommand
             {
-                Id = Id,
+                Id = id,
                 Name = game.Name,
                 ReleaseDate = game.ReleaseDate,
                 ImageSrc = game.ImageSrc,
@@ -149,10 +149,10 @@ namespace GameZone.Api.Controllers
         }
 
         [HttpDelete]
-        [Route("{Id}")]
-        public async Task<IActionResult> DeleteGame(Guid Id)
+        [Route("{id}")]
+        public async Task<IActionResult> DeleteGame(Guid id)
         {
-            var command = new DeleteGameCommand { Id = Id };
+            var command = new DeleteGameCommand { Id = id };
             await _mediator.Send(command);
 
             return NoContent();

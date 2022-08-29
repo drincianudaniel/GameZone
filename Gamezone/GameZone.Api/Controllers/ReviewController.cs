@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GameZone.Api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/reviews")]
     [ApiController]
     public class ReviewController : ControllerBase
     {
@@ -23,10 +23,10 @@ namespace GameZone.Api.Controllers
         }
 
         [HttpGet]
-        [Route("{Id}")]
-        public async Task<IActionResult> GetById(Guid Id)
+        [Route("{id}")]
+        public async Task<IActionResult> GetById(Guid id)
         {
-            var query = new GetReviewByIdQuery { Id = Id };
+            var query = new GetReviewByIdQuery { Id = id };
             var result = await _mediator.Send(query);
 
             if (result == null)
@@ -64,10 +64,10 @@ namespace GameZone.Api.Controllers
         }
 
         [HttpDelete]
-        [Route("{Id}")]
-        public async Task<IActionResult> DeleteReview(Guid Id)
+        [Route("{id}")]
+        public async Task<IActionResult> DeleteReview(Guid id)
         {
-            var command = new DeleteReviewCommand { Id = Id };
+            var command = new DeleteReviewCommand { Id = id };
             await _mediator.Send(command);
 
             return NoContent();
