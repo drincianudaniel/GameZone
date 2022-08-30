@@ -13,7 +13,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameZone.Tests", "GameZone.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameZone.Api", "GameZone.Api\GameZone.Api.csproj", "{90240CD1-CC10-46DA-BBFE-7F62E152BDB8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameZone.Application.IntegrationTests", "GameZone.Application.IntegrationTests\GameZone.Application.IntegrationTests.csproj", "{712321A5-3471-4076-A37B-9FB0A92EC3F1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameZone.Application.IntegrationTests", "GameZone.Application.IntegrationTests\GameZone.Application.IntegrationTests.csproj", "{712321A5-3471-4076-A37B-9FB0A92EC3F1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GameZone.Testing", "GameZone.Testing", "{457105BD-1B14-436B-9060-02DD093CACBD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameZone.ApiUnitTests", "GameZone.ApiUnitTests\GameZone.ApiUnitTests.csproj", "{DF51A77B-4096-4A86-A066-3811A4B80E0D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,9 +49,18 @@ Global
 		{712321A5-3471-4076-A37B-9FB0A92EC3F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{712321A5-3471-4076-A37B-9FB0A92EC3F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{712321A5-3471-4076-A37B-9FB0A92EC3F1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF51A77B-4096-4A86-A066-3811A4B80E0D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF51A77B-4096-4A86-A066-3811A4B80E0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF51A77B-4096-4A86-A066-3811A4B80E0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF51A77B-4096-4A86-A066-3811A4B80E0D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{9217E9CD-332D-41BD-9086-DA18B15AA81B} = {457105BD-1B14-436B-9060-02DD093CACBD}
+		{712321A5-3471-4076-A37B-9FB0A92EC3F1} = {457105BD-1B14-436B-9060-02DD093CACBD}
+		{DF51A77B-4096-4A86-A066-3811A4B80E0D} = {457105BD-1B14-436B-9060-02DD093CACBD}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DEDB8743-3291-40C9-BEBF-C9A52DF80187}
