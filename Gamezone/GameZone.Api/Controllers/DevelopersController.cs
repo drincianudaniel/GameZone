@@ -17,22 +17,29 @@ namespace GameZone.Api.Controllers
     {
         public readonly IMediator _mediator;
         public readonly IMapper _mapper;
+        public readonly ILogger _logger;
 
-        public DevelopersController(IMediator mediator, IMapper mapper)
+        public DevelopersController(IMediator mediator, IMapper mapper, ILogger<DevelopersController> logger)
         {
             _mediator = mediator;
             _mapper=mapper;
+            _logger=logger;
         }
 
         [HttpGet]
         [Route("{id}")]
         public async Task<IActionResult> GetById(Guid id)
         {
+            _logger.LogInformation("Getting item {id}", id);
+
             var query = new GetDeveloperByIdQuery { Id = id };
             var result = await _mediator.Send(query);
 
             if (result == null)
+            {
+                _logger.LogWarning("Get({id}) NOT FOUND", id);
                 return NotFound();
+            }
 
             var mappedResult = _mapper.Map<DeveloperDto>(result);
             return Ok(mappedResult);
@@ -41,6 +48,8 @@ namespace GameZone.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetDevelopers()
         {
+            _logger.LogInformation("Getting developers list");
+
             var result = await _mediator.Send(new GetDevelopersListQuery());
             var mappedResult = _mapper.Map<IEnumerable<DeveloperDto>>(result);
             return Ok(mappedResult);
@@ -49,6 +58,8 @@ namespace GameZone.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateDeveloper([FromBody] DeveloperViewModel developer)
         {
+            _logger.LogInformation("Creating developer");
+
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
@@ -68,6 +79,8 @@ namespace GameZone.Api.Controllers
         [Route("{id}")]
         public async Task<IActionResult> UpdateGenre(Guid id, [FromBody] DeveloperViewModel developer)
         {
+            _logger.LogInformation("Updating developer with id {id}", id);
+
             var command = new UpdateDeveloperCommand
             {
                 Id = id,
@@ -77,7 +90,10 @@ namespace GameZone.Api.Controllers
             var result = await _mediator.Send(command);
 
             if (result == null)
+            {
+                _logger.LogWarning("Result with id {id} NOT FOUND", id);
                 return NotFound();
+            }
 
             var mappedResult = _mapper.Map<DeveloperDto>(result);
             return NoContent();
@@ -87,8 +103,16 @@ namespace GameZone.Api.Controllers
         [Route("{id}")]
         public async Task<IActionResult> DeleteDeveloper(Guid id)
         {
+            _logger.LogInformation("Deleting developer with id {id}", id);
+
             var command = new DeleteDeveloperCommand { Id = id };
-            await _mediator.Send(command);
+            var result = await _mediator.Send(command);
+
+            if (result == Guid.Empty)
+            {
+                _logger.LogWarning("Result with id {id} NOT FOUND", id);
+                return NotFound();
+            }
 
             return NoContent();
         }

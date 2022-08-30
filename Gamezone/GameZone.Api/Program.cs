@@ -5,6 +5,7 @@ using GameZone.Infrastructure;
 using GameZone.Infrastructure.Repositories;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging.Console;
 
 var builder = WebApplication.CreateBuilder(args);
 var policyName = "_myAllowSpecificOrigins";
@@ -30,6 +31,7 @@ builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddControllers().AddNewtonsoftJson(options =>
             options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
+//cors
 builder.Services.AddCors(options =>
 {
     options.AddPolicy(name: policyName,
@@ -40,6 +42,16 @@ builder.Services.AddCors(options =>
                             .AllowAnyHeader()
                             .AllowAnyMethod();
                       });
+});
+
+
+//logging
+builder.Host.ConfigureLogging(logging =>
+{
+    logging.ClearProviders();
+    /*logging.AddFilter<ConsoleLoggerProvider>("Microsoft", LogLevel.None);
+    logging.AddFilter("Program", LogLevel.Error);*/
+    logging.AddConsole();
 });
 
 var app = builder.Build();

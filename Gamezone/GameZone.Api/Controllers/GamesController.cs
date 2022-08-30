@@ -24,16 +24,20 @@ namespace GameZone.Api.Controllers
         // GET: api/<GamesController>
         public readonly IMapper _mapper;
         public readonly IMediator _mediator;
+        public readonly ILogger _logger;
 
-        public GamesController(IMapper mapper, IMediator mediator)
+        public GamesController(IMapper mapper, IMediator mediator, ILogger<GamesController> logger)
         {
             _mediator = mediator;
             _mapper = mapper;
+            _logger=logger;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetGames()
         {
+            _logger.LogInformation("Getting list of games");
+
             var result = await _mediator.Send(new GetGameListQuery());
             var mappedResult = _mapper.Map<IEnumerable<GameDto>>(result);
             return Ok(mappedResult);
@@ -43,12 +47,17 @@ namespace GameZone.Api.Controllers
         [Route("{id}")]
         public async Task<IActionResult> GetById(Guid id)
         {
+            _logger.LogInformation("Getting item {id}", id);
+
             var query = new GetGameByIdQuery { Id = id };
             var result = await _mediator.Send(query);
 
             if (result == null)
+            {
+                _logger.LogWarning("Get({id}) NOT FOUND", id);
                 return NotFound();
-
+            }
+                
             var mappedResult = _mapper.Map<GameDto>(result);
             return Ok(mappedResult);
         }
@@ -57,6 +66,8 @@ namespace GameZone.Api.Controllers
         [Route("top")]
         public async Task<IActionResult> GetTop()
         {
+            _logger.LogInformation("Getting games top");
+
             var result = await _mediator.Send(new GetGamesTopQuery());
             var mappedResult = _mapper.Map<IEnumerable<SimpleGameDto>>(result);
             return Ok(mappedResult);
@@ -66,6 +77,8 @@ namespace GameZone.Api.Controllers
         [Route("page/{page}")]
         public async Task<IActionResult> GetGamesPaged(int page)
         {
+            _logger.LogInformation("Getting games at page {page}", page);
+
             var result = await _mediator.Send(new GetGamesPagedQuery
             {
                 Page = page
@@ -79,6 +92,8 @@ namespace GameZone.Api.Controllers
         [Route("search/{searchstring}")]
         public async Task<IActionResult> SearchGames(string searchstring)
         {
+            _logger.LogInformation("Getting games that include {searchstring}", searchstring);
+
             var result = await _mediator.Send(new SearchGamesQuery
             {
                 searchString = searchstring
@@ -92,6 +107,8 @@ namespace GameZone.Api.Controllers
         [Route("number/{number}")]
         public async Task<IActionResult> GetNumberOfGames(int number)
         {
+            _logger.LogInformation("Getting first {number} games", number);
+
             var result = await _mediator.Send(new GetNumberOfGamesQuery
             {
                 Number = number
@@ -104,6 +121,8 @@ namespace GameZone.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateGame([FromBody] GameViewModel game)
         {
+            _logger.LogInformation("Creating a game");
+
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
@@ -128,6 +147,8 @@ namespace GameZone.Api.Controllers
         [Route("{id}")]
         public async Task<IActionResult> UpdateGame(Guid id, [FromBody] GameViewModel game)
         {
+            _logger.LogInformation("Updating game with id {id}", id);
+
             var command = new UpdateGameCommand
             {
                 Id = id,
@@ -142,7 +163,12 @@ namespace GameZone.Api.Controllers
             var result = await _mediator.Send(command);
 
             if (result == null)
+            {
+                _logger.LogWarning("Result with id {id} NOT FOUND", id);
                 return NotFound();
+            }
+                
+
             var mappedResult = _mapper.Map<GameDto>(result);
 
             return NoContent();
@@ -152,9 +178,17 @@ namespace GameZone.Api.Controllers
         [Route("{id}")]
         public async Task<IActionResult> DeleteGame(Guid id)
         {
-            var command = new DeleteGameCommand { Id = id };
-            await _mediator.Send(command);
+            _logger.LogInformation("Deleting game with id {id}", id);
 
+            var command = new DeleteGameCommand { Id = id };
+            var result = await _mediator.Send(command);
+
+            if (result == Guid.Empty)
+            {
+                _logger.LogWarning("Result with id {id} NOT FOUND", id);
+                return NotFound();
+            }
+                
             return NoContent();
         }
     }

@@ -17,22 +17,29 @@ namespace GameZone.Api.Controllers
     {
         public readonly IMapper _mapper;
         public readonly IMediator _mediator;
+        public readonly ILogger _logger;
 
-        public PlatformsController(IMapper mapper, IMediator mediator)
+        public PlatformsController(IMapper mapper, IMediator mediator, ILogger<PlatformsController> logger)
         {
             _mediator = mediator;
             _mapper = mapper;
+            _logger=logger;
         }
 
         [HttpGet]
         [Route("{id}")]
         public async Task<IActionResult> GetById(Guid id)
         {
+            _logger.LogInformation("Getting item {id}", id);
+
             var query = new GetPlatformByIdQuery { Id = id };
             var result = await _mediator.Send(query);
 
             if (result == null)
+            {
+                _logger.LogWarning("Get({id}) NOT FOUND", id);
                 return NotFound();
+            }
 
             var mappedResult = _mapper.Map<PlatformDto>(result);
             return Ok(mappedResult);
@@ -41,6 +48,8 @@ namespace GameZone.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetPlatforms()
         {
+            _logger.LogInformation("Getting list of platforms");
+
             var result = await _mediator.Send(new GetPlatformsListQuery());
             var mappedResult = _mapper.Map<IEnumerable<PlatformDto>>(result);
             return Ok(mappedResult);
@@ -49,6 +58,8 @@ namespace GameZone.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> CreatePlatform([FromBody] PlatformViewModel platform)
         {
+            _logger.LogInformation("Creating platform");
+
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
@@ -66,6 +77,8 @@ namespace GameZone.Api.Controllers
         [Route("{id}")]
         public async Task<IActionResult> UpdatePlatform(Guid id, [FromBody] PlatformViewModel platform)
         {
+            _logger.LogInformation("Updating platform with id {id}", id);
+
             var command = new UpdatePlatformCommand
             {
                 Id = id,
@@ -74,7 +87,10 @@ namespace GameZone.Api.Controllers
             var result = await _mediator.Send(command);
 
             if (result == null)
+            {
+                _logger.LogWarning("Result with id {id} NOT FOUND", id);
                 return NotFound();
+            }
 
             var mappedResult = _mapper.Map<PlatformDto>(result);
             return NoContent();
@@ -84,8 +100,16 @@ namespace GameZone.Api.Controllers
         [Route("{id}")]
         public async Task<IActionResult> DeletePlatform(Guid id)
         {
+            _logger.LogInformation("Deleting platform with id {id}", id);
+
             var command = new DeletePlatformCommand { Id = id };
-            await _mediator.Send(command);
+            var result = await _mediator.Send(command);
+
+            if (result == Guid.Empty)
+            {
+                _logger.LogWarning("Result with id {id} NOT FOUND", id);
+                return NotFound();
+            }
 
             return NoContent();
         }

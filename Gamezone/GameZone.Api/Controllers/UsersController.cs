@@ -18,22 +18,28 @@ namespace GameZone.Api.Controllers
     {
         public readonly IMediator _mediator;
         public readonly IMapper _mapper;
-
-        public UsersController(IMediator mediator, IMapper mapper)
+        public readonly ILogger _logger;
+        public UsersController(IMediator mediator, IMapper mapper, ILogger<UsersController> logger)
         {
             _mediator = mediator;
             _mapper=mapper;
+            _logger=logger;
         }
 
         [HttpGet]
         [Route("{id}")]
         public async Task<IActionResult> GetById(Guid id)
         {
+            _logger.LogInformation("Getting item {id}", id);
+
             var query = new GetUserByIdQuery { Id = id };
             var result = await _mediator.Send(query);
 
             if (result == null)
+            {
+                _logger.LogWarning("Get({id}) NOT FOUND", id);
                 return NotFound();
+            }
 
             var mappedResult = _mapper.Map<UserDto>(result);
             return Ok(mappedResult);
@@ -42,6 +48,8 @@ namespace GameZone.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetUsers()
         {
+            _logger.LogInformation("Getting users list");
+
             var result = await _mediator.Send(new GetUsersListQuery());
             var mappedResult = _mapper.Map<IEnumerable<UserDto>>(result);
             return Ok(mappedResult);
@@ -50,6 +58,8 @@ namespace GameZone.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateUser([FromBody] UserViewModel user)
         {
+            _logger.LogInformation("Creating user");
+
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
@@ -72,8 +82,16 @@ namespace GameZone.Api.Controllers
         [Route("{id}")]
         public async Task<IActionResult> DeleteUser(Guid id)
         {
+            _logger.LogInformation("Deleting user with id {id}", id);
+
             var command = new DeleteUserCommand { Id = id };
-            await _mediator.Send(command);
+            var result = await _mediator.Send(command);
+
+            if (result == Guid.Empty)
+            {
+                _logger.LogWarning("Result with id {id} NOT FOUND", id);
+                return NotFound();
+            }
 
             return NoContent();
         }
@@ -82,6 +100,8 @@ namespace GameZone.Api.Controllers
         [Route("{userid}/games/{gameid}")]
         public async Task<IActionResult> AddGameToFavorite(Guid userid, Guid gameid)
         {
+            _logger.LogInformation("Adding game with id {gameid} to user with id {userid}", gameid, userid);
+
             var command = new AddFavoriteGameCommand
             {
                 IdGame = gameid,
@@ -96,6 +116,8 @@ namespace GameZone.Api.Controllers
         [Route("{userid}/games/{gameid}")]
         public async Task<IActionResult> RemoveGameFromFavorite(Guid userid, Guid gameid)
         {
+            _logger.LogInformation("Removing game with id {gameid} from user with id {userid}", gameid, userid);
+
             var command = new RemoveFavoriteGameCommand
             {
                 GameId = gameid,

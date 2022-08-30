@@ -17,22 +17,28 @@ namespace GameZone.Api.Controllers
     {
         public readonly IMapper _mapper;
         public readonly IMediator _mediator;
-
-        public GenresController(IMapper mapper, IMediator mediator)
+        public readonly ILogger _logger;
+        public GenresController(IMapper mapper, IMediator mediator, ILogger<GenresController> logger)
         {
             _mediator = mediator;
             _mapper = mapper;
+            _logger=logger;
         }
 
         [HttpGet]
         [Route("{id}")]
         public async Task<IActionResult> GetById(Guid id)
         {
+            _logger.LogInformation("Getting item {id}", id);
+
             var query = new GetGenreByIdQuery { Id = id };
             var result = await _mediator.Send(query);
 
-            if(result == null)
+            if (result == null)
+            {
+                _logger.LogWarning("Get({id}) NOT FOUND", id);
                 return NotFound();
+            }
 
             var mappedResult = _mapper.Map<GenreDto>(result);
             return Ok(mappedResult);
@@ -41,6 +47,7 @@ namespace GameZone.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetGenres()
         {
+            _logger.LogInformation("Getting list of genres");
             var result = await _mediator.Send(new GetGenresListQuery());
             var mappedResult = _mapper.Map<IEnumerable<GenreDto>>(result);
             return Ok(mappedResult);
@@ -49,6 +56,8 @@ namespace GameZone.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateGenre([FromBody] GenreViewModel genre)
         {
+            _logger.LogInformation("Creating genre");
+
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
@@ -66,6 +75,8 @@ namespace GameZone.Api.Controllers
         [Route("{id}")]
         public async Task<IActionResult> UpdateGenre(Guid id, [FromBody] GenreViewModel genre)
         {
+            _logger.LogInformation("Updating genre with id {id}", id);
+
             var command = new UpdateGenreCommand
             {
                 Id = id,
@@ -74,7 +85,10 @@ namespace GameZone.Api.Controllers
             var result = await _mediator.Send(command);
 
             if (result == null)
+            {
+                _logger.LogWarning("Result with id {id} NOT FOUND", id);
                 return NotFound();
+            }
 
             var mappedResult = _mapper.Map<GenreDto>(result);
             return NoContent();
@@ -84,8 +98,16 @@ namespace GameZone.Api.Controllers
         [Route("{id}")]
         public async Task<IActionResult> DeleteGenre(Guid id)
         {
+            _logger.LogInformation("Deleting genre with id {id}", id);
+
             var command = new DeleteGenreCommand { Id = id };
-            await _mediator.Send(command);
+            var result = await _mediator.Send(command);
+
+            if (result == Guid.Empty)
+            {
+                _logger.LogWarning("Result with id {id} NOT FOUND", id);
+                return NotFound();
+            }
 
             return NoContent();
         }

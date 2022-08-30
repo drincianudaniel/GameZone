@@ -16,21 +16,28 @@ namespace GameZone.Api.Controllers
     {
         public readonly IMediator _mediator;
         public readonly IMapper _mapper;
-        public ReviewController(IMediator mediator, IMapper mapper)
+        public readonly ILogger _logger;
+        public ReviewController(IMediator mediator, IMapper mapper, ILogger<ReviewController> logger)
         {
             _mediator = mediator;
             _mapper=mapper;
+            _logger=logger;
         }
 
         [HttpGet]
         [Route("{id}")]
         public async Task<IActionResult> GetById(Guid id)
         {
+            _logger.LogInformation("Getting item {id}", id);
+
             var query = new GetReviewByIdQuery { Id = id };
             var result = await _mediator.Send(query);
 
             if (result == null)
+            {
+                _logger.LogWarning("Get({id}) NOT FOUND", id);
                 return NotFound();
+            }
 
             var mappedResult = _mapper.Map<ReviewDto>(result);
             return Ok(mappedResult);
@@ -39,6 +46,8 @@ namespace GameZone.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetReviews()
         {
+            _logger.LogInformation("Getting reviews list");
+
             var result = await _mediator.Send(new GetReviewsListQuery());
             var mappedResult = _mapper.Map<IEnumerable<ReviewDto>>(result);
             return Ok(mappedResult);
@@ -47,6 +56,8 @@ namespace GameZone.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateReview([FromBody] ReviewViewModel review)
         {
+            _logger.LogInformation("Creating review");
+
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
@@ -67,8 +78,16 @@ namespace GameZone.Api.Controllers
         [Route("{id}")]
         public async Task<IActionResult> DeleteReview(Guid id)
         {
+            _logger.LogInformation("Deleting review with id {id}", id);
+
             var command = new DeleteReviewCommand { Id = id };
-            await _mediator.Send(command);
+            var result = await _mediator.Send(command);
+
+            if (result == Guid.Empty)
+            {
+                _logger.LogWarning("Result with id {id} NOT FOUND", id);
+                return NotFound();
+            }
 
             return NoContent();
         }
