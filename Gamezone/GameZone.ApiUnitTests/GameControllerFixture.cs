@@ -14,6 +14,7 @@ using Microsoft.Extensions.Logging;
 using Moq;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
@@ -77,13 +78,13 @@ namespace GameZone.ApiUnitTests
         public async Task Get_Game_By_Id_GetGameByIdQueryWithCorrectGameIdIsCalled()
         {
             //Arrange
-            var genreId = new Guid();
+            var gameId = new Guid();
             
             _mockMediator
                .Setup(m => m.Send(It.IsAny<GetGameByIdQuery>(), It.IsAny<CancellationToken>()))
                .Returns<GetGameByIdQuery, CancellationToken>(async (q, c) =>
                {
-                   genreId = q.Id;
+                   gameId = q.Id;
                    return await Task.FromResult(
                        new Game
                        {
@@ -98,7 +99,7 @@ namespace GameZone.ApiUnitTests
             await controller.GetById(guid);
 
             //Assert
-            Assert.Equal(genreId, guid);
+            Assert.Equal(gameId, guid);
         }
 
         [Fact]
@@ -203,6 +204,12 @@ namespace GameZone.ApiUnitTests
 
             //Assert
             Assert.Equal(createGameCommand.Name, ((GameDto)createdAtActionResult.Value).Name);
+            Assert.Equal(createGameCommand.GameDetails, ((GameDto)createdAtActionResult.Value).GameDetails);
+            Assert.Equal(createGameCommand.ReleaseDate, ((GameDto)createdAtActionResult.Value).ReleaseDate);
+            Assert.Equal(createGameCommand.ImageSrc, ((GameDto)createdAtActionResult.Value).ImageSrc);
+            Assert.Equal(createGameCommand.GenreList.ElementAt(0), ((GameDto)createdAtActionResult.Value).Genres.ElementAt(0).Id);
+            Assert.Equal(createGameCommand.DeveloperList.ElementAt(0), ((GameDto)createdAtActionResult.Value).Developers.ElementAt(0).Id);
+            Assert.Equal(createGameCommand.PlatformList.ElementAt(0), ((GameDto)createdAtActionResult.Value).Platforms.ElementAt(0).Id);
         }
 
         [Fact]

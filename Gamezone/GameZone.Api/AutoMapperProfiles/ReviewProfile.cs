@@ -4,7 +4,7 @@ using GameZone.Domain.Models;
 
 namespace GameZone.Api.AutoMapperProfiles
 {
-    internal class ReviewProfile : Profile
+    public class ReviewProfile : Profile
     {
         public ReviewProfile()
         {
