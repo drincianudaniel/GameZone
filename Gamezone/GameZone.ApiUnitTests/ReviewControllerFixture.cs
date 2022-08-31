@@ -3,7 +3,6 @@ using GameZone.Api.AutoMapperProfiles;
 using GameZone.Api.Controllers;
 using GameZone.Api.DTOs;
 using GameZone.Api.ViewModels;
-using GameZone.Application.Developers.Queries.GetDeveloperById;
 using GameZone.Application.Reviews.Commands.CreateReview;
 using GameZone.Application.Reviews.Commands.DeleteReview;
 using GameZone.Application.Reviews.Queries.GetReviewById;
@@ -121,7 +120,7 @@ namespace GameZone.ApiUnitTests
         }
 
         [Fact]
-        public async Task Get_Review_By_Id_ShouldReturnFoundPlatform()
+        public async Task Get_Review_By_Id_ShouldReturnFoundReview()
         {
             //Arange
             var guid = new Guid("3fefe639-af6a-46f7-b7ca-db1608ec3f65");
@@ -151,7 +150,7 @@ namespace GameZone.ApiUnitTests
         }
 
         [Fact]
-        public async Task CallPost_ReturnsDeveloperDto()
+        public async Task CallPost_ReturnsReviewDto()
         {
             //Arrange
             var user = new User
@@ -200,7 +199,7 @@ namespace GameZone.ApiUnitTests
         }
 
         [Fact]
-        public async Task Delete_Platform_Should_Return_No_Content()
+        public async Task Delete_Review_Should_Return_No_Content()
         {
             //Arrange
             var guid = new Guid("3fefe639-af6a-46f7-b7ca-db1608ec3f65");
