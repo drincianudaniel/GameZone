@@ -167,11 +167,9 @@ namespace GameZone.Api.Controllers
                 _logger.LogWarning("Result with id {id} NOT FOUND", id);
                 return NotFound();
             }
-                
-
+               
             var mappedResult = _mapper.Map<GameDto>(result);
-
-            return NoContent();
+            return Ok(mappedResult);
         }
 
         [HttpDelete]

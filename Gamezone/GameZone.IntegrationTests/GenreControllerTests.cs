@@ -113,6 +113,7 @@ namespace GameZone.IntegrationTests
             Assert.Equal(newGenre.Name, genre.Name);
         }
 
+        [Fact]
         public async Task Delete_Genre_ShouldReturnNoContentResponse()
         {
             var client = _factory.CreateClient();

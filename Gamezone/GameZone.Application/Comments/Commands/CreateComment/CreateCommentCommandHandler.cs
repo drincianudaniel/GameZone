@@ -19,9 +19,9 @@ namespace GameZone.Application.Comments.Commands.CreateComment
 
             await _unitOfWork.CommentRepository.CreateAsync(commentToAdd);
             await _unitOfWork.SaveAsync();
-            //var getComment = await _commentRepository.ReturnByIdAsync(commentToAdd.Id);
+            var getComment = await _unitOfWork.CommentRepository.ReturnByIdAsync(commentToAdd.Id);
 
-            return commentToAdd;
+            return getComment;
         }
     }
 }

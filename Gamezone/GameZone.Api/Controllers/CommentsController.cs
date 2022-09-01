@@ -3,6 +3,7 @@ using GameZone.Api.DTOs;
 using GameZone.Api.ViewModels;
 using GameZone.Application.Comments.Commands.CreateComment;
 using GameZone.Application.Comments.Commands.DeleteComment;
+using GameZone.Application.Comments.Commands.UpdateComment;
 using GameZone.Application.Comments.Queries.GetCommentById;
 using GameZone.Application.Comments.Queries.GetCommentsList;
 using MediatR;
@@ -72,6 +73,31 @@ namespace GameZone.Api.Controllers
             var mappedResult = _mapper.Map<CommentDto>(result);
 
             return CreatedAtAction(nameof(GetById), new { Id = mappedResult.Id }, mappedResult);
+        }
+
+        [HttpPut]
+        [Route("{id}")]
+        public async Task<IActionResult> UpdateComment(Guid id, [FromBody] CommentViewModel comment)
+        {
+            _logger.LogInformation("Updating comment with id {id}", id);
+
+            var command = new UpdateCommentCommand
+            {
+                Id = id,
+                Content = comment.Content,
+                UserId = comment.UserId,
+                GameId = comment.GameId     
+            };
+            var result = await _mediator.Send(command);
+
+            if (result == null)
+            {
+                _logger.LogWarning("Result with id {id} NOT FOUND", id);
+                return NotFound();
+            }
+
+            var mappedResult = _mapper.Map<CommentDto>(result);
+            return Ok(mappedResult);
         }
 
         [HttpDelete]

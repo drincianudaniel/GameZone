@@ -113,10 +113,11 @@ namespace GameZone.IntegrationTests
             Assert.Equal(newPlatform.Name, platform.Name);
         }
 
+        [Fact]
         public async Task Delete_Platform_ShouldReturnNoContentResponse()
         {
             var client = _factory.CreateClient();
-            var response = await client.DeleteAsync($"api/genres/c0dc1fdf-9615-4cf6-834a-3c36a28b4798");
+            var response = await client.DeleteAsync($"api/platforms/c0dc1fdf-9615-4cf6-834a-3c36a28b4798");
 
             Assert.True(response.StatusCode == HttpStatusCode.NoContent);
         }

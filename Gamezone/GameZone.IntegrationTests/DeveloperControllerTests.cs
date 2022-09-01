@@ -118,10 +118,11 @@ namespace GameZone.IntegrationTests
             Assert.Equal(newDeveloper.HeadQuarters, developer.Headquarters);
         }
 
+        [Fact]
         public async Task Delete_Developer_ShouldReturnNoContentResponse()
         {
             var client = _factory.CreateClient();
-            var response = await client.DeleteAsync($"api/genres/e830d6d6-ff42-4a25-a933-ef5fe62945ed");
+            var response = await client.DeleteAsync($"api/developers/e830d6d6-ff42-4a25-a933-ef5fe62945ed");
 
             Assert.True(response.StatusCode == HttpStatusCode.NoContent);
         }
