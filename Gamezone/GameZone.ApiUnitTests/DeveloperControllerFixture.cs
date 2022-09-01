@@ -25,19 +25,7 @@ namespace GameZone.ApiUnitTests
         private readonly Mock<IMediator> _mockMediator = new Mock<IMediator>();
         private readonly Mock<IMapper> _mockMapper = new Mock<IMapper>();
         private readonly Mock<ILogger<DevelopersController>> _mockLogger = new Mock<ILogger<DevelopersController>>();
-        private static IMapper _mapper;
-        public DeveloperControllerFixture()
-        {
-            if (_mapper == null)
-            {
-                var mappingConfig = new MapperConfiguration(mc =>
-                {
-                    mc.AddProfile(new DeveloperProfile());
-                });
-                IMapper mapper = mappingConfig.CreateMapper();
-                _mapper = mapper;
-            }
-        }
+
         [Fact]
         public async Task Get_All_Developers_GetAllDevelopersListQueryIsCalled()
         {
@@ -47,7 +35,7 @@ namespace GameZone.ApiUnitTests
                 .Verifiable();
 
             //Act
-            var controller = new DevelopersController(_mockMediator.Object, _mapper, _mockLogger.Object);
+            var controller = new DevelopersController(_mockMediator.Object, _mockMapper.Object, _mockLogger.Object);
             await controller.GetDevelopers();
 
             //Assert
@@ -63,7 +51,7 @@ namespace GameZone.ApiUnitTests
                 .Verifiable();
 
             //Act
-            var controller = new DevelopersController(_mockMediator.Object, _mapper, _mockLogger.Object);
+            var controller = new DevelopersController(_mockMediator.Object, _mockMapper.Object, _mockLogger.Object);
             await controller.GetById(new Guid());
 
             _mockMediator.Verify(x => x.Send(It.IsAny<GetDeveloperByIdQuery>(), It.IsAny<CancellationToken>()), Times.Once());
@@ -90,7 +78,7 @@ namespace GameZone.ApiUnitTests
                });
 
             //Act
-            var controller = new DevelopersController(_mockMediator.Object, _mapper, _mockLogger.Object);
+            var controller = new DevelopersController(_mockMediator.Object, _mockMapper.Object, _mockLogger.Object);
             var guid = new Guid("3fefe639-af6a-46f7-b7ca-db1608ec3f65");
             await controller.GetById(guid);
 
@@ -114,7 +102,7 @@ namespace GameZone.ApiUnitTests
                 });
 
             //Act
-            var controller = new DevelopersController(_mockMediator.Object, _mapper, _mockLogger.Object);
+            var controller = new DevelopersController(_mockMediator.Object, _mockMapper.Object, _mockLogger.Object);
             var result = await controller.GetById(guid);
             var okResult = result as OkObjectResult;
             //Assert
@@ -133,19 +121,25 @@ namespace GameZone.ApiUnitTests
                 Headquarters = "Montreal"
             };
 
-            var mappedDeveloper = _mapper.Map<DeveloperDto>(developer);
-
             _mockMediator
                 .Setup(m => m.Send(It.IsAny<GetDeveloperByIdQuery>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(developer);
+
+            _mockMapper.Setup(m => m.Map<DeveloperDto>(It.IsAny<Developer>()))
+                .Returns(new DeveloperDto
+                {
+                    Id = guid,
+                    Name= "Ubisoft",
+                    Headquarters = "Montreal"
+                });
+            var mappedDeveloper = _mockMapper.Object.Map<DeveloperDto>(developer);
+
             //Act
-            var controller = new DevelopersController(_mockMediator.Object, _mapper, _mockLogger.Object);
+            var controller = new DevelopersController(_mockMediator.Object, _mockMapper.Object, _mockLogger.Object);
             var result = await controller.GetById(guid);
             var okResult = result as OkObjectResult;
 
             //Assert
-            //Assert.Same(mappedGenre, (GenreDto)okResult.Value);
-            //Assert.True(mappedGenre.Equals((GenreDto)okResult.Value));
             Assert.Equal(mappedDeveloper.Id, ((DeveloperDto)okResult.Value).Id);
             Assert.Equal(mappedDeveloper.Name, ((DeveloperDto)okResult.Value).Name);
             Assert.Equal(mappedDeveloper.Headquarters, ((DeveloperDto)okResult.Value).Headquarters);
@@ -169,8 +163,15 @@ namespace GameZone.ApiUnitTests
                     Headquarters = "Montreal"
                 });
 
+            _mockMapper.Setup(m => m.Map<DeveloperDto>(It.IsAny<Developer>()))
+               .Returns(new DeveloperDto
+               {
+                   Name= "Ubisoft",
+                   Headquarters = "Montreal"
+               });
+
             //Act
-            var controller = new DevelopersController(_mockMediator.Object, _mapper, _mockLogger.Object);
+            var controller = new DevelopersController(_mockMediator.Object, _mockMapper.Object, _mockLogger.Object);
             var result = await controller.CreateDeveloper(createDeveloperCommand);
             var createdAtActionResult = result as CreatedAtActionResult;
             //var genre = createdAtActionResult.Value;
@@ -198,7 +199,7 @@ namespace GameZone.ApiUnitTests
              .ReturnsAsync(platform.Id);
 
             //Act
-            var controller = new DevelopersController(_mockMediator.Object, _mapper, _mockLogger.Object);
+            var controller = new DevelopersController(_mockMediator.Object, _mockMapper.Object, _mockLogger.Object);
             var result = await controller.DeleteDeveloper(guid);
             var noContentResult = result as NoContentResult;
             //Assert

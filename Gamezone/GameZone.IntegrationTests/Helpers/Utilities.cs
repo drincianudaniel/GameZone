@@ -1,12 +1,8 @@
 ﻿using GameZone.Domain.Models;
 using GameZone.Infrastructure;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace GameZone.Application.IntegrationTests.Helpers
+
+namespace GameZone.IntegrationTests.Helpers
 {
     public static class Utilities
     {

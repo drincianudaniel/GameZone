@@ -25,19 +25,7 @@ namespace GameZone.ApiUnitTests
         private readonly Mock<IMediator> _mockMediator = new Mock<IMediator>();
         private readonly Mock<IMapper> _mockMapper = new Mock<IMapper>();
         private readonly Mock<ILogger<ReviewController>> _mockLogger = new Mock<ILogger<ReviewController>>();
-        private static IMapper _mapper;
-        public ReviewControllerFixture()
-        {
-            if (_mapper == null)
-            {
-                var mappingConfig = new MapperConfiguration(mc =>
-                {
-                    mc.AddProfile(new ReviewProfile());
-                });
-                IMapper mapper = mappingConfig.CreateMapper();
-                _mapper = mapper;
-            }
-        }
+
         [Fact]
         public async Task Get_All_Reviews_GetAllReviewsListQueryIsCalled()
         {
@@ -47,7 +35,7 @@ namespace GameZone.ApiUnitTests
                 .Verifiable();
 
             //Act
-            var controller = new ReviewController(_mockMediator.Object, _mapper, _mockLogger.Object);
+            var controller = new ReviewController(_mockMediator.Object, _mockMapper.Object, _mockLogger.Object);
             await controller.GetReviews();
 
             //Assert
@@ -63,7 +51,7 @@ namespace GameZone.ApiUnitTests
                 .Verifiable();
 
             //Act
-            var controller = new ReviewController(_mockMediator.Object, _mapper, _mockLogger.Object);
+            var controller = new ReviewController(_mockMediator.Object, _mockMapper.Object, _mockLogger.Object);
             await controller.GetById(new Guid());
 
             _mockMediator.Verify(x => x.Send(It.IsAny<GetReviewByIdQuery>(), It.IsAny<CancellationToken>()), Times.Once());
@@ -88,7 +76,7 @@ namespace GameZone.ApiUnitTests
                });
 
             //Act
-            var controller = new ReviewController(_mockMediator.Object, _mapper, _mockLogger.Object);
+            var controller = new ReviewController(_mockMediator.Object, _mockMapper.Object, _mockLogger.Object);
             var guid = new Guid("3fefe639-af6a-46f7-b7ca-db1608ec3f65");
             await controller.GetById(guid);
 
@@ -112,7 +100,7 @@ namespace GameZone.ApiUnitTests
                 });
 
             //Act
-            var controller = new ReviewController(_mockMediator.Object, _mapper, _mockLogger.Object);
+            var controller = new ReviewController(_mockMediator.Object, _mockMapper.Object, _mockLogger.Object);
             var result = await controller.GetById(guid);
             var okResult = result as OkObjectResult;
             //Assert
@@ -131,19 +119,26 @@ namespace GameZone.ApiUnitTests
                 Rating = 10
             };
 
-            var mappedReview = _mapper.Map<ReviewDto>(review);
-
             _mockMediator
                 .Setup(m => m.Send(It.IsAny<GetReviewByIdQuery>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(review);
+
+            _mockMapper.Setup(m => m.Map<ReviewDto>(It.IsAny<Review>()))
+              .Returns(new ReviewDto
+              {
+                  Id = guid,
+                  Content = "good game test good game",
+                  Rating = 10
+              });
+
+            var mappedReview = _mockMapper.Object.Map<ReviewDto>(review);
+
             //Act
-            var controller = new ReviewController(_mockMediator.Object, _mapper, _mockLogger.Object);
+            var controller = new ReviewController(_mockMediator.Object, _mockMapper.Object, _mockLogger.Object);
             var result = await controller.GetById(guid);
             var okResult = result as OkObjectResult;
 
             //Assert
-            //Assert.Same(mappedGenre, (GenreDto)okResult.Value);
-            //Assert.True(mappedGenre.Equals((GenreDto)okResult.Value));
             Assert.Equal(mappedReview.Id, ((ReviewDto)okResult.Value).Id);
             Assert.Equal(mappedReview.Content, ((ReviewDto)okResult.Value).Content);
             Assert.Equal(mappedReview.Rating, ((ReviewDto)okResult.Value).Rating);
@@ -186,8 +181,16 @@ namespace GameZone.ApiUnitTests
                     Game = game
                 });
 
+            _mockMapper.Setup(m => m.Map<ReviewDto>(It.IsAny<Review>()))
+                .Returns(new ReviewDto
+                {
+                    Content = "good game test good game",
+                    Rating = 10,
+                    Username = user.Username,
+                    Gamename = game.Name,
+                });
             //Act
-            var controller = new ReviewController(_mockMediator.Object, _mapper, _mockLogger.Object);
+            var controller = new ReviewController(_mockMediator.Object, _mockMapper.Object, _mockLogger.Object);
             var result = await controller.CreateReview(createReviewCommand);
             var createdAtActionResult = result as CreatedAtActionResult;
 
@@ -216,7 +219,7 @@ namespace GameZone.ApiUnitTests
              .ReturnsAsync(review.Id);
 
             //Act
-            var controller = new ReviewController(_mockMediator.Object, _mapper, _mockLogger.Object);
+            var controller = new ReviewController(_mockMediator.Object, _mockMapper.Object, _mockLogger.Object);
             var result = await controller.DeleteReview(guid);
             var noContentResult = result as NoContentResult;
             //Assert

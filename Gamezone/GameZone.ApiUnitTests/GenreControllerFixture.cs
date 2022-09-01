@@ -25,19 +25,7 @@ namespace GameZone.ApiUnitTests
         private readonly Mock<IMediator> _mockMediator = new Mock<IMediator>();
         private readonly Mock<IMapper> _mockMapper = new Mock<IMapper>();
         private readonly Mock<ILogger<GenresController>> _mockLogger = new Mock<ILogger<GenresController>>();
-        private static IMapper _mapper;
-        public GenreControllerFixture()
-        {
-            if (_mapper == null)
-            {
-                var mappingConfig = new MapperConfiguration(mc =>
-                {
-                    mc.AddProfile(new GenreProfile());
-                });
-                IMapper mapper = mappingConfig.CreateMapper();
-                _mapper = mapper;
-            }
-        }
+
         [Fact]
         public async Task Get_All_Genres_GetAllGenresListQueryIsCalled()
         {
@@ -47,7 +35,7 @@ namespace GameZone.ApiUnitTests
                 .Verifiable();
 
             //Act
-            var controller = new GenresController(_mapper, _mockMediator.Object, _mockLogger.Object);
+            var controller = new GenresController(_mockMapper.Object, _mockMediator.Object, _mockLogger.Object);
             await controller.GetGenres();
 
             //Assert
@@ -63,7 +51,7 @@ namespace GameZone.ApiUnitTests
                 .Verifiable();
             
             //Act
-            var controller = new GenresController(_mapper, _mockMediator.Object, _mockLogger.Object);
+            var controller = new GenresController(_mockMapper.Object, _mockMediator.Object, _mockLogger.Object);
             await controller.GetById(new Guid());
 
             _mockMediator.Verify(x => x.Send(It.IsAny<GetGenreByIdQuery>(), It.IsAny<CancellationToken>()), Times.Once());
@@ -89,7 +77,7 @@ namespace GameZone.ApiUnitTests
                });
 
             //Act
-            var controller = new GenresController(_mapper, _mockMediator.Object, _mockLogger.Object);
+            var controller = new GenresController(_mockMapper.Object, _mockMediator.Object, _mockLogger.Object);
             var guid = new Guid("3fefe639-af6a-46f7-b7ca-db1608ec3f65");
             await controller.GetById(guid);
             
@@ -102,6 +90,7 @@ namespace GameZone.ApiUnitTests
         {
             //Arrange
             var guid = new Guid("3fefe639-af6a-46f7-b7ca-db1608ec3f65");
+
             _mockMediator
              .Setup(m => m.Send(It.IsAny<GetGenreByIdQuery>(), It.IsAny<CancellationToken>()))
              .ReturnsAsync(
@@ -111,8 +100,14 @@ namespace GameZone.ApiUnitTests
                     Name = "Action"
                 });
 
+            _mockMapper.Setup(m => m.Map<GenreDto>(It.IsAny<Genre>()))
+                .Returns(new GenreDto
+                {
+                    Id = guid,
+                    Name = "Action"
+                });
             //Act
-            var controller = new GenresController(_mapper, _mockMediator.Object, _mockLogger.Object);
+            var controller = new GenresController(_mockMapper.Object, _mockMediator.Object, _mockLogger.Object);
             var result = await controller.GetById(guid);
             var okResult = result as OkObjectResult;
             //Assert
@@ -130,19 +125,26 @@ namespace GameZone.ApiUnitTests
                 Name="Action"
             };
 
-            var mappedGenre = _mapper.Map<GenreDto>(genre);
-
+            
             _mockMediator
                 .Setup(m => m.Send(It.IsAny<GetGenreByIdQuery>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(genre);
+
+            _mockMapper.Setup(m => m.Map<GenreDto>(It.IsAny<Genre>()))
+                .Returns(new GenreDto
+                {
+                    Id = guid,
+                    Name = "Action"
+                });
+
+            var mappedGenre = _mockMapper.Object.Map<GenreDto>(genre);
             //Act
-            var controller = new GenresController(_mapper, _mockMediator.Object, _mockLogger.Object);
+            var controller = new GenresController(_mockMapper.Object, _mockMediator.Object, _mockLogger.Object);
             var result = await controller.GetById(guid);
             var okResult = result as OkObjectResult;
 
             //Assert
-            //Assert.Same(mappedGenre, (GenreDto)okResult.Value);
-            //Assert.True(mappedGenre.Equals((GenreDto)okResult.Value));
+
             Assert.Equal(mappedGenre.Id, ((GenreDto)okResult.Value).Id);
             Assert.Equal(mappedGenre.Name, ((GenreDto)okResult.Value).Name);
         }
@@ -163,11 +165,16 @@ namespace GameZone.ApiUnitTests
                     Name = "Action"
                 });
 
+            _mockMapper.Setup(m => m.Map<GenreDto>(It.IsAny<Genre>()))
+              .Returns(new GenreDto
+              {
+                  Name = "Action"
+              });
+
             //Act
-            var controller = new GenresController(_mapper, _mockMediator.Object, _mockLogger.Object);
+            var controller = new GenresController(_mockMapper.Object, _mockMediator.Object, _mockLogger.Object);
             var result = await controller.CreateGenre(createGenreCommand);
             var createdAtActionResult = result as CreatedAtActionResult;
-            //var genre = createdAtActionResult.Value;
 
             //Assert
             Assert.Equal(createGenreCommand.Name, ((GenreDto)createdAtActionResult.Value).Name);
@@ -190,7 +197,7 @@ namespace GameZone.ApiUnitTests
              .ReturnsAsync(genre.Id);
 
             //Act
-            var controller = new GenresController(_mapper, _mockMediator.Object, _mockLogger.Object);
+            var controller = new GenresController(_mockMapper.Object, _mockMediator.Object, _mockLogger.Object);
             var result = await controller.DeleteGenre(guid);
             var noContentResult = result as NoContentResult;
             //Assert

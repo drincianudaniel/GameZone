@@ -25,19 +25,7 @@ namespace GameZone.ApiUnitTests
         private readonly Mock<IMediator> _mockMediator = new Mock<IMediator>();
         private readonly Mock<IMapper> _mockMapper = new Mock<IMapper>();
         private readonly Mock<ILogger<CommentsController>> _mockLogger = new Mock<ILogger<CommentsController>>();
-        private static IMapper _mapper;
-        public CommentControllerFixture()
-        {
-            if (_mapper == null)
-            {
-                var mappingConfig = new MapperConfiguration(mc =>
-                {
-                    mc.AddProfile(new CommentProfile());
-                });
-                IMapper mapper = mappingConfig.CreateMapper();
-                _mapper = mapper;
-            }
-        }
+
         [Fact]
         public async Task Get_All_Comments_GetAllCommentsListQueryIsCalled()
         {
@@ -47,7 +35,7 @@ namespace GameZone.ApiUnitTests
                 .Verifiable();
 
             //Act
-            var controller = new CommentsController(_mockMediator.Object, _mapper, _mockLogger.Object);
+            var controller = new CommentsController(_mockMediator.Object, _mockMapper.Object, _mockLogger.Object);
             await controller.GetComments();
 
             //Assert
@@ -63,7 +51,7 @@ namespace GameZone.ApiUnitTests
                 .Verifiable();
 
             //Act
-            var controller = new CommentsController(_mockMediator.Object, _mapper, _mockLogger.Object);
+            var controller = new CommentsController(_mockMediator.Object, _mockMapper.Object, _mockLogger.Object);
             await controller.GetById(new Guid());
 
             _mockMediator.Verify(x => x.Send(It.IsAny<GetCommentByIdQuery>(), It.IsAny<CancellationToken>()), Times.Once());
@@ -89,7 +77,7 @@ namespace GameZone.ApiUnitTests
                });
 
             //Act
-            var controller = new CommentsController(_mockMediator.Object, _mapper, _mockLogger.Object);
+            var controller = new CommentsController(_mockMediator.Object, _mockMapper.Object, _mockLogger.Object);
             var guid = new Guid("3fefe639-af6a-46f7-b7ca-db1608ec3f65");
             await controller.GetById(guid);
 
@@ -112,7 +100,7 @@ namespace GameZone.ApiUnitTests
                 });
 
             //Act
-            var controller = new CommentsController(_mockMediator.Object, _mapper, _mockLogger.Object);
+            var controller = new CommentsController(_mockMediator.Object, _mockMapper.Object, _mockLogger.Object);
             var result = await controller.GetById(guid);
             var okResult = result as OkObjectResult;
 
@@ -131,14 +119,22 @@ namespace GameZone.ApiUnitTests
                 Content = "very good game test"
             };
 
-            var mappedComment = _mapper.Map<CommentDto>(comment);
 
             _mockMediator
                 .Setup(m => m.Send(It.IsAny<GetCommentByIdQuery>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(comment);
 
+            _mockMapper.Setup(m => m.Map<CommentDto>(It.IsAny<Comment>()))
+                .Returns(new CommentDto
+                {
+                    Id = guid,
+                    Content = "very good game test"
+                });
+
+            var mappedComment = _mockMapper.Object.Map<CommentDto>(comment);
+
             //Act
-            var controller = new CommentsController(_mockMediator.Object, _mapper, _mockLogger.Object);
+            var controller = new CommentsController(_mockMediator.Object, _mockMapper.Object, _mockLogger.Object);
             var result = await controller.GetById(guid);
             var okResult = result as OkObjectResult;
 
@@ -183,11 +179,18 @@ namespace GameZone.ApiUnitTests
                     Game = game
                 });
 
+            _mockMapper.Setup(m => m.Map<CommentDto>(It.IsAny<Comment>()))
+                .Returns(new CommentDto
+                {
+                    Content = "good game test good game",
+                    Username = user.Username,
+                    Gamename = game.Name,
+                });
+
             //Act
-            var controller = new CommentsController(_mockMediator.Object, _mapper, _mockLogger.Object);
+            var controller = new CommentsController(_mockMediator.Object, _mockMapper.Object, _mockLogger.Object);
             var result = await controller.CreateComment(createCommentCommand);
             var createdAtActionResult = result as CreatedAtActionResult;
-            //var genre = createdAtActionResult.Value;
 
             //Assert
             Assert.Equal(createCommentCommand.Content, ((CommentDto)createdAtActionResult.Value).Content);
@@ -212,7 +215,7 @@ namespace GameZone.ApiUnitTests
              .ReturnsAsync(comment.Id);
 
             //Act
-            var controller = new CommentsController(_mockMediator.Object, _mapper, _mockLogger.Object);
+            var controller = new CommentsController(_mockMediator.Object, _mockMapper.Object, _mockLogger.Object);
             var result = await controller.DeleteComment(guid);
             var noContentResult = result as NoContentResult;
             //Assert

@@ -25,19 +25,6 @@ namespace GameZone.ApiUnitTests
         private readonly Mock<IMediator> _mockMediator = new Mock<IMediator>();
         private readonly Mock<IMapper> _mockMapper = new Mock<IMapper>();
         private readonly Mock<ILogger<PlatformsController>> _mockLogger = new Mock<ILogger<PlatformsController>>();
-        private static IMapper _mapper;
-        public PlatformControllerFixture()
-        {
-            if (_mapper == null)
-            {
-                var mappingConfig = new MapperConfiguration(mc =>
-                {
-                    mc.AddProfile(new PlatformProfile());
-                });
-                IMapper mapper = mappingConfig.CreateMapper();
-                _mapper = mapper;
-            }
-        }
         [Fact]
         public async Task Get_All_Platforms_GetAllPlatformsListQueryIsCalled()
         {
@@ -47,7 +34,7 @@ namespace GameZone.ApiUnitTests
                 .Verifiable();
 
             //Act
-            var controller = new PlatformsController(_mapper, _mockMediator.Object, _mockLogger.Object);
+            var controller = new PlatformsController(_mockMapper.Object, _mockMediator.Object, _mockLogger.Object);
             await controller.GetPlatforms();
 
             //Assert
@@ -63,7 +50,7 @@ namespace GameZone.ApiUnitTests
                 .Verifiable();
 
             //Act
-            var controller = new PlatformsController(_mapper, _mockMediator.Object, _mockLogger.Object);
+            var controller = new PlatformsController(_mockMapper.Object, _mockMediator.Object, _mockLogger.Object);
             await controller.GetById(new Guid());
 
             _mockMediator.Verify(x => x.Send(It.IsAny<GetPlatformByIdQuery>(), It.IsAny<CancellationToken>()), Times.Once());
@@ -89,7 +76,7 @@ namespace GameZone.ApiUnitTests
                });
 
             //Act
-            var controller = new PlatformsController(_mapper, _mockMediator.Object, _mockLogger.Object);
+            var controller = new PlatformsController(_mockMapper.Object, _mockMediator.Object, _mockLogger.Object);
             var guid = new Guid("3fefe639-af6a-46f7-b7ca-db1608ec3f65");
             await controller.GetById(guid);
 
@@ -112,7 +99,7 @@ namespace GameZone.ApiUnitTests
                 });
 
             //Act
-            var controller = new PlatformsController(_mapper, _mockMediator.Object, _mockLogger.Object);
+            var controller = new PlatformsController(_mockMapper.Object, _mockMediator.Object, _mockLogger.Object);
             var result = await controller.GetById(guid);
             var okResult = result as OkObjectResult;
             //Assert
@@ -130,19 +117,25 @@ namespace GameZone.ApiUnitTests
                 Name="PlayStation 4"
             };
 
-            var mappedPlatform = _mapper.Map<PlatformDto>(platform);
-
             _mockMediator
                 .Setup(m => m.Send(It.IsAny<GetPlatformByIdQuery>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(platform);
+
+            _mockMapper.Setup(m => m.Map<PlatformDto>(It.IsAny<Platform>()))
+                .Returns(new PlatformDto
+                {
+                    Id = guid,
+                    Name = "PlayStation 4"
+                });
+
+            var mappedPlatform = _mockMapper.Object.Map<PlatformDto>(platform);
+
             //Act
-            var controller = new PlatformsController(_mapper, _mockMediator.Object, _mockLogger.Object);
+            var controller = new PlatformsController(_mockMapper.Object, _mockMediator.Object, _mockLogger.Object);
             var result = await controller.GetById(guid);
             var okResult = result as OkObjectResult;
 
             //Assert
-            //Assert.Same(mappedGenre, (GenreDto)okResult.Value);
-            //Assert.True(mappedGenre.Equals((GenreDto)okResult.Value));
             Assert.Equal(mappedPlatform.Id, ((PlatformDto)okResult.Value).Id);
             Assert.Equal(mappedPlatform.Name, ((PlatformDto)okResult.Value).Name);
         }
@@ -163,11 +156,16 @@ namespace GameZone.ApiUnitTests
                     Name = "PlayStation 4"
                 });
 
+            _mockMapper.Setup(m => m.Map<PlatformDto>(It.IsAny<Platform>()))
+                .Returns(new PlatformDto
+                {
+                    Name = "PlayStation 4"
+                });
+
             //Act
-            var controller = new PlatformsController(_mapper, _mockMediator.Object, _mockLogger.Object);
+            var controller = new PlatformsController(_mockMapper.Object, _mockMediator.Object, _mockLogger.Object);
             var result = await controller.CreatePlatform(createPlatformCommand);
             var createdAtActionResult = result as CreatedAtActionResult;
-            //var genre = createdAtActionResult.Value;
 
             //Assert
             Assert.Equal(createPlatformCommand.Name, ((PlatformDto)createdAtActionResult.Value).Name);
@@ -190,7 +188,7 @@ namespace GameZone.ApiUnitTests
              .ReturnsAsync(platform.Id);
 
             //Act
-            var controller = new PlatformsController(_mapper, _mockMediator.Object, _mockLogger.Object);
+            var controller = new PlatformsController(_mockMapper.Object, _mockMediator.Object, _mockLogger.Object);
             var result = await controller.DeletePlatform(guid);
             var noContentResult = result as NoContentResult;
             //Assert

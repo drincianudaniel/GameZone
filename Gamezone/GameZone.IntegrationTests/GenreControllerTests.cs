@@ -3,16 +3,14 @@ using System.Net;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace GameZone.Application.IntegrationTests
+namespace GameZone.IntegrationTests
 {
     public class GenreControllerTests
     {
-        //private static TestContext _testContext;
         private static WebApplicationFactory<Program> _factory;
 
-        public GenreControllerTests(/*TestContext testContext*/)
+        public GenreControllerTests()
         {
-/*            _testContext = testContext;*/
             _factory = new CustomWebApplicationFactory<Program>();
         }
 
@@ -22,7 +20,7 @@ namespace GameZone.Application.IntegrationTests
             var client = _factory.CreateClient();
             var response = await client.GetAsync("api/genres");
 
-            Xunit.Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         }
     }
 }

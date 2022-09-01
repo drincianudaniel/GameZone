@@ -25,19 +25,7 @@ namespace GameZone.ApiUnitTests
         private readonly Mock<IMediator> _mockMediator = new Mock<IMediator>();
         private readonly Mock<IMapper> _mockMapper = new Mock<IMapper>();
         private readonly Mock<ILogger<RepliesController>> _mockLogger = new Mock<ILogger<RepliesController>>();
-        private static IMapper _mapper;
-        public ReplyControllerFixture()
-        {
-            if (_mapper == null)
-            {
-                var mappingConfig = new MapperConfiguration(mc =>
-                {
-                    mc.AddProfile(new ReplyProfile());
-                });
-                IMapper mapper = mappingConfig.CreateMapper();
-                _mapper = mapper;
-            }
-        }
+
         [Fact]
         public async Task Get_All_Replies_GetAllReviewsListQueryIsCalled()
         {
@@ -47,7 +35,7 @@ namespace GameZone.ApiUnitTests
                 .Verifiable();
 
             //Act
-            var controller = new RepliesController(_mockMediator.Object, _mapper, _mockLogger.Object);
+            var controller = new RepliesController(_mockMediator.Object, _mockMapper.Object, _mockLogger.Object);
             await controller.GetReplies();
 
             //Assert
@@ -63,7 +51,7 @@ namespace GameZone.ApiUnitTests
                 .Verifiable();
 
             //Act
-            var controller = new RepliesController(_mockMediator.Object, _mapper, _mockLogger.Object);
+            var controller = new RepliesController(_mockMediator.Object, _mockMapper.Object, _mockLogger.Object);
             await controller.GetById(new Guid());
 
             //Assert
@@ -89,7 +77,7 @@ namespace GameZone.ApiUnitTests
                });
 
             //Act
-            var controller = new RepliesController(_mockMediator.Object, _mapper, _mockLogger.Object);
+            var controller = new RepliesController(_mockMediator.Object, _mockMapper.Object, _mockLogger.Object);
             var guid = new Guid("3fefe639-af6a-46f7-b7ca-db1608ec3f65");
             await controller.GetById(guid);
 
@@ -112,7 +100,7 @@ namespace GameZone.ApiUnitTests
                 });
 
             //Act
-            var controller = new RepliesController(_mockMediator.Object, _mapper, _mockLogger.Object);
+            var controller = new RepliesController(_mockMediator.Object, _mockMapper.Object, _mockLogger.Object);
             var result = await controller.GetById(guid);
             var okResult = result as OkObjectResult;
             //Assert
@@ -130,20 +118,26 @@ namespace GameZone.ApiUnitTests
                 Content = "good game test good game",
             };
 
-            var mappedReply = _mapper.Map<ReplyDto>(reply);
+            
 
             _mockMediator
                 .Setup(m => m.Send(It.IsAny<GetReplyByIdQuery>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(reply);
 
+            _mockMapper.Setup(m => m.Map<ReplyDto>(It.IsAny<Reply>()))
+              .Returns(new ReplyDto
+              {
+                  Id = guid,
+                  Content = "good game test good game"
+              });
+
+            var mappedReply = _mockMapper.Object.Map<ReplyDto>(reply);
             //Act
-            var controller = new RepliesController(_mockMediator.Object, _mapper, _mockLogger.Object);
+            var controller = new RepliesController(_mockMediator.Object, _mockMapper.Object, _mockLogger.Object);
             var result = await controller.GetById(guid);
             var okResult = result as OkObjectResult;
 
             //Assert
-            //Assert.Same(mappedGenre, (GenreDto)okResult.Value);
-            //Assert.True(mappedGenre.Equals((GenreDto)okResult.Value));
             Assert.Equal(mappedReply.Id, ((ReplyDto)okResult.Value).Id);
             Assert.Equal(mappedReply.Content, ((ReplyDto)okResult.Value).Content);
         }
@@ -193,8 +187,15 @@ namespace GameZone.ApiUnitTests
                     Comment = comment
                 });
 
+            _mockMapper.Setup(m => m.Map<ReplyDto>(It.IsAny<Reply>()))
+             .Returns(new ReplyDto
+             {
+                 Content = "good game test good game",
+                 Username = user.Username,
+             });
+
             //Act
-            var controller = new RepliesController(_mockMediator.Object, _mapper, _mockLogger.Object);
+            var controller = new RepliesController(_mockMediator.Object, _mockMapper.Object, _mockLogger.Object);
             var result = await controller.CreateReply(createReplyCommand);
             var createdAtActionResult = result as CreatedAtActionResult;
 
@@ -220,7 +221,7 @@ namespace GameZone.ApiUnitTests
              .ReturnsAsync(reply.Id);
 
             //Act
-            var controller = new RepliesController(_mockMediator.Object, _mapper, _mockLogger.Object);
+            var controller = new RepliesController(_mockMediator.Object, _mockMapper.Object, _mockLogger.Object);
             var result = await controller.DeleteReply(guid);
             var noContentResult = result as NoContentResult;
             //Assert

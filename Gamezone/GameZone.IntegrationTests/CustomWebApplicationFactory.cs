@@ -1,5 +1,5 @@
-﻿using GameZone.Application.IntegrationTests.Helpers;
-using GameZone.Infrastructure;
+﻿using GameZone.Infrastructure;
+using GameZone.IntegrationTests.Helpers;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Data.Sqlite;
@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System.Linq;
 
-namespace GameZone.Application.IntegrationTests
+namespace GameZone.IntegrationTests
 {
     public class CustomWebApplicationFactory<TProgram> 
         : WebApplicationFactory<TProgram> where TProgram : class
