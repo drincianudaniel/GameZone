@@ -93,7 +93,7 @@ namespace GameZone.Api.Controllers
             }
 
             var mappedResult = _mapper.Map<PlatformDto>(result);
-            return NoContent();
+            return Ok(mappedResult);
         }
 
         [HttpDelete]
