@@ -5,6 +5,7 @@ using GameZone.Api.DTOs;
 using GameZone.Api.ViewModels;
 using GameZone.Application.Reviews.Commands.CreateReview;
 using GameZone.Application.Reviews.Commands.DeleteReview;
+using GameZone.Application.Reviews.Commands.UpdateReview;
 using GameZone.Application.Reviews.Queries.GetReviewById;
 using GameZone.Application.Reviews.Queries.GetReviewsList;
 using GameZone.Domain.Models;
@@ -224,6 +225,112 @@ namespace GameZone.ApiUnitTests
             var noContentResult = result as NoContentResult;
             //Assert
             Assert.Equal((int)HttpStatusCode.NoContent, noContentResult.StatusCode);
+        }
+
+        [Fact]
+        public async Task Update_Review_Should_Return_OkStatusCode()
+        {
+            //Arrange
+            var guid = new Guid("3fefe639-af6a-46f7-b7ca-db1608ec3f65");
+
+            var user = new User
+            {
+                Id = new Guid("9155dc31-8e4b-46ef-ae91-97d81fc4afa8"),
+                FirstName = "test user",
+                Username = "test user username"
+            };
+
+            var game = new Game
+            {
+                Id = new Guid("39dadaf7-373c-4562-94ad-4df6ae1f1719"),
+                Name = "Game name"
+            };
+
+            var updateReviewCommand = new ReviewViewModel
+            {
+                Content = "good game test good game",
+                Rating = 10,
+                UserId = user.Id,
+                GameId = game.Id
+            };
+
+            _mockMediator
+             .Setup(m => m.Send(It.IsAny<UpdateReviewCommand>(), It.IsAny<CancellationToken>()))
+             .ReturnsAsync(new Review
+             {
+                 Id = guid,
+                 Content = "good game test good game",
+                 Rating = 10,
+                 UserId = user.Id,
+                 GameId = game.Id
+             });
+
+            //Act
+            var controller = new ReviewController(_mockMediator.Object, _mockMapper.Object, _mockLogger.Object);
+            var result = await controller.UpdateReview(guid, updateReviewCommand);
+            var okResult = result as OkObjectResult;
+
+            //Assert
+            Assert.Equal((int)HttpStatusCode.OK, okResult.StatusCode);
+        }
+
+        [Fact]
+        public async Task Update_Review_Should_Return_UpdatedReview()
+        {
+            //Arrange
+            var guid = new Guid("3fefe639-af6a-46f7-b7ca-db1608ec3f65");
+
+            var user = new User
+            {
+                Id = new Guid("9155dc31-8e4b-46ef-ae91-97d81fc4afa8"),
+                FirstName = "test user",
+                Username = "test user username"
+            };
+
+            var game = new Game
+            {
+                Id = new Guid("39dadaf7-373c-4562-94ad-4df6ae1f1719"),
+                Name = "Game name"
+            };
+
+            var updateReviewCommand = new ReviewViewModel
+            {
+                Content = "good game test good game",
+                Rating = 10,
+                UserId = user.Id,
+                GameId = game.Id
+            };
+
+            _mockMediator
+             .Setup(m => m.Send(It.IsAny<UpdateReviewCommand>(), It.IsAny<CancellationToken>()))
+             .ReturnsAsync(new Review
+             {
+                 Id = guid,
+                 Content = "good game test good game",
+                 Rating = 10,
+                 UserId = user.Id,
+                 GameId = game.Id
+             });
+
+            _mockMapper.Setup(m => m.Map<ReviewDto>(It.IsAny<Review>()))
+              .Returns(new ReviewDto
+              {
+                  Content = "good game test good game",
+                  Rating = 10,
+                  Username = user.Username,
+                  Gamename = game.Name
+              });
+
+            //Act
+            var controller = new ReviewController(_mockMediator.Object, _mockMapper.Object, _mockLogger.Object);
+            var result = await controller.UpdateReview(guid, updateReviewCommand);
+            var okResult = result as OkObjectResult;
+
+            //Assert
+            Assert.Equal(updateReviewCommand.Content, ((ReviewDto)okResult.Value).Content);
+            Assert.Equal(updateReviewCommand.Rating, ((ReviewDto)okResult.Value).Rating);
+            Assert.Equal(user.Username, ((ReviewDto)okResult.Value).Username);
+            Assert.Equal(game.Name, ((ReviewDto)okResult.Value).Gamename);
         }
     }
 }

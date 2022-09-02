@@ -5,6 +5,7 @@ using GameZone.Api.DTOs;
 using GameZone.Api.ViewModels;
 using GameZone.Application.Developers.Commands.CreateDeveloper;
 using GameZone.Application.Developers.Commands.DeleteDeveloper;
+using GameZone.Application.Developers.Commands.UpdateDeveloper;
 using GameZone.Application.Developers.Queries.GetDeveloperById;
 using GameZone.Application.Developers.Queries.GetDevelopersList;
 using GameZone.Domain.Models;
@@ -204,6 +205,74 @@ namespace GameZone.ApiUnitTests
             var noContentResult = result as NoContentResult;
             //Assert
             Assert.Equal((int)HttpStatusCode.NoContent, noContentResult.StatusCode);
+        }
+
+        [Fact]
+        public async Task Update_Developer_Should_Return_OkStatusCode()
+        {
+            //Arrange
+            var guid = new Guid("3fefe639-af6a-46f7-b7ca-db1608ec3f65");
+
+            var updateDeveloperCommand = new DeveloperViewModel
+            {
+                Name="Ubisoft",
+                HeadQuarters = "Montreal"
+            };
+
+            _mockMediator
+             .Setup(m => m.Send(It.IsAny<UpdateDeveloperCommand>(), It.IsAny<CancellationToken>()))
+             .ReturnsAsync(new Developer
+             {
+                 Id = guid,
+                 Name="Ubisoft",
+                 Headquarters = "Montreal"
+             });
+
+            //Act
+            var controller = new DevelopersController(_mockMediator.Object, _mockMapper.Object, _mockLogger.Object);
+            var result = await controller.UpdateDeveloper(guid, updateDeveloperCommand);
+            var okResult = result as OkObjectResult;
+
+            //Assert
+            Assert.Equal((int)HttpStatusCode.OK, okResult.StatusCode);
+        }
+
+        [Fact]
+        public async Task Update_Developer_Should_Return_UpdatedDeveloper ()
+        {
+            //Arrange
+            var guid = new Guid("3fefe639-af6a-46f7-b7ca-db1608ec3f65");
+
+            var updateDeveloperCommand = new DeveloperViewModel
+            {
+                Name="Ubisoft",
+                HeadQuarters = "Montreal"
+            };
+
+            _mockMediator
+             .Setup(m => m.Send(It.IsAny<UpdateDeveloperCommand>(), It.IsAny<CancellationToken>()))
+             .ReturnsAsync(new Developer
+             {
+                 Id = guid,
+                 Name="Ubisoft",
+                 Headquarters = "Montreal"
+             });
+
+            _mockMapper.Setup(m => m.Map<DeveloperDto>(It.IsAny<Developer>()))
+              .Returns(new DeveloperDto
+              {
+                  Name="Ubisoft",
+                  Headquarters = "Montreal"
+              });
+
+            //Act
+            var controller = new DevelopersController(_mockMediator.Object, _mockMapper.Object, _mockLogger.Object);
+            var result = await controller.UpdateDeveloper(guid, updateDeveloperCommand);
+            var okResult = result as OkObjectResult;
+
+            //Assert
+            Assert.Equal(updateDeveloperCommand.Name, ((DeveloperDto)okResult.Value).Name);
+            Assert.Equal(updateDeveloperCommand.HeadQuarters, ((DeveloperDto)okResult.Value).Headquarters);
         }
     }
 }

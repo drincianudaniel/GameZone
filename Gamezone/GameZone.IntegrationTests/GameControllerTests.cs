@@ -110,9 +110,12 @@ namespace GameZone.IntegrationTests
             Assert.Equal(newGame.GameDetails, game.GameDetails);
             Assert.Equal(newGame.ImageSrc, game.ImageSrc);
             Assert.Equal("Action", game.Genres.ElementAt(0).Name);
+            Assert.Equal(1, game.Genres.Count);
             Assert.Equal("Rockstar Games", game.Developers.ElementAt(0).Name);
+            Assert.Equal(1, game.Developers.Count);
             Assert.Equal("PlayStation 4", game.Platforms.ElementAt(0).Name);
             Assert.Equal("PC", game.Platforms.ElementAt(1).Name);
+            Assert.Equal(2, game.Platforms.Count);
         }
 
         [Fact]
@@ -157,9 +160,12 @@ namespace GameZone.IntegrationTests
             Assert.Equal("Minecraft is a sandbox video game developed by Mojang Studios. The game was created by Markus Notch Persson in the Java programming language.", game.GameDetails);
             Assert.Equal("https://upload.wikimedia.org/wikipedia/en/5/51/Minecraft_cover.png", game.ImageSrc);
             Assert.Equal("Adventure", game.Genres.ElementAt(0).Name);
+            Assert.Equal(1, game.Genres.Count);
             Assert.Equal("Mojang", game.Developers.ElementAt(0).Name);
+            Assert.Equal(1, game.Developers.Count);
             Assert.Equal("PC", game.Platforms.ElementAt(0).Name);
             Assert.Equal("Xbox One", game.Platforms.ElementAt(1).Name);
+            Assert.Equal(2, game.Platforms.Count);
         }
     }
 }

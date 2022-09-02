@@ -5,6 +5,7 @@ using GameZone.Api.DTOs;
 using GameZone.Api.ViewModels;
 using GameZone.Application.Replies.Commands.CreateReply;
 using GameZone.Application.Replies.Commands.DeleteReply;
+using GameZone.Application.Replies.Commands.UpdateReply;
 using GameZone.Application.Replies.Queries.GetRepliesList;
 using GameZone.Application.Replies.Queries.GetReplyById;
 using GameZone.Domain.Models;
@@ -226,6 +227,128 @@ namespace GameZone.ApiUnitTests
             var noContentResult = result as NoContentResult;
             //Assert
             Assert.Equal((int)HttpStatusCode.NoContent, noContentResult.StatusCode);
+        }
+
+        [Fact]
+        public async Task Update_Reply_Should_Return_OkStatusCode()
+        {
+            //Arrange
+            var guid = new Guid("3fefe639-af6a-46f7-b7ca-db1608ec3f65");
+
+            var user = new User
+            {
+                Id = new Guid("9155dc31-8e4b-46ef-ae91-97d81fc4afa8"),
+                FirstName = "test user",
+                Username = "test user username"
+            };
+
+            var game = new Game
+            {
+                Id = new Guid("39dadaf7-373c-4562-94ad-4df6ae1f1719"),
+                Name = "Game name"
+            };
+
+            var comment = new Comment
+            {
+                Id = new Guid("a71fef0e-2955-11ed-a261-0242ac120002"),
+                Content = "comment test comment",
+                User = user,
+                UserId = user.Id,
+                Game = game,
+                GameId = game.Id
+            };
+
+            var updateReplyCommand = new ReplyViewModel
+            {
+                Content = "good game test good game",
+                UserId = user.Id,
+                CommentId = game.Id
+            };
+
+            _mockMediator
+                .Setup(m => m.Send(It.IsAny<UpdateReplyCommand>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync(new Reply
+                {
+                    Id = guid,
+                    Content = "good game test good game",
+                    UserId = user.Id,
+                    User = user,
+                    CommentId = comment.Id,
+                    Comment = comment
+                });
+
+            //Act
+            var controller = new RepliesController(_mockMediator.Object, _mockMapper.Object, _mockLogger.Object);
+            var result = await controller.UpdateReply(guid, updateReplyCommand);
+            var okResult = result as OkObjectResult;
+
+            //Assert
+            Assert.Equal((int)HttpStatusCode.OK, okResult.StatusCode);
+        }
+
+        [Fact]
+        public async Task Update_Reply_Should_Return_UpdatedReply()
+        {
+            //Arrange
+            var guid = new Guid("3fefe639-af6a-46f7-b7ca-db1608ec3f65");
+
+            var user = new User
+            {
+                Id = new Guid("9155dc31-8e4b-46ef-ae91-97d81fc4afa8"),
+                FirstName = "test user",
+                Username = "test user username"
+            };
+
+            var game = new Game
+            {
+                Id = new Guid("39dadaf7-373c-4562-94ad-4df6ae1f1719"),
+                Name = "Game name"
+            };
+
+            var comment = new Comment
+            {
+                Id = new Guid("a71fef0e-2955-11ed-a261-0242ac120002"),
+                Content = "comment test comment",
+                User = user,
+                UserId = user.Id,
+                Game = game,
+                GameId = game.Id
+            };
+
+            var updateReplyCommand = new ReplyViewModel
+            {
+                Content = "good game test good game",
+                UserId = user.Id,
+                CommentId = game.Id
+            };
+
+            _mockMediator
+                .Setup(m => m.Send(It.IsAny<UpdateReplyCommand>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync(new Reply
+                {
+                    Id = guid,
+                    Content = "good game test good game",
+                    UserId = user.Id,
+                    User = user,
+                    CommentId = comment.Id,
+                    Comment = comment
+                });
+
+            _mockMapper.Setup(m => m.Map<ReplyDto>(It.IsAny<Reply>()))
+              .Returns(new ReplyDto
+              {
+                  Content = "good game test good game",
+                  Username = user.Username,
+              });
+
+            //Act
+            var controller = new RepliesController(_mockMediator.Object, _mockMapper.Object, _mockLogger.Object);
+            var result = await controller.UpdateReply(guid, updateReplyCommand);
+            var okResult = result as OkObjectResult;
+
+            //Assert
+            Assert.Equal(updateReplyCommand.Content, ((ReplyDto)okResult.Value).Content);
+            Assert.Equal(user.Username, ((ReplyDto)okResult.Value).Username);
         }
     }
 }

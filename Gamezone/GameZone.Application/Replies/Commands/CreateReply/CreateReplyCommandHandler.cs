@@ -20,7 +20,8 @@ namespace GameZone.Application.Replies.Commands.CreateReply
             await _unitOfWork.ReplyRepository.CreateAsync(reply);
             await _unitOfWork.SaveAsync();
 
-            return reply;
+            var replyToReturn = await _unitOfWork.ReplyRepository.ReturnByIdAsync(reply.Id);
+            return replyToReturn;
         }
     }
 }

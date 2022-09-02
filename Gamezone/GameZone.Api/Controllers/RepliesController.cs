@@ -3,6 +3,7 @@ using GameZone.Api.DTOs;
 using GameZone.Api.ViewModels;
 using GameZone.Application.Replies.Commands.CreateReply;
 using GameZone.Application.Replies.Commands.DeleteReply;
+using GameZone.Application.Replies.Commands.UpdateReply;
 using GameZone.Application.Replies.Queries.GetRepliesList;
 using GameZone.Application.Replies.Queries.GetReplyById;
 using MediatR;
@@ -72,6 +73,31 @@ namespace GameZone.Api.Controllers
 
             var mappedResult = _mapper.Map<ReplyDto>(result);
             return CreatedAtAction(nameof(GetById), new { Id = mappedResult.Id }, mappedResult);
+        }
+
+        [HttpPut]
+        [Route("{id}")]
+        public async Task<IActionResult> UpdateReply(Guid id, [FromBody] ReplyViewModel reply)
+        {
+            _logger.LogInformation("Updating reply with id {id}", id);
+
+            var command = new UpdateReplyCommand
+            {
+                Id = id,
+                Content = reply.Content,
+                UserId = reply.UserId,
+                CommentId = reply.CommentId
+            };
+            var result = await _mediator.Send(command);
+
+            if (result == null)
+            {
+                _logger.LogWarning("Result with id {id} NOT FOUND", id);
+                return NotFound();
+            }
+
+            var mappedResult = _mapper.Map<ReplyDto>(result);
+            return Ok(mappedResult);
         }
 
         [HttpDelete]

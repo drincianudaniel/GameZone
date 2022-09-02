@@ -5,6 +5,7 @@ using GameZone.Api.DTOs;
 using GameZone.Api.ViewModels;
 using GameZone.Application.Comments.Commands.CreateComment;
 using GameZone.Application.Comments.Commands.DeleteComment;
+using GameZone.Application.Comments.Commands.UpdateComment;
 using GameZone.Application.Comments.Queries.GetCommentById;
 using GameZone.Application.Comments.Queries.GetCommentsList;
 using GameZone.Domain.Models;
@@ -220,6 +221,104 @@ namespace GameZone.ApiUnitTests
             var noContentResult = result as NoContentResult;
             //Assert
             Assert.Equal((int)HttpStatusCode.NoContent, noContentResult.StatusCode);
+        }
+
+        [Fact]
+        public async Task Update_Comment_Should_Return_OkStatusCode()
+        {
+            //Arrange
+            var guid = new Guid("3fefe639-af6a-46f7-b7ca-db1608ec3f65");
+
+            var user = new User
+            {
+                Id = new Guid("9155dc31-8e4b-46ef-ae91-97d81fc4afa8"),
+                FirstName = "test user",
+                Username = "test user username"
+            };
+
+            var game = new Game
+            {
+                Id = new Guid("39dadaf7-373c-4562-94ad-4df6ae1f1719"),
+                Name = "Game name"
+            };
+
+            var updateCommentCommand = new CommentViewModel
+            {
+                Content = "good game test good game",
+                UserId = user.Id,
+                GameId = game.Id
+            };
+
+            _mockMediator
+             .Setup(m => m.Send(It.IsAny<UpdateCommentCommand>(), It.IsAny<CancellationToken>()))
+             .ReturnsAsync(new Comment
+             {
+                 Content = "good game test good game",
+                 UserId = user.Id,
+                 GameId = game.Id
+             });
+
+            //Act
+            var controller = new CommentsController(_mockMediator.Object, _mockMapper.Object, _mockLogger.Object);
+            var result = await controller.UpdateComment(guid, updateCommentCommand);
+            var okResult = result as OkObjectResult;
+
+            //Assert
+            Assert.Equal((int)HttpStatusCode.OK, okResult.StatusCode);
+        }
+
+        [Fact]
+        public async Task Update_Comment_Should_Return_UpdatedComment()
+        {
+            //Arrange
+            var guid = new Guid("3fefe639-af6a-46f7-b7ca-db1608ec3f65");
+
+            var user = new User
+            {
+                Id = new Guid("9155dc31-8e4b-46ef-ae91-97d81fc4afa8"),
+                FirstName = "test user",
+                Username = "test user username"
+            };
+
+            var game = new Game
+            {
+                Id = new Guid("39dadaf7-373c-4562-94ad-4df6ae1f1719"),
+                Name = "Game name"
+            };
+
+            var updateCommentCommand = new CommentViewModel
+            {
+                Content = "good game test good game",
+                UserId = user.Id,
+                GameId = game.Id
+            };
+
+            _mockMediator
+             .Setup(m => m.Send(It.IsAny<UpdateCommentCommand>(), It.IsAny<CancellationToken>()))
+             .ReturnsAsync(new Comment
+             {
+                 Content = "good game test good game",
+                 UserId = user.Id,
+                 GameId = game.Id
+             });
+
+            _mockMapper.Setup(m => m.Map<CommentDto>(It.IsAny<Comment>()))
+              .Returns(new CommentDto
+              {
+                  Content = "good game test good game",
+                  Username = user.Username,
+                  Gamename = game.Name
+              });
+
+            //Act
+            var controller = new CommentsController(_mockMediator.Object, _mockMapper.Object, _mockLogger.Object);
+            var result = await controller.UpdateComment(guid, updateCommentCommand);
+            var okResult = result as OkObjectResult;
+
+            //Assert
+            Assert.Equal(updateCommentCommand.Content, ((CommentDto)okResult.Value).Content);
+            Assert.Equal(user.Username, ((CommentDto)okResult.Value).Username);
+            Assert.Equal(game.Name, ((CommentDto)okResult.Value).Gamename);
         }
     }
 }

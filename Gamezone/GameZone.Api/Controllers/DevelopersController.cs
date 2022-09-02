@@ -77,7 +77,7 @@ namespace GameZone.Api.Controllers
 
         [HttpPut]
         [Route("{id}")]
-        public async Task<IActionResult> UpdateGenre(Guid id, [FromBody] DeveloperViewModel developer)
+        public async Task<IActionResult> UpdateDeveloper(Guid id, [FromBody] DeveloperViewModel developer)
         {
             _logger.LogInformation("Updating developer with id {id}", id);
 

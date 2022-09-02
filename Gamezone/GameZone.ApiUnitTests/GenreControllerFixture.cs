@@ -5,6 +5,7 @@ using GameZone.Api.DTOs;
 using GameZone.Api.ViewModels;
 using GameZone.Application.Genres.Commands.CreateGenre;
 using GameZone.Application.Genres.Commands.DeleteGenre;
+using GameZone.Application.Genres.Commands.UpdateGenre;
 using GameZone.Application.Genres.Queries.GetGenreById;
 using GameZone.Application.Genres.Queries.GetGenresList;
 using GameZone.Domain.Models;
@@ -202,6 +203,68 @@ namespace GameZone.ApiUnitTests
             var noContentResult = result as NoContentResult;
             //Assert
             Assert.Equal((int)HttpStatusCode.NoContent, noContentResult.StatusCode);
+        }
+
+        [Fact]
+        public async Task Update_Genre_Should_Return_OkStatusCode()
+        {
+            //Arrange
+            var guid = new Guid("3fefe639-af6a-46f7-b7ca-db1608ec3f65");
+
+            var updateGenreCommand = new GenreViewModel
+            {
+                Name="Action"
+            };
+
+            _mockMediator
+             .Setup(m => m.Send(It.IsAny<UpdateGenreCommand>(), It.IsAny<CancellationToken>()))
+             .ReturnsAsync(new Genre
+             {
+                 Id = guid,
+                 Name = "Action"
+             });
+
+            //Act
+            var controller = new GenresController(_mockMapper.Object, _mockMediator.Object, _mockLogger.Object);
+            var result = await controller.UpdateGenre(guid, updateGenreCommand);
+            var okResult = result as OkObjectResult;
+
+            //Assert
+            Assert.Equal((int)HttpStatusCode.OK, okResult.StatusCode);
+        }
+
+        [Fact]
+        public async Task Update_Genre_Should_Return_UpdatedGenre()
+        {
+            //Arrange
+            var guid = new Guid("3fefe639-af6a-46f7-b7ca-db1608ec3f65");
+
+            var updateGenreCommand = new GenreViewModel
+            {
+                Name="Action"
+            };
+
+            _mockMediator
+             .Setup(m => m.Send(It.IsAny<UpdateGenreCommand>(), It.IsAny<CancellationToken>()))
+             .ReturnsAsync(new Genre
+             {
+                 Id = guid,
+                 Name = "Action"
+             });
+
+            _mockMapper.Setup(m => m.Map<GenreDto>(It.IsAny<Genre>()))
+              .Returns(new GenreDto
+              {
+                  Name = "Action"
+              });
+
+            //Act
+            var controller = new GenresController(_mockMapper.Object, _mockMediator.Object, _mockLogger.Object);
+            var result = await controller.UpdateGenre(guid, updateGenreCommand);
+            var okResult = result as OkObjectResult;
+
+            //Assert
+            Assert.Equal(updateGenreCommand.Name, ((GenreDto)okResult.Value).Name);
         }
     }
 }

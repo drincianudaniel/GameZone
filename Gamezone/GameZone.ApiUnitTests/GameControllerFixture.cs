@@ -5,6 +5,7 @@ using GameZone.Api.DTOs;
 using GameZone.Api.ViewModels;
 using GameZone.Application.Games.Commands.CreateGame;
 using GameZone.Application.Games.Commands.DeleteGame;
+using GameZone.Application.Games.Commands.UpdateGame;
 using GameZone.Application.Games.Queries.GetGameById;
 using GameZone.Application.Games.Queries.GetGamesList;
 using GameZone.Domain.Models;
@@ -262,6 +263,86 @@ namespace GameZone.ApiUnitTests
             var noContentResult = result as NoContentResult;
             //Assert
             Assert.Equal((int)HttpStatusCode.NoContent, noContentResult.StatusCode);
+        }
+
+        [Fact]
+        public async Task Update_Game_Should_Return_OkStatusCode()
+        {
+            //Arrange
+            var guid = new Guid("3fefe639-af6a-46f7-b7ca-db1608ec3f65");
+
+            var updateGameCommand = new GameViewModel
+            {
+                Name = "Assassin's Creed",
+                GameDetails = "Assassin's Creed is an action-adventure video game developed by Ubisoft Montreal and published by Ubisoft. It is the first installment in the Assassin's Creed series. The game was released for PlayStation 3 and Xbox 360 in November 2007.",
+                ReleaseDate = new DateTime(2011, 2, 16),
+                ImageSrc = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcHNm4Py0J8lgox2kPl87ZTV4aRjRcIZcq5hyBZX8q&s",
+            };
+
+            _mockMediator
+             .Setup(m => m.Send(It.IsAny<UpdateGameCommand>(), It.IsAny<CancellationToken>()))
+             .ReturnsAsync(new Game
+             {
+                 Id = guid,
+                 Name = "Assassin's Creed",
+                 GameDetails = "Assassin's Creed is an action-adventure video game developed by Ubisoft Montreal and published by Ubisoft. It is the first installment in the Assassin's Creed series. The game was released for PlayStation 3 and Xbox 360 in November 2007.",
+                 ReleaseDate = new DateTime(2011, 2, 16),
+                 ImageSrc = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcHNm4Py0J8lgox2kPl87ZTV4aRjRcIZcq5hyBZX8q&s",
+             });
+
+            //Act
+            var controller = new GamesController(_mockMapper.Object, _mockMediator.Object, _mockLogger.Object);
+            var result = await controller.UpdateGame(guid, updateGameCommand);
+            var okResult = result as OkObjectResult;
+
+            //Assert
+            Assert.Equal((int)HttpStatusCode.OK, okResult.StatusCode);
+        }
+
+        [Fact]
+        public async Task Update_Game_Should_Return_UpdatedGame()
+        {
+            //Arrange
+            var guid = new Guid("3fefe639-af6a-46f7-b7ca-db1608ec3f65");
+
+            var updateGameCommand = new GameViewModel
+            {
+                Name = "Assassin's Creed",
+                GameDetails = "Assassin's Creed is an action-adventure video game developed by Ubisoft Montreal and published by Ubisoft. It is the first installment in the Assassin's Creed series. The game was released for PlayStation 3 and Xbox 360 in November 2007.",
+                ReleaseDate = new DateTime(2011, 2, 16),
+                ImageSrc = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcHNm4Py0J8lgox2kPl87ZTV4aRjRcIZcq5hyBZX8q&s",
+            };
+
+            _mockMediator
+             .Setup(m => m.Send(It.IsAny<UpdateGameCommand>(), It.IsAny<CancellationToken>()))
+             .ReturnsAsync(new Game
+             {
+                 Id = guid,
+                 Name = "Assassin's Creed",
+                 GameDetails = "Assassin's Creed is an action-adventure video game developed by Ubisoft Montreal and published by Ubisoft. It is the first installment in the Assassin's Creed series. The game was released for PlayStation 3 and Xbox 360 in November 2007.",
+                 ReleaseDate = new DateTime(2011, 2, 16),
+                 ImageSrc = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcHNm4Py0J8lgox2kPl87ZTV4aRjRcIZcq5hyBZX8q&s",
+             });
+
+            _mockMapper.Setup(m => m.Map<GameDto>(It.IsAny<Game>()))
+              .Returns(new GameDto
+              {
+                  Name = "Assassin's Creed",
+                  GameDetails = "Assassin's Creed is an action-adventure video game developed by Ubisoft Montreal and published by Ubisoft. It is the first installment in the Assassin's Creed series. The game was released for PlayStation 3 and Xbox 360 in November 2007.",
+                  ReleaseDate = new DateTime(2011, 2, 16),
+                  ImageSrc = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcHNm4Py0J8lgox2kPl87ZTV4aRjRcIZcq5hyBZX8q&s",
+              });
+
+            //Act
+            var controller = new GamesController(_mockMapper.Object, _mockMediator.Object, _mockLogger.Object);
+            var result = await controller.UpdateGame(guid, updateGameCommand);
+            var okResult = result as OkObjectResult;
+
+            //Assert
+            Assert.Equal(updateGameCommand.Name, ((GameDto)okResult.Value).Name);
+            Assert.Equal(updateGameCommand.GameDetails, ((GameDto)okResult.Value).GameDetails);
+            Assert.Equal(updateGameCommand.ReleaseDate, ((GameDto)okResult.Value).ReleaseDate);
+            Assert.Equal(updateGameCommand.ImageSrc, ((GameDto)okResult.Value).ImageSrc);
         }
     }
 }

@@ -5,6 +5,7 @@ using GameZone.Api.DTOs;
 using GameZone.Api.ViewModels;
 using GameZone.Application.Platforms.Commands.CreatePlatform;
 using GameZone.Application.Platforms.Commands.DeletePlatform;
+using GameZone.Application.Platforms.Commands.UpdatePlatform;
 using GameZone.Application.Platforms.Queries.GetPlatformById;
 using GameZone.Application.Platforms.Queries.GetPlatformsList;
 using GameZone.Domain.Models;
@@ -193,6 +194,68 @@ namespace GameZone.ApiUnitTests
             var noContentResult = result as NoContentResult;
             //Assert
             Assert.Equal((int)HttpStatusCode.NoContent, noContentResult.StatusCode);
+        }
+
+        [Fact]
+        public async Task Update_Platform_Should_Return_OkStatusCode()
+        {
+            //Arrange
+            var guid = new Guid("3fefe639-af6a-46f7-b7ca-db1608ec3f65");
+
+            var updatePlatformCommand = new PlatformViewModel
+            {
+                Name="PlayStation 4"
+            };
+
+            _mockMediator
+             .Setup(m => m.Send(It.IsAny<UpdatePlatformCommand>(), It.IsAny<CancellationToken>()))
+             .ReturnsAsync(new Platform
+             {
+                 Id = guid,
+                 Name="PlayStation 4"
+             });
+
+            //Act
+            var controller = new PlatformsController(_mockMapper.Object, _mockMediator.Object, _mockLogger.Object);
+            var result = await controller.UpdatePlatform(guid, updatePlatformCommand);
+            var okResult = result as OkObjectResult;
+
+            //Assert
+            Assert.Equal((int)HttpStatusCode.OK, okResult.StatusCode);
+        }
+
+        [Fact]
+        public async Task Update_Platform_Should_Return_UpdatedPlatform()
+        {
+            //Arrange
+            var guid = new Guid("3fefe639-af6a-46f7-b7ca-db1608ec3f65");
+
+            var updatePlatformCommand = new PlatformViewModel
+            {
+                Name="PlayStation 4"
+            };
+
+            _mockMediator
+             .Setup(m => m.Send(It.IsAny<UpdatePlatformCommand>(), It.IsAny<CancellationToken>()))
+             .ReturnsAsync(new Platform
+             {
+                 Id = guid,
+                 Name="PlayStation 4"
+             });
+
+            _mockMapper.Setup(m => m.Map<PlatformDto>(It.IsAny<Platform>()))
+              .Returns(new PlatformDto
+              {
+                  Name="PlayStation 4"
+              });
+
+            //Act
+            var controller = new PlatformsController(_mockMapper.Object, _mockMediator.Object, _mockLogger.Object);
+            var result = await controller.UpdatePlatform(guid, updatePlatformCommand);
+            var okResult = result as OkObjectResult;
+
+            //Assert
+            Assert.Equal(updatePlatformCommand.Name, ((PlatformDto)okResult.Value).Name);
         }
     }
 }

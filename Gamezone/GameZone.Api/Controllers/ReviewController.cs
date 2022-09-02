@@ -3,6 +3,7 @@ using GameZone.Api.DTOs;
 using GameZone.Api.ViewModels;
 using GameZone.Application.Reviews.Commands.CreateReview;
 using GameZone.Application.Reviews.Commands.DeleteReview;
+using GameZone.Application.Reviews.Commands.UpdateReview;
 using GameZone.Application.Reviews.Queries.GetReviewById;
 using GameZone.Application.Reviews.Queries.GetReviewsList;
 using MediatR;
@@ -72,6 +73,32 @@ namespace GameZone.Api.Controllers
 
             var mappedResult = _mapper.Map<ReviewDto>(result);
             return CreatedAtAction(nameof(GetById), new { Id = mappedResult.Id }, mappedResult);
+        }
+
+        [HttpPut]
+        [Route("{id}")]
+        public async Task<IActionResult> UpdateReview(Guid id, [FromBody] ReviewViewModel review)
+        {
+            _logger.LogInformation("Updating review with id {id}", id);
+
+            var command = new UpdateReviewCommand
+            {
+                Id = id,
+                Content = review.Content,
+                Rating = review.Rating,
+                UserId = review.UserId,
+                GameId = review.GameId
+            };
+            var result = await _mediator.Send(command);
+
+            if (result == null)
+            {
+                _logger.LogWarning("Result with id {id} NOT FOUND", id);
+                return NotFound();
+            }
+
+            var mappedResult = _mapper.Map<ReviewDto>(result);
+            return Ok(mappedResult);
         }
 
         [HttpDelete]
