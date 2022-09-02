@@ -50,6 +50,19 @@ namespace GameZone.IntegrationTests
         }
 
         [Fact]
+        public async Task Get_Searched_Games_ShouldReturnSearchedGames()
+        {
+            var client = _factory.CreateClient();
+            var response = await client.GetAsync("api/games/search/Minecraft");
+
+            var result = await response.Content.ReadAsStringAsync();
+            var games = JsonConvert.DeserializeObject<List<GameDto>>(result);
+
+            var game = games.First();
+            Assert.Equal("Minecraft", game.Name);
+        }
+
+        [Fact]
         public async Task Get_Game_By_Id_ShouldReturnExistingGame()
         {
             var client = _factory.CreateClient();

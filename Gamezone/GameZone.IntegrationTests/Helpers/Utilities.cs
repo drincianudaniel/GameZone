@@ -39,7 +39,19 @@ namespace GameZone.IntegrationTests.Helpers
                 Platforms = new List<Platform> { platform2, platform3 },
             };
 
-            db.Games.Add(minecraft);
+            var valorant = new Game
+            {
+                Id = new Guid("e936442f-ac01-4b7f-935c-52b99d5be660"),
+                Name = "Valorant",
+                ReleaseDate = new DateTime(2020, 6, 2),
+                GameDetails = "Valorant is a free-to-play first-person hero shooter developed and published by Riot Games, for Microsoft Windows. First teased under the codename Project A in October 2019, the game began a closed beta period with limited access on April 7, 2020, followed by an official release on June 2, 2020.",
+                ImageSrc = "https://img.republicworld.com/republic-prod/stories/promolarge/xhdpi/jy2kkydqjduwcdee_1594886538.jpeg",
+                Genres = new List<Genre> { genre1 },
+                Developers = new List<Developer> { developer3 },
+                Platforms = new List<Platform> { platform2 },
+            };
+
+            db.Games.AddRange(minecraft, valorant);
             var user = new User
             {
                 Id = new Guid("f535d0fc-020c-4549-8dce-6496ceedcd22"),
