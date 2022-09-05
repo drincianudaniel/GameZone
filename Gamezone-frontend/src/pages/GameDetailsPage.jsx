@@ -8,6 +8,8 @@ import "./css/GameDetailsPage.css";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Chip from "@mui/material/Chip";
+import Comment from "../components/Comment";
+
 function GameDetailsPage(props) {
   const [game, setGame] = useState([]);
 
@@ -15,7 +17,7 @@ function GameDetailsPage(props) {
 
   useEffect(() => {
     getGame();
-    console.log(game)
+    console.log(game);
   }, []);
 
   const getGame = async () => {
@@ -31,44 +33,54 @@ function GameDetailsPage(props) {
       <div className="pageContent">
         <Box sx={{ flexGrow: 1, padding: 5 }} className="gameBox">
           <Grid container spacing={2}>
-            <Grid item xs={12} sx={{borderBottom: 1}}>
+            <Grid item xs={12} sx={{ borderBottom: 1 }}>
               <Typography>{game.name}</Typography>
             </Grid>
-            <Grid item xs={12} md={3}>
+            <Grid item xs={12} md={3} sx={{ borderRight: 1, borderColor: 'grey.500' }}>
+              
+              <Grid item xs={12} md={12} justify="center">
               <img className="gameImg" src={game.imageSrc} />
+                <Typography>Developers:</Typography>
+                {Array.isArray(game.developers)
+                  ? game.developers.map((developer) => {
+                      return <Chip label={developer.name} />;
+                    })
+                  : null}
+                <Typography>Genres:</Typography>
+                {Array.isArray(game.genres)
+                  ? game.genres.map((genre) => {
+                      return <Chip label={genre.name} />;
+                    })
+                  : null}
+                <Typography>Platforms:</Typography>
+                {Array.isArray(game.platforms)
+                  ? game.platforms.map((platform) => {
+                      return <Chip label={platform.name} />;
+                    })
+                  : null}
+              </Grid>
             </Grid>
             <Grid item xs={9} md={9} justify="center">
               <Box sx={{ flexGrow: 1 }} className="detailsBox">
-                  <Grid container spacing={2}>
-                    <Grid item xs={12} md={12}>
-                      <Rating name="read-only" value={game.totalRating / 2} readOnly />
-                    </Grid>
-                    <Grid item xs={12} md={12}>
-                      <Typography>{game.gameDetails}</Typography>
-                    </Grid>
+                <Grid container spacing={2}>
+                  <Grid item xs={12} md={12}>
+                    <Rating
+                      name="read-only"
+                      value={game.totalRating / 2}
+                      readOnly
+                    />
                   </Grid>
+                  <Grid item xs={12} md={12} sx={{ borderBottom: 1 }}>
+                    <Typography className="details">{game.gameDetails}</Typography>
+                  </Grid>
+                </Grid>
+                <Typography>Comments</Typography>
+                {Array.isArray(game.comments)
+                  ? game.comments.map((comment) => {
+                      return <Comment comment={comment} />;
+                    })
+                  : null}
               </Box>
-            </Grid>
-            
-            <Grid item xs={12} md={4} justify="center"  >
-              <Typography >Developers:</Typography>
-              {Array.isArray(game.developers)
-                ? game.developers.map((developer) => {
-                    return <Chip label={developer.name} />;
-                  })
-                : null}
-              <Typography>Genres:</Typography>
-              {Array.isArray(game.genres)
-                ? game.genres.map((genre) => {
-                    return <Chip label={genre.name} />;
-                  })
-                : null}
-              <Typography>Platforms:</Typography>
-              {Array.isArray(game.platforms)
-                ? game.platforms.map((platform) => {
-                    return <Chip label={platform.name} />;
-                  })
-                : null}
             </Grid>
           </Grid>
         </Box>

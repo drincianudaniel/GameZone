@@ -1,10 +1,10 @@
 .gameImg{
     width: 250px;
-    height: 320px;
+    height: 360px;
 }
 
 .gameBox{
-    max-width: 1000px;
+    max-width: 1100px;
 }
 .pageContent{
     display: flex;
@@ -15,3 +15,6 @@
     display: inline-block;
 }
 
+.details{
+    min-height: 315px;
+}
