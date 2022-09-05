@@ -20,6 +20,10 @@
   height: 100%;
 }
 
+.subheader{
+  text-align: right;
+}
+
 @keyframes gradient {
 	0% {
 		background-position: 0% 50%;

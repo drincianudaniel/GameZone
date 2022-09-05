@@ -12,6 +12,7 @@ using GameZone.Application.Games.Queries.GetNumberOfGames;
 using GameZone.Application.Games.Queries.SearchGames;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using GameZone.Application.Games.Queries.GamesAutoComplete;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -188,6 +189,18 @@ namespace GameZone.Api.Controllers
             }
                 
             return NoContent();
+        }
+
+        [HttpGet]
+        [Route("auto-complete/{search}")]
+        public async Task<IActionResult> GameAutoComplete(string search)
+        {
+            var result = await _mediator.Send(new GamesAutoCompleteQuery
+            {
+                searchString = search
+            });
+
+            return Ok(result);
         }
     }
 }
