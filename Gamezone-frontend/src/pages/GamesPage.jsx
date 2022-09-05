@@ -31,32 +31,34 @@ function GamesPage() {
       .finally();
   };
 
-  const getSearchedGames = async (searchedGame) =>{
+  const getSearchedGames = async (searchedGame) => {
     await axios
       .get(`${process.env.REACT_APP_SERVERIP}/games/search/${searchedGame}`)
       .then((res) => setGames(res.data))
-      .catch((err) => console.log(err))
-  }
+      .catch((err) => console.log(err));
+  };
 
-  const handleSearchGame = (searchGame) =>{
+  const handleSearchGame = (searchGame) => {
     getSearchedGames(searchGame.value);
     console.log(searchGame.value);
-   }
+  };
 
   return (
     <div className="gamePageContent">
-      <Header />
-      <AutoCompleteSearch handleSearchGame={handleSearchGame}></AutoCompleteSearch>
-      <div className="subheader">
-      <IconButton className="addButton" size="large">
-        <Link
-          style={{ textDecoration: "none", color: "black" }}
-          to={`/add-games`}
-        >
-          {" "}
-          <AddBoxIcon fontSize="large" sx={{ color: "white" }} />{" "}
-        </Link>
-      </IconButton> 
+      <Header/>
+      <div className="subheader"> 
+        <IconButton className="addButton" size="large">
+          <Link
+            style={{ textDecoration: "none", color: "black" }}
+            to={`/add-games`}
+          >
+            {" "}
+            <AddBoxIcon fontSize="large" sx={{ color: "white" }} />{" "}
+          </Link>
+        </IconButton>
+      </div>
+      <div className="nav">
+      <AutoCompleteSearch handleSearchGame={handleSearchGame}/>
       </div>
       <div className="games">
         {games.map((data, i) => {

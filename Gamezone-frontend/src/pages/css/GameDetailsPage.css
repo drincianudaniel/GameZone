@@ -2,3 +2,16 @@
     width: 250px;
     height: 320px;
 }
+
+.gameBox{
+    max-width: 1000px;
+}
+.pageContent{
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+.chipArray{
+    display: inline-block;
+}
+
