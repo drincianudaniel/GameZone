@@ -8,6 +8,7 @@ import "./css/GamesPage.css";
 import AddBoxIcon from "@mui/icons-material/AddBox";
 import { IconButton } from "@mui/material";
 import { Link } from "react-router-dom";
+import AutoCompleteSearch from "../components/AutoCompleteSearch";
 
 function GamesPage() {
   const [games, setGames] = useState([]);
@@ -24,15 +25,28 @@ function GamesPage() {
 
   const getGames = async () => {
     await axios
-      .get(`${process.env.REACT_APP_SERVERIP}/Games`)
+      .get(`${process.env.REACT_APP_SERVERIP}/games`)
       .then((res) => setGames(res.data))
       .catch()
       .finally();
   };
 
+  const getSearchedGames = async (searchedGame) =>{
+    await axios
+      .get(`${process.env.REACT_APP_SERVERIP}/games/search/${searchedGame}`)
+      .then((res) => setGames(res.data))
+      .catch((err) => console.log(err))
+  }
+
+  const handleSearchGame = (searchGame) =>{
+    getSearchedGames(searchGame.value);
+    console.log(searchGame.value);
+   }
+
   return (
     <div className="gamePageContent">
       <Header />
+      <AutoCompleteSearch handleSearchGame={handleSearchGame}></AutoCompleteSearch>
       <div className="subheader">
       <IconButton className="addButton" size="large">
         <Link
