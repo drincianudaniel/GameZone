@@ -200,7 +200,9 @@ namespace GameZone.Api.Controllers
                 searchString = search
             });
 
-            return Ok(result);
+            var mappedResult = _mapper.Map<IEnumerable<AutoCompleteGameDto>>(result);
+
+            return Ok(mappedResult);
         }
     }
 }

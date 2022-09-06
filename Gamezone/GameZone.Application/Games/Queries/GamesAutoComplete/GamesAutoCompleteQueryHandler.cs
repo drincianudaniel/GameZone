@@ -4,7 +4,7 @@ using MediatR;
 
 namespace GameZone.Application.Games.Queries.GamesAutoComplete
 {
-    public class GamesAutoCompleteQueryHandler : IRequestHandler<GamesAutoCompleteQuery, IEnumerable<string>>
+    public class GamesAutoCompleteQueryHandler : IRequestHandler<GamesAutoCompleteQuery, IEnumerable<Game>>
     {
         private readonly IUnitOfWork _unitOfWork;
 
@@ -13,10 +13,10 @@ namespace GameZone.Application.Games.Queries.GamesAutoComplete
             _unitOfWork=unitOfWork;
         }
 
-        public async Task<IEnumerable<string>> Handle(GamesAutoCompleteQuery request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<Game>> Handle(GamesAutoCompleteQuery request, CancellationToken cancellationToken)
         {
             var query = await _unitOfWork.GameRepository.SearchGameAsync(request.searchString);
-            return query.Select(x => x.Name);
+            return query;
         }
     }
 }

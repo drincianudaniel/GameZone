@@ -1,5 +1,4 @@
-
-.games{
+.games {
   margin-top: 50px;
   padding-bottom: 50px;
   display: grid;
@@ -9,54 +8,51 @@
   place-items: center;
 }
 
-.gameCard:hover{
-  box-shadow: -1px 10px 29px 0px rgba(0,0,0,0.8);
+.gameCard:hover {
+  box-shadow: -1px 10px 29px 0px rgba(0, 0, 0, 0.8);
 }
 
-.gamePageContent{
+.gamePageContent {
   background: linear-gradient(-45deg, #000000, #00177a, #227fd6, #bce9f7);
-	background-size: 400% 400%;
-	animation: gradient 20s ease infinite;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
+  background-size: 400% 400%;
+  animation: gradient 20s ease infinite;
+  height: 100%;
 }
 
-.subheader{
+.subheader {
   text-align: right;
 }
 
-.nav{
+.nav {
   display: flex;
   justify-content: center;
 }
 @keyframes gradient {
-	0% {
-		background-position: 0% 50%;
-	}
-	50% {
-		background-position: 100% 50%;
-	}
-	100% {
-		background-position: 0% 50%;
-	}
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
-@media(max-width: 1700px) {
-  .games{
+@media (max-width: 1700px) {
+  .games {
     grid-template-columns: repeat(3, 1fr);
   }
 }
 
-@media(max-width: 1000px) {
-  .games{
+@media (max-width: 1000px) {
+  .games {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
-@media(max-width: 650px) {
-  .games{
+@media (max-width: 650px) {
+  .games {
     grid-template-columns: repeat(1, 1fr);
   }
 }

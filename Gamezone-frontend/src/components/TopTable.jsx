@@ -43,7 +43,7 @@ export default function TopTable(props) {
         <TableBody>
           {props.games.map((row, value) => (
             <StyledTableRow key={row.name}>
-              <StyledTableCell align="left">{value+1}</StyledTableCell>
+              <StyledTableCell align="left">{value + 1}</StyledTableCell>
               <StyledTableCell component="th" scope="row">
                 {row.name}
               </StyledTableCell>

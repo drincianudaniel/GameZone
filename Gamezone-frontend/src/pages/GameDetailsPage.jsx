@@ -36,10 +36,14 @@ function GameDetailsPage(props) {
             <Grid item xs={12} sx={{ borderBottom: 1 }}>
               <Typography>{game.name}</Typography>
             </Grid>
-            <Grid item xs={12} md={3} sx={{ borderRight: 1, borderColor: 'grey.500' }}>
-              
+            <Grid
+              item
+              xs={12}
+              md={3}
+              sx={{ borderRight: 1, borderColor: "grey.500" }}
+            >
               <Grid item xs={12} md={12} justify="center">
-              <img className="gameImg" src={game.imageSrc} />
+                <img className="gameImg" src={game.imageSrc} />
                 <Typography>Developers:</Typography>
                 {Array.isArray(game.developers)
                   ? game.developers.map((developer) => {
@@ -71,7 +75,9 @@ function GameDetailsPage(props) {
                     />
                   </Grid>
                   <Grid item xs={12} md={12} sx={{ borderBottom: 1 }}>
-                    <Typography className="details">{game.gameDetails}</Typography>
+                    <Typography className="details">
+                      {game.gameDetails}
+                    </Typography>
                   </Grid>
                 </Grid>
                 <Typography>Comments</Typography>

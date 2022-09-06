@@ -1,0 +1,18 @@
+.searchbar{
+    width:400px
+}
+
+@media(max-width: 1000px) {
+    .searchbar{
+        width:300px
+    }
+  }
+  
+  @media(max-width: 650px) {
+    .searchbar{
+        width:100px
+    }
+    .searchbar::placeholder{
+        color: red;
+    }
+  }

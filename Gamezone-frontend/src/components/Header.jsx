@@ -14,13 +14,16 @@ import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 import SportsEsportsIcon from "@mui/icons-material/SportsEsports";
 import { Link } from "react-router-dom";
+import AutoCompleteSearch from "../components/AutoCompleteSearch";
 import "./css/Header.css";
+import { useNavigate } from "react-router-dom";
 const pages = ["Games", "Top"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 const Header = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const history = useNavigate();
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -35,6 +38,16 @@ const Header = () => {
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+  };
+
+  const redirectToSearchedGame = (id) => {
+    history(`/game/${id}`);
+    window.location.reload(true);
+  };
+
+  const handleSearchGame = (searchGame) => {
+    redirectToSearchedGame(searchGame.value);
+    console.log(searchGame.value);
   };
 
   return (
@@ -152,7 +165,9 @@ const Header = () => {
               </Button>
             </Link>
           </Box>
-
+          <Box sx={{ marginRight: 4, color: "black" }}>
+            <AutoCompleteSearch handleSearchGame={handleSearchGame} />
+          </Box>
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>

@@ -1,20 +1,20 @@
-.gameImg{
-    width: 250px;
-    height: 360px;
+.gameImg {
+  width: 250px;
+  height: 360px;
 }
 
-.gameBox{
-    max-width: 1100px;
+.gameBox {
+  max-width: 1100px;
 }
-.pageContent{
-    display: flex;
-    justify-content: center;
-    padding: 20px;
+.pageContent {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
 }
-.chipArray{
-    display: inline-block;
+.chipArray {
+  display: inline-block;
 }
 
-.details{
-    min-height: 315px;
+.details {
+  min-height: 315px;
 }

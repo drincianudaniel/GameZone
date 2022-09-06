@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace GameZone.Application.Games.Queries.GamesAutoComplete
 {
-    public class GamesAutoCompleteQuery : IRequest<IEnumerable<string>>
+    public class GamesAutoCompleteQuery : IRequest<IEnumerable<Game>>
     {
         public string searchString { get; set; } = string.Empty;
     }
