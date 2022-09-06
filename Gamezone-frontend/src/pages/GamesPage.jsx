@@ -12,7 +12,8 @@ function GamesPage() {
   const [games, setGames] = useState([]);
   const [page, setPage] = useState(1);
   const [numberOfPages, setNumberOfPages] = useState(10);
-  const [pageSize, setPageSize] = useState(8)
+  const [pageSize, setPageSize] = useState(8);
+
   useEffect(() => {
     getGames();
   }, [page]);
@@ -30,11 +31,10 @@ function GamesPage() {
       )
       .then((res) => {
         setGames(res.data.data);
-        setNumberOfPages(res.data.totalCount)
-        setPageSize(res.data.pageSize)
+        setNumberOfPages(res.data.totalCount);
+        setPageSize(res.data.pageSize);
       })
-      .catch()
-      .finally();
+      .catch();
   };
 
   return (
@@ -57,7 +57,7 @@ function GamesPage() {
         {games.map((data, i) => {
           return (
             <div key={data.id}>
-              <GameCard data={data} i={i} getGames={getGames} />
+              <GameCard data={data} getGames={getGames} />
             </div>
           );
         })}
@@ -65,7 +65,7 @@ function GamesPage() {
       <AppPagination
         setPage={setPage}
         numberOfPages={numberOfPages}
-        pageSize = {pageSize}
+        pageSize={pageSize}
       ></AppPagination>
     </div>
   );

@@ -10,8 +10,6 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 
 export default function GameCard(props) {
-  const [expanded, setExpanded] = React.useState(-1);
-
   const deleteGame = async () => {
     await axios
       .delete(`${process.env.REACT_APP_SERVERIP}/Games/${props.data.id}`)

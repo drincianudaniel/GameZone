@@ -9,7 +9,6 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Chip from "@mui/material/Chip";
 import Comment from "../components/Comment";
-import Pagination from "@mui/material/Pagination";
 import GamePagination from "../components/GamePagination";
 
 function GameDetailsPage(props) {
@@ -18,24 +17,25 @@ function GameDetailsPage(props) {
   const params = useParams();
 
   useEffect(() => {
+    
+    const getGame = async () => {
+      await axios
+        .get(`${process.env.REACT_APP_SERVERIP}/Games/${params.id}`)
+        .then((res) => {
+          setGame(res.data);
+        });
+    };
+
+    const getComments = async () => {
+      const response = await axios.get(
+        `${process.env.REACT_APP_SERVERIP}/Games/${params.id}`
+      );
+      setComments(response.data.comments);
+    };
+
     getGame();
     getComments();
-  }, []);
-
-  const getGame = async () => {
-    const response = await axios
-      .get(`${process.env.REACT_APP_SERVERIP}/Games/${params.id}`)
-      .then((res) => {
-        setGame(res.data);
-      });
-  };
-
-  const getComments = async () => {
-    const response = await axios.get(
-      `${process.env.REACT_APP_SERVERIP}/Games/${params.id}`
-    );
-    setComments(response.data.comments);
-  };
+  }, [params.id]);
 
   const getData = async ({ from, to }) => {
     return await new Promise((resolve, reject) => {
@@ -51,7 +51,6 @@ function GameDetailsPage(props) {
     <div>
       <Header />
       <div className="pageContent">
-        {console.log(comments.Count)}
         <Box sx={{ flexGrow: 1, padding: 5 }} className="gameBox">
           <Grid container spacing={2}>
             <Grid item xs={12} sx={{ borderBottom: 1 }}>
@@ -64,23 +63,23 @@ function GameDetailsPage(props) {
               sx={{ borderRight: 1, borderColor: "grey.500" }}
             >
               <Grid item xs={12} md={12} justify="center">
-                <img className="gameImg" src={game.imageSrc} />
+                <img alt={game.name} className="gameImg" src={game.imageSrc} />
                 <Typography>Developers:</Typography>
                 {Array.isArray(game.developers)
                   ? game.developers.map((developer) => {
-                      return <Chip label={developer.name} />;
+                      return <Chip key={developer.id} label={developer.name} />;
                     })
                   : null}
                 <Typography>Genres:</Typography>
                 {Array.isArray(game.genres)
                   ? game.genres.map((genre) => {
-                      return <Chip label={genre.name} />;
+                      return <Chip key={genre.id} label={genre.name} />;
                     })
                   : null}
                 <Typography>Platforms:</Typography>
                 {Array.isArray(game.platforms)
                   ? game.platforms.map((platform) => {
-                      return <Chip label={platform.name} />;
+                      return <Chip key={platform.id} label={platform.name} />;
                     })
                   : null}
               </Grid>
@@ -104,10 +103,10 @@ function GameDetailsPage(props) {
                 <Typography>Comments</Typography>
                 {Array.isArray(game.comments)
                   ? game.comments.map((comment) => {
-                      return <Comment comment={comment} />;
+                      return <Comment key={comment.id} comment={comment} />;
                     })
                   : null}
-                <GamePagination getData = {getData}></GamePagination>
+                <GamePagination getData={getData}></GamePagination>
               </Box>
             </Grid>
           </Grid>
