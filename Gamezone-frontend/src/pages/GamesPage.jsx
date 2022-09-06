@@ -12,6 +12,7 @@ function GamesPage() {
   const [games, setGames] = useState([]);
   const [page, setPage] = useState(1);
   const [numberOfPages, setNumberOfPages] = useState(10);
+  const [pageSize, setPageSize] = useState(8)
   useEffect(() => {
     getGames();
   }, [page]);
@@ -30,6 +31,7 @@ function GamesPage() {
       .then((res) => {
         setGames(res.data.data);
         setNumberOfPages(res.data.totalCount)
+        setPageSize(res.data.pageSize)
       })
       .catch()
       .finally();
@@ -38,6 +40,7 @@ function GamesPage() {
   return (
     <div className="gamePageContent">
       <Header />
+      {console.log(page)}
       <div className="subheader">
         <IconButton className="addButton" size="large">
           <Link
@@ -62,6 +65,7 @@ function GamesPage() {
       <AppPagination
         setPage={setPage}
         numberOfPages={numberOfPages}
+        pageSize = {pageSize}
       ></AppPagination>
     </div>
   );

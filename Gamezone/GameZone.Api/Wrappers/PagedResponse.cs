@@ -2,10 +2,12 @@
 {
     public int PageNumber { get; set; }
     public int TotalCount { get; set; }
-    public PagedResponse(T data, int pageNumber, int totalCount)
+    public int PageSize { get; set; }
+    public PagedResponse(T data, int pageNumber, int totalCount, int pageSize)
     {
         this.PageNumber = pageNumber;
         this.TotalCount = totalCount;
+        this.PageSize = pageSize;
         this.Data = data;
     }
 }
