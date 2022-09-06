@@ -14,7 +14,7 @@ namespace GameZone.Application.Games.Queries.GetGamesPaged
         }
         public async Task<IEnumerable<Game>> Handle(GetGamesPagedQuery request, CancellationToken cancellationToken)
         {
-            var query = await _unitOfWork.GameRepository.ReturnPagedAsync(request.Page);
+            var query = await _unitOfWork.GameRepository.ReturnPagedAsync(request.Page, request.PageSize);
             return query;
         }
     }

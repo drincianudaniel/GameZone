@@ -31,17 +31,18 @@ namespace GameZone.Infrastructure.Repositories
                 .Include(x => x.Reviews).ThenInclude(x => x.User)
                 .Where(x => x.Id == id)
                 .FirstOrDefaultAsync();
-            
+
             //make null
             return gameToReturn;
         }
 
-        public async Task<IEnumerable<Game>> ReturnPagedAsync(int? page)
+        public async Task<IEnumerable<Game>> ReturnPagedAsync(int? page, int pageSize)
         {
-            int pageSize = 4;
             int pageNumber = (page ?? 1);
 
             return await _context.Games
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
                 .Include(x => x.Genres)
                 .Include(x => x.Platforms)
                 .Include(x => x.Developers)
@@ -50,9 +51,15 @@ namespace GameZone.Infrastructure.Repositories
                 .Include(x => x.Users)
                 .Include(x => x.Reviews).ThenInclude(x => x.User)
                 .AsNoTracking()
-                .ToPagedListAsync(pageNumber, pageSize);
-                
+                .ToListAsync();
+
         }
+
+        public async Task<int> CountAsync()
+        {
+            return await _context.Games.CountAsync();
+        }
+
         public async Task<IEnumerable<Game>> ReturnAllAsync()
         {
             return await _context.Games

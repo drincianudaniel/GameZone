@@ -10,10 +10,11 @@ import { IconButton } from "@mui/material";
 import { Link } from "react-router-dom";
 function GamesPage() {
   const [games, setGames] = useState([]);
-
+  const [page, setPage] = useState(1);
+  const [numberOfPages, setNumberOfPages] = useState(10);
   useEffect(() => {
     getGames();
-  }, []);
+  }, [page]);
 
   //const {data, isLoading, errors} = useQuery('/Games');
 
@@ -23,8 +24,13 @@ function GamesPage() {
 
   const getGames = async () => {
     await axios
-      .get(`${process.env.REACT_APP_SERVERIP}/games`)
-      .then((res) => setGames(res.data))
+      .get(
+        `${process.env.REACT_APP_SERVERIP}/games/page/${page}/page-size/${8}`
+      )
+      .then((res) => {
+        setGames(res.data.data);
+        setNumberOfPages(res.data.totalCount)
+      })
       .catch()
       .finally();
   };
@@ -53,7 +59,10 @@ function GamesPage() {
           );
         })}
       </div>
-      <AppPagination></AppPagination>
+      <AppPagination
+        setPage={setPage}
+        numberOfPages={numberOfPages}
+      ></AppPagination>
     </div>
   );
 }

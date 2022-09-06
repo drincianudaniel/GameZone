@@ -1,13 +1,19 @@
 import { Box, Pagination } from "@mui/material";
 
-function AppPagination() {
+
+function AppPagination(props) {
+
+  const handleChange = (page) =>{
+    props.setPage(page)
+  }
+
   return (
     <Box
       justifyContent={"center"}
       display={"flex"}
       sx={{ paddingBottom: "20px" }}
     >
-      <Pagination count={10} variant="outlined" color="primary" />
+      <Pagination onChange={(e) =>handleChange(e.target.textContent)} count={props.numberOfPages} variant="outlined" color="primary" />
     </Box>
   );
 }

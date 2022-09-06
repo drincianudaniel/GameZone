@@ -9,28 +9,49 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Chip from "@mui/material/Chip";
 import Comment from "../components/Comment";
+import Pagination from "@mui/material/Pagination";
+import GamePagination from "../components/GamePagination";
 
 function GameDetailsPage(props) {
   const [game, setGame] = useState([]);
-
+  const [comments, setComments] = useState([]);
   const params = useParams();
 
   useEffect(() => {
     getGame();
-    console.log(game);
+    getComments();
   }, []);
 
   const getGame = async () => {
-    await axios
+    const response = await axios
       .get(`${process.env.REACT_APP_SERVERIP}/Games/${params.id}`)
       .then((res) => {
         setGame(res.data);
       });
   };
+
+  const getComments = async () => {
+    const response = await axios.get(
+      `${process.env.REACT_APP_SERVERIP}/Games/${params.id}`
+    );
+    setComments(response.data.comments);
+  };
+
+  const getData = async ({ from, to }) => {
+    return await new Promise((resolve, reject) => {
+      const data = comments.slice(from, to);
+      resolve({
+        count: comments.length,
+        data: data,
+      });
+    });
+  };
+
   return (
     <div>
       <Header />
       <div className="pageContent">
+        {console.log(comments.Count)}
         <Box sx={{ flexGrow: 1, padding: 5 }} className="gameBox">
           <Grid container spacing={2}>
             <Grid item xs={12} sx={{ borderBottom: 1 }}>
@@ -86,6 +107,7 @@ function GameDetailsPage(props) {
                       return <Comment comment={comment} />;
                     })
                   : null}
+                <GamePagination getData = {getData}></GamePagination>
               </Box>
             </Grid>
           </Grid>

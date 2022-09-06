@@ -13,6 +13,7 @@ using GameZone.Application.Games.Queries.SearchGames;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using GameZone.Application.Games.Queries.GamesAutoComplete;
+using GameZone.Application.Games.Queries.CountAsync;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -75,18 +76,23 @@ namespace GameZone.Api.Controllers
         }
 
         [HttpGet]
-        [Route("page/{page}")]
-        public async Task<IActionResult> GetGamesPaged(int page)
+        [Route("page/{page}/page-size/{pageSize}")]
+        public async Task<IActionResult> GetGamesPaged(int page, int pageSize)
         {
             _logger.LogInformation("Getting games at page {page}", page);
 
             var result = await _mediator.Send(new GetGamesPagedQuery
             {
-                Page = page
+                Page = page,
+                PageSize = pageSize
             });
 
+            var count = await _mediator.Send(new CountAsyncQuery());
+            var totalPages = ((double)count / (double)pageSize);
+            int roundedTotalPages = Convert.ToInt32(Math.Ceiling(totalPages));
+
             var mappedResult = _mapper.Map<IEnumerable<GameDto>>(result);
-            return Ok(mappedResult);
+            return Ok(new PagedResponse<IEnumerable<GameDto>>(mappedResult, page, roundedTotalPages));
         }
 
         [HttpGet]
