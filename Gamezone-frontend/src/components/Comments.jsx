@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import Comment from "./Comment";
+import PostCommentForm from "./Forms/PostCommentForm";
 import GamePagination from "./GamePagination";
 
 function Comments() {
@@ -23,17 +24,24 @@ function Comments() {
       )
       .then((res) => {
         setComments(res.data.data);
-        setNumberOfPages(res.data.totalCount)
-        console.log(res.data)
+        setNumberOfPages(res.data.totalCount);
+        console.log(res.data);
       });
   };
 
   return (
     <div>
       {comments.map((comment) => {
-        return <Comment key={comment.id} comment={comment} />;
+        return (
+          <Comment
+            key={comment.id}
+            comment={comment}
+            getComments={getComments}
+          />
+        );
       })}
-      <GamePagination setPage={setPage} numberOfPages={numberOfPages}/>
+      <PostCommentForm id={params.id} />
+      <GamePagination setPage={setPage} numberOfPages={numberOfPages} />
     </div>
   );
 }

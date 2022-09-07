@@ -51,7 +51,7 @@ namespace GameZone.Infrastructure.Repositories
                 .Include(x => x.User)
                 .Include(x => x.Game)
                 .AsNoTracking()
-                .OrderBy(date => date.CreatedAt)
+                .OrderByDescending(date => date.CreatedAt)
                 .ToPagedListAsync(pageNumber, pageSize);
         }
 

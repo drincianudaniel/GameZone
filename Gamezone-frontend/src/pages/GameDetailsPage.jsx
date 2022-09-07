@@ -9,15 +9,13 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Chip from "@mui/material/Chip";
 import Comments from "../components/Comments";
-import GamePagination from "../components/GamePagination";
 
-function GameDetailsPage(props) {
+function GameDetailsPage() {
   const [game, setGame] = useState([]);
   const [comments, setComments] = useState([]);
   const params = useParams();
 
   useEffect(() => {
-    
     const getGame = async () => {
       await axios
         .get(`${process.env.REACT_APP_SERVERIP}/Games/${params.id}`)
@@ -54,7 +52,7 @@ function GameDetailsPage(props) {
         <Box sx={{ flexGrow: 1, padding: 5 }} className="gameBox">
           <Grid container spacing={2}>
             <Grid item xs={12} sx={{ borderBottom: 1 }}>
-              <Typography>{game.name}</Typography>
+              <Typography variant="h4">{game.name}</Typography>
             </Grid>
             <Grid
               item
@@ -101,7 +99,7 @@ function GameDetailsPage(props) {
                   </Grid>
                 </Grid>
                 <Typography>Comments</Typography>
-                <Comments/>
+                <Comments />
               </Box>
             </Grid>
           </Grid>
