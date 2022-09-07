@@ -26,8 +26,6 @@ namespace GameZone.Infrastructure.Repositories
                 .Include(x => x.Genres)
                 .Include(x => x.Platforms)
                 .Include(x => x.Developers)
-                .Include(x => x.Comments).ThenInclude(m => m.User)
-                .Include(x => x.Comments).ThenInclude(m => m.Replies).ThenInclude(m => m.User)
                 .Include(x => x.Reviews).ThenInclude(x => x.User)
                 .Where(x => x.Id == id)
                 .FirstOrDefaultAsync();
@@ -41,13 +39,6 @@ namespace GameZone.Infrastructure.Repositories
             int pageNumber = (page ?? 1);
 
             return await _context.Games
-                .Include(x => x.Genres)
-                .Include(x => x.Platforms)
-                .Include(x => x.Developers)
-                .Include(x => x.Comments).ThenInclude(m => m.User)
-                .Include(x => x.Comments).ThenInclude(m => m.Replies).ThenInclude(m => m.User)
-                .Include(x => x.Users)
-                .Include(x => x.Reviews).ThenInclude(x => x.User)
                 .AsNoTracking()
                 .ToPagedListAsync(pageNumber, pageSize);
 

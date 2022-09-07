@@ -91,8 +91,8 @@ namespace GameZone.Api.Controllers
             var totalPages = ((double)count / (double)pageSize);
             int roundedTotalPages = Convert.ToInt32(Math.Ceiling(totalPages));
 
-            var mappedResult = _mapper.Map<IEnumerable<GameDto>>(result);
-            return Ok(new PagedResponse<IEnumerable<GameDto>>(mappedResult, page, roundedTotalPages, pageSize));
+            var mappedResult = _mapper.Map<IEnumerable<SimpleGameDto>>(result);
+            return Ok(new PagedResponse<IEnumerable<SimpleGameDto>>(mappedResult, page, roundedTotalPages, pageSize));
         }
 
         [HttpGet]

@@ -43,12 +43,13 @@ export default function MultipleSelectChip(props) {
 
   return (
     <div>
-      <FormControl sx={{ m: 1, width: 500 }}>
-        <InputLabel id="demo-multiple-chip-label">{props.name}</InputLabel>
+      <FormControl fullWidth sx={{ marginBottom: 2, maxWidth: 1000 }}>
+        <InputLabel fullWidth id="demo-multiple-chip-label">{props.name}</InputLabel>
         <Select
           labelId="demo-multiple-chip-label"
           id="demo-multiple-chip"
           multiple
+          fullWidth
           value={props.valueName}
           onChange={props.handleChange}
           input={<OutlinedInput id="select-multiple-chip" label={props.name} />}

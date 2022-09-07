@@ -35,16 +35,6 @@ function GameDetailsPage() {
     getComments();
   }, [params.id]);
 
-  const getData = async ({ from, to }) => {
-    return await new Promise((resolve, reject) => {
-      const data = comments.slice(from, to);
-      resolve({
-        count: comments.length,
-        data: data,
-      });
-    });
-  };
-
   return (
     <div>
       <Header />

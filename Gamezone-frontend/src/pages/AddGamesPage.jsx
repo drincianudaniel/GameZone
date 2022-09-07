@@ -83,17 +83,18 @@ function AddGamesPage() {
       <Header />
 
       <div className="form">
-        <FormControl>
+        <FormControl sx={{ maxWidth: 1000 }}>
           <TextField
+            sx={{ marginBottom: 2 }}
+            fullWidth
             required
-            sx={{ m: 1 }}
             id="outlined-basic"
             label="Name"
             variant="outlined"
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
-          <TextareaAutosize
+          {/* <TextareaAutosize
             required
             aria-label="empty textarea"
             placeholder="Game Details"
@@ -106,10 +107,24 @@ function AddGamesPage() {
             }}
             value={details}
             onChange={(e) => setDetails(e.target.value)}
-          />
+          /> */}
+
           <TextField
+            sx={{ marginBottom: 2 }}
+            fullWidth
+            multiline
             required
-            sx={{ m: 1 }}
+            rows={4}
+            id="outlined-basic"
+            label="Game Details"
+            value={details}
+            onChange={(e) => setDetails(e.target.value)}
+          />
+
+          <TextField
+            sx={{ marginBottom: 2 }}
+            fullWidth
+            required
             id="outlined-basic"
             label="Image Link"
             variant="outlined"
@@ -120,13 +135,14 @@ function AddGamesPage() {
           <LocalizationProvider dateAdapter={AdapterDateFns}>
             <DesktopDatePicker
               required
-              sx={{ m: 1 }}
               label="Release Date"
               value={date}
               onChange={(newValue) => {
                 setDate(newValue);
               }}
-              renderInput={(params) => <TextField {...params} />}
+              renderInput={(params) => (
+                <TextField sx={{ marginBottom: 2 }} {...params} />
+              )}
             />
           </LocalizationProvider>
           <MultipleSelectChip
