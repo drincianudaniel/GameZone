@@ -2,7 +2,7 @@
 
 namespace GameZone.Domain.Models
 {
-    public class Game : Entity
+    public class Game : AuditableEntity
     {
         public string Name { get; set; }
         public DateTime ReleaseDate { get; set; }

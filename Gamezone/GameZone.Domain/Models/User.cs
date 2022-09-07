@@ -2,7 +2,7 @@
 
 namespace GameZone.Domain.Models
 {
-    public class User : Entity
+    public class User : AuditableEntity
     {
         public string Username { get; set; }
         public string Email { get; set; }

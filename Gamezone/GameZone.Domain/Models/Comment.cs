@@ -2,7 +2,7 @@
 
 namespace GameZone.Domain.Models
 {
-    public class Comment : Entity
+    public class Comment : AuditableEntity
     {
         public Guid UserId { get; set; }
         public User User { get; set; }

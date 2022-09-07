@@ -1,6 +1,6 @@
 ﻿namespace GameZone.Domain.Models
 {
-    public class Developer : Entity
+    public class Developer : AuditableEntity
     {
         public string Name { get; set; }
         public string Headquarters { get; set; }

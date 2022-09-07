@@ -2,7 +2,7 @@
 
 namespace GameZone.Domain.Models
 {
-    public class Genre : Entity
+    public class Genre : AuditableEntity
     {
         public string Name { get; set; }
         public virtual ICollection<Game> Games { get; set; } 

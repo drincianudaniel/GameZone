@@ -2,7 +2,7 @@
 
 namespace GameZone.Domain.Models
 {
-    public class Platform : Entity
+    public class Platform : AuditableEntity
     {
         public string Name { get; set; }
         public ICollection<Game> Games { get; set; }

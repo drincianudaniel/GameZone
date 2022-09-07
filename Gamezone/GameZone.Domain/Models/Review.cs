@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace GameZone.Domain.Models
 {
-    public class Review : Entity
+    public class Review : AuditableEntity
     {
         public Guid UserId { get; set; }
         public User User { get; set; }

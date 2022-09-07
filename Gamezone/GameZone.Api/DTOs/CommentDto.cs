@@ -7,6 +7,8 @@ namespace GameZone.Api.DTOs
         public string Username { get; set; }
         public string Gamename { get; set; }
         public string Content { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public DateTime ModifiedAt { get; set; }
         public ICollection<ReplyDto> Replies { get; set; } = new List<ReplyDto>();
     }
 }
