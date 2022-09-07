@@ -1,6 +1,7 @@
 ﻿using GameZone.Application;
 using GameZone.Domain.Models;
 using Microsoft.EntityFrameworkCore;
+using X.PagedList;
 
 namespace GameZone.Infrastructure.Repositories
 {
@@ -40,6 +41,25 @@ namespace GameZone.Infrastructure.Repositories
                 .ToListAsync();
         }
         
+        public async Task<IEnumerable<Comment>> ReturnGameComments(Game game, int? page, int pageSize)
+        {
+            int pageNumber = (page ?? 1);
+
+            return await _context.Comments
+                .Where(id => id.GameId == game.Id)
+                .Include(x => x.Replies).ThenInclude(x => x.User)
+                .Include(x => x.User)
+                .Include(x => x.Game)
+                .AsNoTracking()
+                .OrderBy(date => date.CreatedAt)
+                .ToPagedListAsync(pageNumber, pageSize);
+        }
+
+        public async Task<int> CountAsync(Game game)
+        {
+            return await _context.Comments.Where(id => id.GameId == game.Id).CountAsync();
+        }
+
         public async Task UpdateAsync(Comment comment)
         {
             _context.Comments.Update(comment);

@@ -4,8 +4,10 @@ using GameZone.Api.ViewModels;
 using GameZone.Application.Comments.Commands.CreateComment;
 using GameZone.Application.Comments.Commands.DeleteComment;
 using GameZone.Application.Comments.Commands.UpdateComment;
+using GameZone.Application.Comments.Queries.CountAsyncGameComments;
 using GameZone.Application.Comments.Queries.GetCommentById;
 using GameZone.Application.Comments.Queries.GetCommentsList;
+using GameZone.Application.Comments.Queries.GetGameComments;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -53,6 +55,27 @@ namespace GameZone.Api.Controllers
             var result = await _mediator.Send(new GetCommentsListQuery());
             var mappedResult = _mapper.Map<IEnumerable<CommentDto>>(result);
             return Ok(mappedResult);
+        }
+
+        [HttpGet]
+        [Route("game/{gameid}/page/{page}/page-size/{pagesize}")]
+        public async Task<IActionResult> GetGameCommentsPaged(Guid gameid, int page, int pagesize)
+        {
+            _logger.LogInformation("Getting list of game comments");
+
+            var result = await _mediator.Send(new GetGameCommentsQuery 
+            {
+                GameId = gameid,
+                Page = page,
+                PageSize = pagesize
+            });
+
+            var count = await _mediator.Send(new CountAsyncGameCommentsQuery { GameId=gameid});
+            var totalPages = ((double)count / (double)pagesize);
+            int roundedTotalPages = Convert.ToInt32(Math.Ceiling(totalPages));
+
+            var mappedResult = _mapper.Map<IEnumerable<CommentDto>>(result);
+            return Ok(new PagedResponse<IEnumerable<CommentDto>>(mappedResult, page, roundedTotalPages, pagesize));
         }
 
         [HttpPost]

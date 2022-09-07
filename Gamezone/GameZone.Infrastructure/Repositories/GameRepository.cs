@@ -41,8 +41,6 @@ namespace GameZone.Infrastructure.Repositories
             int pageNumber = (page ?? 1);
 
             return await _context.Games
-                .Skip((pageNumber - 1) * pageSize)
-                .Take(pageSize)
                 .Include(x => x.Genres)
                 .Include(x => x.Platforms)
                 .Include(x => x.Developers)
@@ -51,7 +49,7 @@ namespace GameZone.Infrastructure.Repositories
                 .Include(x => x.Users)
                 .Include(x => x.Reviews).ThenInclude(x => x.User)
                 .AsNoTracking()
-                .ToListAsync();
+                .ToPagedListAsync(pageNumber, pageSize);
 
         }
 

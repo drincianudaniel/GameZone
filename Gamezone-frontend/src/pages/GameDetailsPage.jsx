@@ -8,7 +8,7 @@ import "./css/GameDetailsPage.css";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Chip from "@mui/material/Chip";
-import Comment from "../components/Comment";
+import Comments from "../components/Comments";
 import GamePagination from "../components/GamePagination";
 
 function GameDetailsPage(props) {
@@ -101,12 +101,7 @@ function GameDetailsPage(props) {
                   </Grid>
                 </Grid>
                 <Typography>Comments</Typography>
-                {Array.isArray(game.comments)
-                  ? game.comments.map((comment) => {
-                      return <Comment key={comment.id} comment={comment} />;
-                    })
-                  : null}
-                <GamePagination getData={getData}></GamePagination>
+                <Comments/>
               </Box>
             </Grid>
           </Grid>
