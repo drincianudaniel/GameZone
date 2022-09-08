@@ -27,7 +27,7 @@ function PostReviewForm(props) {
 
     axios
       .post(`${process.env.REACT_APP_SERVERIP}/reviews`, dataToPost)
-      .then((response) => window.location.reload(true))
+      .then((response) => props.getReviews())
       .catch((err) => console.log(err));
   };
 

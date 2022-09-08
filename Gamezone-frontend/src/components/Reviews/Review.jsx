@@ -24,7 +24,7 @@ function convertUTCDateToLocalDate(date) {
 function Review(props) {
   const deleteReview = async () => {
     await axios
-      .delete(`${process.env.REACT_APP_SERVERIP}/reviews/${props.comment.id}`)
+      .delete(`${process.env.REACT_APP_SERVERIP}/reviews/${props.review.id}`)
       .then((response) => {
         props.getReviews();
       })
@@ -39,15 +39,15 @@ function Review(props) {
         </Grid>
         <Grid justifyContent="left" item xs zeroMinWidth>
         <h4 style={{ margin: 0, textAlign: "left" }}>
-          {props.comment.rating}/10
+          {props.review.rating}/10
           </h4>
           <h4 style={{ margin: 0, textAlign: "left" }}>
-            {props.comment.username}
+            {props.review.username}
           </h4>
-          <p style={{ textAlign: "left" }}>{props.comment.content}</p>
+          <p style={{ textAlign: "left" }}>{props.review.content}</p>
           <p style={{ textAlign: "left", color: "gray" }}>
             {moment(
-              convertUTCDateToLocalDate(new Date(props.comment.createdAt))
+              convertUTCDateToLocalDate(new Date(props.review.createdAt))
             ).fromNow()}
           </p>
         </Grid>

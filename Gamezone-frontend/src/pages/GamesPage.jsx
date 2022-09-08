@@ -31,7 +31,7 @@ function GamesPage() {
       )
       .then((res) => {
         setGames(res.data.data);
-        setNumberOfPages(res.data.totalCount);
+        setNumberOfPages(res.data.totalPages);
         setPageSize(res.data.pageSize);
       })
       .catch();

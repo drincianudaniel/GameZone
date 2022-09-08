@@ -24,7 +24,7 @@ function Comments() {
       )
       .then((res) => {
         setComments(res.data.data);
-        setNumberOfPages(res.data.totalCount);
+        setNumberOfPages(res.data.totalPages);
         console.log(res.data);
       });
   };
@@ -40,7 +40,7 @@ function Comments() {
           />
         );
       })}
-      <PostCommentForm id={params.id} />
+      <PostCommentForm id={params.id} getComments={getComments}/>
       <GamePagination setPage={setPage} numberOfPages={numberOfPages} />
     </div>
   );

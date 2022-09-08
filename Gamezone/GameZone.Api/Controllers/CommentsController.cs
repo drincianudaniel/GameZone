@@ -75,7 +75,7 @@ namespace GameZone.Api.Controllers
             int roundedTotalPages = Convert.ToInt32(Math.Ceiling(totalPages));
 
             var mappedResult = _mapper.Map<IEnumerable<CommentDto>>(result);
-            return Ok(new PagedResponse<IEnumerable<CommentDto>>(mappedResult, page, roundedTotalPages, pagesize));
+            return Ok(new PagedResponse<IEnumerable<CommentDto>>(mappedResult, page, count, roundedTotalPages, pagesize));
         }
 
         [HttpPost]

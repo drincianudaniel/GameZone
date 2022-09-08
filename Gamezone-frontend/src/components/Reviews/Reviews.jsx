@@ -24,7 +24,7 @@ function Comments() {
       )
       .then((res) => {
         setReviews(res.data.data);
-        setNumberOfPages(res.data.totalCount);
+        setNumberOfPages(res.data.totalPages);
         console.log(res.data);
       });
   };
@@ -33,14 +33,10 @@ function Comments() {
     <div>
       {reviews.map((review) => {
         return (
-          <Review
-            key={review.id}
-            comment={review}
-            getReviews={getReviews}
-          />
+          <Review key={review.id} review={review} getReviews={getReviews} />
         );
       })}
-      <PostReviewForm id={params.id}/>
+      <PostReviewForm id={params.id} getReviews={getReviews} />
       <GamePagination setPage={setPage} numberOfPages={numberOfPages} />
     </div>
   );
