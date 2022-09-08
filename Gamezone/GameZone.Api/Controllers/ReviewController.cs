@@ -4,6 +4,8 @@ using GameZone.Api.ViewModels;
 using GameZone.Application.Reviews.Commands.CreateReview;
 using GameZone.Application.Reviews.Commands.DeleteReview;
 using GameZone.Application.Reviews.Commands.UpdateReview;
+using GameZone.Application.Reviews.Queries.CountAsyncGameReviews;
+using GameZone.Application.Reviews.Queries.GetGameReviews;
 using GameZone.Application.Reviews.Queries.GetReviewById;
 using GameZone.Application.Reviews.Queries.GetReviewsList;
 using MediatR;
@@ -53,6 +55,28 @@ namespace GameZone.Api.Controllers
             var mappedResult = _mapper.Map<IEnumerable<ReviewDto>>(result);
             return Ok(mappedResult);
         }
+
+        [HttpGet]
+        [Route("game/{gameid}/page/{page}/page-size/{pagesize}")]
+        public async Task<IActionResult> GetGameReviewsPaged(Guid gameid, int page, int pagesize)
+        {
+            _logger.LogInformation("Getting list of game comments");
+
+            var result = await _mediator.Send(new GetGameReviewsQuery
+            {
+                GameId = gameid,
+                Page = page,
+                PageSize = pagesize
+            });
+
+            var count = await _mediator.Send(new CountAsyncGameReviewsQuery { GameId=gameid });
+            var totalPages = ((double)count / (double)pagesize);
+            int roundedTotalPages = Convert.ToInt32(Math.Ceiling(totalPages));
+
+            var mappedResult = _mapper.Map<IEnumerable<ReviewDto>>(result);
+            return Ok(new PagedResponse<IEnumerable<ReviewDto>>(mappedResult, page, roundedTotalPages, pagesize));
+        }
+
 
         [HttpPost]
         public async Task<IActionResult> CreateReview([FromBody] ReviewViewModel review)

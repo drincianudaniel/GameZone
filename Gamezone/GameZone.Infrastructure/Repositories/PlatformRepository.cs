@@ -29,6 +29,7 @@ namespace GameZone.Infrastructure.Repositories
         {
             return await _context.Platforms.Include(x => x.Games)
                 .AsNoTracking()
+                .OrderBy(x => x.Name)
                 .ToListAsync();
         }
         public async Task UpdateAsync(Platform platform)

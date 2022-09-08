@@ -31,6 +31,7 @@ namespace GameZone.Infrastructure.Repositories
         {
             return await _context.Genres.Include(x => x.Games)
                 .AsNoTracking()
+                .OrderBy(x => x.Name)
                 .ToListAsync();
         }
 

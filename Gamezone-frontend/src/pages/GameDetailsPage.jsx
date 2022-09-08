@@ -8,7 +8,7 @@ import "./css/GameDetailsPage.css";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Chip from "@mui/material/Chip";
-import Comments from "../components/Comments";
+import TabPanel from "../components/DetailsComponents/TabPanel";
 
 function GameDetailsPage() {
   const [game, setGame] = useState([]);
@@ -80,6 +80,7 @@ function GameDetailsPage() {
                       name="read-only"
                       value={game.totalRating / 2}
                       readOnly
+                      precision={0.5}
                     />
                   </Grid>
                   <Grid item xs={12} md={12} sx={{ borderBottom: 1 }}>
@@ -88,8 +89,9 @@ function GameDetailsPage() {
                     </Typography>
                   </Grid>
                 </Grid>
-                <Typography>Comments</Typography>
-                <Comments />
+                {/* <Typography>Comments</Typography>
+                <Comments /> */}
+                  <TabPanel></TabPanel>
               </Box>
             </Grid>
           </Grid>

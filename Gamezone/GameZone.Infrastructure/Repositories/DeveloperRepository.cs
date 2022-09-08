@@ -32,6 +32,7 @@ namespace GameZone.Infrastructure.Repositories
             return await _context.Developers
                 .Include(x => x.Games)
                 .AsNoTracking()
+                .OrderBy(x => x.Name)
                 .ToListAsync();
         }
         public async Task UpdateAsync(Developer developer)
