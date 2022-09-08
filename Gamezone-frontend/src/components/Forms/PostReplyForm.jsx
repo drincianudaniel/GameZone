@@ -4,7 +4,7 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import axios from "axios";
 
-function PostCommentForm(props) {
+function PostReplyForm(props) {
   const {
     register,
     handleSubmit,
@@ -17,13 +17,13 @@ function PostCommentForm(props) {
 
     const dataToPost = {
       userId: "02ea0508-999e-4cb0-29a9-08da7ea2b5b5",
-      gameId: props.id,
+      commentId: props.commentId,
       content: data.Content,
     };
 
     axios
-      .post(`${process.env.REACT_APP_SERVERIP}/comments`, dataToPost)
-      .then((response) => props.getComments())
+      .post(`${process.env.REACT_APP_SERVERIP}/replies`, dataToPost)
+      .then((response) => props.getReplies())
       .catch((err) => console.log(err));
   };
 
@@ -57,4 +57,4 @@ function PostCommentForm(props) {
   );
 }
 
-export default PostCommentForm;
+export default PostReplyForm;

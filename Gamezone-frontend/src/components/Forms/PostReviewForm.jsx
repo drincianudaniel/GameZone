@@ -58,7 +58,6 @@ function PostReviewForm(props) {
         {...register("Content", {
           required: { value: true, message: "Content is required" },
           maxLength: { value: 500, message: "Content is too long" },
-          minLength: { value: 20, message: "Content is too short" },
         })}
         error={!!errors.name}
         helperText={errors.name?.message}

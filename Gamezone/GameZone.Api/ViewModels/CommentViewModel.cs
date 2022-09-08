@@ -8,7 +8,7 @@ namespace GameZone.Api.ViewModels
         [Required]
         public Guid GameId { get; set; }
         [Required]
-        [MaxLength(500), MinLength(20)]
+        [MaxLength(500)]
         public string Content { get; set; }
     }
 }

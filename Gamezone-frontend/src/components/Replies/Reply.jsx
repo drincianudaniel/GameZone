@@ -27,7 +27,7 @@ function Reply(props){
         await axios
           .delete(`${process.env.REACT_APP_SERVERIP}/replies/${props.reply.id}`)
           .then((response) => {
-            props.getReviews();
+            props.getReplies();
           })
           .catch((err) => console.log(err));
       };

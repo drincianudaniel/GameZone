@@ -1,9 +1,9 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import PostReplyForm from "../Forms/PostReplyForm";
 import Reply from "./Reply";
 
 function Replies(props) {
-
   const [replies, setReplies] = useState([]);
   const [page, setPage] = useState(1);
   const [numberOfPages, setNumberOfPages] = useState(10);
@@ -26,15 +26,18 @@ function Replies(props) {
       });
   };
 
-  return(
+  return (
     <div>
-    {replies.map((reply) => {
-      return (
-        <Reply key={reply.id} reply={reply} getReplies={getReplies} />
-      );
-    })}
-  </div>
-  )
+      {replies.map((reply) => {
+        return (
+          <div>
+            <Reply key={reply.id} reply={reply} getReplies={getReplies} />
+          </div>
+        );
+      })}
+      <PostReplyForm commentId={props.commentId} getReplies={getReplies}/>
+    </div>
+  );
 }
 
 export default Replies;
