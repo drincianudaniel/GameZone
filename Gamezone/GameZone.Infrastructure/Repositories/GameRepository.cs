@@ -22,11 +22,9 @@ namespace GameZone.Infrastructure.Repositories
         public async Task<Game> ReturnByIdAsync(Guid id)
         {
             var gameToReturn = await _context.Games
-                .Include(x => x.Users)
                 .Include(x => x.Genres)
                 .Include(x => x.Platforms)
                 .Include(x => x.Developers)
-                .Include(x => x.Reviews).ThenInclude(x => x.User)
                 .Where(x => x.Id == id)
                 .FirstOrDefaultAsync();
 

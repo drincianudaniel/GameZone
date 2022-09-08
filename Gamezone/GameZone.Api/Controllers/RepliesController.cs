@@ -4,6 +4,8 @@ using GameZone.Api.ViewModels;
 using GameZone.Application.Replies.Commands.CreateReply;
 using GameZone.Application.Replies.Commands.DeleteReply;
 using GameZone.Application.Replies.Commands.UpdateReply;
+using GameZone.Application.Replies.Queries.CountAsyncCommentReviews;
+using GameZone.Application.Replies.Queries.GetCommentReplies;
 using GameZone.Application.Replies.Queries.GetRepliesList;
 using GameZone.Application.Replies.Queries.GetReplyById;
 using MediatR;
@@ -54,6 +56,27 @@ namespace GameZone.Api.Controllers
             var result = await _mediator.Send(new GetRepliesListQuery());
             var mappedResult = _mapper.Map<IEnumerable<ReplyDto>>(result);
             return Ok(mappedResult);
+        }
+
+        [HttpGet]
+        [Route("comment/{commentid}/page/{page}/page-size/{pagesize}")]
+        public async Task<IActionResult> GetCommentRepliesPaged(Guid commentid, int page, int pagesize)
+        {
+            _logger.LogInformation("Getting list of comment replies");
+
+            var result = await _mediator.Send(new GetCommentRepliesQuery
+            {
+                CommentId = commentid,
+                Page = page,
+                PageSize = pagesize
+            });
+
+            var count = await _mediator.Send(new CountAsyncCommentRepliesQuery { CommentId=commentid });
+            var totalPages = ((double)count / (double)pagesize);
+            int roundedTotalPages = Convert.ToInt32(Math.Ceiling(totalPages));
+
+            var mappedResult = _mapper.Map<IEnumerable<ReplyDto>>(result);
+            return Ok(new PagedResponse<IEnumerable<ReplyDto>>(mappedResult, page, roundedTotalPages, pagesize));
         }
 
         [HttpPost]

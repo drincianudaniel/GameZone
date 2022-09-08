@@ -80,18 +80,21 @@ function GameDetailsPage() {
                       name="read-only"
                       value={game.totalRating / 2}
                       readOnly
-                      precision={0.5}
+                      precision={0.1}
                     />
                   </Grid>
                   <Grid item xs={12} md={12} sx={{ borderBottom: 1 }}>
                     <Typography className="details">
+                      <Typography
+                        sx={{ fontWeight: "bold", marginBottom: 0.2 }}
+                      >
+                        Synopsis:
+                      </Typography>
                       {game.gameDetails}
                     </Typography>
                   </Grid>
                 </Grid>
-                {/* <Typography>Comments</Typography>
-                <Comments /> */}
-                  <TabPanel></TabPanel>
+                <TabPanel />
               </Box>
             </Grid>
           </Grid>

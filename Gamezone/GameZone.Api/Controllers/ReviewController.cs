@@ -60,7 +60,7 @@ namespace GameZone.Api.Controllers
         [Route("game/{gameid}/page/{page}/page-size/{pagesize}")]
         public async Task<IActionResult> GetGameReviewsPaged(Guid gameid, int page, int pagesize)
         {
-            _logger.LogInformation("Getting list of game comments");
+            _logger.LogInformation("Getting list of game reviews");
 
             var result = await _mediator.Send(new GetGameReviewsQuery
             {
