@@ -16,6 +16,13 @@ function GamesPage() {
 
   useEffect(() => {
     getGames();
+
+    // const {data} = useQuery("/games", "GET");
+    // if (isLodoing){
+    //   // display loading
+    // }
+    // else
+    // setGames(data)
   }, [page]);
 
   //const {data, isLoading, errors} = useQuery('/Games');

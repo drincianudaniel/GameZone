@@ -6,6 +6,8 @@ import moment from "moment";
 import IconButton from "@mui/material/IconButton";
 import ClearIcon from "@mui/icons-material/Clear";
 import axios from "axios";
+import MoreVertIcon from '@mui/icons-material/MoreVert';
+import MoreMenu from "../Menus/MoreMenu";
 
 const imgLink =
   "https://images.pexels.com/photos/1681010/pexels-photo-1681010.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260";
@@ -23,7 +25,7 @@ function convertUTCDateToLocalDate(date) {
 
 function Reply(props){
 
-    const deleteReply = async () => {
+    const handleDelete = async () => {
         await axios
           .delete(`${process.env.REACT_APP_SERVERIP}/replies/${props.reply.id}`)
           .then((response) => {
@@ -50,9 +52,7 @@ function Reply(props){
             </p>
           </Grid>
           <Grid>
-            <IconButton aria-label="Delete" onClick={deleteReply}>
-              <ClearIcon></ClearIcon>
-            </IconButton>
+            <MoreMenu handleDelete={handleDelete}/>
           </Grid>
         </Grid>
         <Divider variant="fullWidth" style={{ margin: "30px 0" }} />

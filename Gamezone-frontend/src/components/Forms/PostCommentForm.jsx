@@ -29,6 +29,7 @@ function PostCommentForm(props) {
 
   return (
     <form
+      noValidate
       autoComplete="off"
       style={{ marginBottom: 20 }}
       onSubmit={handleSubmit(submit)}
@@ -46,8 +47,8 @@ function PostCommentForm(props) {
           required: { value: true, message: "Content is required" },
           maxLength: { value: 500, message: "Content is too long" },
         })}
-        error={!!errors.name}
-        helperText={errors.name?.message}
+        error={!!errors.Content}
+        helperText={errors.Content?.message}
       />
       <Button onClick={() => reset()}>Reset</Button>
       <Button type="submit" variant="contained">

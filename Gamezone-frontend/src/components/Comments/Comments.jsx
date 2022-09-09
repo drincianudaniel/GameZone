@@ -1,10 +1,9 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
+import GamePagination from "../GamePagination";
 import Comment from "./Comment";
-import PostCommentForm from "./Forms/PostCommentForm";
-import GamePagination from "./GamePagination";
-
+import PostCommentForm from "../Forms/PostCommentForm";
 function Comments() {
   const [comments, setComments] = useState([]);
   const [page, setPage] = useState(1);
@@ -40,7 +39,7 @@ function Comments() {
           />
         );
       })}
-      <PostCommentForm id={params.id} getComments={getComments}/>
+      <PostCommentForm id={params.id} getComments={getComments} />
       <GamePagination setPage={setPage} numberOfPages={numberOfPages} />
     </div>
   );

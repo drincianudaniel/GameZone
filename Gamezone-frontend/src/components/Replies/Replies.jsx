@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import PostReplyForm from "../Forms/PostReplyForm";
+import GamePagination from "../GamePagination";
 import Reply from "./Reply";
 
 function Replies(props) {
@@ -35,7 +36,8 @@ function Replies(props) {
           </div>
         );
       })}
-      <PostReplyForm commentId={props.commentId} getReplies={getReplies}/>
+      <PostReplyForm commentId={props.commentId} getReplies={getReplies} />
+      <GamePagination setPage={setPage} numberOfPages={numberOfPages}/>
     </div>
   );
 }

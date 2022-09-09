@@ -3,13 +3,9 @@ import Grid from "@mui/material/Grid";
 import Avatar from "@mui/material/Avatar";
 import Divider from "@mui/material/Divider";
 import moment from "moment";
-import IconButton from "@mui/material/IconButton";
-import ClearIcon from "@mui/icons-material/Clear";
 import axios from "axios";
-import Replies from "./Replies/Replies";
-import RepliesModal from "./Replies/RepliesModal";
-
-import { Button } from "@mui/material";
+import MoreMenu from "../Menus/MoreMenu";
+import RepliesDialog from "../Replies/RepliesDialog";
 
 const imgLink =
   "https://images.pexels.com/photos/1681010/pexels-photo-1681010.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260";
@@ -29,7 +25,7 @@ function Comment(props) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
 
-  const deleteComment = async () => {
+  const handleDelete = async () => {
     await axios
       .delete(`${process.env.REACT_APP_SERVERIP}/comments/${props.comment.id}`)
       .then((response) => {
@@ -54,14 +50,10 @@ function Comment(props) {
               convertUTCDateToLocalDate(new Date(props.comment.createdAt))
             ).fromNow()}
           </p>
-
-          <Button onClick={handleOpen}>View Replies</Button>
-          <RepliesModal open={open} setOpen={setOpen} commentId={props.comment.id}/>
+          <RepliesDialog open={open} setOpen={setOpen} commentId={props.comment.id}/>
         </Grid>
         <Grid>
-          <IconButton aria-label="Delete" onClick={deleteComment}>
-            <ClearIcon></ClearIcon>
-          </IconButton>
+          <MoreMenu handleDelete={handleDelete}/>
         </Grid>
       </Grid>
       <Divider variant="fullWidth" style={{ margin: "30px 0" }} />

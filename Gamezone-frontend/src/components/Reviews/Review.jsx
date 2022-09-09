@@ -6,6 +6,7 @@ import moment from "moment";
 import IconButton from "@mui/material/IconButton";
 import ClearIcon from "@mui/icons-material/Clear";
 import axios from "axios";
+import MoreMenu from "../Menus/MoreMenu";
 
 const imgLink =
   "https://images.pexels.com/photos/1681010/pexels-photo-1681010.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260";
@@ -22,7 +23,7 @@ function convertUTCDateToLocalDate(date) {
 }
 
 function Review(props) {
-  const deleteReview = async () => {
+  const handleDelete = async () => {
     await axios
       .delete(`${process.env.REACT_APP_SERVERIP}/reviews/${props.review.id}`)
       .then((response) => {
@@ -38,8 +39,8 @@ function Review(props) {
           <Avatar alt="Remy Sharp" src={imgLink} />
         </Grid>
         <Grid justifyContent="left" item xs zeroMinWidth>
-        <h4 style={{ margin: 0, textAlign: "left" }}>
-          {props.review.rating}/10
+          <h4 style={{ margin: 0, textAlign: "left" }}>
+            {props.review.rating}/10
           </h4>
           <h4 style={{ margin: 0, textAlign: "left" }}>
             {props.review.username}
@@ -52,9 +53,7 @@ function Review(props) {
           </p>
         </Grid>
         <Grid>
-          <IconButton aria-label="Delete" onClick={deleteReview}>
-            <ClearIcon></ClearIcon>
-          </IconButton>
+          <MoreMenu handleDelete={handleDelete} />
         </Grid>
       </Grid>
       <Divider variant="fullWidth" style={{ margin: "30px 0" }} />
