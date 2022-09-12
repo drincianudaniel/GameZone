@@ -3,11 +3,11 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import * as React from "react";
 import GameCard from "../components/GameCard";
-import AppPagination from "../components/AppPagination";
 import "./css/GamesPage.css";
 import AddBoxIcon from "@mui/icons-material/AddBox";
 import { IconButton } from "@mui/material";
 import { Link } from "react-router-dom";
+import AppPagination from "../components/Pagination/AppPagination";
 
 function GamesPage() {
   const [games, setGames] = useState([]);
@@ -51,10 +51,7 @@ function GamesPage() {
       {console.log(page)}
       <div className="subheader">
         <IconButton className="addButton" size="large">
-          <Link
-            style={{ textDecoration: "none", color: "black" }}
-            to={`/add`}
-          >
+          <Link style={{ textDecoration: "none", color: "black" }} to={`/add`}>
             {" "}
             <AddBoxIcon fontSize="large" sx={{ color: "white" }} />{" "}
           </Link>
@@ -74,7 +71,7 @@ function GamesPage() {
         setPage={setPage}
         numberOfPages={numberOfPages}
         pageSize={pageSize}
-      ></AppPagination>
+      />
     </div>
   );
 }

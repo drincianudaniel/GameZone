@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import PostReplyForm from "../Forms/PostReplyForm";
-import GamePagination from "../GamePagination";
+import GamePagination from "../Pagination/GamePagination";
 import Reply from "./Reply";
 
 function Replies(props) {

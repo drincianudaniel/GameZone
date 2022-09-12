@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
-import GamePagination from "../GamePagination";
+import GamePagination from "../Pagination/GamePagination";
 import Comment from "./Comment";
 import PostCommentForm from "../Forms/PostCommentForm";
 function Comments() {

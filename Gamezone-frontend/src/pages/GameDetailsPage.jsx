@@ -8,8 +8,8 @@ import "./css/GameDetailsPage.css";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Chip from "@mui/material/Chip";
-import TabPanel from "../components/DetailsComponents/TabPanel";
 import moment from "moment";
+import DetailsTabbedPanel from "../components/TabbedPanels/DetailsTabbedPannel";
 
 function GameDetailsPage() {
   const [game, setGame] = useState();
@@ -91,7 +91,7 @@ function GameDetailsPage() {
                       </Typography>
                     </Grid>
                   </Grid>
-                  <TabPanel />
+                  <DetailsTabbedPanel/>
                 </Box>
               </Grid>
             </Grid>

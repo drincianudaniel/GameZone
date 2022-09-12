@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
@@ -13,7 +13,7 @@ function PostReviewForm(props) {
     formState: { errors },
   } = useForm();
 
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = useState(0);
 
   const submit = (data) => {
     console.log(data);

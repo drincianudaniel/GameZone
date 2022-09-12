@@ -40,7 +40,7 @@ function a11yProps(index) {
   };
 }
 
-export default function BasicTabs() {
+export default function DetailsTabbedPanel() {
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
