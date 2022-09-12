@@ -5,6 +5,9 @@ import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import AddGameForm from "../Forms/AddGameForm";
+import AddGenreForm from "../Forms/AddGenreForm";
+import AddPlatformForm from "../Forms/AddPlatformForm";
+import AddDeveloperForm from "../Forms/AddDeveloperForm";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -58,11 +61,11 @@ export default function BasicTabs() {
           value={value}
           onChange={handleChange}
           aria-label="basic tabs example"
-          TabIndicatorProps={{ sx: { display: 'none' } }}
+          TabIndicatorProps={{ sx: { display: "none" } }}
           sx={{
-            '& .MuiTabs-flexContainer': {
-              flexWrap: 'wrap',
-            }
+            "& .MuiTabs-flexContainer": {
+              flexWrap: "wrap",
+            },
           }}
         >
           <Tab label="Add game" {...a11yProps(0)} />
@@ -75,13 +78,13 @@ export default function BasicTabs() {
         <AddGameForm />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        Item Two
+        <AddDeveloperForm/>
       </TabPanel>
       <TabPanel value={value} index={2}>
-        Item Three
+        <AddGenreForm />
       </TabPanel>
       <TabPanel value={value} index={3}>
-        Item Three
+        <AddPlatformForm/>
       </TabPanel>
     </Box>
   );

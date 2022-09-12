@@ -11,7 +11,7 @@ function PostReviewForm(props) {
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm({ shouldUseNativeValidation: true });
+  } = useForm();
 
   const [value, setValue] = React.useState(0);
 

@@ -5,7 +5,7 @@ import Button from "@mui/material/Button";
 import axios from "axios";
 import { Box } from "@mui/material";
 
-function AddGenreForm() {
+function AddPlatformForm() {
   const {
     register,
     handleSubmit,
@@ -21,7 +21,7 @@ function AddGenreForm() {
     };
 
     axios
-      .post(`${process.env.REACT_APP_SERVERIP}/genres`, dataToPost)
+      .post(`${process.env.REACT_APP_SERVERIP}/platforms`, dataToPost)
       .then((response) => {
         reset();
       })
@@ -64,4 +64,4 @@ function AddGenreForm() {
   );
 }
 
-export default AddGenreForm;
+export default AddPlatformForm;

@@ -10,7 +10,7 @@ function PostCommentForm(props) {
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm({ shouldUseNativeValidation: true });
+  } = useForm();
 
   const submit = (data) => {
     console.log(data);

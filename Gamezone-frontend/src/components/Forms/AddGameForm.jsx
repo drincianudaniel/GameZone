@@ -61,7 +61,7 @@ function AddGameForm() {
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm({ shouldUseNativeValidation: true });
+  } = useForm();
 
   const submit = (data) => {
     console.log(data);
@@ -103,7 +103,7 @@ function AddGameForm() {
               id="fullWidth outlined-multiline-static"
               {...register("Name", {
                 required: { value: true, message: "Name is required" },
-                maxLength: { value: 500, message: "Name is too long" },
+                maxLength: { value: 50, message: "Name is too long" },
               })}
               error={!!errors.Name}
               helperText={errors.Name?.message}
@@ -122,7 +122,11 @@ function AddGameForm() {
               id="fullWidth outlined-multiline-static"
               {...register("Details", {
                 required: { value: true, message: "Details is required" },
-                maxLength: { value: 500, message: "Details is too long" },
+                minLength: {
+                  value: 20,
+                  message: `Details too short, min 20 characters`,
+                },
+                maxLength: { value: 1000, message: "Details is too long" },
               })}
               error={!!errors.Details}
               helperText={errors.Details?.message}
@@ -139,10 +143,11 @@ function AddGameForm() {
               id="fullWidth outlined-multiline-static"
               {...register("imgSrc", {
                 required: { value: true, message: "Image link is required" },
-                // pattern:{
-                //   value: /^((ftp|http|https):\/\/)?([A-z]+)\.([A-z]{2,})/,
-                //   message: "Enter a valid link"
-                // }
+                pattern: {
+                  value:
+                    /[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)?/gi,
+                  message: "Enter a valid link",
+                },
               })}
               error={!!errors.imgSrc}
               helperText={errors.imgSrc?.message}
@@ -159,7 +164,17 @@ function AddGameForm() {
               renderInput={(params) => (
                 <Grid item xs={12} md={12}>
                   {" "}
-                  <TextField fullWidth {...params} {...register("Date")} />{" "}
+                  <TextField
+                    fullWidth
+                    name="Date"
+                    {...params}
+                    {...register("Date", {
+                      required: {
+                        value: true,
+                        message: "Release date is required",
+                      },
+                    })}
+                  />{" "}
                 </Grid>
               )}
             />
