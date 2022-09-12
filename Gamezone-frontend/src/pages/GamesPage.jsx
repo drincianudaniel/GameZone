@@ -53,7 +53,7 @@ function GamesPage() {
         <IconButton className="addButton" size="large">
           <Link
             style={{ textDecoration: "none", color: "black" }}
-            to={`/add-games`}
+            to={`/add`}
           >
             {" "}
             <AddBoxIcon fontSize="large" sx={{ color: "white" }} />{" "}

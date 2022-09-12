@@ -9,6 +9,7 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Chip from "@mui/material/Chip";
 import TabPanel from "../components/DetailsComponents/TabPanel";
+import moment from "moment";
 
 function GameDetailsPage() {
   const [game, setGame] = useState();
@@ -50,6 +51,7 @@ function GameDetailsPage() {
                     className="gameImg"
                     src={game.imageSrc}
                   />
+                  <Typography>Release date: {moment(game.releaseDate).format('YYYY-MM-DD')}</Typography>
                   <Typography>Developers:</Typography>
                   {game.developers &&
                     game.developers.map((developer) => (

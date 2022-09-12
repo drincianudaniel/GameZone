@@ -3,7 +3,7 @@ import HomePage from "./pages/HomePage";
 import TopPage from "./pages/TopPage";
 import GamesPage from "./pages/GamesPage";
 import GameDetailsPage from "./pages/GameDetailsPage";
-import AddGamesPage from "./pages/AddGamesPage";
+import AddPage from "./pages/AddPage";
 
 function App() {
   return (
@@ -12,7 +12,7 @@ function App() {
         <Route exact path={"/"} element={<HomePage />} />
         <Route exact path={"/top"} element={<TopPage />} />
         <Route exact path={"/games"} element={<GamesPage />} />
-        <Route exact path={"/add-games"} element={<AddGamesPage />} />
+        <Route exact path={"/add"} element={<AddPage />} />
         <Route path={"/game/:id"} element={<GameDetailsPage />} />
       </Routes>
     </div>

@@ -14,7 +14,7 @@ function AutoCompleteSearch(props) {
   const loadOptions = async (gameSearched, callback) => {
     if (gameSearched.length > 1) {
       const data = fetch(
-        `https://localhost:7092/api/games/auto-complete/${gameSearched}`
+        `${process.env.REACT_APP_SERVERIP}/games/auto-complete/${gameSearched}`
       )
         .then((res) => res.json())
         .then((res) => {
@@ -35,7 +35,7 @@ function AutoCompleteSearch(props) {
   };
   return (
     <AsyncPaginate
-      placeholder="Search for a game"
+      placeholder="Search"
       value={game}
       debounceTimeout={600}
       onChange={handleSearch}
