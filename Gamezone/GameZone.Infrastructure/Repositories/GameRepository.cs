@@ -25,6 +25,7 @@ namespace GameZone.Infrastructure.Repositories
                 .Include(x => x.Genres)
                 .Include(x => x.Platforms)
                 .Include(x => x.Developers)
+                .Include(x => x.Reviews)
                 .Where(x => x.Id == id)
                 .FirstOrDefaultAsync();
 
@@ -76,7 +77,8 @@ namespace GameZone.Infrastructure.Repositories
             if (game.Reviews.Count == 0)
             {
                 game.TotalRating = 0;
-            }else if(game.Reviews.Count > 0)
+            }
+            else if(game.Reviews.Count > 0)
             {
                 game.TotalRating = game.Reviews.Average(review => review.Rating);
             }

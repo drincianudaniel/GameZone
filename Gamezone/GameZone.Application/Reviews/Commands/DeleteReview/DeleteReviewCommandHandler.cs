@@ -19,9 +19,9 @@ namespace GameZone.Application.Reviews.Commands.DeleteReview
             await _unitOfWork.SaveAsync();
 
             //not a very good practice
-            var game = await _unitOfWork.GameRepository.ReturnByIdAsync(review.GameId);
+            /*var game = await _unitOfWork.GameRepository.ReturnByIdAsync(review.GameId);
             await _unitOfWork.GameRepository.CalculateTotalRatingAsync(game);
-            await _unitOfWork.SaveAsync();
+            await _unitOfWork.SaveAsync();*/
 
             return review.Id;
         }

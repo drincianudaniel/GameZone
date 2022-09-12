@@ -23,7 +23,10 @@ function PostCommentForm(props) {
 
     axios
       .post(`${process.env.REACT_APP_SERVERIP}/comments`, dataToPost)
-      .then((response) => props.getComments())
+      .then((response) => {
+        props.getComments();
+        reset();
+      })
       .catch((err) => console.log(err));
   };
 

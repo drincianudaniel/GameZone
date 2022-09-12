@@ -27,7 +27,11 @@ function PostReviewForm(props) {
 
     axios
       .post(`${process.env.REACT_APP_SERVERIP}/reviews`, dataToPost)
-      .then((response) => props.getReviews())
+      .then((response) => {
+        props.getReviews()
+        reset()
+        setValue(0)
+      })
       .catch((err) => console.log(err));
   };
 
@@ -59,8 +63,8 @@ function PostReviewForm(props) {
           required: { value: true, message: "Content is required" },
           maxLength: { value: 500, message: "Content is too long" },
         })}
-        error={!!errors.name}
-        helperText={errors.name?.message}
+        error={!!errors.Content}
+        helperText={errors.Content?.message}
       />
       <Button onClick={() => reset()}>Reset</Button>
       <Button type="submit" variant="contained">

@@ -12,7 +12,6 @@ import TabPanel from "../components/DetailsComponents/TabPanel";
 
 function GameDetailsPage() {
   const [game, setGame] = useState();
-  const [comments, setComments] = useState([]);
   const params = useParams();
 
   useEffect(() => {
@@ -24,20 +23,13 @@ function GameDetailsPage() {
         });
     };
 
-    const getComments = async () => {
-      const response = await axios.get(
-        `${process.env.REACT_APP_SERVERIP}/Games/${params.id}`
-      );
-      setComments(response.data.comments);
-    };
-
     getGame();
-    getComments();
   }, [params.id]);
 
   return (
     <div>
       <Header />
+      {console.log(game)}
       <div className="pageContent">
         <Box sx={{ flexGrow: 1, padding: 5 }} className="gameBox">
           {!game && <>Loading...</>}
@@ -64,17 +56,15 @@ function GameDetailsPage() {
                       <Chip key={developer.id} label={developer.name} />
                     ))}
                   <Typography>Genres:</Typography>
-                  {Array.isArray(game.genres)
-                    ? game.genres.map((genre) => {
-                        return <Chip key={genre.id} label={genre.name} />;
-                      })
-                    : null}
+                  {game.genres &&
+                    game.genres.map((genre) => (
+                      <Chip key={genre.id} label={genre.name} />
+                    ))}
                   <Typography>Platforms:</Typography>
-                  {Array.isArray(game.platforms)
-                    ? game.platforms.map((platform) => {
-                        return <Chip key={platform.id} label={platform.name} />;
-                      })
-                    : null}
+                  {game.platforms &&
+                    game.platforms.map((platform) => (
+                      <Chip key={platform.id} label={platform.name} />
+                    ))}
                 </Grid>
               </Grid>
               <Grid item xs={9} md={9} justify="center">

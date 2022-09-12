@@ -50,7 +50,7 @@ function Comment(props) {
               convertUTCDateToLocalDate(new Date(props.comment.createdAt))
             ).fromNow()}
           </p>
-          <RepliesDialog open={open} setOpen={setOpen} commentId={props.comment.id}/>
+          <RepliesDialog open={open} setOpen={setOpen} commentId={props.comment.id} comment={props.comment}/>
         </Grid>
         <Grid>
           <MoreMenu handleDelete={handleDelete}/>

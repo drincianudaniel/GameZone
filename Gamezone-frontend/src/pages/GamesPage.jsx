@@ -8,6 +8,7 @@ import "./css/GamesPage.css";
 import AddBoxIcon from "@mui/icons-material/AddBox";
 import { IconButton } from "@mui/material";
 import { Link } from "react-router-dom";
+
 function GamesPage() {
   const [games, setGames] = useState([]);
   const [page, setPage] = useState(1);
