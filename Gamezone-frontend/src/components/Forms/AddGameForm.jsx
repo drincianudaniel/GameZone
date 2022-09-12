@@ -9,13 +9,14 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import MultipleSelectChip from "../MultipleSelectChip";
 import { Box } from "@mui/material";
+import { useNavigate } from "react-router";
 
 function AddGameForm() {
   const [date, setDate] = useState(new Date("2018-01-01T00:00:00.000Z"));
-
   const [selectedDevelopers, setSelectedDevelopers] = useState([]);
   const [selectedGenres, setSelectedGenres] = useState([]);
   const [selectedPlatforms, setSelectedPlatforms] = useState([]);
+  const history = useNavigate();
 
   const handleChangeDevelopers = (event) => {
     const {
@@ -80,6 +81,7 @@ function AddGameForm() {
       .post(`${process.env.REACT_APP_SERVERIP}/games`, dataToPost)
       .then((response) => {
         reset();
+        history(`/game/${response.data.id}`);
       })
       .catch((err) => console.log(err));
   };

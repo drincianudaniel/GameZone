@@ -111,14 +111,15 @@ namespace GameZone.Api.Controllers
         }
 
         [HttpGet]
-        [Route("number/{number}")]
-        public async Task<IActionResult> GetNumberOfGames(int number)
+        [Route("number/{number}/sort-order/{sortOrder}")]
+        public async Task<IActionResult> GetNumberOfGames(int number, string sortOrder)
         {
             _logger.LogInformation("Getting first {number} games", number);
 
             var result = await _mediator.Send(new GetNumberOfGamesQuery
             {
-                Number = number
+                Number = number,
+                SortOrder = sortOrder
             });
 
             var mappedResult = _mapper.Map<IEnumerable<SimpleGameDto>>(result);

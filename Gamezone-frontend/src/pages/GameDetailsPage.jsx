@@ -51,7 +51,10 @@ function GameDetailsPage() {
                     className="gameImg"
                     src={game.imageSrc}
                   />
-                  <Typography>Release date: {moment(game.releaseDate).format('YYYY-MM-DD')}</Typography>
+                  <Typography>
+                    Release date:{" "}
+                    {moment(game.releaseDate).format("YYYY-MM-DD")}
+                  </Typography>
                   <Typography>Developers:</Typography>
                   {game.developers &&
                     game.developers.map((developer) => (
@@ -91,7 +94,7 @@ function GameDetailsPage() {
                       </Typography>
                     </Grid>
                   </Grid>
-                  <DetailsTabbedPanel/>
+                  <DetailsTabbedPanel />
                 </Box>
               </Grid>
             </Grid>

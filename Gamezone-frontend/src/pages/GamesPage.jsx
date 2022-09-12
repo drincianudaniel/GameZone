@@ -2,7 +2,7 @@ import Header from "../components/Header";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import * as React from "react";
-import GameCard from "../components/GameCard";
+import GameCard from "../components/Cards/GameCard";
 import "./css/GamesPage.css";
 import AddBoxIcon from "@mui/icons-material/AddBox";
 import { IconButton } from "@mui/material";

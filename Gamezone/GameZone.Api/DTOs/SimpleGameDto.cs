@@ -6,5 +6,7 @@
         public string Name { get; set; } = string.Empty;
         public string ImageSrc { get; set; } = string.Empty;
         public double TotalRating { get; set; }
+        public DateTime ReleaseDate { get; set; }
+
     }
 }

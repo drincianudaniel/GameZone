@@ -154,9 +154,24 @@ namespace GameZone.Infrastructure.Repositories
             return await games.AsNoTracking().ToListAsync();
         }
 
-        public async Task<IEnumerable<Game>> GetNumberOfGames(int number)
+        public async Task<IEnumerable<Game>> GetNumberOfGames(int number, string sortOrder)
         {
-            return await _context.Games.Take(number).AsNoTracking().ToListAsync();
+            var games = from g in _context.Games select g;
+
+            switch (sortOrder)
+            {
+                case "added-recently":
+                    games = games.OrderByDescending(game => game.CreatedAt);
+                    break;
+                case "latest":
+                    games = games.OrderByDescending(game => game.ReleaseDate);
+                    break;
+                default:
+                    games = games.OrderBy(game => game.Name);
+                    break;
+            }
+
+            return await games.Take(number).AsNoTracking().ToListAsync();
         }
 
         public async Task SaveAsync()

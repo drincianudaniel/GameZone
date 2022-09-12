@@ -17,7 +17,7 @@ namespace GameZone.Application.Games.Queries.GetNumberOfGames
 
         public Task<IEnumerable<Game>> Handle(GetNumberOfGamesQuery request, CancellationToken cancellationToken)
         {
-            var query = _unitOfWork.GameRepository.GetNumberOfGames(request.Number);
+            var query = _unitOfWork.GameRepository.GetNumberOfGames(request.Number, request.SortOrder);
             return query;
         }
     }
