@@ -25,7 +25,17 @@ export default function GameCard(props) {
         style={{ textDecoration: "none", color: "black" }}
         to={`/game/${props.data.id}`}
       >
-        <CardHeader title={props.data.name} />
+        <CardHeader
+          sx={{
+            display: "flex",
+            overflow: "hidden",
+            "& .MuiCardHeader-content": {
+              overflow: "hidden",
+            },
+          }}
+          titleTypographyProps={{ noWrap: true }}
+          title={props.data.name}
+        />
         <CardMedia
           sx={{ width: 300 }}
           component="img"
