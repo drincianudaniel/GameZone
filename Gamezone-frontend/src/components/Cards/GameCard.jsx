@@ -37,7 +37,7 @@ export default function GameCard(props) {
           title={props.data.name}
         />
         <CardMedia
-          sx={{ width: 300 }}
+          sx={{ width: 300}}
           component="img"
           height="350"
           image={props.data.imageSrc}

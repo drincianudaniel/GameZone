@@ -36,16 +36,16 @@ function GameDetailsPage() {
           {!game && <>Loading...</>}
           {game && (
             <Grid container spacing={2}>
-              <Grid item xs={12} sx={{ borderBottom: 1 }}>
+              <Grid item xs={12} sm={12} sx={{ borderBottom: 1 }}>
                 <Typography variant="h4">{game.name}</Typography>
               </Grid>
               <Grid
                 item
                 xs={12}
                 md={3}
-                sx={{ borderRight: 1, borderColor: "grey.500" }}
+                sx={{ borderRight: { lg: 1}, borderColor: "grey.500" }}
               >
-                <Grid item xs={12} md={12} justify="center">
+                <Grid item xs={12} md={12} lg={12} justify="center">
                   <img
                     alt={game.name}
                     className="gameImg"
@@ -72,10 +72,10 @@ function GameDetailsPage() {
                     ))}
                 </Grid>
               </Grid>
-              <Grid item xs={9} md={9} justify="center">
+              <Grid item xs={12} sm={12} md={12} lg={9} justify="center">
                 <Box sx={{ flexGrow: 1 }} className="detailsBox">
                   <Grid container spacing={2}>
-                    <Grid item xs={12} md={12}>
+                    <Grid item xs={12} sm={12} md={12}>
                       <Rating
                         name="read-only"
                         value={game.totalRating / 2}

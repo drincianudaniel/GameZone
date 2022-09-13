@@ -45,6 +45,19 @@ const Header = () => {
     window.location.reload(true);
   };
 
+  const redirectToHome = () => {
+    history("/")
+  }
+
+  const redirectToTop = () =>{
+    history("/top")
+  }
+
+  const redirectToGames = () =>{
+    history("/games")
+  }
+
+
   const handleSearchGame = (searchGame) => {
     redirectToSearchedGame(searchGame.value);
     console.log(searchGame.value);
@@ -105,24 +118,22 @@ const Header = () => {
               }}
             >
               <MenuItem onClick={handleCloseNavMenu}>
-                <Typography textAlign="center">Home</Typography>
+                <Typography onClick={redirectToHome} textAlign="center">Home</Typography>
               </MenuItem>
               <MenuItem onClick={handleCloseNavMenu}>
-                <Typography textAlign="center">Games</Typography>
+                <Typography onClick={redirectToGames} textAlign="center">Games</Typography>
               </MenuItem>
               <MenuItem onClick={handleCloseNavMenu}>
-                <Link to="/top">
-                  <Typography textAlign="center">Top</Typography>
-                </Link>
+                  <Typography onClick={redirectToTop} textAlign="center">Top</Typography>
               </MenuItem>
             </Menu>
           </Box>
-          <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
+          <SportsEsportsIcon sx={{ display: { xs: "none" }, mr: 1 }} />
           <Typography
             variant="h5"
             noWrap
             component="a"
-            href=""
+            onClick={redirectToHome}
             sx={{
               mr: 2,
               display: { xs: "flex", md: "none" },

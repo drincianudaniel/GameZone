@@ -22,13 +22,13 @@ export default function SimpleSlider() {
   };
 
   var settings = {
-    arrows: true,
+    arrows: false,
     infinite: true,
     speed: 500,
     slidesToShow: 4,
     slidesToScroll: 1,
     autoplay: true,
-    autoplaySpeed: 2000,
+    autoplaySpeed: 5000,
     centerMode: true,
     responsive: [
       {
@@ -42,7 +42,7 @@ export default function SimpleSlider() {
       {
         breakpoint: 1024,
         settings: {
-          slidesToShow: 1,
+          slidesToShow: 2,
           slidesToScroll: 1,
           infinite: true,
         },
@@ -50,7 +50,7 @@ export default function SimpleSlider() {
       {
         breakpoint: 600,
         settings: {
-          slidesToShow: 1,
+          slidesToShow: 2,
         },
       },
       {

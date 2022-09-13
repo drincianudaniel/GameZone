@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 
+
 function HomePage() {
   const [actionGames, setActionGames] = useState([]);
   const [mostPopular, setMostPopular] = useState([]);
@@ -32,7 +33,7 @@ function HomePage() {
   const getMostPopularGames = async () => {
     await axios
       .get(
-        `${process.env.REACT_APP_SERVERIP}/games/number/3/sort-order/most-popular`
+        `${process.env.REACT_APP_SERVERIP}/games/number/5/sort-order/most-popular`
       )
       .then((res) => {
         setMostPopular(res.data);
@@ -44,17 +45,19 @@ function HomePage() {
     <div>
       <Header />
       <Container maxWidth="xl">
-        <Box sx={{ height: "100%", marginTop: 2 }}>
+        <Box sx={{ height: "100%", marginTop: 4 }}>
           <Grid container spacing={4}>
-            <Grid item xs={8}>
+            <Grid item xs={12} md={8} lg={8} sx={{padding : 2}}>
               <Typography>Latest games released</Typography>
               <Divider></Divider>
               <SimpleSlider />
+              <Typography>Latest games added</Typography>
             </Grid>
-            <Grid item xs={4}>
-              Top Action Games
+            <Grid item xs={12} md={4} sx={{borderLeft: 1, borderColor: "grey.500"}}>
+              <Typography>Top Action Games</Typography>
               <HomePageList data={actionGames} />
-              Most Popular Games
+              <Divider></Divider>
+              <Typography>Most Popular Games</Typography>
               <HomePageList data={mostPopular} />
             </Grid>
           </Grid>

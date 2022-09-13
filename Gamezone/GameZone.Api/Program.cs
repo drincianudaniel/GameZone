@@ -4,6 +4,7 @@ using GameZone.Application.Interfaces;
 using GameZone.Infrastructure;
 using GameZone.Infrastructure.Repositories;
 using MediatR;
+using Microsoft.AspNetCore.Authentication.Certificate;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging.Console;
 
@@ -44,7 +45,6 @@ builder.Services.AddCors(options =>
                       });
 });
 
-
 //logging
 builder.Host.ConfigureLogging(logging =>
 {
@@ -71,6 +71,7 @@ app.UseStaticFiles();
 app.UseHttpsRedirection();
 app.UseRouting();
 app.UseAuthorization();
+app.UseAuthentication();
 app.UseMyMiddleware();
 app.UseCors(policyName);
 app.MapControllers();

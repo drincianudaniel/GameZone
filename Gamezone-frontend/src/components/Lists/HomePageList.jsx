@@ -15,16 +15,26 @@ export default function HomePageList(props) {
     <List sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}>
       {props.data.map((game, i) => {
         return (
-            <ListItem >
-              <ListItemAvatar>
-                <Box
-                  component="img"
-                  src={game.imageSrc}
-                  sx={{ height: 100, width: 75 }}
-                />
-              </ListItemAvatar>
-              <ListItemText primary={game.name} secondary={game.totalRating} />
-            </ListItem>
+          <ListItem>
+            <ListItemAvatar>
+              <Box
+                component="img"
+                src={game.imageSrc}
+                sx={{ height: 100, width: 75, objectFit: "cover" }}
+              />
+            </ListItemAvatar>
+            <ListItemText
+              sx={{ marginLeft: 0.5 }}
+              primary={
+                <Typography sx={{ fontSize: 18, color: "#1c439b" }}>{game.name}</Typography>
+              }
+              secondary={
+                <Typography sx={{ fontSize: 14 }}>
+                    Rating {game.totalRating}/10
+                </Typography>
+              }
+            />
+          </ListItem>
         );
       })}
     </List>
