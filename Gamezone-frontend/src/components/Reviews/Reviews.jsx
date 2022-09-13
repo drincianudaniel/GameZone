@@ -1,3 +1,4 @@
+import { Typography } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
@@ -31,11 +32,11 @@ function Comments() {
 
   return (
     <div>
-      {reviews.map((review) => {
+      {reviews.length > 0 ? reviews.map((review) => {
         return (
           <Review key={review.id} review={review} getReviews={getReviews} />
         );
-      })}
+      }) : <Typography sx={{marginBottom: 2}}>No reviews yet. Please add a review.</Typography>}
       <PostReviewForm id={params.id} getReviews={getReviews} />
       <GamePagination setPage={setPage} numberOfPages={numberOfPages} />
     </div>

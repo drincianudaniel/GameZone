@@ -3,24 +3,7 @@ import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
 import SimpleGameCard from "../Cards/SimpleGameCard";
 
-export default function SimpleSlider() {
-  const [games, setGames] = useState([]);
-
-  useEffect(() => {
-    getGames();
-  }, []);
-
-  const getGames = async () => {
-    await axios
-      .get(
-        `${process.env.REACT_APP_SERVERIP}/games/number/10/sort-order/latest`
-      )
-      .then((res) => {
-        setGames(res.data);
-      })
-      .catch();
-  };
-
+export default function HomePageCarousel(props) {
   var settings = {
     arrows: false,
     infinite: true,
@@ -64,10 +47,10 @@ export default function SimpleSlider() {
 
   return (
     <Slider {...settings}>
-      {games.map((data, i) => {
+      {props.data.map((data, i) => {
         return (
           <div key={data.id}>
-            <SimpleGameCard data={data} getGames={getGames} />
+            <SimpleGameCard data={data} />
           </div>
         );
       })}

@@ -4,6 +4,7 @@ import { useParams } from "react-router";
 import GamePagination from "../Pagination/GamePagination";
 import Comment from "./Comment";
 import PostCommentForm from "../Forms/PostCommentForm";
+import { Typography } from "@mui/material";
 function Comments() {
   const [comments, setComments] = useState([]);
   const [page, setPage] = useState(1);
@@ -30,7 +31,7 @@ function Comments() {
 
   return (
     <div>
-      {comments.map((comment) => {
+      {comments.length > 0 ? comments.map((comment) => {
         return (
           <Comment
             key={comment.id}
@@ -38,7 +39,7 @@ function Comments() {
             getComments={getComments}
           />
         );
-      })}
+      }): <Typography sx={{marginBottom: 2}}>No comments yet. Please add a comment.</Typography>}
       <PostCommentForm id={params.id} getComments={getComments} />
       <GamePagination setPage={setPage} numberOfPages={numberOfPages} />
     </div>

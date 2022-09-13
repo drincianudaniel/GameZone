@@ -1,17 +1,9 @@
 .gameImg {
-  width: 250px;
-  height: 360px;
+  width: 240px;
+  height: 350px;
   object-fit: cover;
 }
 
-.gameBox {
-  max-width: 1100px;
-}
-.pageContent {
-  display: flex;
-  justify-content: center;
-  padding: 20px;
-}
 .chipArray {
   display: inline-block;
 }

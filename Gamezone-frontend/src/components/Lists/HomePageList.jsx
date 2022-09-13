@@ -9,6 +9,7 @@ import WorkIcon from "@mui/icons-material/Work";
 import BeachAccessIcon from "@mui/icons-material/BeachAccess";
 import { Box } from "@mui/system";
 import { Typography } from "@mui/material";
+import { Link } from "react-router-dom";
 
 export default function HomePageList(props) {
   return (
@@ -17,20 +18,26 @@ export default function HomePageList(props) {
         return (
           <ListItem>
             <ListItemAvatar>
+            <Link to={`/game/${game.id}`} style={{ textDecoration: "none"}}>
               <Box
                 component="img"
                 src={game.imageSrc}
                 sx={{ height: 100, width: 75, objectFit: "cover" }}
               />
+              </Link>
             </ListItemAvatar>
             <ListItemText
               sx={{ marginLeft: 0.5 }}
               primary={
-                <Typography sx={{ fontSize: 18, color: "#1c439b" }}>{game.name}</Typography>
+                <Link to={`/game/${game.id}`} style={{ textDecoration: "none"}}>
+                  <Typography sx={{ fontSize: 18, color: "#1c439b" }}>
+                    {game.name}
+                  </Typography>
+                </Link>
               }
               secondary={
                 <Typography sx={{ fontSize: 14 }}>
-                    Rating {game.totalRating}/10
+                  Rating {game.totalRating}/10
                 </Typography>
               }
             />

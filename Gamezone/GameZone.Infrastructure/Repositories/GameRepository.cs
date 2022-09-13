@@ -169,6 +169,9 @@ namespace GameZone.Infrastructure.Repositories
                 case "top-action":
                     games = games.Include(g => g.Genres).Where(game => game.Genres.Any(genre => genre.Name.Contains("Action"))).OrderByDescending(game => game.TotalRating);
                     break;
+                case "top-rated-games":
+                    games = games.OrderByDescending(g => g.TotalRating);
+                    break;
                 case "most-popular":
                     games = games.Include(games => games.Comments).Include(games => games.Reviews).OrderByDescending(game => game.Comments.Count() + game.Reviews.Count());
                     break;

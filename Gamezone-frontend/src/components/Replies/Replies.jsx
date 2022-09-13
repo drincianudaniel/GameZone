@@ -1,3 +1,4 @@
+import { Typography } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import PostReplyForm from "../Forms/PostReplyForm";
@@ -29,13 +30,13 @@ function Replies(props) {
 
   return (
     <div>
-      {replies.map((reply) => {
+      {replies.length > 0 ? replies.map((reply) => {
         return (
           <div>
             <Reply key={reply.id} reply={reply} getReplies={getReplies} />
           </div>
         );
-      })}
+      }): <Typography sx={{marginBottom: 2}}>No replies yet. Please add a reply.</Typography>}
       <PostReplyForm commentId={props.commentId} getReplies={getReplies} />
       <GamePagination setPage={setPage} numberOfPages={numberOfPages}/>
     </div>

@@ -10,10 +10,14 @@ import Grid from "@mui/material/Grid";
 import Chip from "@mui/material/Chip";
 import moment from "moment";
 import DetailsTabbedPanel from "../components/TabbedPanels/DetailsTabbedPannel";
+import { Container } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 function GameDetailsPage() {
   const [game, setGame] = useState();
   const params = useParams();
+  const theme = useTheme();
 
   useEffect(() => {
     const getGame = async () => {
@@ -30,9 +34,11 @@ function GameDetailsPage() {
   return (
     <div>
       <Header />
-      {console.log(game)}
-      <div className="pageContent">
-        <Box sx={{ flexGrow: 1, padding: 5 }} className="gameBox">
+      <Container
+        maxWidth="lg"
+        disableGutters={useMediaQuery(theme.breakpoints.only("xs"))}
+      >
+        <Box sx={{ flexGrow: 1, padding: 5 }}>
           {!game && <>Loading...</>}
           {game && (
             <Grid container spacing={2}>
@@ -43,7 +49,7 @@ function GameDetailsPage() {
                 item
                 xs={12}
                 md={3}
-                sx={{ borderRight: { lg: 1}, borderColor: "grey.500" }}
+                sx={{ borderRight: { lg: 1 }, borderColor: "grey.500" }}
               >
                 <Grid item xs={12} md={12} lg={12} justify="center">
                   <img
@@ -56,20 +62,20 @@ function GameDetailsPage() {
                     {moment(game.releaseDate).format("YYYY-MM-DD")}
                   </Typography>
                   <Typography>Developers:</Typography>
-                  {game.developers &&
+                  {game.developers && game.developers.length > 0 ?
                     game.developers.map((developer) => (
                       <Chip key={developer.id} label={developer.name} />
-                    ))}
+                    )): <Typography>No Developers</Typography>}
                   <Typography>Genres:</Typography>
-                  {game.genres &&
+                  {game.genres && game.genres.length > 0 ?
                     game.genres.map((genre) => (
                       <Chip key={genre.id} label={genre.name} />
-                    ))}
+                    )): <Typography>No Genres</Typography>}
                   <Typography>Platforms:</Typography>
-                  {game.platforms &&
+                  {game.platforms && game.platforms.length > 0 ?
                     game.platforms.map((platform) => (
                       <Chip key={platform.id} label={platform.name} />
-                    ))}
+                    )): <Typography>No Platforms</Typography>}
                 </Grid>
               </Grid>
               <Grid item xs={12} sm={12} md={12} lg={9} justify="center">
@@ -100,7 +106,7 @@ function GameDetailsPage() {
             </Grid>
           )}
         </Box>
-      </div>
+      </Container>
     </div>
   );
 }

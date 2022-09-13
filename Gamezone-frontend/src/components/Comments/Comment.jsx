@@ -35,7 +35,7 @@ function Comment(props) {
   };
 
   return (
-    <div style={{ padding: 14 }} className="App">
+    <div style={{ padding: {lg: 14, xs: 1} }} className="App">
       <Grid container wrap="nowrap" spacing={2}>
         <Grid item>
           <Avatar alt="Remy Sharp" src={imgLink} />
