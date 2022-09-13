@@ -18,6 +18,7 @@ namespace GameZone.Application.Games.Queries.GetGameById
             Guid id = request.Id;
             var result = await _unitOfWork.GameRepository.ReturnByIdAsync(id);
             await _unitOfWork.GameRepository.CalculateTotalRatingAsync(result);
+            await _unitOfWork.SaveAsync();
             var result2 = await _unitOfWork.GameRepository.ReturnByIdAsync(id);
             return result2;
         }
