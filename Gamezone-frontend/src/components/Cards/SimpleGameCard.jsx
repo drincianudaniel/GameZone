@@ -25,7 +25,7 @@ export default function SimpleGameCard(props) {
         <CardMedia
           sx={{ width: 200 }}
           component="img"
-          height="250"
+          height="270"
           image={props.data.imageSrc}
         />
       </Link>

@@ -35,6 +35,8 @@ export default function MultipleSelectChip(props) {
 
   useEffect(() => {
     getData();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const getData = () => {
@@ -43,8 +45,10 @@ export default function MultipleSelectChip(props) {
 
   return (
     <div>
-      <FormControl fullWidth sx={{ marginBottom: 1}}>
-        <InputLabel fullWidth id="demo-multiple-chip-label">{props.name}</InputLabel>
+      <FormControl fullWidth sx={{ marginBottom: 1 }}>
+        <InputLabel fullWidth id="demo-multiple-chip-label">
+          {props.name}
+        </InputLabel>
         <Select
           labelId="demo-multiple-chip-label"
           id="demo-multiple-chip"

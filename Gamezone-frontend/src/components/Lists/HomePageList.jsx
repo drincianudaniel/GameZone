@@ -14,18 +14,21 @@ export default function HomePageList(props) {
         return (
           <ListItem key={game.id}>
             <ListItemAvatar>
-            <Link to={`/game/${game.id}`} style={{ textDecoration: "none"}}>
-              <Box
-                component="img"
-                src={game.imageSrc}
-                sx={{ height: 100, width: 75, objectFit: "cover" }}
-              />
+              <Link to={`/game/${game.id}`} style={{ textDecoration: "none" }}>
+                <Box
+                  component="img"
+                  src={game.imageSrc}
+                  sx={{ height: 100, width: 75, objectFit: "cover" }}
+                />
               </Link>
             </ListItemAvatar>
             <ListItemText
               sx={{ marginLeft: 0.5 }}
               primary={
-                <Link to={`/game/${game.id}`} style={{ textDecoration: "none"}}>
+                <Link
+                  to={`/game/${game.id}`}
+                  style={{ textDecoration: "none" }}
+                >
                   <Typography sx={{ fontSize: 18, color: "#1c439b" }}>
                     {game.name}
                   </Typography>

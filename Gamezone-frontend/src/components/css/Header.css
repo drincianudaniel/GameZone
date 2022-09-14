@@ -1,18 +1,9 @@
-.searchbar{
-    width:400px
+.searchbar {
+  width: 400px;
 }
 
-@media(max-width: 1000px) {
-    .searchbar{
-        width:300px
-    }
+@media (max-width: 650px) {
+  .searchbar {
+    width: 200px;
   }
-  
-  @media(max-width: 650px) {
-    .searchbar{
-        width:200px
-    }
-    .searchbar::placeholder{
-        color: red;
-    }
-  }
+}

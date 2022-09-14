@@ -23,7 +23,6 @@ function convertUTCDateToLocalDate(date) {
 
 function Comment(props) {
   const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
 
   const handleDelete = async () => {
     await axios
@@ -35,7 +34,7 @@ function Comment(props) {
   };
 
   return (
-    <div style={{ padding: {lg: 14, xs: 1} }} className="App">
+    <div style={{ padding: { lg: 14, xs: 1 } }} className="App">
       <Grid container wrap="nowrap" spacing={2}>
         <Grid item>
           <Avatar alt="Remy Sharp" src={imgLink} />
@@ -50,10 +49,15 @@ function Comment(props) {
               convertUTCDateToLocalDate(new Date(props.comment.createdAt))
             ).fromNow()}
           </p>
-          <RepliesDialog open={open} setOpen={setOpen} commentId={props.comment.id} comment={props.comment}/>
+          <RepliesDialog
+            open={open}
+            setOpen={setOpen}
+            commentId={props.comment.id}
+            comment={props.comment}
+          />
         </Grid>
         <Grid>
-          <MoreMenu handleDelete={handleDelete}/>
+          <MoreMenu handleDelete={handleDelete} />
         </Grid>
       </Grid>
       <Divider variant="fullWidth" style={{ margin: "30px 0" }} />

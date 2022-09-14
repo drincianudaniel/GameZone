@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { AsyncPaginate } from "react-select-async-paginate";
 import "./css/AutoCompleteSearch.css";
 

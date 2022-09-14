@@ -66,7 +66,7 @@ const Header = () => {
           <SportsEsportsIcon
             sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}
           />
-          <Link style={{ textDecoration: "none", color:"inherit" }} to="/">
+          <Link style={{ textDecoration: "none", color: "inherit" }} to="/">
             {" "}
             <Typography
               variant="h6"

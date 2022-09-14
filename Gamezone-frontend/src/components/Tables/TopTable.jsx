@@ -85,12 +85,10 @@ export default function TopTable(props) {
                         to={`/game/${game.id}`}
                         style={{ textDecoration: "none" }}
                       >
-                        <Typography sx={{ fontSize: 20, color: "#1c439b"}}>
-                          {" "}
+                        <Typography sx={{ fontSize: 20, color: "#1c439b" }}>
                           {game.name}
                         </Typography>
-                        <Typography sx={{ fontSize: 15, color: "#black"}}>
-                          {" "}
+                        <Typography sx={{ fontSize: 15, color: "black" }}>
                           {moment(game.releaseDate).format("MMMM Do YYYY")}
                         </Typography>
                       </Link>
@@ -107,12 +105,15 @@ export default function TopTable(props) {
                     justifyContent: "center",
                   }}
                 >
-                  <StarOutlinedIcon fontSize="medium"
-                  stroke="orange"
-                  strokeWidth={1}
-                    sx={{ color: "#ffea00", marginRight: 1}}
+                  <StarOutlinedIcon
+                    fontSize="medium"
+                    stroke="orange"
+                    strokeWidth={1}
+                    sx={{ color: "#ffea00", marginRight: 1 }}
                   ></StarOutlinedIcon>
-                  <Typography  sx={{ fontSize: 15}}>{game.totalRating}</Typography>
+                  <Typography sx={{ fontSize: 15 }}>
+                    {game.totalRating}
+                  </Typography>
                 </Box>
               </StyledTableCell>
             </StyledTableRow>

@@ -28,10 +28,10 @@ function PostReviewForm(props) {
     axios
       .post(`${process.env.REACT_APP_SERVERIP}/reviews`, dataToPost)
       .then((response) => {
-        props.getReviews()
-        reset()
-        setValue(0)
-        props.getGame()
+        props.getReviews();
+        reset();
+        setValue(0);
+        props.getGame();
       })
       .catch((err) => console.log(err));
   };

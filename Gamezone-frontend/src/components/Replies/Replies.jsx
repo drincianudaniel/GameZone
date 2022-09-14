@@ -9,7 +9,7 @@ function Replies(props) {
   const [replies, setReplies] = useState([]);
   const [page, setPage] = useState(1);
   const [numberOfPages, setNumberOfPages] = useState(10);
-  
+
   const getReplies = async () => {
     await axios
       .get(

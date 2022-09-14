@@ -18,7 +18,7 @@ function AddDeveloperForm() {
 
     const dataToPost = {
       name: data.Name,
-      headQuarters : data.Headquarters
+      headQuarters: data.Headquarters,
     };
 
     axios

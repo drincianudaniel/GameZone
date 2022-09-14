@@ -13,6 +13,8 @@ function Comments() {
 
   useEffect(() => {
     getComments();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page]);
 
   const getComments = async () => {
@@ -31,15 +33,21 @@ function Comments() {
 
   return (
     <div>
-      {comments.length > 0 ? comments.map((comment) => {
-        return (
-          <Comment
-            key={comment.id}
-            comment={comment}
-            getComments={getComments}
-          />
-        );
-      }): <Typography sx={{marginBottom: 2}}>No comments yet. Please add a comment.</Typography>}
+      {comments.length > 0 ? (
+        comments.map((comment) => {
+          return (
+            <Comment
+              key={comment.id}
+              comment={comment}
+              getComments={getComments}
+            />
+          );
+        })
+      ) : (
+        <Typography sx={{ marginBottom: 2 }}>
+          No comments yet. Please add a comment.
+        </Typography>
+      )}
       <PostCommentForm id={params.id} getComments={getComments} />
       <GamePagination setPage={setPage} numberOfPages={numberOfPages} />
     </div>
