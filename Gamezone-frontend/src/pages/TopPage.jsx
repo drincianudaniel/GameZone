@@ -1,8 +1,8 @@
 import Header from "../components/Header";
-import TopTable from "../components/TopTable";
+import TopTable from "../components/Tables/TopTable";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import "./css/TopPage.css";
+import { Container } from "@mui/material";
 
 function TopPage() {
   const [games, setGames] = useState([]);
@@ -18,11 +18,12 @@ function TopPage() {
   };
 
   return (
-    <div className="content">
+    <div>
       <Header />
-      <div className="container">
-        <TopTable games={games}></TopTable>
-      </div>
+      <Container sx={{ marginTop: 4 }} maxWidth="xl">
+        {" "}
+        <TopTable games={games} />
+      </Container>
     </div>
   );
 }

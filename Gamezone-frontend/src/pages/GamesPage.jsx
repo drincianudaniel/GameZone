@@ -8,7 +8,6 @@ import AddBoxIcon from "@mui/icons-material/AddBox";
 import { IconButton } from "@mui/material";
 import { Link } from "react-router-dom";
 import AppPagination from "../components/Pagination/AppPagination";
-import Footer from "../components/Footer";
 
 function GamesPage() {
   const [games, setGames] = useState([]);
@@ -25,6 +24,8 @@ function GamesPage() {
     // }
     // else
     // setGames(data)
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page]);
 
   //const {data, isLoading, errors} = useQuery('/Games');

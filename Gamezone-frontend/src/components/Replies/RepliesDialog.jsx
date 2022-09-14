@@ -8,7 +8,6 @@ import Replies from "./Replies";
 import { Box } from "@mui/system";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
-import Comment from "../Comments/Comment";
 
 export default function RepliesDialog(props) {
   const [scroll, setScroll] = React.useState("paper");
@@ -46,9 +45,7 @@ export default function RepliesDialog(props) {
         aria-describedby="scroll-dialog-description"
         fullWidth={true}
       >
-        <DialogTitle id="scroll-dialog-title">
-          Replies
-        </DialogTitle>
+        <DialogTitle id="scroll-dialog-title">Replies</DialogTitle>
         <DialogContent dividers={scroll === "paper"}>
           <Box>
             <Replies commentId={props.commentId} />

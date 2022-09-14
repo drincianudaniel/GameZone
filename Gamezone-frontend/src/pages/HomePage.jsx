@@ -2,7 +2,6 @@ import Header from "../components/Header";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import { Grid, Typography } from "@mui/material";
-import SimpleSlider from "../components/Carousels/HomePageCarousel";
 import Divider from "@mui/material/Divider";
 import HomePageList from "../components/Lists/HomePageList";
 import { useEffect, useState } from "react";
@@ -91,7 +90,9 @@ function HomePage() {
               <Divider></Divider>
               <HomePageCarousel data={releasedGames} />
               <Divider></Divider>
-              <Typography sx={{ fontSize: 20, marginTop: 3 }}>Latest games added</Typography>
+              <Typography sx={{ fontSize: 20, marginTop: 3 }}>
+                Latest games added
+              </Typography>
               <Divider></Divider>
               <HomePageCarousel data={addedGames} />
               <Divider></Divider>

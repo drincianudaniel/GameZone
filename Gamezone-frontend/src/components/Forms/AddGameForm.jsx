@@ -147,7 +147,7 @@ function AddGameForm() {
                 required: { value: true, message: "Image link is required" },
                 pattern: {
                   value:
-                    /[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)?/gi,
+                    /[-a-zA-Z0-9@:%._~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_.~#?&//=]*)?/gi,
                   message: "Enter a valid link",
                 },
               })}

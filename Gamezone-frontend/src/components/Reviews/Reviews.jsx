@@ -14,6 +14,8 @@ function Reviews(props) {
 
   useEffect(() => {
     getReviews();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page]);
 
   const getReviews = async () => {
@@ -32,12 +34,22 @@ function Reviews(props) {
 
   return (
     <div>
-      {reviews.length > 0 ? reviews.map((review) => {
-        return (
-          <Review key={review.id} review={review} getReviews={getReviews} />
-        );
-      }) : <Typography sx={{marginBottom: 2}}>No reviews yet. Please add a review.</Typography>}
-      <PostReviewForm id={params.id} getReviews={getReviews} getGame={props.getGame}/>
+      {reviews.length > 0 ? (
+        reviews.map((review) => {
+          return (
+            <Review key={review.id} review={review} getReviews={getReviews} />
+          );
+        })
+      ) : (
+        <Typography sx={{ marginBottom: 2 }}>
+          No reviews yet. Please add a review.
+        </Typography>
+      )}
+      <PostReviewForm
+        id={params.id}
+        getReviews={getReviews}
+        getGame={props.getGame}
+      />
       <GamePagination setPage={setPage} numberOfPages={numberOfPages} />
     </div>
   );

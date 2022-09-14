@@ -9,11 +9,7 @@ function Replies(props) {
   const [replies, setReplies] = useState([]);
   const [page, setPage] = useState(1);
   const [numberOfPages, setNumberOfPages] = useState(10);
-
-  useEffect(() => {
-    getReplies();
-  }, [page]);
-
+  
   const getReplies = async () => {
     await axios
       .get(
@@ -28,17 +24,29 @@ function Replies(props) {
       });
   };
 
+  useEffect(() => {
+    getReplies();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [page]);
+
   return (
     <div>
-      {replies.length > 0 ? replies.map((reply) => {
-        return (
-          <div>
-            <Reply key={reply.id} reply={reply} getReplies={getReplies} />
-          </div>
-        );
-      }): <Typography sx={{marginBottom: 2}}>No replies yet. Please add a reply.</Typography>}
+      {replies.length > 0 ? (
+        replies.map((reply) => {
+          return (
+            <div>
+              <Reply key={reply.id} reply={reply} getReplies={getReplies} />
+            </div>
+          );
+        })
+      ) : (
+        <Typography sx={{ marginBottom: 2 }}>
+          No replies yet. Please add a reply.
+        </Typography>
+      )}
       <PostReplyForm commentId={props.commentId} getReplies={getReplies} />
-      <GamePagination setPage={setPage} numberOfPages={numberOfPages}/>
+      <GamePagination setPage={setPage} numberOfPages={numberOfPages} />
     </div>
   );
 }

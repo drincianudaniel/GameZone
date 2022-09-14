@@ -21,6 +21,8 @@ function GameDetailsPage() {
 
   useEffect(() => {
     getGame();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [params.id]);
 
   const getGame = async () => {
@@ -59,23 +61,32 @@ function GameDetailsPage() {
                   />
                   <Typography>
                     Release date:{" "}
-                    {moment(game.releaseDate).format("YYYY-MM-DD")}
+                    {moment(game.releaseDate).format("MMMM Do YYYY")}
                   </Typography>
                   <Typography>Developers:</Typography>
-                  {game.developers && game.developers.length > 0 ?
+                  {game.developers && game.developers.length > 0 ? (
                     game.developers.map((developer) => (
                       <Chip key={developer.id} label={developer.name} />
-                    )): <Typography>No Developers</Typography>}
+                    ))
+                  ) : (
+                    <Typography>No Developers</Typography>
+                  )}
                   <Typography>Genres:</Typography>
-                  {game.genres && game.genres.length > 0 ?
+                  {game.genres && game.genres.length > 0 ? (
                     game.genres.map((genre) => (
                       <Chip key={genre.id} label={genre.name} />
-                    )): <Typography>No Genres</Typography>}
+                    ))
+                  ) : (
+                    <Typography>No Genres</Typography>
+                  )}
                   <Typography>Platforms:</Typography>
-                  {game.platforms && game.platforms.length > 0 ?
+                  {game.platforms && game.platforms.length > 0 ? (
                     game.platforms.map((platform) => (
                       <Chip key={platform.id} label={platform.name} />
-                    )): <Typography>No Platforms</Typography>}
+                    ))
+                  ) : (
+                    <Typography>No Platforms</Typography>
+                  )}
                 </Grid>
               </Grid>
               <Grid item xs={12} sm={12} md={12} lg={9} justify="center">
@@ -100,7 +111,7 @@ function GameDetailsPage() {
                       </Typography>
                     </Grid>
                   </Grid>
-                  <DetailsTabbedPanel getGame={getGame}/>
+                  <DetailsTabbedPanel getGame={getGame} />
                 </Box>
               </Grid>
             </Grid>
