@@ -43,17 +43,16 @@ const Header = () => {
   };
 
   const redirectToHome = () => {
-    history("/")
-  }
+    history("/");
+  };
 
-  const redirectToTop = () =>{
-    history("/top")
-  }
+  const redirectToTop = () => {
+    history("/top");
+  };
 
-  const redirectToGames = () =>{
-    history("/games")
-  }
-
+  const redirectToGames = () => {
+    history("/games");
+  };
 
   const handleSearchGame = (searchGame) => {
     redirectToSearchedGame(searchGame.value);
@@ -67,23 +66,25 @@ const Header = () => {
           <SportsEsportsIcon
             sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}
           />
-          <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            href="/"
-            sx={{
-              mr: 2,
-              display: { xs: "none", md: "flex" },
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "inherit",
-              textDecoration: "none",
-            }}
-          >
-            GameZone
-          </Typography>
+          <Link style={{ textDecoration: "none", color:"inherit" }} to="/">
+            {" "}
+            <Typography
+              variant="h6"
+              noWrap
+              component="a"
+              sx={{
+                mr: 2,
+                display: { xs: "none", md: "flex" },
+                fontFamily: "monospace",
+                fontWeight: 700,
+                letterSpacing: ".3rem",
+                color: "inherit",
+                textDecoration: "none",
+              }}
+            >
+              GameZone
+            </Typography>
+          </Link>
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
@@ -115,13 +116,19 @@ const Header = () => {
               }}
             >
               <MenuItem onClick={handleCloseNavMenu}>
-                <Typography onClick={redirectToHome} textAlign="center">Home</Typography>
+                <Typography onClick={redirectToHome} textAlign="center">
+                  Home
+                </Typography>
               </MenuItem>
               <MenuItem onClick={handleCloseNavMenu}>
-                <Typography onClick={redirectToGames} textAlign="center">Games</Typography>
+                <Typography onClick={redirectToGames} textAlign="center">
+                  Games
+                </Typography>
               </MenuItem>
               <MenuItem onClick={handleCloseNavMenu}>
-                  <Typography onClick={redirectToTop} textAlign="center">Top</Typography>
+                <Typography onClick={redirectToTop} textAlign="center">
+                  Top
+                </Typography>
               </MenuItem>
             </Menu>
           </Box>
@@ -130,7 +137,6 @@ const Header = () => {
             variant="h5"
             noWrap
             component="a"
-            onClick={redirectToHome}
             sx={{
               mr: 2,
               display: { md: "none", xs: "none" },
