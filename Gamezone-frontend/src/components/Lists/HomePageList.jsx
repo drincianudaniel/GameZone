@@ -3,10 +3,6 @@ import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
-import Avatar from "@mui/material/Avatar";
-import ImageIcon from "@mui/icons-material/Image";
-import WorkIcon from "@mui/icons-material/Work";
-import BeachAccessIcon from "@mui/icons-material/BeachAccess";
 import { Box } from "@mui/system";
 import { Typography } from "@mui/material";
 import { Link } from "react-router-dom";
@@ -16,7 +12,7 @@ export default function HomePageList(props) {
     <List sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}>
       {props.data.map((game, i) => {
         return (
-          <ListItem>
+          <ListItem key={game.id}>
             <ListItemAvatar>
             <Link to={`/game/${game.id}`} style={{ textDecoration: "none"}}>
               <Box

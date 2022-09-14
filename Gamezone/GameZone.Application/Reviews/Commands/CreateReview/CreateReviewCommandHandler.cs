@@ -18,7 +18,9 @@ namespace GameZone.Application.Reviews.Commands.CreateReview
             var review = new Review { UserId = request.UserId, GameId = request.GameId, Content = request.Content, Rating = request.Rating };
             await _unitOfWork.ReviewRepository.CreateAsync(review);
             await _unitOfWork.SaveAsync();
-            return review;
+
+            var reviewToReturn = await _unitOfWork.ReviewRepository.ReturnByIdAsync(review.Id);
+            return reviewToReturn;
         }
     }
 }

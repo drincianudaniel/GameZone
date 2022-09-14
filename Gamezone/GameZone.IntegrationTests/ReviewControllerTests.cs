@@ -80,7 +80,7 @@ namespace GameZone.IntegrationTests
         }
 
         [Fact]
-        public async Task Post_Comment_ShouldReturnCreatedComment()
+        public async Task Post_Review_ShouldReturnCreatedReview()
         {
             var newReview = new ReviewViewModel
             {
