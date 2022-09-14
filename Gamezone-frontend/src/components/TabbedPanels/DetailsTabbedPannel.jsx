@@ -40,7 +40,7 @@ function a11yProps(index) {
   };
 }
 
-export default function DetailsTabbedPanel() {
+export default function DetailsTabbedPanel(props) {
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
@@ -59,7 +59,7 @@ export default function DetailsTabbedPanel() {
         <Comments/>
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <Reviews/>
+        <Reviews getGame={props.getGame}/>
       </TabPanel>
     </Box>
   );

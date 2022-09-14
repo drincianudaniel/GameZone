@@ -31,6 +31,7 @@ function PostReviewForm(props) {
         props.getReviews()
         reset()
         setValue(0)
+        props.getGame()
       })
       .catch((err) => console.log(err));
   };

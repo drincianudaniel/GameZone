@@ -6,7 +6,7 @@ import PostReviewForm from "../Forms/PostReviewForm";
 import GamePagination from "../Pagination/GamePagination";
 import Review from "./Review";
 
-function Comments() {
+function Reviews(props) {
   const [reviews, setReviews] = useState([]);
   const [page, setPage] = useState(1);
   const [numberOfPages, setNumberOfPages] = useState(10);
@@ -37,10 +37,10 @@ function Comments() {
           <Review key={review.id} review={review} getReviews={getReviews} />
         );
       }) : <Typography sx={{marginBottom: 2}}>No reviews yet. Please add a review.</Typography>}
-      <PostReviewForm id={params.id} getReviews={getReviews} />
+      <PostReviewForm id={params.id} getReviews={getReviews} getGame={props.getGame}/>
       <GamePagination setPage={setPage} numberOfPages={numberOfPages} />
     </div>
   );
 }
 
-export default Comments;
+export default Reviews;

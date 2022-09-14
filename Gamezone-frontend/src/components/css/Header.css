@@ -10,7 +10,7 @@
   
   @media(max-width: 650px) {
     .searchbar{
-        width:100px
+        width:200px
     }
     .searchbar::placeholder{
         color: red;

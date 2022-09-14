@@ -20,16 +20,16 @@ function GameDetailsPage() {
   const theme = useTheme();
 
   useEffect(() => {
-    const getGame = async () => {
-      await axios
-        .get(`${process.env.REACT_APP_SERVERIP}/Games/${params.id}`)
-        .then((res) => {
-          setGame(res.data);
-        });
-    };
-
     getGame();
   }, [params.id]);
+
+  const getGame = async () => {
+    await axios
+      .get(`${process.env.REACT_APP_SERVERIP}/Games/${params.id}`)
+      .then((res) => {
+        setGame(res.data);
+      });
+  };
 
   return (
     <div>
@@ -100,7 +100,7 @@ function GameDetailsPage() {
                       </Typography>
                     </Grid>
                   </Grid>
-                  <DetailsTabbedPanel />
+                  <DetailsTabbedPanel getGame={getGame}/>
                 </Box>
               </Grid>
             </Grid>

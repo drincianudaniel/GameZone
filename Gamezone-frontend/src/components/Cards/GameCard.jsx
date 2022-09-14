@@ -20,7 +20,7 @@ export default function GameCard(props) {
   };
 
   return (
-    <Card className="gameCard" sx={{ maxWidth: 345 }}>
+    <Card className="gameCard" sx={{ maxWidth: 300 }}>
       <Link
         style={{ textDecoration: "none", color: "black" }}
         to={`/game/${props.data.id}`}
