@@ -20,7 +20,12 @@ export default function GameCard(props) {
   };
 
   return (
-    <Card className="gameCard" sx={{ maxWidth: 300 }}>
+    <Card
+      sx={{
+        maxWidth: 300,
+        "&:hover": { boxShadow: "-1px 10px 29px 0px rgba(0, 0, 0, 0.8)" },
+      }}
+    >
       <Link
         style={{ textDecoration: "none", color: "black" }}
         to={`/game/${props.data.id}`}
@@ -37,7 +42,7 @@ export default function GameCard(props) {
           title={props.data.name}
         />
         <CardMedia
-          sx={{ width: 300}}
+          sx={{ width: 300 }}
           component="img"
           height="350"
           image={props.data.imageSrc}
