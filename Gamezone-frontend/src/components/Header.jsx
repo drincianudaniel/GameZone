@@ -11,14 +11,11 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import AdbIcon from "@mui/icons-material/Adb";
 import SportsEsportsIcon from "@mui/icons-material/SportsEsports";
 import { Link } from "react-router-dom";
 import AutoCompleteSearch from "../components/AutoCompleteSearch";
 import "./css/Header.css";
 import { useNavigate } from "react-router-dom";
-const pages = ["Games", "Top"];
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 const Header = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);

@@ -8,6 +8,7 @@ import AddBoxIcon from "@mui/icons-material/AddBox";
 import { IconButton } from "@mui/material";
 import { Link } from "react-router-dom";
 import AppPagination from "../components/Pagination/AppPagination";
+import Footer from "../components/Footer";
 
 function GamesPage() {
   const [games, setGames] = useState([]);

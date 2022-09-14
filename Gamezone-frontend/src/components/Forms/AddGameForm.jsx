@@ -69,7 +69,7 @@ function AddGameForm() {
 
     const dataToPost = {
       name: data.Name,
-      releaseDate: data.Date,
+      releaseDate: date,
       imageSrc: data.imgSrc,
       gameDetails: data.Details,
       developerList: selectedDevelopers.map((e) => e.id),
