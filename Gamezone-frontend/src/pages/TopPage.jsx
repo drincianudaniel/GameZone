@@ -2,7 +2,7 @@ import Header from "../components/Header";
 import TopTable from "../components/Tables/TopTable";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Container, Divider } from "@mui/material";
+import { Box, CircularProgress, Container, Divider } from "@mui/material";
 import AppPagination from "../components/Pagination/AppPagination";
 
 function TopPage() {
@@ -29,10 +29,24 @@ function TopPage() {
   return (
     <div>
       <Header />
+      {/* {&& (
+        <Box
+          sx={{
+            width: "100%",
+            display: "flex",
+            justifyContent: "center",
+            mt: 3,
+            mb: 3,
+          }}
+        >
+          <CircularProgress />
+        </Box>
+      )} */}
+
       <Container sx={{ marginTop: 4 }} maxWidth="xl">
         {" "}
         <TopTable games={games} />
-        <Divider sx={{mb:2}}></Divider>
+        <Divider sx={{ mb: 2 }}></Divider>
         <AppPagination
           setPage={setPage}
           numberOfPages={numberOfPages}

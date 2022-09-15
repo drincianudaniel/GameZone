@@ -33,6 +33,7 @@ export default function MoreMenu(props) {
         MenuListProps={{
           "aria-labelledby": "basic-button",
         }}
+        disableScrollLock={true}
       >
         <MenuItem onClick={props.handleDelete}>Delete</MenuItem>
       </Menu>

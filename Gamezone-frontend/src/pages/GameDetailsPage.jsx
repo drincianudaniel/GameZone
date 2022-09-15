@@ -10,7 +10,7 @@ import Grid from "@mui/material/Grid";
 import Chip from "@mui/material/Chip";
 import moment from "moment";
 import DetailsTabbedPanel from "../components/TabbedPanels/DetailsTabbedPannel";
-import { Container } from "@mui/material";
+import { CircularProgress, Container } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
@@ -41,7 +41,19 @@ function GameDetailsPage() {
         disableGutters={useMediaQuery(theme.breakpoints.only("xs"))}
       >
         <Box sx={{ flexGrow: 1, padding: 5 }}>
-          {!game && <>Loading...</>}
+          {!game && (
+            <Box
+              sx={{
+                width: "100%",
+                display: "flex",
+                justifyContent: "center",
+                mt: 3,
+                mb: 3,
+              }}
+            >
+              <CircularProgress />
+            </Box>
+          )}
           {game && (
             <Grid container spacing={2}>
               <Grid item xs={12} sm={12} sx={{ borderBottom: 1 }}>

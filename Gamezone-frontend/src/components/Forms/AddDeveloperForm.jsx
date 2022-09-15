@@ -4,6 +4,7 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import axios from "axios";
 import { Box, Grid } from "@mui/material";
+import { toast } from "react-toastify";
 
 function AddDeveloperForm() {
   const {
@@ -24,6 +25,7 @@ function AddDeveloperForm() {
     axios
       .post(`${process.env.REACT_APP_SERVERIP}/developers`, dataToPost)
       .then((response) => {
+        toast.success("Developer Added");
         reset();
       })
       .catch((err) => console.log(err));

@@ -1,3 +1,5 @@
+import { CircularProgress } from "@mui/material";
+import { Box } from "@mui/system";
 import React from "react";
 import Slider from "react-slick";
 import SimpleGameCard from "../Cards/SimpleGameCard";
@@ -45,14 +47,31 @@ export default function HomePageCarousel(props) {
   };
 
   return (
-    <Slider {...settings}>
-      {props.data.map((data, i) => {
-        return (
-          <div key={data.id}>
-            <SimpleGameCard data={data} />
-          </div>
-        );
-      })}
-    </Slider>
+    <>
+      {!props.data && (
+        <Box
+          sx={{
+            width: "100%",
+            display: "flex",
+            justifyContent: "center",
+            mt: 3,
+            mb: 3,
+          }}
+        >
+          <CircularProgress />
+        </Box>
+      )}
+      {props.data && (
+        <Slider {...settings}>
+          {props.data.map((data, i) => {
+            return (
+              <div key={data.id}>
+                <SimpleGameCard data={data} />
+              </div>
+            );
+          })}
+        </Slider>
+      )}
+    </>
   );
 }

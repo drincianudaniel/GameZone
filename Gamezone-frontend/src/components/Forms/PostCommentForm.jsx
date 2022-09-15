@@ -3,8 +3,7 @@ import { useForm } from "react-hook-form";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import axios from "axios";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 
 function PostCommentForm(props) {
   const {
@@ -36,7 +35,6 @@ function PostCommentForm(props) {
 
   return (
     <>
-    <ToastContainer/>
       <form
         noValidate
         autoComplete="off"

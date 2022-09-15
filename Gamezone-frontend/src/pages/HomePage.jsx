@@ -9,11 +9,11 @@ import axios from "axios";
 import HomePageCarousel from "../components/Carousels/HomePageCarousel";
 
 function HomePage() {
-  const [actionGames, setActionGames] = useState([]);
-  const [mostPopular, setMostPopular] = useState([]);
-  const [releasedGames, setReleasedGames] = useState([]);
-  const [addedGames, setAddedGames] = useState([]);
-  const [topRatedGames, setTopRatedGames] = useState([]);
+  const [actionGames, setActionGames] = useState();
+  const [mostPopular, setMostPopular] = useState();
+  const [releasedGames, setReleasedGames] = useState();
+  const [addedGames, setAddedGames] = useState();
+  const [topRatedGames, setTopRatedGames] = useState();
   useEffect(() => {
     getActionGames();
     getMostPopularGames();
