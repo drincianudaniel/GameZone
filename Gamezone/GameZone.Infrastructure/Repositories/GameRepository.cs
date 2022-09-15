@@ -137,9 +137,10 @@ namespace GameZone.Infrastructure.Repositories
             game.Platforms.Remove(platform);
         }
 
-        public async Task<IEnumerable<Game>> GenerateTopList()
+        public async Task<IEnumerable<Game>> GenerateTopList(int? page, int pageSize)
         {
-            return await _context.Games.OrderByDescending(game => game.TotalRating).AsNoTracking().ToListAsync();
+            int pageNumber = (page ?? 1);
+            return await _context.Games.OrderByDescending(game => game.TotalRating).AsNoTracking().ToPagedListAsync(pageNumber, pageSize);
         }
 
         public async Task<IEnumerable<Game>> SearchGameAsync(string searchString)

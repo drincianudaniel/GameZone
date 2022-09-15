@@ -65,14 +65,23 @@ namespace GameZone.Api.Controllers
         }
 
         [HttpGet]
-        [Route("top")]
-        public async Task<IActionResult> GetTop()
+        [Route("top/page/{page}/page-size/{pageSize}")]
+        public async Task<IActionResult> GetTop(int page, int pageSize)
         {
             _logger.LogInformation("Getting games top");
 
-            var result = await _mediator.Send(new GetGamesTopQuery());
+            var result = await _mediator.Send(new GetGamesTopQuery
+            {
+                Page = page,
+                PageSize = pageSize
+            });
+
+            var count = await _mediator.Send(new CountAsyncQuery());
+            var totalPages = ((double)count / (double)pageSize);
+            int roundedTotalPages = Convert.ToInt32(Math.Ceiling(totalPages));
+
             var mappedResult = _mapper.Map<IEnumerable<SimpleGameDto>>(result);
-            return Ok(mappedResult);
+            return Ok(new PagedResponse<IEnumerable<SimpleGameDto>>(mappedResult, page, count, roundedTotalPages, pageSize));
         }
 
         [HttpGet]

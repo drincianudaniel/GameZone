@@ -14,8 +14,7 @@ namespace GameZone.Application.Games.Queries.GetGamesTop
         }
         public async Task<IEnumerable<Game>> Handle(GetGamesTopQuery request, CancellationToken cancellationToken)
         {
-            var query = await _unitOfWork.GameRepository.GenerateTopList();
-
+            var query = await _unitOfWork.GameRepository.GenerateTopList(request.Page, request.PageSize);
             return query;
         }
     }
