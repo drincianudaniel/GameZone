@@ -5,8 +5,10 @@ import GamePagination from "../Pagination/GamePagination";
 import Comment from "./Comment";
 import PostCommentForm from "../Forms/PostCommentForm";
 import { Typography } from "@mui/material";
+import SpinningLoading from "../LoadingComponents/SpinningLoading";
 function Comments() {
   const [comments, setComments] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [page, setPage] = useState(1);
   const [numberOfPages, setNumberOfPages] = useState(10);
   const params = useParams();
@@ -27,13 +29,16 @@ function Comments() {
       .then((res) => {
         setComments(res.data.data);
         setNumberOfPages(res.data.totalPages);
+        setIsLoading(false);
         console.log(res.data);
       });
   };
 
   return (
-    <div>
-      {comments.length > 0 ? (
+    <>
+      {isLoading ? (
+        <SpinningLoading />
+      ) : comments.length > 0 ? (
         comments.map((comment) => {
           return (
             <Comment
@@ -50,7 +55,7 @@ function Comments() {
       )}
       <PostCommentForm id={params.id} getComments={getComments} />
       <GamePagination setPage={setPage} numberOfPages={numberOfPages} />
-    </div>
+    </>
   );
 }
 

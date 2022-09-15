@@ -4,25 +4,14 @@ import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import { Box } from "@mui/system";
-import { CircularProgress, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import { Link } from "react-router-dom";
+import SpinningLoading from "../LoadingComponents/SpinningLoading";
 
 export default function HomePageList(props) {
   return (
     <>
-      {!props.data && (
-        <Box
-          sx={{
-            width: "100%",
-            display: "flex",
-            justifyContent: "center",
-            mt: 3,
-            mb: 3,
-          }}
-        >
-          <CircularProgress />
-        </Box>
-      )}
+      {!props.data && <SpinningLoading />}
       {props.data && (
         <List
           sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}

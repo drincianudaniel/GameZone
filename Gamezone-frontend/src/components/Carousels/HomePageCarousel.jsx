@@ -1,8 +1,7 @@
-import { CircularProgress } from "@mui/material";
-import { Box } from "@mui/system";
 import React from "react";
 import Slider from "react-slick";
 import SimpleGameCard from "../Cards/SimpleGameCard";
+import SpinningLoading from "../LoadingComponents/SpinningLoading";
 
 export default function HomePageCarousel(props) {
   var settings = {
@@ -48,26 +47,14 @@ export default function HomePageCarousel(props) {
 
   return (
     <>
-      {!props.data && (
-        <Box
-          sx={{
-            width: "100%",
-            display: "flex",
-            justifyContent: "center",
-            mt: 3,
-            mb: 3,
-          }}
-        >
-          <CircularProgress />
-        </Box>
-      )}
+      {!props.data && <SpinningLoading />}
       {props.data && (
         <Slider {...settings}>
           {props.data.map((data, i) => {
             return (
-              <div key={data.id}>
+              <React.Fragment key={data.id}>
                 <SimpleGameCard data={data} />
-              </div>
+              </React.Fragment>
             );
           })}
         </Slider>

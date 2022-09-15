@@ -10,12 +10,14 @@ import Grid from "@mui/material/Grid";
 import Chip from "@mui/material/Chip";
 import moment from "moment";
 import DetailsTabbedPanel from "../components/TabbedPanels/DetailsTabbedPannel";
-import { CircularProgress, Container } from "@mui/material";
+import { Container } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import SpinningLoading from "../components/LoadingComponents/SpinningLoading";
 
 function GameDetailsPage() {
-  const [game, setGame] = useState();
+  const [game, setGame] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   const params = useParams();
   const theme = useTheme();
 
@@ -26,10 +28,12 @@ function GameDetailsPage() {
   }, [params.id]);
 
   const getGame = async () => {
+    setIsLoading(true);
     await axios
       .get(`${process.env.REACT_APP_SERVERIP}/Games/${params.id}`)
       .then((res) => {
         setGame(res.data);
+        setIsLoading(false);
       });
   };
 
@@ -41,20 +45,9 @@ function GameDetailsPage() {
         disableGutters={useMediaQuery(theme.breakpoints.only("xs"))}
       >
         <Box sx={{ flexGrow: 1, padding: 5 }}>
-          {!game && (
-            <Box
-              sx={{
-                width: "100%",
-                display: "flex",
-                justifyContent: "center",
-                mt: 3,
-                mb: 3,
-              }}
-            >
-              <CircularProgress />
-            </Box>
-          )}
-          {game && (
+          {isLoading ? (
+            <SpinningLoading/>
+          ) : (
             <Grid container spacing={2}>
               <Grid item xs={12} sm={12} sx={{ borderBottom: 1 }}>
                 <Typography variant="h4">{game.name}</Typography>

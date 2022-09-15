@@ -13,7 +13,6 @@ function GamesPage() {
   const [games, setGames] = useState([]);
   const [page, setPage] = useState(1);
   const [numberOfPages, setNumberOfPages] = useState(10);
-  const [pageSize, setPageSize] = useState(8);
 
   useEffect(() => {
     getGames();
@@ -42,7 +41,6 @@ function GamesPage() {
       .then((res) => {
         setGames(res.data.data);
         setNumberOfPages(res.data.totalPages);
-        setPageSize(res.data.pageSize);
       })
       .catch();
   };
@@ -63,16 +61,15 @@ function GamesPage() {
       <div className="games">
         {games.map((data, i) => {
           return (
-            <div key={data.id}>
+            <React.Fragment key={data.id}>
               <GameCard data={data} getGames={getGames} />
-            </div>
+            </React.Fragment>
           );
         })}
       </div>
       <AppPagination
         setPage={setPage}
         numberOfPages={numberOfPages}
-        pageSize={pageSize}
       />
     </div>
   );

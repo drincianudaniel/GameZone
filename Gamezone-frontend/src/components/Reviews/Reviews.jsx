@@ -3,11 +3,13 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import PostReviewForm from "../Forms/PostReviewForm";
+import SpinningLoading from "../LoadingComponents/SpinningLoading";
 import GamePagination from "../Pagination/GamePagination";
 import Review from "./Review";
 
 function Reviews(props) {
   const [reviews, setReviews] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [page, setPage] = useState(1);
   const [numberOfPages, setNumberOfPages] = useState(10);
   const params = useParams();
@@ -28,13 +30,15 @@ function Reviews(props) {
       .then((res) => {
         setReviews(res.data.data);
         setNumberOfPages(res.data.totalPages);
-        console.log(res.data);
+        setIsLoading(false);
       });
   };
 
   return (
-    <div>
-      {reviews.length > 0 ? (
+    <>
+      {isLoading ? (
+        <SpinningLoading />
+      ) : reviews.length > 0 ? (
         reviews.map((review) => {
           return (
             <Review key={review.id} review={review} getReviews={getReviews} />
@@ -51,7 +55,7 @@ function Reviews(props) {
         getGame={props.getGame}
       />
       <GamePagination setPage={setPage} numberOfPages={numberOfPages} />
-    </div>
+    </>
   );
 }
 

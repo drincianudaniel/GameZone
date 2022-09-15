@@ -2,14 +2,15 @@ import Header from "../components/Header";
 import TopTable from "../components/Tables/TopTable";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Box, CircularProgress, Container, Divider } from "@mui/material";
+import { Container, Divider } from "@mui/material";
 import AppPagination from "../components/Pagination/AppPagination";
+import SpinningLoading from "../components/LoadingComponents/SpinningLoading";
 
 function TopPage() {
   const [games, setGames] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [page, setPage] = useState(1);
   const [numberOfPages, setNumberOfPages] = useState(1);
-  const [pageSize, setPageSize] = useState(10);
 
   useEffect(() => {
     getTop();
@@ -18,41 +19,31 @@ function TopPage() {
   const getTop = async () => {
     await axios
       .get(
-        `${process.env.REACT_APP_SERVERIP}/games/top/page/${page}/page-size/${pageSize}`
+        `${process.env.REACT_APP_SERVERIP}/games/top/page/${page}/page-size/${10}`
       )
       .then((res) => {
         setGames(res.data.data);
         setNumberOfPages(res.data.totalPages);
+        setIsLoading(false);
       });
   };
 
   return (
     <div>
       <Header />
-      {/* {&& (
-        <Box
-          sx={{
-            width: "100%",
-            display: "flex",
-            justifyContent: "center",
-            mt: 3,
-            mb: 3,
-          }}
-        >
-          <CircularProgress />
-        </Box>
-      )} */}
-
-      <Container sx={{ marginTop: 4 }} maxWidth="xl">
-        {" "}
-        <TopTable games={games} />
-        <Divider sx={{ mb: 2 }}></Divider>
-        <AppPagination
-          setPage={setPage}
-          numberOfPages={numberOfPages}
-          pageSize={pageSize}
-        />
-      </Container>
+      {isLoading ? (
+        <SpinningLoading />
+      ) : (
+        <Container sx={{ marginTop: 4 }} maxWidth="xl">
+          {" "}
+          <TopTable games={games} />
+          <Divider sx={{ mb: 2 }}></Divider>
+          <AppPagination
+            setPage={setPage}
+            numberOfPages={numberOfPages}
+          />
+        </Container>
+      )}
     </div>
   );
 }
