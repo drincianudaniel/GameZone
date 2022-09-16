@@ -182,6 +182,7 @@ namespace GameZone.Infrastructure.Repositories
                 default:
                     games = games.OrderBy(game => game.Name);
                     break;
+                    //context-api
             }
 
             return await games.Take(number).AsNoTracking().ToListAsync();
