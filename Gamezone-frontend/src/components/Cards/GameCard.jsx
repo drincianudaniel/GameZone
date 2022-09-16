@@ -14,7 +14,8 @@ export default function GameCard(props) {
     await axios
       .delete(`${process.env.REACT_APP_SERVERIP}/Games/${props.data.id}`)
       .then((response) => {
-        props.getGames();
+        const updatedGames = props.games.filter(item => item.id !== props.data.id)
+        props.setGames(updatedGames);
       })
       .catch((err) => console.log(err));
   };
