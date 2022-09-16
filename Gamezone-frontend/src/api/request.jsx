@@ -2,7 +2,7 @@ import axios from "axios";
 
 const client = (() => {
   return axios.create({
-    baseURL: "https://localhost:7092/api"
+    baseURL: "https://localhost:7092/api",
   });
 })();
 
@@ -11,7 +11,7 @@ const request = async function (options, store) {
   // success handler
   const onSuccess = function (response) {
     const {
-      data: { message }
+      data: { message },
     } = response;
     return message;
   };
@@ -22,7 +22,10 @@ const request = async function (options, store) {
   };
 
   // adding success and error handlers to client
-  return client(options);
+  return client(options).catch((err) => {
+    if (err.message === "Request failed with status code 404") {
+    }
+  });
 };
 
 export default request;

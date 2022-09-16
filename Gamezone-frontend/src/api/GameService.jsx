@@ -1,16 +1,24 @@
 import request from "./request";
 
 export default class GameService{
-    static getGamesPaginated(page){
-        return request({
+    
+    static async getGamesPaginated(page){
+        return await request({
             url: `/games/page/${page}/page-size/${8}`,
             method: "GET"
         });
     }
 
-    static getHomePageGames(count, sortOrder){
-        return request({
+    static async getHomePageGames(count, sortOrder){
+        return await request({
             url: `/games/number/${count}/sort-order/${sortOrder}`,
+            method: "GET"
+        })
+    }
+
+    static async getGame(id){
+        return await request({
+            url: `/games/${id}`,
             method: "GET"
         })
     }

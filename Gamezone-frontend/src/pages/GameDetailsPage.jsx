@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import axios from "axios";
 import Header from "../components/Header";
 import Rating from "@mui/material/Rating";
 import Typography from "@mui/material/Typography";
@@ -14,6 +13,7 @@ import { Container } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import SpinningLoading from "../components/LoadingComponents/SpinningLoading";
+import GameService from "../api/GameService";
 
 function GameDetailsPage() {
   const [game, setGame] = useState([]);
@@ -29,8 +29,7 @@ function GameDetailsPage() {
 
   const getGame = async () => {
     setIsLoading(true);
-    await axios
-      .get(`${process.env.REACT_APP_SERVERIP}/Games/${params.id}`)
+    GameService.getGame(params.id)
       .then((res) => {
         setGame(res.data);
         setIsLoading(false);

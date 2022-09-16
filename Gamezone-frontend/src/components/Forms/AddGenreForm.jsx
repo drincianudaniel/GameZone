@@ -24,6 +24,7 @@ function AddGenreForm() {
     axios
       .post(`${process.env.REACT_APP_SERVERIP}/genres`, dataToPost)
       .then((response) => {
+        console.log(response)
         toast.success("Genre Added");
         reset();
       })

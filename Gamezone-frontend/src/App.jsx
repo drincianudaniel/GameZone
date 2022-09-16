@@ -6,6 +6,7 @@ import GameDetailsPage from "./pages/GameDetailsPage";
 import AddPage from "./pages/AddPage";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Error404Page from "./pages/Error404Page";
 
 function App() {
   return (
@@ -17,6 +18,8 @@ function App() {
         <Route exact path={"/games"} element={<GamesPage />} />
         <Route exact path={"/add"} element={<AddPage />} />
         <Route path={"/game/:id"} element={<GameDetailsPage />} />
+        <Route exact path={"/404"} element={<Error404Page />} />
+
       </Routes>
     </div>
   );

@@ -5,20 +5,11 @@ import Divider from "@mui/material/Divider";
 import moment from "moment";
 import axios from "axios";
 import MoreMenu from "../Menus/MoreMenu";
+import { convertUTCDateToLocalDate } from "../../utils/TimeConverting";
 
 const imgLink =
   "https://images.pexels.com/photos/1681010/pexels-photo-1681010.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260";
 
-function convertUTCDateToLocalDate(date) {
-  var newDate = new Date(date.getTime() + date.getTimezoneOffset() * 60 * 1000);
-
-  var offset = date.getTimezoneOffset() / 60;
-  var hours = date.getHours();
-
-  newDate.setHours(hours - offset);
-
-  return newDate;
-}
 
 function Review(props) {
   const handleDelete = async () => {
