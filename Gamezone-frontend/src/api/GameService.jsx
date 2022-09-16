@@ -7,4 +7,11 @@ export default class GameService{
             method: "GET"
         });
     }
+
+    static getHomePageGames(count, sortOrder){
+        return request({
+            url: `/games/number/${count}/sort-order/${sortOrder}`,
+            method: "GET"
+        })
+    }
 }

@@ -22,12 +22,14 @@ function GamesPage() {
   const [numberOfPages, setNumberOfPages] = useState(10);
 
   useEffect(() => {
-    //getGames();
-    GameService.getGamesPaginated(page).then((response) =>{
-      console.log(response);
-      setGames(response.data.data);
-      setNumberOfPages(response.data.totalPages);
-    });
+    getGames();
+
+
+    // GameService.getGamesPaginated(page).then((response) =>{
+    //   console.log(response);
+    //   setGames(response.data.data);
+    //   setNumberOfPages(response.data.totalPages);
+    // });
 
     //console.log(data.data);
     // if (isLodoing){
@@ -44,17 +46,24 @@ function GamesPage() {
   // finally flase
   // return {data: data, isLoading, error ""}
 
-  const getGames = async () => {
-    await axios
-      .get(
-        `${process.env.REACT_APP_SERVERIP}/games/page/${page}/page-size/${8}`
-      )
-      .then((res) => {
-        setGames(res.data.data);
-        setNumberOfPages(res.data.totalPages);
-      })
-      .catch();
-  };
+  const getGames = () =>{
+    GameService.getGamesPaginated(page).then((response) =>{
+      console.log(response)
+      setGames(response.data.data)
+      setNumberOfPages(response.data.totalPages)
+    })
+  }
+  // const getGames = async () => {
+  //   await axios
+  //     .get(
+  //       `${process.env.REACT_APP_SERVERIP}/games/page/${page}/page-size/${8}`
+  //     )
+  //     .then((res) => {
+  //       setGames(res.data.data);
+  //       setNumberOfPages(res.data.totalPages);
+  //     })
+  //     .catch();
+  // };
 
   return (
     <div className="gamePageContent">

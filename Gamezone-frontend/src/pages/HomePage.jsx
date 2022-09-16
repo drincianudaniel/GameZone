@@ -7,6 +7,7 @@ import HomePageList from "../components/Lists/HomePageList";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import HomePageCarousel from "../components/Carousels/HomePageCarousel";
+import GameService from "../api/GameService";
 
 function HomePage() {
   const [actionGames, setActionGames] = useState();
@@ -14,6 +15,8 @@ function HomePage() {
   const [releasedGames, setReleasedGames] = useState();
   const [addedGames, setAddedGames] = useState();
   const [topRatedGames, setTopRatedGames] = useState();
+
+  
   useEffect(() => {
     getActionGames();
     getMostPopularGames();
@@ -23,10 +26,7 @@ function HomePage() {
   }, []);
 
   const getActionGames = async () => {
-    await axios
-      .get(
-        `${process.env.REACT_APP_SERVERIP}/games/number/3/sort-order/top-action`
-      )
+    GameService.getHomePageGames(3, "top-action")
       .then((res) => {
         setActionGames(res.data);
       })
@@ -34,10 +34,7 @@ function HomePage() {
   };
 
   const getMostPopularGames = async () => {
-    await axios
-      .get(
-        `${process.env.REACT_APP_SERVERIP}/games/number/5/sort-order/most-popular`
-      )
+    GameService.getHomePageGames(5, "most-popular")
       .then((res) => {
         setMostPopular(res.data);
       })
@@ -45,10 +42,7 @@ function HomePage() {
   };
 
   const getReleasedGames = async () => {
-    await axios
-      .get(
-        `${process.env.REACT_APP_SERVERIP}/games/number/10/sort-order/latest`
-      )
+    GameService.getHomePageGames(10, "latest")
       .then((res) => {
         setReleasedGames(res.data);
       })
@@ -56,10 +50,7 @@ function HomePage() {
   };
 
   const getAddedGames = async () => {
-    await axios
-      .get(
-        `${process.env.REACT_APP_SERVERIP}/games/number/10/sort-order/added-recently`
-      )
+    GameService.getHomePageGames(10, "added-recently")
       .then((res) => {
         setAddedGames(res.data);
       })
@@ -67,10 +58,7 @@ function HomePage() {
   };
 
   const getTopRatedGames = async () => {
-    await axios
-      .get(
-        `${process.env.REACT_APP_SERVERIP}/games/number/3/sort-order/top-rated-games`
-      )
+    GameService.getHomePageGames(3, "top-rated-games")
       .then((res) => {
         setTopRatedGames(res.data);
       })
