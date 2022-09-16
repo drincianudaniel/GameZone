@@ -53,7 +53,7 @@ function Comments() {
           No comments yet. Please add a comment.
         </Typography>
       )}
-      <PostCommentForm id={params.id} getComments={getComments} />
+      <PostCommentForm id={params.id} setComments={setComments} comments={comments} />
       <GamePagination setPage={setPage} numberOfPages={numberOfPages} />
     </>
   );

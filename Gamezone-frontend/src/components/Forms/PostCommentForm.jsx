@@ -4,6 +4,8 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { convertUTCDateToLocalDate } from "../../Helpers";
+import moment from "moment";
 
 function PostCommentForm(props) {
   const {
@@ -26,7 +28,15 @@ function PostCommentForm(props) {
       .post(`${process.env.REACT_APP_SERVERIP}/comments`, dataToPost)
       .then((response) => {
         console.log(response);
-        props.getComments();
+        props.setComments([
+          {
+            id: response.data.id,
+            username: response.data.username,
+            content: response.data.content,
+            createdAt: new Date(response.data.createdAt),
+          },
+          ...props.comments,
+        ]);
         reset();
         toast.success(response.statusText);
       })
