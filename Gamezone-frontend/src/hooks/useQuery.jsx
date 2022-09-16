@@ -6,10 +6,14 @@ const useQuery = (url, method = "GET") => {
   const [isLoading, setLoading] = useState(true);
   console.log(`sending ${method} request to ${url}`);
 
-  fetch(url, {
+  fetch(`${process.env.REACT_APP_SERVERIP}/${url}`, {
     method: method,
   })
-    .then((x) => setData(x))
+    .then((res) => res.json())
+    .then((data) => {
+      setData(data.data);
+      console.log(data.data)
+    })
     .catch((x) => setError("error"))
     .finally(() => setLoading(false));
   return { data: data, isLoading: isLoading, error: error };

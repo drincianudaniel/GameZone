@@ -1,5 +1,5 @@
 import Header from "../components/Header";
-import { useEffect, useState } from "react";
+import { useEffect, useState, createContext, useContext } from "react";
 import axios from "axios";
 import * as React from "react";
 import GameCard from "../components/Cards/GameCard";
@@ -8,6 +8,13 @@ import AddBoxIcon from "@mui/icons-material/AddBox";
 import { IconButton } from "@mui/material";
 import { Link } from "react-router-dom";
 import AppPagination from "../components/Pagination/AppPagination";
+import GameService from "../api/GameService";
+
+const GamesContext = createContext();
+
+export function useGames() {
+  return useContext(GamesContext);
+}
 
 function GamesPage() {
   const [games, setGames] = useState([]);
@@ -15,15 +22,19 @@ function GamesPage() {
   const [numberOfPages, setNumberOfPages] = useState(10);
 
   useEffect(() => {
-    getGames();
+    //getGames();
+    GameService.getGamesPaginated(page).then((response) =>{
+      console.log(response);
+      setGames(response.data.data);
+      setNumberOfPages(response.data.totalPages);
+    });
 
-    // const {data} = useQuery("/games", "GET");
+    //console.log(data.data);
     // if (isLodoing){
     //   // display loading
     // }
     // else
-    // setGames(data)
-
+    //setGames(data);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page]);
 
@@ -48,7 +59,6 @@ function GamesPage() {
   return (
     <div className="gamePageContent">
       <Header />
-      {console.log(page)}
       <div className="subheader">
         <IconButton className="addButton" size="large">
           <Link style={{ textDecoration: "none", color: "black" }} to={`/add`}>
@@ -67,10 +77,7 @@ function GamesPage() {
           );
         })}
       </div>
-      <AppPagination
-        setPage={setPage}
-        numberOfPages={numberOfPages}
-      />
+      <AppPagination setPage={setPage} numberOfPages={numberOfPages} />
     </div>
   );
 }
