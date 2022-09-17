@@ -33,6 +33,9 @@ function GameDetailsPage() {
       .then((res) => {
         setGame(res.data);
         setIsLoading(false);
+      })
+      .catch((err) => {
+        setIsLoading(false);
       });
   };
 
@@ -45,7 +48,7 @@ function GameDetailsPage() {
       >
         <Box sx={{ flexGrow: 1, padding: 5 }}>
           {isLoading ? (
-            <SpinningLoading/>
+            <SpinningLoading />
           ) : (
             <Grid container spacing={2}>
               <Grid item xs={12} sm={12} sx={{ borderBottom: 1 }}>

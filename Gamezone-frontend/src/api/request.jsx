@@ -1,5 +1,6 @@
 import axios from "axios";
-
+import { Navigate } from "react-router";
+import Error404Page from "../pages/Error404Page";
 const client = (() => {
   return axios.create({
     baseURL: "https://localhost:7092/api",
@@ -23,7 +24,9 @@ const request = async function (options, store) {
 
   // adding success and error handlers to client
   return client(options).catch((err) => {
-    if (err.message === "Request failed with status code 404") {
+    if(err.response.status == 404){
+      window.location.href = "/notfound";
+      return;
     }
   });
 };
