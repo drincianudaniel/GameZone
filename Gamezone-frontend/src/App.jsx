@@ -21,7 +21,7 @@ function App() {
         <Route exact path={"/top"} element={<TopPage />} />
         <Route exact path={"/games"} element={<GamesPage />} />
         <Route path={"/:admin-page/*"} element={<AdminPage />}/>
-        <Route path={"/game/:id"} element={<GameDetailsPage />} />
+        <Route path={"/:game/:id/*"} element={<GameDetailsPage />} />
         <Route path={"/notfound"} element={<Error404Page />} />
         <Route path={"*"} element={<Navigate to="/notfound" replace />} />
         <Route path={"/admin-page"} element={<Navigate to="/admin-page/add-game" replace />}/>

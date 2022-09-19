@@ -115,18 +115,6 @@ export default function BasicTabs() {
           />
         </Tabs>
       </Box>
-      {/* <TabPanel value={value} index={0}>
-        <AddGameForm />
-      </TabPanel>
-      <TabPanel value={value} index={1}>
-        <DevelopersTabbedPanel />
-      </TabPanel>
-      <TabPanel value={value} index={2}>
-        <AddGenreForm />
-      </TabPanel>
-      <TabPanel value={value} index={3}>
-        <AddPlatformForm />
-      </TabPanel> */}
       <Routes>
         <Route path={"add-game"} element={<AddGameForm />} />
         <Route path={":developers/*"} element={<DevelopersTabbedPanel />} />

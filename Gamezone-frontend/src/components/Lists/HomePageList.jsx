@@ -21,7 +21,7 @@ export default function HomePageList(props) {
               <ListItem key={game.id}>
                 <ListItemAvatar>
                   <Link
-                    to={`/game/${game.id}`}
+                    to={`/game/${game.id}/comments`}
                     style={{ textDecoration: "none" }}
                   >
                     <Box

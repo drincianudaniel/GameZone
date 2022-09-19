@@ -28,7 +28,7 @@ export default function GameCard(props) {
     >
       <Link
         style={{ textDecoration: "none", color: "black" }}
-        to={`/game/${props.data.id}`}
+        to={`/game/${props.data.id}/comments`}
       >
         <CardHeader
           sx={{
