@@ -6,6 +6,7 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Reviews from '../Reviews/Reviews';
 import Comments from '../Comments/Comments';
+import { Link } from 'react-router-dom';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -38,6 +39,16 @@ function a11yProps(index) {
     id: `simple-tab-${index}`,
     'aria-controls': `simple-tabpanel-${index}`,
   };
+}
+
+function LinkTab(props) {
+  return (
+    <Tab
+      component={Link}
+      to={props.pathname}
+      {...props}
+    />
+  );
 }
 
 export default function DetailsTabbedPanel(props) {

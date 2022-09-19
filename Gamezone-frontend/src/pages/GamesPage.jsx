@@ -6,7 +6,7 @@ import GameCard from "../components/Cards/GameCard";
 import "./css/GamesPage.css";
 import AddBoxIcon from "@mui/icons-material/AddBox";
 import { IconButton } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import AppPagination from "../components/Pagination/AppPagination";
 import GameService from "../api/GameService";
 
@@ -20,7 +20,6 @@ function GamesPage() {
   const [games, setGames] = useState([]);
   const [page, setPage] = useState(1);
   const [numberOfPages, setNumberOfPages] = useState(10);
-
   useEffect(() => {
     getGames();
 
@@ -52,23 +51,12 @@ function GamesPage() {
       setNumberOfPages(response.data.totalPages);
     });
   };
-  // const getGames = async () => {
-  //   await axios
-  //     .get(
-  //       `${process.env.REACT_APP_SERVERIP}/games/page/${page}/page-size/${8}`
-  //     )
-  //     .then((res) => {
-  //       setGames(res.data.data);
-  //       setNumberOfPages(res.data.totalPages);
-  //     })
-  //     .catch();
-  // };
 
   return (
     <div className="gamePageContent">
       <Header />
       <div className="subheader">
-        <Link style={{ textDecoration: "none", color: "black" }} to={`/admin-page`}>
+        <Link style={{ textDecoration: "none", color: "black" }} to={`/admin-page/add-game`}>
           {" "}
           <IconButton className="addButton" size="large">
             <AddBoxIcon fontSize="large" sx={{ color: "white" }} />{" "}
