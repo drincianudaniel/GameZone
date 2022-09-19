@@ -5,7 +5,6 @@ import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import AddDeveloperForm from "../Forms/AddDeveloperForm";
-import DevelopersList from "../Lists/DevelopersList";
 import Developers from "../Developers/Developers";
 import { Route, Routes } from "react-router";
 import { Link } from "react-router-dom";

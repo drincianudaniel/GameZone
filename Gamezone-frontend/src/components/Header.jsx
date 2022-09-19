@@ -38,8 +38,7 @@ const Header = () => {
   };
 
   const redirectToSearchedGame = (id) => {
-    history(`/game/${id}`);
-    window.location.reload(true);
+    history(`/game/${id}/comments`);
   };
 
   const redirectToHome = () => {
