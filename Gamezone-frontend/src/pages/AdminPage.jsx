@@ -1,7 +1,7 @@
 import Header from "../components/Header";
 import AddTabbedPanel from "../components/TabbedPanels/AddTabbedPanel";
 
-function AddPage() {
+function AdminPage() {
   return (
     <div>
       <Header />
@@ -10,4 +10,4 @@ function AddPage() {
   );
 }
 
-export default AddPage;
+export default AdminPage;

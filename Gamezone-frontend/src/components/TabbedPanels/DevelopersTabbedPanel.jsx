@@ -4,11 +4,9 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import AddGameForm from "../Forms/AddGameForm";
-import AddGenreForm from "../Forms/AddGenreForm";
-import AddPlatformForm from "../Forms/AddPlatformForm";
 import AddDeveloperForm from "../Forms/AddDeveloperForm";
-import DevelopersTabbedPanel from "./DevelopersTabbedPanel";
+import DevelopersList from "../Lists/DevelopersList";
+import Developers from "../Developers/Developers";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -22,7 +20,7 @@ function TabPanel(props) {
       {...other}
     >
       {value === index && (
-        <Box>
+        <Box sx={{ p: 3 }}>
           <Typography>{children}</Typography>
         </Box>
       )}
@@ -43,7 +41,7 @@ function a11yProps(index) {
   };
 }
 
-export default function BasicTabs() {
+export default function DevelopersTabbedPanel() {
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
@@ -69,35 +67,15 @@ export default function BasicTabs() {
             },
           }}
         >
-          <Tab sx={{ fontWeight: "bold" }} label="Add game" {...a11yProps(0)} />
-          <Tab
-            sx={{ fontWeight: "bold" }}
-            label="Developers"
-            {...a11yProps(1)}
-          />
-          <Tab
-            sx={{ fontWeight: "bold" }}
-            label="Add genre"
-            {...a11yProps(2)}
-          />
-          <Tab
-            sx={{ fontWeight: "bold" }}
-            label="Add platform"
-            {...a11yProps(3)}
-          />
+          <Tab label="Add developer" {...a11yProps(0)} />
+          <Tab label="Developers list" {...a11yProps(1)} />
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
-        <AddGameForm />
+        <AddDeveloperForm />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <DevelopersTabbedPanel />
-      </TabPanel>
-      <TabPanel value={value} index={2}>
-        <AddGenreForm />
-      </TabPanel>
-      <TabPanel value={value} index={3}>
-        <AddPlatformForm />
+        <Developers />
       </TabPanel>
     </Box>
   );

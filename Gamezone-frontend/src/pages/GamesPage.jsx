@@ -24,7 +24,6 @@ function GamesPage() {
   useEffect(() => {
     getGames();
 
-
     // GameService.getGamesPaginated(page).then((response) =>{
     //   console.log(response);
     //   setGames(response.data.data);
@@ -46,13 +45,13 @@ function GamesPage() {
   // finally flase
   // return {data: data, isLoading, error ""}
 
-  const getGames = () =>{
-    GameService.getGamesPaginated(page).then((response) =>{
-      console.log(response)
-      setGames(response.data.data)
-      setNumberOfPages(response.data.totalPages)
-    })
-  }
+  const getGames = () => {
+    GameService.getGamesPaginated(page).then((response) => {
+      console.log(response);
+      setGames(response.data.data);
+      setNumberOfPages(response.data.totalPages);
+    });
+  };
   // const getGames = async () => {
   //   await axios
   //     .get(
@@ -69,12 +68,12 @@ function GamesPage() {
     <div className="gamePageContent">
       <Header />
       <div className="subheader">
-        <IconButton className="addButton" size="large">
-          <Link style={{ textDecoration: "none", color: "black" }} to={`/add`}>
-            {" "}
+        <Link style={{ textDecoration: "none", color: "black" }} to={`/admin-page`}>
+          {" "}
+          <IconButton className="addButton" size="large">
             <AddBoxIcon fontSize="large" sx={{ color: "white" }} />{" "}
-          </Link>
-        </IconButton>
+          </IconButton>
+        </Link>
       </div>
       <div className="nav"></div>
       <div className="games">

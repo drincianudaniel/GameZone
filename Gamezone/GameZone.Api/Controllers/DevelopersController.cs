@@ -4,8 +4,10 @@ using GameZone.Api.ViewModels;
 using GameZone.Application.Developers.Commands.CreateDeveloper;
 using GameZone.Application.Developers.Commands.DeleteDeveloper;
 using GameZone.Application.Developers.Commands.UpdateDeveloper;
+using GameZone.Application.Developers.Queries.CountAsync;
 using GameZone.Application.Developers.Queries.GetDeveloperById;
 using GameZone.Application.Developers.Queries.GetDevelopersList;
+using GameZone.Application.Developers.Queries.GetDevelopersPaged;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -43,6 +45,26 @@ namespace GameZone.Api.Controllers
 
             var mappedResult = _mapper.Map<DeveloperDto>(result);
             return Ok(mappedResult);
+        }
+
+        [HttpGet]
+        [Route("page/{page}/page-size/{pageSize}")]
+        public async Task<IActionResult> GetDevelopersPaged(int page, int pageSize)
+        {
+            _logger.LogInformation("Getting developers at page {page}", page);
+
+            var result = await _mediator.Send(new GetDevelopersPagedQuery
+            {
+                Page = page,
+                PageSize = pageSize
+            });
+
+            var count = await _mediator.Send(new CountAsyncQuery());
+            var totalPages = ((double)count / (double)pageSize);
+            int roundedTotalPages = Convert.ToInt32(Math.Ceiling(totalPages));
+
+            var mappedResult = _mapper.Map<IEnumerable<DeveloperDto>>(result);
+            return Ok(new PagedResponse<IEnumerable<DeveloperDto>>(mappedResult, page, count, roundedTotalPages, pageSize));
         }
 
         [HttpGet]
