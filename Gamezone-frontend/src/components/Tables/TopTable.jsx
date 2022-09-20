@@ -59,7 +59,7 @@ export default function TopTable(props) {
                   {" "}
                   <Grid item md={1}>
                     <Link
-                      to={`/game/${game.id}`}
+                      to={`/game/${game.id}/comments`}
                       style={{ textDecoration: "none" }}
                     >
                       <Box
@@ -82,7 +82,7 @@ export default function TopTable(props) {
                       }}
                     >
                       <Link
-                        to={`/game/${game.id}`}
+                        to={`/game/${game.id}/comments`}
                         style={{ textDecoration: "none" }}
                       >
                         <Typography sx={{ fontSize: 20, color: "#1c439b" }}>

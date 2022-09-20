@@ -4,10 +4,10 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import AddDeveloperForm from "../Forms/AddDeveloperForm";
-import Developers from "../Developers/Developers";
+import AddGenreForm from "../Forms/AddGenreForm";
 import { Route, Routes } from "react-router";
 import { Link } from "react-router-dom";
+import Genres from "../Genres/Genres";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -43,18 +43,18 @@ function a11yProps(index) {
 }
 
 function LinkTab(props) {
+  console.log(props);
   return <Tab component={Link} to={props.pathname} {...props} />;
 }
 
-export default function DevelopersTabbedPanel() {
+export default function GenresTabbedPanel() {
   const [value, setValue] = React.useState(0);
 
   React.useEffect(() => {
     let path = window.location.pathname;
 
-    if (path === "/admin-page/developers/add-developer" && value !== 0)
-      setValue(0);
-    else if (path === "/admin-page/developers/list" && value !== 1) setValue(1);
+    if (path === "/admin-page/genres/add-genre" && value !== 0) setValue(0);
+    else if (path === "/admin-page/genres/list" && value !== 1) setValue(1);
   }, [value]);
 
   const handleChange = (event, newValue) => {
@@ -81,21 +81,22 @@ export default function DevelopersTabbedPanel() {
           }}
         >
           <LinkTab
-            label="Add developer"
-            pathname="/admin-page/developers/add-developer"
+            label="Add genre"
+            pathname="/admin-page/genres/add-genre"
             {...a11yProps(0)}
           />
           <LinkTab
-            label="Developers list"
-            pathname="/admin-page/developers/list"
+            label="Genres list"
+            pathname="/admin-page/genres/list"
             {...a11yProps(1)}
           />
         </Tabs>
       </Box>
       <Box sx={{ padding: { xs: "10px" } }}>
+        {" "}
         <Routes>
-          <Route path={"add-developer"} element={<AddDeveloperForm />} />
-          <Route path={"list"} element={<Developers />} />
+          <Route path={"add-genre"} element={<AddGenreForm />} />
+          <Route path={"list"} element={<Genres />} />
         </Routes>
       </Box>
     </Box>

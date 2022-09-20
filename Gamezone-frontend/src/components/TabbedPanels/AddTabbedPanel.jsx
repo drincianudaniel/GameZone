@@ -5,11 +5,10 @@ import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import AddGameForm from "../Forms/AddGameForm";
-import AddGenreForm from "../Forms/AddGenreForm";
 import AddPlatformForm from "../Forms/AddPlatformForm";
-import AddDeveloperForm from "../Forms/AddDeveloperForm";
 import DevelopersTabbedPanel from "./DevelopersTabbedPanel";
 import { Link, Route, Routes } from "react-router-dom";
+import GenresTabbedPanel from "./GenresTabbedPanel";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -45,13 +44,7 @@ function a11yProps(index) {
 }
 
 function LinkTab(props) {
-  return (
-    <Tab
-      component={Link}
-      to={props.pathname}
-      {...props}
-    />
-  );
+  return <Tab component={Link} to={props.pathname} {...props} />;
 }
 
 export default function BasicTabs() {
@@ -62,7 +55,13 @@ export default function BasicTabs() {
 
     if (path === "/admin-page/add-game" && value !== 0) setValue(0);
     else if (path === "/admin-page/developers" && value !== 1) setValue(1);
-    else if (path === "/admin-page/add-genre" && value !== 2) setValue(2);
+    else if (path === "/admin-page/developers/add-developer" && value !== 1)
+      setValue(1);
+    else if (path === "/admin-page/developers/list" && value !== 1) setValue(1);
+    else if (path === "/admin-page/genres" && value !== 2) setValue(2);
+    else if (path === "/admin-page/genres/add-genre" && value !== 2)
+      setValue(2);
+    else if (path === "/admin-page/genres/list" && value !== 2) setValue(2);
     else if (path === "/admin-page/add-platform" && value !== 3) setValue(3);
   }, [value]);
 
@@ -103,8 +102,8 @@ export default function BasicTabs() {
           />
           <LinkTab
             sx={{ fontWeight: "bold" }}
-            label="Add genre"
-            pathname="/admin-page/add-genre"
+            label="Genres"
+            pathname="/admin-page/genres/add-genre"
             {...a11yProps(2)}
           />
           <LinkTab
@@ -115,12 +114,22 @@ export default function BasicTabs() {
           />
         </Tabs>
       </Box>
-      <Routes>
-        <Route path={"add-game"} element={<AddGameForm />} />
-        <Route path={":developers/*"} element={<DevelopersTabbedPanel />} />
-        <Route path={"add-genre"} element={<AddGenreForm />} />
-        <Route path={"add-platform"} element={<AddPlatformForm />} />
-      </Routes>
+      <Box>
+        <Routes>
+          <Route
+            path={"add-game"}
+            element={
+              <Box sx={{ padding: { xs: "10px" } }}>
+                <AddGameForm />
+              </Box>
+            }
+          />
+
+          <Route path={"developers/*"} element={<DevelopersTabbedPanel />} />
+          <Route path={"genres/*"} element={<GenresTabbedPanel />} />
+          <Route path={"add-platform"} element={<AddPlatformForm />} />
+        </Routes>
+      </Box>
     </Box>
   );
 }

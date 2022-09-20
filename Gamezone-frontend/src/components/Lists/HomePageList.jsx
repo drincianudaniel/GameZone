@@ -35,7 +35,7 @@ export default function HomePageList(props) {
                   sx={{ marginLeft: 0.5 }}
                   primary={
                     <Link
-                      to={`/game/${game.id}`}
+                      to={`/game/${game.id}/comments`}
                       style={{ textDecoration: "none" }}
                     >
                       <Typography sx={{ fontSize: 18, color: "#1c439b" }}>

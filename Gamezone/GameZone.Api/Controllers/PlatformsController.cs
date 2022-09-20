@@ -8,6 +8,8 @@ using GameZone.Application.Platforms.Commands.CreatePlatform;
 using GameZone.Application.Platforms.Commands.DeletePlatform;
 using GameZone.Application.Platforms.Commands.UpdatePlatform;
 using GameZone.Api.DTOs;
+using GameZone.Application.Platforms.Queries.GetPlatformsPaged;
+using GameZone.Application.Platforms.Queries.CountAsync;
 
 namespace GameZone.Api.Controllers
 {
@@ -53,6 +55,26 @@ namespace GameZone.Api.Controllers
             var result = await _mediator.Send(new GetPlatformsListQuery());
             var mappedResult = _mapper.Map<IEnumerable<PlatformDto>>(result);
             return Ok(mappedResult);
+        }
+
+        [HttpGet]
+        [Route("page/{page}/page-size/{pageSize}")]
+        public async Task<IActionResult> GetGenresPaged(int page, int pageSize)
+        {
+            _logger.LogInformation("Getting platforms at page {page}", page);
+
+            var result = await _mediator.Send(new GetPlatformsPagedQuery
+            {
+                Page = page,
+                PageSize = pageSize
+            });
+
+            var count = await _mediator.Send(new CountAsyncQuery());
+            var totalPages = ((double)count / (double)pageSize);
+            int roundedTotalPages = Convert.ToInt32(Math.Ceiling(totalPages));
+
+            var mappedResult = _mapper.Map<IEnumerable<PlatformDto>>(result);
+            return Ok(new PagedResponse<IEnumerable<PlatformDto>>(mappedResult, page, count, roundedTotalPages, pageSize));
         }
 
         [HttpPost]

@@ -43,6 +43,7 @@ namespace GameZone.Infrastructure.Repositories
 
             return await _context.Developers
                 .AsNoTracking()
+                .OrderByDescending(date => date.CreatedAt)
                 .ToPagedListAsync(pageNumber, pageSize);
         }
 

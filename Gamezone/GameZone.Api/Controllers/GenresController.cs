@@ -8,6 +8,8 @@ using GameZone.Application.Genres.Queries.GetGenresList;
 using GameZone.Application.Genres.Commands.DeleteGenre;
 using GameZone.Application.Genres.Commands.UpdateGenre;
 using GameZone.Api.DTOs;
+using GameZone.Application.Genres.Queries.GetGenresPaged;
+using GameZone.Application.Genres.Queries.CountAsync;
 
 namespace GameZone.Api.Controllers
 {
@@ -51,6 +53,26 @@ namespace GameZone.Api.Controllers
             var result = await _mediator.Send(new GetGenresListQuery());
             var mappedResult = _mapper.Map<IEnumerable<GenreDto>>(result);
             return Ok(mappedResult);
+        }
+
+        [HttpGet]
+        [Route("page/{page}/page-size/{pageSize}")]
+        public async Task<IActionResult> GetGenresPaged(int page, int pageSize)
+        {
+            _logger.LogInformation("Getting genres at page {page}", page);
+
+            var result = await _mediator.Send(new GetGenresPagedQuery
+            {
+                Page = page,
+                PageSize = pageSize
+            });
+
+            var count = await _mediator.Send(new CountAsyncQuery());
+            var totalPages = ((double)count / (double)pageSize);
+            int roundedTotalPages = Convert.ToInt32(Math.Ceiling(totalPages));
+
+            var mappedResult = _mapper.Map<IEnumerable<GenreDto>>(result);
+            return Ok(new PagedResponse<IEnumerable<GenreDto>>(mappedResult, page, count, roundedTotalPages, pageSize));
         }
 
         [HttpPost]

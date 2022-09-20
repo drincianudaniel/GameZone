@@ -48,6 +48,14 @@ function LinkTab(props) {
 export default function DetailsTabbedPanel(props) {
   const [value, setValue] = React.useState(0);
   const params = useParams();
+
+  React.useEffect(() => {
+    let path = window.location.pathname;
+
+    if (path === `/game/${params.id}/comments` && value !== 0) setValue(0);
+    else if (path === `/game/${params.id}/reviews` && value !== 1) setValue(1);
+  }, [value]);
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };

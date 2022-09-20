@@ -7,10 +7,6 @@ import AdminPage from "./pages/AdminPage";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Error404Page from "./pages/Error404Page";
-import DevelopersTabbedPanel from "./components/TabbedPanels/DevelopersTabbedPanel";
-import AddGameForm from "./components/Forms/AddGameForm";
-import AddGenreForm from "./components/Forms/AddGenreForm";
-import AddPlatformForm from "./components/Forms/AddPlatformForm";
 
 function App() {
   return (

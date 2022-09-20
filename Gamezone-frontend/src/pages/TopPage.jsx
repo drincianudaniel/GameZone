@@ -19,7 +19,9 @@ function TopPage() {
   const getTop = async () => {
     await axios
       .get(
-        `${process.env.REACT_APP_SERVERIP}/games/top/page/${page}/page-size/${10}`
+        `${
+          process.env.REACT_APP_SERVERIP
+        }/games/top/page/${page}/page-size/${10}`
       )
       .then((res) => {
         setGames(res.data.data);
@@ -38,10 +40,7 @@ function TopPage() {
           {" "}
           <TopTable games={games} />
           <Divider sx={{ mb: 2 }}></Divider>
-          <AppPagination
-            setPage={setPage}
-            numberOfPages={numberOfPages}
-          />
+          <AppPagination setPage={setPage} numberOfPages={numberOfPages} />
         </Container>
       )}
     </div>

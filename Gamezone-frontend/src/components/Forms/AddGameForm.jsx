@@ -88,7 +88,7 @@ function AddGameForm() {
 
   return (
     <Box
-      sx={{ width: "100%", mt: 3 }}
+      sx={{ width: "100%", mt: 3}}
       display="flex"
       justifyContent="center"
       alignItems="center"
