@@ -9,6 +9,7 @@ import AddPlatformForm from "../Forms/AddPlatformForm";
 import DevelopersTabbedPanel from "./DevelopersTabbedPanel";
 import { Link, Route, Routes } from "react-router-dom";
 import GenresTabbedPanel from "./GenresTabbedPanel";
+import PlatformsTabbedPanel from "./PlatformsTabbedPanel";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -63,6 +64,9 @@ export default function BasicTabs() {
       setValue(2);
     else if (path === "/admin-page/genres/list" && value !== 2) setValue(2);
     else if (path === "/admin-page/add-platform" && value !== 3) setValue(3);
+    else if (path === "/admin-page/platforms/add-platform" && value !== 3)
+      setValue(3);
+    else if (path === "/admin-page/platforms/list" && value !== 3) setValue(3);
   }, [value]);
 
   const handleChange = (event, newValue) => {
@@ -108,8 +112,8 @@ export default function BasicTabs() {
           />
           <LinkTab
             sx={{ fontWeight: "bold" }}
-            label="Add platform"
-            pathname="/admin-page/add-platform"
+            label="Platforms"
+            pathname="/admin-page/platforms/add-platform"
             {...a11yProps(3)}
           />
         </Tabs>
@@ -127,7 +131,7 @@ export default function BasicTabs() {
 
           <Route path={"developers/*"} element={<DevelopersTabbedPanel />} />
           <Route path={"genres/*"} element={<GenresTabbedPanel />} />
-          <Route path={"add-platform"} element={<AddPlatformForm />} />
+          <Route path={"platforms/*"} element={<PlatformsTabbedPanel />} />
         </Routes>
       </Box>
     </Box>
