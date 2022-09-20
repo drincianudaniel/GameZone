@@ -6,8 +6,9 @@ import axios from "axios";
 import { Box, Grid } from "@mui/material";
 import { toast } from "react-toastify";
 import DeveloperService from "../../../api/DeveloperService";
+import GenreService from "../../../api/GenreService";
 
-function EditDeveloperForm(props) {
+function EditGenreForm(props) {
   const {
     register,
     handleSubmit,
@@ -20,11 +21,10 @@ function EditDeveloperForm(props) {
 
     const dataToPost = {
       name: data.Name,
-      headQuarters: data.Headquarters,
     };
 
-    DeveloperService.updateDeveloper(props.id, dataToPost).then((res) => {
-      props.getDevelopers();
+    GenreService.updateGenre(props.id, dataToPost).then((res) => {
+      props.getGenres();
       props.handleClose();
     });
   };
@@ -63,24 +63,6 @@ function EditDeveloperForm(props) {
               helperText={errors.Name?.message}
             />
           </Grid>
-
-          <Grid item xs={12} md={12}>
-            <TextField
-              fullWidth
-              required
-              sx={{ marginBottom: 1 }}
-              label="Headquarters"
-              name="Headquarters"
-              defaultValue={props.headquarters}
-              id="fullWidth outlined-multiline-static"
-              {...register("Headquarters", {
-                required: { value: true, message: "Headquarters is required" },
-                maxLength: { value: 50, message: "Headquarters is too long" },
-              })}
-              error={!!errors.Headquarters}
-              helperText={errors.Headquarters?.message}
-            />
-          </Grid>
         </Grid>
         <Button type="submit" variant="contained">
           Submit
@@ -90,4 +72,4 @@ function EditDeveloperForm(props) {
   );
 }
 
-export default EditDeveloperForm;
+export default EditGenreForm;

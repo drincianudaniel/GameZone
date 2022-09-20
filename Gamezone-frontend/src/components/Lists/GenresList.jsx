@@ -6,6 +6,7 @@ import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import GenreService from "../../api/GenreService";
 
 export default function GenresList(props) {
+  
   const handleDelete = () => {
     GenreService.deleteGenre(props.genre.id).then((res) => {
       props.getGenres();

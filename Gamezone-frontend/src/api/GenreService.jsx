@@ -15,4 +15,16 @@ export default class GenreService {
     });
   }
 
+  static async updateGenre(id, data) {
+    return await request({
+      method: "PUT",
+      url: `/genres/${id}`,
+      data: data,
+      config: { headers: {
+        'Accept': '*/*',
+        'Content-Type': 'application/json-patch+json'
+      }},
+    });
+  }
+  
 }

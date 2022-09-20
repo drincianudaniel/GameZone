@@ -6,15 +6,15 @@ import TableCell from "@mui/material/TableCell";
 import TableRow from "@mui/material/TableRow";
 import EditIcon from "@mui/icons-material/Edit";
 import FormDialog from "../../Dialogs/FormDialog";
-import EditDeveloperForm from "../../Forms/EditForms/EditDeveloperForm";
+import GenreService from "../../../api/GenreService";
+import EditGenreForm from "../../Forms/EditForms/EditGenreForm";
 
-export default function DevelopersRow(props) {
-
+export default function GenresRow(props) {
   const [open, setOpen] = React.useState(false);
 
   const handleDelete = () => {
-    DeveloperService.deleteDeveloper(props.developer.id).then((res) => {
-      props.getDevelopers();
+    GenreService.deleteGenre(props.genre.id).then((res) => {
+      props.getGenres();
     });
   };
 
@@ -25,11 +25,10 @@ export default function DevelopersRow(props) {
   return (
     <>
       <TableRow
-        key={props.developer.id}
+        key={props.genre.id}
         sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
       >
-        <TableCell allign="center">{props.developer.name}</TableCell>
-        <TableCell align="left">{props.developer.headquarters}</TableCell>
+        <TableCell allign="center">{props.genre.name}</TableCell>
         <TableCell align="center">
           <IconButton onClick={handleClickOpen} aria-label="comment">
             <EditIcon />
@@ -42,14 +41,13 @@ export default function DevelopersRow(props) {
         </TableCell>
       </TableRow>
       <FormDialog
-        id = {props.developer.id}
+        id={props.genre.id}
         setOpen={setOpen}
         open={open}
         handleClickOpen={handleClickOpen}
-        getDevelopers={props.getDevelopers}
-        name = {props.developer.name}
-        headquarters = {props.developer.headquarters}
-        form ={EditDeveloperForm}
+        getGenres={props.getGenres}
+        name={props.genre.name}
+        form={EditGenreForm}
       />
     </>
   );

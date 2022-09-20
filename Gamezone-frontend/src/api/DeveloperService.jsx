@@ -3,7 +3,7 @@ import request from "./request";
 export default class DeveloperService {
   static async getDevelopersPaginated(page) {
     return await request({
-      url: `/developers/page/${page}/page-size/${10}`,
+      url: `/developers/page/${page}/page-size/${9}`,
       method: "GET",
     });
   }
@@ -24,7 +24,6 @@ export default class DeveloperService {
         'Accept': '*/*',
         'Content-Type': 'application/json-patch+json'
       }},
-      
     });
   }
 }

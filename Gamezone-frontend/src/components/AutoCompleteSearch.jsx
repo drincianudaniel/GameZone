@@ -1,7 +1,9 @@
+import { Typography } from "@mui/material";
 import * as React from "react";
 import { useState } from "react";
 import { AsyncPaginate } from "react-select-async-paginate";
-import "./css/AutoCompleteSearch.css";
+import SearchIcon from "@mui/icons-material/Search";
+import { Box } from "@mui/system";
 
 function AutoCompleteSearch(props) {
   const [game, setGame] = useState();
@@ -35,7 +37,12 @@ function AutoCompleteSearch(props) {
   };
   return (
     <AsyncPaginate
-      placeholder="Search"
+      placeholder={
+        <Box sx={{display:"flex"}}>
+          <SearchIcon fontSize="small"></SearchIcon>
+          <Typography>Search</Typography>
+        </Box>
+      }
       value={game}
       debounceTimeout={600}
       onChange={handleSearch}
