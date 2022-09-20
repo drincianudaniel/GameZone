@@ -15,4 +15,16 @@ export default class DeveloperService {
     });
   }
 
+  static async updateDeveloper(id, data) {
+    return await request({
+      method: "PUT",
+      url: `/developers/${id}`,
+      data: data,
+      config: { headers: {
+        'Accept': '*/*',
+        'Content-Type': 'application/json-patch+json'
+      }},
+      
+    });
+  }
 }
