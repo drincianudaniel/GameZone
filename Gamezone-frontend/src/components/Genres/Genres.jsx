@@ -12,6 +12,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import LocalSearchBar from "../Search/LocalSearchBar";
+import { Typography } from "@mui/material";
 
 export default function Genres() {
   const [genres, setGenres] = useState([]);
@@ -44,28 +45,32 @@ export default function Genres() {
         searchString={searchString}
         getData={getGenres}
       />
-      <TableContainer sx={{ maxWidth: 700, mb: 2 }}>
-        <Table sx={{ maxWidth: 700 }} aria-label="simple table">
-          <TableHead>
-            <TableRow>
-              <TableCell sx={{ fontWeight: "bold" }} align="left">
-                Name
-              </TableCell>
-              <TableCell sx={{ fontWeight: "bold" }} align="right">
-                Edit
-              </TableCell>
-              <TableCell sx={{ fontWeight: "bold" }} align="right">
-                Delete
-              </TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {genres.map((genre, i) => {
-              return <GenresRow getGenres={getGenres} genre={genre} />;
-            })}
-          </TableBody>
-        </Table>
-      </TableContainer>
+      {genres.length > 0 ? (
+        <TableContainer sx={{ maxWidth: 700, mb: 2 }}>
+          <Table sx={{ maxWidth: 700 }} aria-label="simple table">
+            <TableHead>
+              <TableRow>
+                <TableCell sx={{ fontWeight: "bold" }} align="left">
+                  Name
+                </TableCell>
+                <TableCell sx={{ fontWeight: "bold" }} align="right">
+                  Edit
+                </TableCell>
+                <TableCell sx={{ fontWeight: "bold" }} align="right">
+                  Delete
+                </TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {genres.map((genre, i) => {
+                return <GenresRow getGenres={getGenres} genre={genre} />;
+              })}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      ) : (
+        <Typography sx={{ mt: 1 }}>No genres found...</Typography>
+      )}
       <GamePagination setPage={setPage} numberOfPages={numberOfPages} />
     </Box>
   );

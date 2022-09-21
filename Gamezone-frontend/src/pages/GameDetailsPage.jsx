@@ -9,12 +9,14 @@ import Grid from "@mui/material/Grid";
 import Chip from "@mui/material/Chip";
 import moment from "moment";
 import DetailsTabbedPanel from "../components/TabbedPanels/DetailsTabbedPannel";
-import { Container } from "@mui/material";
+import { Container, Divider } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import SpinningLoading from "../components/LoadingComponents/SpinningLoading";
 import GameService from "../api/GameService";
 import MoreMenu from "../components/Menus/MoreMenu";
+import FormDialog from "../components/Dialogs/FormDialog";
+import EditGameDetailsForm from "../components/Forms/EditForms/EditGameDetailsForm";
 
 function GameDetailsPage() {
   const [game, setGame] = useState([]);
@@ -22,6 +24,8 @@ function GameDetailsPage() {
   const params = useParams();
   const theme = useTheme();
   const history = useNavigate();
+
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     getGame();
@@ -41,11 +45,15 @@ function GameDetailsPage() {
       });
   };
 
-  const handleDelete = () =>{
-    GameService.deleteGame(params.id).then((res) =>{
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleDelete = () => {
+    GameService.deleteGame(params.id).then((res) => {
       history(`/games`);
-    })
-  }
+    });
+  };
   return (
     <div>
       <Header />
@@ -58,9 +66,19 @@ function GameDetailsPage() {
             <SpinningLoading />
           ) : (
             <Grid container spacing={2}>
-              <Grid item xs={12} sm={12} sx={{ borderBottom: 1, display:"flex", justifyContent:"space-between", alignItems:"center" }}>
+              <Grid
+                item
+                xs={12}
+                sm={12}
+                sx={{
+                  borderBottom: 1,
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                }}
+              >
                 <Typography variant="h4">{game.name}</Typography>
-                <MoreMenu handleDelete={handleDelete}/>
+                <MoreMenu handleDelete={handleDelete} />
               </Grid>
               <Grid
                 item
@@ -78,6 +96,7 @@ function GameDetailsPage() {
                     Release date:{" "}
                     {moment(game.releaseDate).format("MMMM Do YYYY")}
                   </Typography>
+                  <Divider />
                   <Typography>Developers:</Typography>
                   {game.developers && game.developers.length > 0 ? (
                     game.developers.map((developer) => (
@@ -116,14 +135,31 @@ function GameDetailsPage() {
                       />
                     </Grid>
                     <Grid item xs={12} md={12} sx={{ borderBottom: 1 }}>
-                      <Typography className="details">
-                        <Typography
-                          sx={{ fontWeight: "bold", marginBottom: 0.2 }}
+                      <Box sx={{ minHeight: "315px" }} className="details">
+                        <Box
+                          sx={{
+                            display: "flex",
+                            justifyContent: "space-between",
+                            alignItems: "center",
+                          }}
                         >
-                          Synopsis:
+                          <Typography
+                            sx={{ fontWeight: "bold", marginBottom: 0.2 }}
+                          >
+                            Synopsis:
+                          </Typography>
+                          <Typography
+                            onClick={handleClickOpen}
+                            sx={{ marginBottom: 0.2 }}
+                          >
+                            Edit
+                          </Typography>
+                        </Box>
+                        <Divider />
+                        <Typography sx={{ mt: 1 }}>
+                          {game.gameDetails}
                         </Typography>
-                        {game.gameDetails}
-                      </Typography>
+                      </Box>
                     </Grid>
                   </Grid>
                   <DetailsTabbedPanel getGame={getGame} />
@@ -132,6 +168,15 @@ function GameDetailsPage() {
             </Grid>
           )}
         </Box>
+        <FormDialog
+          id={params.id}
+          setOpen={setOpen}
+          open={open}
+          handleClickOpen={handleClickOpen}
+          getGame={getGame}
+          details={game.gameDetails}
+          form={EditGameDetailsForm}
+        />
       </Container>
     </div>
   );

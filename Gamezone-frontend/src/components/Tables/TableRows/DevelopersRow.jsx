@@ -12,14 +12,14 @@ export default function DevelopersRow(props) {
 
   const [open, setOpen] = React.useState(false);
 
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
   const handleDelete = () => {
     DeveloperService.deleteDeveloper(props.developer.id).then((res) => {
       props.getDevelopers();
     });
-  };
-
-  const handleClickOpen = () => {
-    setOpen(true);
   };
 
   return (
