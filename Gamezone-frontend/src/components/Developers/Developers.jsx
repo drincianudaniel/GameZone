@@ -1,13 +1,12 @@
 import * as React from "react";
 import { Box } from "@mui/system";
 import DeveloperService from "../../api/DeveloperService";
-import DevelopersList from "../Tables/TableRows/DevelopersRow";
 import { useState } from "react";
 import { useEffect } from "react";
 import GamePagination from "../Pagination/GamePagination";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
-import TableCell, { tableCellClasses } from "@mui/material/TableCell";
+import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
@@ -22,6 +21,7 @@ export default function Developers() {
 
   useEffect(() => {
     getDevelopers();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page]);
 
   const getDevelopers = () => {
@@ -39,8 +39,12 @@ export default function Developers() {
       alignItems="center"
       flexDirection="column"
     >
-      <LocalSearchBar setSearchString={setSearchString} searchString={searchString} getData={getDevelopers} />
-      <TableContainer sx={{ maxWidth: 700 }}>
+      <LocalSearchBar
+        setSearchString={setSearchString}
+        searchString={searchString}
+        getData={getDevelopers}
+      />
+      <TableContainer sx={{ maxWidth: 700, mb: 2 }}>
         <Table sx={{ maxWidth: 700 }} aria-label="simple table">
           <TableHead>
             <TableRow>

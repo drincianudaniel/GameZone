@@ -18,15 +18,17 @@ export default function Platforms() {
   const [page, setPage] = useState(1);
   const [numberOfPages, setNumberOfPages] = useState(1);
   const [searchString, setSearchString] = useState("");
+  
   useEffect(() => {
     getPlatforms();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page]);
 
   const getPlatforms = () => {
     PlatformService.getPlatformsPaginated(page, searchString).then((res) => {
       setPlatforms(res.data.data);
       setNumberOfPages(res.data.totalPages);
-      console.log(res)
+      console.log(res);
     });
   };
 
@@ -38,8 +40,12 @@ export default function Platforms() {
       alignItems="center"
       flexDirection="column"
     >
-      <LocalSearchBar setSearchString={setSearchString} searchString={searchString} getData={getPlatforms}/>
-      <TableContainer sx={{ maxWidth: 700 }}>
+      <LocalSearchBar
+        setSearchString={setSearchString}
+        searchString={searchString}
+        getData={getPlatforms}
+      />
+      <TableContainer sx={{ maxWidth: 700, mb: 2 }}>
         <Table sx={{ maxWidth: 700 }} aria-label="simple table">
           <TableHead>
             <TableRow>

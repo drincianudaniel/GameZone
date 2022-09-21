@@ -1,5 +1,4 @@
 import * as React from "react";
-import List from "@mui/material/List";
 import { Box } from "@mui/system";
 import { useState } from "react";
 import { useEffect } from "react";
@@ -22,6 +21,7 @@ export default function Genres() {
 
   useEffect(() => {
     getGenres();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page]);
 
   const getGenres = () => {
@@ -39,8 +39,12 @@ export default function Genres() {
       alignItems="center"
       flexDirection="column"
     >
-      <LocalSearchBar setSearchString={setSearchString} searchString={searchString} getData={getGenres} />
-      <TableContainer sx={{ maxWidth: 700 }}>
+      <LocalSearchBar
+        setSearchString={setSearchString}
+        searchString={searchString}
+        getData={getGenres}
+      />
+      <TableContainer sx={{ maxWidth: 700, mb: 2 }}>
         <Table sx={{ maxWidth: 700 }} aria-label="simple table">
           <TableHead>
             <TableRow>

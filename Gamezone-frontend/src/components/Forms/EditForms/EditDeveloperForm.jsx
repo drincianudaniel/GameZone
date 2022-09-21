@@ -2,16 +2,13 @@ import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import axios from "axios";
 import { Box, Grid } from "@mui/material";
-import { toast } from "react-toastify";
 import DeveloperService from "../../../api/DeveloperService";
 
 function EditDeveloperForm(props) {
   const {
     register,
     handleSubmit,
-    reset,
     formState: { errors },
   } = useForm();
 
@@ -29,9 +26,9 @@ function EditDeveloperForm(props) {
     });
   };
 
-  useEffect(()=>{
-    console.log(props)
-  })
+  useEffect(() => {
+    console.log(props);
+  });
   return (
     <Box
       sx={{ width: "100%", mt: 1 }}

@@ -43,7 +43,6 @@ function a11yProps(index) {
 }
 
 function LinkTab(props) {
-  console.log(props);
   return <Tab component={Link} to={props.pathname} {...props} />;
 }
 

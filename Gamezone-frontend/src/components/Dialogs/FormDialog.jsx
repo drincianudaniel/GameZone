@@ -1,10 +1,8 @@
 import * as React from "react";
-import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import { IconButton, Typography } from "@mui/material";
-import { Box } from "@mui/system";
 import CloseIcon from "@mui/icons-material/Close";
 export default function FormDialog(props) {
   const handleClose = () => {
