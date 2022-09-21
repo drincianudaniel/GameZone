@@ -22,4 +22,11 @@ export default class GameService{
             method: "GET"
         })
     }
+
+    static async deleteGame(id) {
+        return await request({
+          url: `/games/${id}`,
+          method: "DELETE",
+        });
+      }
 }

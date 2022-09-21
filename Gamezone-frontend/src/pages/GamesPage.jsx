@@ -1,14 +1,13 @@
 import Header from "../components/Header";
 import { useEffect, useState, createContext, useContext } from "react";
-import axios from "axios";
 import * as React from "react";
 import GameCard from "../components/Cards/GameCard";
 import "./css/GamesPage.css";
-import AddBoxIcon from "@mui/icons-material/AddBox";
-import { IconButton } from "@mui/material";
-import { Link, useParams } from "react-router-dom";
+import { Box, IconButton } from "@mui/material";
+import { Link } from "react-router-dom";
 import AppPagination from "../components/Pagination/AppPagination";
 import GameService from "../api/GameService";
+import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 
 const GamesContext = createContext();
 
@@ -46,7 +45,6 @@ function GamesPage() {
 
   const getGames = () => {
     GameService.getGamesPaginated(page).then((response) => {
-      console.log(response);
       setGames(response.data.data);
       setNumberOfPages(response.data.totalPages);
     });
@@ -55,25 +53,33 @@ function GamesPage() {
   return (
     <div className="gamePageContent">
       <Header />
-      <div className="subheader">
-        <Link style={{ textDecoration: "none", color: "black" }} to={`/admin-page/add-game`}>
-          {" "}
-          <IconButton className="addButton" size="large">
-            <AddBoxIcon fontSize="large" sx={{ color: "white" }} />{" "}
-          </IconButton>
-        </Link>
-      </div>
-      <div className="nav"></div>
-      <div className="games">
-        {games.map((data, i) => {
-          return (
-            <React.Fragment key={data.id}>
-              <GameCard data={data} getGames={getGames} />
-            </React.Fragment>
-          );
-        })}
-      </div>
-      <AppPagination setPage={setPage} numberOfPages={numberOfPages} />
+      <Box className="gamesContent">
+        <div className="subheader">
+          <Link
+            style={{ textDecoration: "none", color: "black" }}
+            to={`/admin-page/add-game`}
+          >
+            {" "}
+            <IconButton className="addButton" size="large">
+              <AdminPanelSettingsIcon
+                fontSize="large"
+                sx={{ color: "white" }}
+              />{" "}
+            </IconButton>
+          </Link>
+        </div>
+        <div className="nav"></div>
+        <div className="games">
+          {games.map((data, i) => {
+            return (
+              <React.Fragment key={data.id}>
+                <GameCard data={data} getGames={getGames} />
+              </React.Fragment>
+            );
+          })}
+        </div>
+        <AppPagination setPage={setPage} numberOfPages={numberOfPages} />
+      </Box>
     </div>
   );
 }

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Header from "../components/Header";
 import Rating from "@mui/material/Rating";
 import Typography from "@mui/material/Typography";
@@ -14,12 +14,14 @@ import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import SpinningLoading from "../components/LoadingComponents/SpinningLoading";
 import GameService from "../api/GameService";
+import MoreMenu from "../components/Menus/MoreMenu";
 
 function GameDetailsPage() {
   const [game, setGame] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const params = useParams();
   const theme = useTheme();
+  const history = useNavigate();
 
   useEffect(() => {
     getGame();
@@ -39,6 +41,11 @@ function GameDetailsPage() {
       });
   };
 
+  const handleDelete = () =>{
+    GameService.deleteGame(params.id).then((res) =>{
+      history(`/games`);
+    })
+  }
   return (
     <div>
       <Header />
@@ -51,8 +58,9 @@ function GameDetailsPage() {
             <SpinningLoading />
           ) : (
             <Grid container spacing={2}>
-              <Grid item xs={12} sm={12} sx={{ borderBottom: 1 }}>
+              <Grid item xs={12} sm={12} sx={{ borderBottom: 1, display:"flex", justifyContent:"space-between", alignItems:"center" }}>
                 <Typography variant="h4">{game.name}</Typography>
+                <MoreMenu handleDelete={handleDelete}/>
               </Grid>
               <Grid
                 item

@@ -18,7 +18,7 @@ export default function Platforms() {
   const [page, setPage] = useState(1);
   const [numberOfPages, setNumberOfPages] = useState(1);
   const [searchString, setSearchString] = useState("");
-  
+
   useEffect(() => {
     getPlatforms();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -28,7 +28,6 @@ export default function Platforms() {
     PlatformService.getPlatformsPaginated(page, searchString).then((res) => {
       setPlatforms(res.data.data);
       setNumberOfPages(res.data.totalPages);
-      console.log(res);
     });
   };
 

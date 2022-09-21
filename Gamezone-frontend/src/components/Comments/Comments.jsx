@@ -30,7 +30,6 @@ function Comments() {
         setComments(res.data.data);
         setNumberOfPages(res.data.totalPages);
         setIsLoading(false);
-        console.log(res.data);
       });
   };
 
