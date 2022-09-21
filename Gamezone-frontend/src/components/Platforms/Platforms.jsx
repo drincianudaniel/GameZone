@@ -12,6 +12,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import LocalSearchBar from "../Search/LocalSearchBar";
+import { Typography } from "@mui/material";
 
 export default function Platforms() {
   const [platforms, setPlatforms] = useState([]);
@@ -44,7 +45,8 @@ export default function Platforms() {
         searchString={searchString}
         getData={getPlatforms}
       />
-      <TableContainer sx={{ maxWidth: 700, mb: 2 }}>
+      {platforms.length > 0 ? (
+        <TableContainer sx={{ maxWidth: 700, mb: 2 }}>
         <Table sx={{ maxWidth: 700 }} aria-label="simple table">
           <TableHead>
             <TableRow>
@@ -68,6 +70,8 @@ export default function Platforms() {
           </TableBody>
         </Table>
       </TableContainer>
+      ): <Typography sx={{ mt: 1 }}>No platforms found...</Typography>}
+      
 
       <GamePagination setPage={setPage} numberOfPages={numberOfPages} />
     </Box>

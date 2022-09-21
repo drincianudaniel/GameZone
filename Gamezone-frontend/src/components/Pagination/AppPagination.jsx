@@ -2,7 +2,7 @@ import { Box, Pagination } from "@mui/material";
 
 function AppPagination(props) {
   const handleChange = (event, value) => {
-    props.setPage(value);
+    props.setPage(value)
   };
 
   return (
