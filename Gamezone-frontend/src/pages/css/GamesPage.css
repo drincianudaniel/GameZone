@@ -7,10 +7,6 @@
   row-gap: 50px;
   place-items: center;
 }
-.gamesContent {
- 
-  height: 100vh;
-}
 .gamePageContent {
   background: linear-gradient(-45deg, #000000, #00177a, #227fd6, #bce9f7);
   background-size: 400% 400%;

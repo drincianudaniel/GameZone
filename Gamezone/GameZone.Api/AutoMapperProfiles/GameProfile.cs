@@ -13,6 +13,8 @@ namespace GameZone.Api.AutoMapperProfiles
             CreateMap<SimpleGameDto,Game>();
             CreateMap<Game, SimpleGameDto>();
             CreateMap<Game, AutoCompleteGameDto>();
+            CreateMap<Game, GamePatchDto>();
+            CreateMap<GamePatchDto, Game>();
         }
     }
 }

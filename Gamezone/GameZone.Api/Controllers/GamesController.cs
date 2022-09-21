@@ -14,6 +14,8 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using GameZone.Application.Games.Queries.GamesAutoComplete;
 using GameZone.Application.Games.Queries.CountAsync;
+using Microsoft.AspNetCore.JsonPatch;
+using GameZone.Application.Games.Commands.SaveAsync;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -187,6 +189,35 @@ namespace GameZone.Api.Controllers
                
             var mappedResult = _mapper.Map<GameDto>(result);
             return Ok(mappedResult);
+        }
+
+        [HttpPatch]
+        [Route("{id}")]
+        public async Task<IActionResult> PartiallyUpdateGame(Guid id, JsonPatchDocument<GamePatchDto> patchDocument)
+        {
+            _logger.LogInformation("Patching game with id {id}", id);
+
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var query = new GetGameByIdQuery { Id = id };
+            var result = await _mediator.Send(query);
+
+            var gameToPatch = _mapper.Map<GamePatchDto>(result);
+
+            patchDocument.ApplyTo(gameToPatch, ModelState);
+
+            if (!TryValidateModel(gameToPatch))
+            {
+                return BadRequest(ModelState);
+            }
+
+            _mapper.Map(gameToPatch, result);
+            var command = new SaveAsyncCommand();
+            var save = await _mediator.Send(command);
+
+            return Content("The item has been updated!");
+
         }
 
         [HttpDelete]

@@ -4,7 +4,7 @@ using GameZone.Application.Interfaces;
 using GameZone.Infrastructure;
 using GameZone.Infrastructure.Repositories;
 using MediatR;
-using Microsoft.AspNetCore.Authentication.Certificate;
+using Microsoft.AspNetCore.Authentication.Certificate; 
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging.Console;
 
@@ -13,7 +13,7 @@ var policyName = "_myAllowSpecificOrigins";
 
 // Add services to the container.
 
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddNewtonsoftJson();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
