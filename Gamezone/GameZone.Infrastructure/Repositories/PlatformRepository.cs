@@ -34,11 +34,17 @@ namespace GameZone.Infrastructure.Repositories
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<Platform>> ReturnPagedAsync(int? page, int pageSize)
+        public async Task<IEnumerable<Platform>> ReturnPagedAsync(int? page, int pageSize, string searchString)
         {
             int pageNumber = (page ?? 1);
+            var platforms = from p in _context.Platforms select p;
 
-            return await _context.Platforms
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                platforms = platforms.Where(p => p.Name!.Contains(searchString));
+            }
+
+            return await platforms
                 .AsNoTracking()
                 .OrderByDescending(date => date.CreatedAt)
                 .ToPagedListAsync(pageNumber, pageSize);

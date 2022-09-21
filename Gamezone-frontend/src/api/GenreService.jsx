@@ -3,7 +3,7 @@ import request from "./request";
 export default class GenreService {
   static async getGenresPaginated(page) {
     return await request({
-      url: `/genres/page/${page}/page-size/${10}`,
+      url: `/genres/page/${page}/page-size/${9}`,
       method: "GET",
     });
   }

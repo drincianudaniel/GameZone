@@ -6,15 +6,15 @@ import TableCell from "@mui/material/TableCell";
 import TableRow from "@mui/material/TableRow";
 import EditIcon from "@mui/icons-material/Edit";
 import FormDialog from "../../Dialogs/FormDialog";
-import GenreService from "../../../api/GenreService";
-import EditGenreForm from "../../Forms/EditForms/EditGenreForm";
+import PlatformService from "../../../api/PlatformService";
+import EditPlatformForm from "../../Forms/EditForms/EditPlatformForm";
 
-export default function GenresRow(props) {
+export default function PlatformRows(props) {
   const [open, setOpen] = React.useState(false);
 
   const handleDelete = () => {
-    GenreService.deleteGenre(props.genre.id).then((res) => {
-      props.getGenres();
+    PlatformService.deletePlatform(props.platform.id).then((res) => {
+      props.getPlatforms();
     });
   };
 
@@ -25,29 +25,29 @@ export default function GenresRow(props) {
   return (
     <>
       <TableRow
-        key={props.genre.id}
+        key={props.platform.id}
         sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
       >
-        <TableCell allign="center">{props.genre.name}</TableCell>
-        <TableCell align="right">
+        <TableCell allign="center">{props.platform.name}</TableCell>
+        <TableCell align="center">
           <IconButton onClick={handleClickOpen} aria-label="comment">
             <EditIcon />
           </IconButton>
         </TableCell>
-        <TableCell align="right">
+        <TableCell align="center">
           <IconButton onClick={handleDelete} aria-label="comment">
             <DeleteForeverIcon />
           </IconButton>
         </TableCell>
       </TableRow>
       <FormDialog
-        id={props.genre.id}
+        id={props.platform.id}
         setOpen={setOpen}
         open={open}
         handleClickOpen={handleClickOpen}
-        getGenres={props.getGenres}
-        name={props.genre.name}
-        form={EditGenreForm}
+        getGenres={props.getPlatforms}
+        name={props.platform.name}
+        form={EditPlatformForm}
       />
     </>
   );

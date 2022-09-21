@@ -5,11 +5,10 @@ import { useState } from "react";
 import { useEffect } from "react";
 import GamePagination from "../Pagination/GamePagination";
 import GenreService from "../../api/GenreService";
-import GenresList from "../Lists/GenresList";
 import GenresRow from "../Tables/TableRows/GenresRow";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
-import TableCell, { tableCellClasses } from "@mui/material/TableCell";
+import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
@@ -45,10 +44,10 @@ export default function Genres() {
               <TableCell sx={{ fontWeight: "bold" }} align="left">
                 Name
               </TableCell>
-              <TableCell sx={{ fontWeight: "bold" }} align="center">
+              <TableCell sx={{ fontWeight: "bold" }} align="right">
                 Edit
               </TableCell>
-              <TableCell sx={{ fontWeight: "bold" }} align="center">
+              <TableCell sx={{ fontWeight: "bold" }} align="right">
                 Delete
               </TableCell>
             </TableRow>

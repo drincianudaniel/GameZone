@@ -15,7 +15,7 @@ namespace GameZone.Application.Platforms.Queries.GetPlatformsPaged
 
         public async Task<IEnumerable<Platform>> Handle(GetPlatformsPagedQuery request, CancellationToken cancellationToken)
         {
-            var query = await _unitOfWork.PlatformRepository.ReturnPagedAsync(request.Page, request.PageSize);
+            var query = await _unitOfWork.PlatformRepository.ReturnPagedAsync(request.Page, request.PageSize, request.SearchString);
             return query;
         }
     }
