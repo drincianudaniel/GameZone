@@ -12,18 +12,20 @@ import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
+import LocalSearchBar from "../Search/LocalSearchBar";
 
 export default function Genres() {
   const [genres, setGenres] = useState([]);
   const [page, setPage] = useState(1);
   const [numberOfPages, setNumberOfPages] = useState(1);
+  const [searchString, setSearchString] = useState("");
 
   useEffect(() => {
     getGenres();
   }, [page]);
 
   const getGenres = () => {
-    GenreService.getGenresPaginated(page).then((res) => {
+    GenreService.getGenresPaginated(page, searchString).then((res) => {
       setGenres(res.data.data);
       setNumberOfPages(res.data.totalPages);
     });
@@ -37,6 +39,7 @@ export default function Genres() {
       alignItems="center"
       flexDirection="column"
     >
+      <LocalSearchBar setSearchString={setSearchString} searchString={searchString} getData={getGenres} />
       <TableContainer sx={{ maxWidth: 700 }}>
         <Table sx={{ maxWidth: 700 }} aria-label="simple table">
           <TableHead>

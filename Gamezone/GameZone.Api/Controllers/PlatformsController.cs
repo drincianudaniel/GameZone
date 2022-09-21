@@ -70,7 +70,7 @@ namespace GameZone.Api.Controllers
                 SearchString = searchString
             });
 
-            var count = await _mediator.Send(new CountAsyncQuery());
+            var count = await _mediator.Send(new CountAsyncQuery { SearchString = searchString });
             var totalPages = ((double)count / (double)pageSize);
             int roundedTotalPages = Convert.ToInt32(Math.Ceiling(totalPages));
 

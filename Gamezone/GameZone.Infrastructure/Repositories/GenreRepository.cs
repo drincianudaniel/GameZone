@@ -36,19 +36,33 @@ namespace GameZone.Infrastructure.Repositories
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<Genre>> ReturnPagedAsync(int? page, int pageSize)
+        public async Task<IEnumerable<Genre>> ReturnPagedAsync(int? page, int pageSize, string searchString)
         {
             int pageNumber = (page ?? 1);
 
-            return await _context.Genres
+            var genres = from g in _context.Genres select g;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                genres = genres.Where(p => p.Name!.Contains(searchString));
+            }
+
+            return await genres
                 .AsNoTracking()
                 .OrderByDescending(genre => genre.CreatedAt)
                 .ToPagedListAsync(pageNumber, pageSize);
         }
 
-        public async Task<int> CountAsync()
+        public async Task<int> CountAsync(string searchString)
         {
-            return await _context.Genres.CountAsync();
+            var genres = from g in _context.Genres select g;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                genres = genres.Where(p => p.Name!.Contains(searchString));
+            }
+
+            return await genres.CountAsync();
         }
 
         public async Task UpdateAsync(Genre genre)

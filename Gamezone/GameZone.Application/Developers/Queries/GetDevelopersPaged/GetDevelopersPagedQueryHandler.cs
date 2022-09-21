@@ -15,7 +15,7 @@ namespace GameZone.Application.Developers.Queries.GetDevelopersPaged
 
         public async Task<IEnumerable<Developer>> Handle(GetDevelopersPagedQuery request, CancellationToken cancellationToken)
         {
-            var query = await _unitOfWork.DeveloperRepository.ReturnPagedAsync(request.Page, request.PageSize);
+            var query = await _unitOfWork.DeveloperRepository.ReturnPagedAsync(request.Page, request.PageSize, request.SearchString);
             return query;
         }
     }

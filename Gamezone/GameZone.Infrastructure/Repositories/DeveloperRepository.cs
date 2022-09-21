@@ -37,19 +37,33 @@ namespace GameZone.Infrastructure.Repositories
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<Developer>> ReturnPagedAsync(int? page, int pageSize)
+        public async Task<IEnumerable<Developer>> ReturnPagedAsync(int? page, int pageSize, string searchString)
         {
             int pageNumber = (page ?? 1);
 
-            return await _context.Developers
+            var developers = from d in _context.Developers select d;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                developers = developers.Where(p => p.Name!.Contains(searchString));
+            }
+
+            return await developers
                 .AsNoTracking()
                 .OrderByDescending(date => date.CreatedAt)
                 .ToPagedListAsync(pageNumber, pageSize);
         }
 
-        public async Task<int> CountAsync()
+        public async Task<int> CountAsync(string searchString)
         {
-            return await _context.Developers.CountAsync();
+            var developers = from d in _context.Developers select d;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                developers = developers.Where(p => p.Name!.Contains(searchString));
+            }
+
+            return await developers.CountAsync();
         }
 
 

@@ -57,17 +57,18 @@ namespace GameZone.Api.Controllers
 
         [HttpGet]
         [Route("page/{page}/page-size/{pageSize}")]
-        public async Task<IActionResult> GetGenresPaged(int page, int pageSize)
+        public async Task<IActionResult> GetGenresPaged(int page, int pageSize, string? searchString = null)
         {
             _logger.LogInformation("Getting genres at page {page}", page);
 
             var result = await _mediator.Send(new GetGenresPagedQuery
             {
                 Page = page,
-                PageSize = pageSize
+                PageSize = pageSize,
+                SearchString = searchString
             });
 
-            var count = await _mediator.Send(new CountAsyncQuery());
+            var count = await _mediator.Send(new CountAsyncQuery { SearchString = searchString });
             var totalPages = ((double)count / (double)pageSize);
             int roundedTotalPages = Convert.ToInt32(Math.Ceiling(totalPages));
 

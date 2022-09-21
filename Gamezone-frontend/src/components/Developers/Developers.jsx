@@ -12,18 +12,20 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import DevelopersRow from "../Tables/TableRows/DevelopersRow";
+import LocalSearchBar from "../Search/LocalSearchBar";
 
 export default function Developers() {
   const [developers, setDevelopers] = useState([]);
   const [page, setPage] = useState(1);
   const [numberOfPages, setNumberOfPages] = useState(1);
+  const [searchString, setSearchString] = useState("");
 
   useEffect(() => {
     getDevelopers();
   }, [page]);
 
   const getDevelopers = () => {
-    DeveloperService.getDevelopersPaginated(page).then((res) => {
+    DeveloperService.getDevelopersPaginated(page, searchString).then((res) => {
       setDevelopers(res.data.data);
       setNumberOfPages(res.data.totalPages);
     });
@@ -37,8 +39,9 @@ export default function Developers() {
       alignItems="center"
       flexDirection="column"
     >
+      <LocalSearchBar setSearchString={setSearchString} searchString={searchString} getData={getDevelopers} />
       <TableContainer sx={{ maxWidth: 700 }}>
-        <Table sx={{ maxWidth: 700}} aria-label="simple table">
+        <Table sx={{ maxWidth: 700 }} aria-label="simple table">
           <TableHead>
             <TableRow>
               <TableCell sx={{ fontWeight: "bold" }} align="left">

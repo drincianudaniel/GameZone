@@ -50,9 +50,16 @@ namespace GameZone.Infrastructure.Repositories
                 .ToPagedListAsync(pageNumber, pageSize);
         }
 
-        public async Task<int> CountAsync()
+        public async Task<int> CountAsync(string searchString)
         {
-            return await _context.Platforms.CountAsync();
+            var platforms = from p in _context.Platforms select p;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                platforms = platforms.Where(p => p.Name!.Contains(searchString));
+            }
+
+            return await platforms.CountAsync();
         }
 
         public async Task UpdateAsync(Platform platform)

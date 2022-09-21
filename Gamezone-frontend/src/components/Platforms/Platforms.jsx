@@ -30,10 +30,6 @@ export default function Platforms() {
     });
   };
 
-  const handleSearch = () => {
-    getPlatforms();
-  };
-
   return (
     <Box
       sx={{ width: "100%" }}
@@ -42,7 +38,7 @@ export default function Platforms() {
       alignItems="center"
       flexDirection="column"
     >
-      <LocalSearchBar setData = {setPlatforms} searchString={searchString} setSearchString={setSearchString} handleSearch={handleSearch}/>
+      <LocalSearchBar setSearchString={setSearchString} searchString={searchString} getData={getPlatforms}/>
       <TableContainer sx={{ maxWidth: 700 }}>
         <Table sx={{ maxWidth: 700 }} aria-label="simple table">
           <TableHead>

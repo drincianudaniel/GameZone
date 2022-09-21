@@ -15,7 +15,7 @@ namespace GameZone.Application.Genres.Queries.GetGenresPaged
 
         public async Task<IEnumerable<Genre>> Handle(GetGenresPagedQuery request, CancellationToken cancellationToken)
         {
-            var query = await _unitOfWork.GenreRepository.ReturnPagedAsync(request.Page, request.PageSize);
+            var query = await _unitOfWork.GenreRepository.ReturnPagedAsync(request.Page, request.PageSize, request.SearchString);
             return query;
         }
     }

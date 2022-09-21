@@ -1,9 +1,9 @@
 import request from "./request";
 
 export default class GenreService {
-  static async getGenresPaginated(page) {
+  static async getGenresPaginated(page, searchString) {
     return await request({
-      url: `/genres/page/${page}/page-size/${9}`,
+      url: `/genres/page/${page}/page-size/${9}?searchString=${searchString}`,
       method: "GET",
     });
   }

@@ -1,9 +1,9 @@
 import request from "./request";
 
 export default class DeveloperService {
-  static async getDevelopersPaginated(page) {
+  static async getDevelopersPaginated(page, searchString) {
     return await request({
-      url: `/developers/page/${page}/page-size/${9}`,
+      url: `/developers/page/${page}/page-size/${9}?searchString=${searchString}`,
       method: "GET",
     });
   }

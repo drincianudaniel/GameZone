@@ -14,7 +14,7 @@ namespace GameZone.Application.Developers.Queries.CountAsync
 
         public async Task<int> Handle(CountAsyncQuery request, CancellationToken cancellationToken)
         {
-            var count = await _unitOfWork.DeveloperRepository.CountAsync();
+            var count = await _unitOfWork.DeveloperRepository.CountAsync(request.SearchString);
             return count;
         }
     }

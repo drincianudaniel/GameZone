@@ -7,5 +7,6 @@ namespace GameZone.Application.Developers.Queries.GetDevelopersPaged
     {
         public int Page { get; set; }
         public int PageSize { get; set; }
+        public string SearchString { get; set; }
     }
 }

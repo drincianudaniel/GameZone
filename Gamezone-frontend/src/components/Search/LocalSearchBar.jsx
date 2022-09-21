@@ -9,7 +9,9 @@ import DirectionsIcon from "@mui/icons-material/Directions";
 
 export default function LocalSearchBar(props) {
 
- 
+    const handleSearch = () => {
+        props.getData();
+      };
 
   return (
     <Paper
@@ -24,7 +26,7 @@ export default function LocalSearchBar(props) {
         onInput={e=> props.setSearchString(e.target.value)}
       />
       <IconButton
-        onClick={props.handleSearch}
+        onClick={handleSearch}
         type="button"
         sx={{ p: "10px" }}
         aria-label="search"
