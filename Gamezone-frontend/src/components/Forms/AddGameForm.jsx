@@ -108,7 +108,7 @@ function AddGameForm() {
       .post(`${process.env.REACT_APP_SERVERIP}/games`, dataToPost)
       .then((response) => {
         reset();
-        history(`/game/${response.data.id}`);
+        history(`/game/${response.data.id}/comments`);
       })
       .catch((err) => console.log(err));
   };

@@ -38,7 +38,7 @@ function TopPage() {
       ) : (
         <Container sx={{ marginTop: 4 }} maxWidth="xl">
           {" "}
-          <TopTable games={games} />
+          <TopTable games={games} page={page}/>
           <Divider sx={{ mb: 2 }}></Divider>
           <AppPagination setPage={setPage} numberOfPages={numberOfPages} />
         </Container>
