@@ -8,15 +8,23 @@ import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import MultipleSelectChip from "../MultipleSelectChip";
-import { Box } from "@mui/material";
+import { Box, Fab, IconButton } from "@mui/material";
 import { useNavigate } from "react-router";
+import { BlobServiceClient, ContainerClient } from "@azure/storage-blob";
+import { PhotoCamera } from "@mui/icons-material";
 
 function AddGameForm() {
   const [date, setDate] = useState(new Date("2018-01-01T00:00:00.000Z"));
   const [selectedDevelopers, setSelectedDevelopers] = useState([]);
   const [selectedGenres, setSelectedGenres] = useState([]);
   const [selectedPlatforms, setSelectedPlatforms] = useState([]);
+  const [file, setFile] = useState(null);
   const history = useNavigate();
+
+  const onFileChange = (event) => {
+    setFile(event.target.files[0]);
+    console.log(file);
+  };
 
   const handleChangeDevelopers = (event) => {
     const {
@@ -64,13 +72,32 @@ function AddGameForm() {
     formState: { errors },
   } = useForm();
 
+  const uploadFile = async (image) => {
+    console.log("started");
+
+    let storageAccountName = "gamezone";
+    let sasToken = process.env.REACT_APP_SASTOKEN;
+    const blobService = new BlobServiceClient(
+      `https://${storageAccountName}.blob.core.windows.net/?${sasToken}`
+    );
+    const containerClient = blobService.getContainerClient("files");
+
+    const blobClient = containerClient.getBlockBlobClient(image.name);
+
+    const options = { blobHTTPHeaders: { blobContentType: image.type } };
+
+    await blobClient.uploadBrowserData(image, options);
+    console.log("done");
+  };
+
   const submit = (data) => {
     console.log(data);
+    uploadFile(data.imgSrc[0]);
 
     const dataToPost = {
       name: data.Name,
       releaseDate: date,
-      imageSrc: data.imgSrc,
+      imageSrc: `https://gamezone.blob.core.windows.net/files/${data.imgSrc[0].name}`,
       gameDetails: data.Details,
       developerList: selectedDevelopers.map((e) => e.id),
       genreList: selectedGenres.map((e) => e.id),
@@ -88,7 +115,7 @@ function AddGameForm() {
 
   return (
     <Box
-      sx={{ width: "100%", mt: 3}}
+      sx={{ width: "100%", mt: 3 }}
       display="flex"
       justifyContent="center"
       alignItems="center"
@@ -139,17 +166,12 @@ function AddGameForm() {
             <TextField
               fullWidth
               required
+              type="file"
               sx={{ marginBottom: 1 }}
-              label="Image source"
               name="imgSrc"
-              id="fullWidth outlined-multiline-static"
+              id="upload-photo"
               {...register("imgSrc", {
-                required: { value: true, message: "Image link is required" },
-                pattern: {
-                  value:
-                    /[-a-zA-Z0-9@:%._~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_.~#?&//=]*)?/gi,
-                  message: "Enter a valid link",
-                },
+                required: { value: true, message: "Image is required" },
               })}
               error={!!errors.imgSrc}
               helperText={errors.imgSrc?.message}
