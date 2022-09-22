@@ -150,7 +150,13 @@ function GameDetailsPage() {
                           </Typography>
                           <Typography
                             onClick={handleClickOpen}
-                            sx={{ marginBottom: 0.2 }}
+                            sx={{
+                              marginBottom: 0.2,
+                              cursor: "pointer",
+                              "&:hover": {
+                                color: "primary.main",
+                              },
+                            }}
                           >
                             Edit
                           </Typography>

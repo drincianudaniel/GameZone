@@ -37,7 +37,7 @@ export default function DevelopersRow(props) {
         </TableCell>
         <TableCell align="center">
           <IconButton onClick={handleDelete} aria-label="comment">
-            <DeleteForeverIcon />
+            <DeleteForeverIcon sx={{color: "primary.main"}} />
           </IconButton>
         </TableCell>
       </TableRow>

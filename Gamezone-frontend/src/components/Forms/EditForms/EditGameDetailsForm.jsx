@@ -17,7 +17,7 @@ function EditGameDetailsForm(props) {
 
     const dataToPost = {
       from: props.details,
-      value: data.Details
+      value: data.Details,
     };
 
     GameService.updateGameDetails(props.id, dataToPost).then((res) => {
@@ -42,14 +42,14 @@ function EditGameDetailsForm(props) {
         style={{ marginBottom: 20 }}
         onSubmit={handleSubmit(submit)}
       >
-        <Grid container spacing={2} maxWidth={400}>
+        <Grid container spacing={2}>
           <Grid item xs={12} md={12}>
             <TextField
               fullWidth
               multiline
               required
-              rows={4}
-              sx={{ marginBottom: 1 }}
+              rows={10}
+              sx={{ marginBottom: 1, width: {md:"500px", sx:"400px"} }}
               defaultValue={props.details}
               label="Details"
               name="Details"

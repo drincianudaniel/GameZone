@@ -46,7 +46,7 @@ function EditGenreForm(props) {
             <TextField
               fullWidth
               required
-              sx={{ marginBottom: 1 }}
+              sx={{ marginBottom: 1, width: {md:"400px", sx:"300px"} }}
               label="Name"
               name="Name"
               defaultValue={props.name}
