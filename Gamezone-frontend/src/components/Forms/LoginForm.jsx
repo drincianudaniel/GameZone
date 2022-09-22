@@ -37,13 +37,8 @@ function LoginForm() {
       justifyContent="center"
       alignItems="center"
     >
-      <Paper sx={{padding:1}}>
-        <form
-          noValidate
-          autoComplete="off"
-          style={{ marginBottom: 20 }}
-          onSubmit={handleSubmit(submit)}
-        >
+      <Paper elevation={24} variant="outlined" sx={{ padding: 1 }}>
+        <form noValidate autoComplete="off" onSubmit={handleSubmit(submit)}>
           <TextField
             fullWidth
             required

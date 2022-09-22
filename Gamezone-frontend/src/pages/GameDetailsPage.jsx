@@ -17,6 +17,7 @@ import GameService from "../api/GameService";
 import MoreMenu from "../components/Menus/MoreMenu";
 import FormDialog from "../components/Dialogs/FormDialog";
 import EditGameDetailsForm from "../components/Forms/EditForms/EditGameDetailsForm";
+import ImageModal from "../components/Modals/ImageModal";
 
 function GameDetailsPage() {
   const [game, setGame] = useState([]);
@@ -26,6 +27,7 @@ function GameDetailsPage() {
   const history = useNavigate();
 
   const [open, setOpen] = useState(false);
+  const [openImageModal, setOpenImageModal] = useState(false);
 
   useEffect(() => {
     getGame();
@@ -47,6 +49,11 @@ function GameDetailsPage() {
 
   const handleClickOpen = () => {
     setOpen(true);
+  };
+
+  const handleImage = () => {
+    setOpenImageModal(true);
+    console.log("click");
   };
 
   const handleDelete = () => {
@@ -87,10 +94,17 @@ function GameDetailsPage() {
                 sx={{ borderRight: { lg: 1 }, borderColor: "grey.500" }}
               >
                 <Grid item xs={12} md={12} lg={12} justify="center">
-                  <img
+                  <Box
+                    sx={{
+                      "&:hover": {
+                        opacity: "0.95",
+                      },
+                    }}
+                    component="img"
                     alt={game.name}
                     className="gameImg"
                     src={game.imageSrc}
+                    onClick={(e) => handleImage()}
                   />
                   <Typography>
                     Release date:{" "}
@@ -182,6 +196,11 @@ function GameDetailsPage() {
           getGame={getGame}
           details={game.gameDetails}
           form={EditGameDetailsForm}
+        />
+        <ImageModal
+          open={openImageModal}
+          setOpen={setOpenImageModal}
+          image={game.imageSrc}
         />
       </Container>
     </div>
