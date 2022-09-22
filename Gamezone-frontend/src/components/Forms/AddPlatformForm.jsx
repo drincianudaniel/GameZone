@@ -54,8 +54,8 @@ function AddPlatformForm() {
             required: { value: true, message: "Name is required" },
             maxLength: { value: 50, message: "Name is too long" },
           })}
-          error={!!errors.Content}
-          helperText={errors.Content?.message}
+          error={!!errors.Name}
+          helperText={errors.Name?.message}
         />
         <Button onClick={() => reset()}>Reset</Button>
         <Button type="submit" variant="contained">

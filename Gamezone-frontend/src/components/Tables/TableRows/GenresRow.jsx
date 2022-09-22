@@ -30,12 +30,12 @@ export default function GenresRow(props) {
         <TableCell allign="center">{props.genre.name}</TableCell>
         <TableCell align="right">
           <IconButton onClick={handleClickOpen} aria-label="comment">
-            <EditIcon />
+            <EditIcon sx={{color: "primary.main"}}/>
           </IconButton>
         </TableCell>
         <TableCell align="right">
           <IconButton onClick={handleDelete} aria-label="comment">
-            <DeleteForeverIcon />
+            <DeleteForeverIcon sx={{color: "primary.main"}} />
           </IconButton>
         </TableCell>
       </TableRow>

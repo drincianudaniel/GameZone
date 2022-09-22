@@ -32,7 +32,7 @@ export default function DevelopersRow(props) {
         <TableCell align="left">{props.developer.headquarters}</TableCell>
         <TableCell align="center">
           <IconButton onClick={handleClickOpen} aria-label="comment">
-            <EditIcon />
+            <EditIcon sx={{color: "primary.main"}}/>
           </IconButton>
         </TableCell>
         <TableCell align="center">

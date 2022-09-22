@@ -13,22 +13,21 @@ function TopPage() {
   const [numberOfPages, setNumberOfPages] = useState(1);
 
   useEffect(() => {
+    const getTop = async () => {
+      await axios
+        .get(
+          `${
+            process.env.REACT_APP_SERVERIP
+          }/games/top/page/${page}/page-size/${10}`
+        )
+        .then((res) => {
+          setGames(res.data.data);
+          setNumberOfPages(res.data.totalPages);
+          setIsLoading(false);
+        });
+    };
     getTop();
   }, [page]);
-
-  const getTop = async () => {
-    await axios
-      .get(
-        `${
-          process.env.REACT_APP_SERVERIP
-        }/games/top/page/${page}/page-size/${10}`
-      )
-      .then((res) => {
-        setGames(res.data.data);
-        setNumberOfPages(res.data.totalPages);
-        setIsLoading(false);
-      });
-  };
 
   return (
     <div>
@@ -38,7 +37,7 @@ function TopPage() {
       ) : (
         <Container sx={{ marginTop: 4 }} maxWidth="xl">
           {" "}
-          <TopTable games={games} page={page}/>
+          <TopTable games={games} page={page} />
           <Divider sx={{ mb: 2 }}></Divider>
           <AppPagination setPage={setPage} numberOfPages={numberOfPages} />
         </Container>

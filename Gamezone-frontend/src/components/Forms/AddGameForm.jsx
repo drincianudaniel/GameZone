@@ -231,7 +231,7 @@ function AddGameForm() {
             />
           </Grid>
         </Grid>
-        <Button onClick={() => reset()}>Reset</Button>
+        {/* <Button onClick={() => reset()}>Reset</Button> */}
         <Button type="submit" variant="contained">
           Submit
         </Button>

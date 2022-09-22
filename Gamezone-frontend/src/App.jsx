@@ -7,6 +7,7 @@ import AdminPage from "./pages/AdminPage";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Error404Page from "./pages/Error404Page";
+import LoginPage from "./pages/LoginPage";
 
 function App() {
   return (
@@ -21,7 +22,7 @@ function App() {
         <Route path={"/notfound"} element={<Error404Page />} />
         <Route path={"*"} element={<Navigate to="/notfound" replace />} />
         <Route path={"/admin-page"} element={<Navigate to="/admin-page/add-game" replace />}/>
-
+        <Route path={"/login"} element={<LoginPage />} />
       </Routes>
     </div>
   );

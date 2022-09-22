@@ -51,7 +51,7 @@ export default function TopTable(props) {
                 <Typography
                   sx={{ fontSize: 50, color: "#888", fontWeight: "bold" }}
                 >
-                  {(props.page == 1 ? 0 : ((props.page - 1) * 10)) + value + 1}
+                  {(props.page === 1 ? 0 : ((props.page - 1) * 10)) + value + 1}
                 </Typography>
               </StyledTableCell>
               <StyledTableCell component="th" scope="row">
