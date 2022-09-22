@@ -55,11 +55,10 @@ namespace GameZone.IntegrationTests.Helpers
             var user = new User
             {
                 Id = new Guid("f535d0fc-020c-4549-8dce-6496ceedcd22"),
-                Username = "UserName",
+                UserName = "UserName",
                 FirstName = "FirstName",
                 LastName = "LastName",
                 Email = "username@gmail.com",
-                Role = "Admin"
             };
 
             db.Users.Add(user);

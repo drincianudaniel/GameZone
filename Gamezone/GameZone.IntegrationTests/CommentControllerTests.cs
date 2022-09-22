@@ -96,7 +96,7 @@ namespace GameZone.IntegrationTests
             var comment = JsonConvert.DeserializeObject<CommentDto>(result);
 
             Assert.Equal(newComment.Content, comment.Content);
-            Assert.Equal("UserName", comment.Username);
+            Assert.Equal("UserName", comment.UserName);
             Assert.Equal("Minecraft", comment.Gamename);
         }
 
@@ -133,7 +133,7 @@ namespace GameZone.IntegrationTests
         private static void CommentAsserts(CommentDto comment)
         {
             Assert.Equal("very good game", comment.Content);
-            Assert.Equal("UserName", comment.Username);
+            Assert.Equal("UserName", comment.UserName);
             Assert.Equal("Minecraft", comment.Gamename);
         }
     }

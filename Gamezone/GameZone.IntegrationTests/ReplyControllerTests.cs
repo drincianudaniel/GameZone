@@ -96,7 +96,7 @@ namespace GameZone.IntegrationTests
             var reply = JsonConvert.DeserializeObject<CommentDto>(result);
 
             Assert.Equal(newReply.Content, reply.Content);
-            Assert.Equal("UserName", reply.Username);
+            Assert.Equal("UserName", reply.UserName);
         }
 
         [Fact]
@@ -132,7 +132,7 @@ namespace GameZone.IntegrationTests
         private static void ReplyAsserts(ReplyDto reply)
         {
             Assert.Equal("reply to comment", reply.Content);
-            Assert.Equal("UserName", reply.Username);
+            Assert.Equal("UserName", reply.UserName);
         }
     }
 }

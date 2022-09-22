@@ -153,7 +153,7 @@ namespace GameZone.ApiUnitTests
             {
                 Id = new Guid("9155dc31-8e4b-46ef-ae91-97d81fc4afa8"),
                 FirstName = "test user",
-                Username = "test user username"
+                UserName = "test user username"
             };
 
             var game = new Game
@@ -184,7 +184,7 @@ namespace GameZone.ApiUnitTests
                 .Returns(new CommentDto
                 {
                     Content = "good game test good game",
-                    Username = user.Username,
+                    UserName = user.UserName,
                     Gamename = game.Name,
                 });
 
@@ -195,7 +195,7 @@ namespace GameZone.ApiUnitTests
 
             //Assert
             Assert.Equal(createCommentCommand.Content, ((CommentDto)createdAtActionResult.Value).Content);
-            Assert.Equal(user.Username, ((CommentDto)createdAtActionResult.Value).Username);
+            Assert.Equal(user.UserName, ((CommentDto)createdAtActionResult.Value).UserName);
             Assert.Equal(game.Name, ((CommentDto)createdAtActionResult.Value).Gamename);
         }
 
@@ -233,7 +233,7 @@ namespace GameZone.ApiUnitTests
             {
                 Id = new Guid("9155dc31-8e4b-46ef-ae91-97d81fc4afa8"),
                 FirstName = "test user",
-                Username = "test user username"
+                UserName = "test user username"
             };
 
             var game = new Game
@@ -278,7 +278,7 @@ namespace GameZone.ApiUnitTests
             {
                 Id = new Guid("9155dc31-8e4b-46ef-ae91-97d81fc4afa8"),
                 FirstName = "test user",
-                Username = "test user username"
+                UserName = "test user username"
             };
 
             var game = new Game
@@ -307,7 +307,7 @@ namespace GameZone.ApiUnitTests
               .Returns(new CommentDto
               {
                   Content = "good game test good game",
-                  Username = user.Username,
+                  UserName = user.UserName,
                   Gamename = game.Name
               });
 
@@ -318,7 +318,7 @@ namespace GameZone.ApiUnitTests
 
             //Assert
             Assert.Equal(updateCommentCommand.Content, ((CommentDto)okResult.Value).Content);
-            Assert.Equal(user.Username, ((CommentDto)okResult.Value).Username);
+            Assert.Equal(user.UserName, ((CommentDto)okResult.Value).UserName);
             Assert.Equal(game.Name, ((CommentDto)okResult.Value).Gamename);
         }
     }

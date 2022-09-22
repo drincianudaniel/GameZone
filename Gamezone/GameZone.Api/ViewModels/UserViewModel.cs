@@ -5,10 +5,12 @@ namespace GameZone.Api.ViewModels
     {
         [Required]
         [MaxLength(50)]
-        public string Username { get; set; }
+        public string UserName { get; set; }
+
         [Required]
         [EmailAddressAttribute]
         public string Email { get; set; }
+
         [Required]
         [MaxLength(50)]
         public string Password { get; set; }
@@ -18,7 +20,10 @@ namespace GameZone.Api.ViewModels
         [Required]
         [MaxLength(50)]
         public string LastName { get; set; }
+
         [Required]
-        public string Role { get; set; }
+        [UrlAttribute]
+        public string ProfileImageSrc { get; set; }
+
     }
 }

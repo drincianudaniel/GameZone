@@ -99,7 +99,7 @@ namespace GameZone.IntegrationTests
 
             Assert.Equal(newReview.Content, review.Content);
             Assert.Equal(newReview.Rating, review.Rating);
-            Assert.Equal("UserName", review.Username);
+            Assert.Equal("UserName", review.UserName);
             Assert.Equal("Minecraft", review.Gamename);
         }
 
@@ -139,7 +139,7 @@ namespace GameZone.IntegrationTests
         {
             Assert.Equal("one of the best game i ever played", review.Content);
             Assert.Equal(10, review.Rating);
-            Assert.Equal("UserName", review.Username);
+            Assert.Equal("UserName", review.UserName);
             Assert.Equal("Minecraft", review.Gamename);
         }
     }

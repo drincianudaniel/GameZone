@@ -1,16 +1,20 @@
 using GameZone.Api.Middleware;
 using GameZone.Application;
 using GameZone.Application.Interfaces;
+using GameZone.Domain.Models;
 using GameZone.Infrastructure;
 using GameZone.Infrastructure.Repositories;
 using MediatR;
-using Microsoft.AspNetCore.Authentication.Certificate; 
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging.Console;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 var policyName = "_myAllowSpecificOrigins";
-
+var Token = ""; 
 // Add services to the container.
 
 builder.Services.AddControllers().AddNewtonsoftJson();
@@ -32,6 +36,35 @@ builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddControllers().AddNewtonsoftJson(options =>
             options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
+
+//identity
+builder.Services
+    .AddIdentity<User, Role>()
+    .AddEntityFrameworkStores<GameZoneContext>()
+    .AddDefaultTokenProviders()
+    .AddUserStore<UserStore<User, Role, GameZoneContext, Guid>>()
+    .AddRoleStore<RoleStore<Role, GameZoneContext, Guid>>();
+
+
+//jwt
+
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+
+}).AddJwtBearer(options =>
+{
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidAudience = "audience",
+        ValidIssuer = "https://localhost:7092",
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration.GetSection("JwtToken:Token").Value))
+    };
+});
 //cors
 builder.Services.AddCors(options =>
 {

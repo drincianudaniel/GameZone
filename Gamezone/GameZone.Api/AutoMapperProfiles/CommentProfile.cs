@@ -9,7 +9,7 @@ namespace GameZone.Api.AutoMapperProfiles
         public CommentProfile()
         {
             CreateMap<Comment, CommentDto>()
-            .ForMember(c => c.Username, opt => opt.MapFrom(s => s.User.Username))
+            .ForMember(c => c.UserName, opt => opt.MapFrom(s => s.User.UserName))
             .ForMember(c => c.Gamename, opt => opt.MapFrom(s => s.Game.Name));
 
             CreateMap<CommentDto, Comment>();

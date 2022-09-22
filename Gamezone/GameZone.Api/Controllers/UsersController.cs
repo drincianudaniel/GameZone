@@ -7,6 +7,7 @@ using GameZone.Application.Users.Commands.DeleteUser;
 using GameZone.Application.Users.Commands.RemoveFavoriteGame;
 using GameZone.Application.Users.Queries.GetUserById;
 using GameZone.Application.Users.Queries.GetUsersList;
+using GameZone.Application.Users.Queries.LoginUser;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -58,24 +59,44 @@ namespace GameZone.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateUser([FromBody] UserViewModel user)
         {
-            _logger.LogInformation("Creating user");
+            _logger.LogInformation("Registering user");
 
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
             var command = new CreateUserCommand
             {
+                UserName = user.UserName,
+                Email = user.Email,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
-                Username = user.Username,
-                Email = user.Email,
                 Password = user.Password,
-                Role = user.Role
+                ProfileImageSrc = user.ProfileImageSrc,
             };
             var result = await _mediator.Send(command);
             var mappedResult = _mapper.Map<UserDto>(result);
 
             return CreatedAtAction(nameof(GetById), new { Id = mappedResult.Id }, mappedResult);
+        }
+
+        [HttpPost]
+        [Route("login")]
+        public async Task<IActionResult> LoginUser([FromBody] UserLoginViewModel user)
+        {
+            _logger.LogInformation("Login user");
+
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var query = new LoginUserQuery
+            {
+                UserName = user.UserName,
+                Password = user.Password
+            };
+
+            var result = await _mediator.Send(query);
+
+            return Ok(result);
         }
 
         [HttpDelete]

@@ -9,7 +9,7 @@ namespace GameZone.Api.AutoMapperProfiles
         public ReplyProfile()
         {
             CreateMap<Reply, ReplyDto>()
-                .ForMember(c => c.Username, opt => opt.MapFrom(s => s.User.Username));
+                .ForMember(c => c.UserName, opt => opt.MapFrom(s => s.User.UserName));
         }
     }
 }

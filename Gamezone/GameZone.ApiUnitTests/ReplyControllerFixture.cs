@@ -151,7 +151,7 @@ namespace GameZone.ApiUnitTests
             {
                 Id = new Guid("9155dc31-8e4b-46ef-ae91-97d81fc4afa8"),
                 FirstName = "test user",
-                Username = "test user username"
+                UserName = "test user username"
             };
 
             var game = new Game
@@ -192,7 +192,7 @@ namespace GameZone.ApiUnitTests
              .Returns(new ReplyDto
              {
                  Content = "good game test good game",
-                 Username = user.Username,
+                 UserName = user.UserName,
              });
 
             //Act
@@ -202,7 +202,7 @@ namespace GameZone.ApiUnitTests
 
             //Assert
             Assert.Equal(createReplyCommand.Content, ((ReplyDto)createdAtActionResult.Value).Content);
-            Assert.Equal(user.Username, ((ReplyDto)createdAtActionResult.Value).Username);
+            Assert.Equal(user.UserName, ((ReplyDto)createdAtActionResult.Value).UserName);
         }
 
         [Fact]
@@ -239,7 +239,7 @@ namespace GameZone.ApiUnitTests
             {
                 Id = new Guid("9155dc31-8e4b-46ef-ae91-97d81fc4afa8"),
                 FirstName = "test user",
-                Username = "test user username"
+                UserName = "test user username"
             };
 
             var game = new Game
@@ -296,7 +296,7 @@ namespace GameZone.ApiUnitTests
             {
                 Id = new Guid("9155dc31-8e4b-46ef-ae91-97d81fc4afa8"),
                 FirstName = "test user",
-                Username = "test user username"
+                UserName = "test user username"
             };
 
             var game = new Game
@@ -338,7 +338,7 @@ namespace GameZone.ApiUnitTests
               .Returns(new ReplyDto
               {
                   Content = "good game test good game",
-                  Username = user.Username,
+                  UserName = user.UserName,
               });
 
             //Act
@@ -348,7 +348,7 @@ namespace GameZone.ApiUnitTests
 
             //Assert
             Assert.Equal(updateReplyCommand.Content, ((ReplyDto)okResult.Value).Content);
-            Assert.Equal(user.Username, ((ReplyDto)okResult.Value).Username);
+            Assert.Equal(user.UserName, ((ReplyDto)okResult.Value).UserName);
         }
     }
 }

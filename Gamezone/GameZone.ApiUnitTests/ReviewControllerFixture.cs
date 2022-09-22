@@ -153,7 +153,7 @@ namespace GameZone.ApiUnitTests
             {
                 Id = new Guid("9155dc31-8e4b-46ef-ae91-97d81fc4afa8"),
                 FirstName = "test user",
-                Username = "test user username"
+                UserName = "test user username"
             }; 
             
             var game = new Game
@@ -187,7 +187,7 @@ namespace GameZone.ApiUnitTests
                 {
                     Content = "good game test good game",
                     Rating = 10,
-                    Username = user.Username,
+                    UserName = user.UserName,
                     Gamename = game.Name,
                 });
             //Act
@@ -198,7 +198,7 @@ namespace GameZone.ApiUnitTests
             //Assert
             Assert.Equal(createReviewCommand.Content, ((ReviewDto)createdAtActionResult.Value).Content);
             Assert.Equal(createReviewCommand.Rating, ((ReviewDto)createdAtActionResult.Value).Rating);
-            Assert.Equal(user.Username, ((ReviewDto)createdAtActionResult.Value).Username);
+            Assert.Equal(user.UserName, ((ReviewDto)createdAtActionResult.Value).UserName);
             Assert.Equal(game.Name, ((ReviewDto)createdAtActionResult.Value).Gamename);
         }
 
@@ -237,7 +237,7 @@ namespace GameZone.ApiUnitTests
             {
                 Id = new Guid("9155dc31-8e4b-46ef-ae91-97d81fc4afa8"),
                 FirstName = "test user",
-                Username = "test user username"
+                UserName = "test user username"
             };
 
             var game = new Game
@@ -284,7 +284,7 @@ namespace GameZone.ApiUnitTests
             {
                 Id = new Guid("9155dc31-8e4b-46ef-ae91-97d81fc4afa8"),
                 FirstName = "test user",
-                Username = "test user username"
+                UserName = "test user username"
             };
 
             var game = new Game
@@ -317,7 +317,7 @@ namespace GameZone.ApiUnitTests
               {
                   Content = "good game test good game",
                   Rating = 10,
-                  Username = user.Username,
+                  UserName = user.UserName,
                   Gamename = game.Name
               });
 
@@ -329,7 +329,7 @@ namespace GameZone.ApiUnitTests
             //Assert
             Assert.Equal(updateReviewCommand.Content, ((ReviewDto)okResult.Value).Content);
             Assert.Equal(updateReviewCommand.Rating, ((ReviewDto)okResult.Value).Rating);
-            Assert.Equal(user.Username, ((ReviewDto)okResult.Value).Username);
+            Assert.Equal(user.UserName, ((ReviewDto)okResult.Value).UserName);
             Assert.Equal(game.Name, ((ReviewDto)okResult.Value).Gamename);
         }
     }
