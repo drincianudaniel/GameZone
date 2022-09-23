@@ -5,6 +5,7 @@ using GameZone.Application.Users.Commands.AddFavoriteGame;
 using GameZone.Application.Users.Commands.CreateUser;
 using GameZone.Application.Users.Commands.DeleteUser;
 using GameZone.Application.Users.Commands.RemoveFavoriteGame;
+using GameZone.Application.Users.Queries.FindUserByName;
 using GameZone.Application.Users.Queries.GetUserById;
 using GameZone.Application.Users.Queries.GetUsersList;
 using GameZone.Application.Users.Queries.LoginUser;
@@ -64,6 +65,16 @@ namespace GameZone.Api.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
+            var query = new FindUserByNameQuery
+            {
+                UserName = user.UserName,
+            };
+
+            var userFound = await _mediator.Send(query);
+
+            if (user != null)
+                return BadRequest("User already exists");
+
             var command = new CreateUserCommand
             {
                 UserName = user.UserName,
@@ -96,6 +107,11 @@ namespace GameZone.Api.Controllers
 
             var result = await _mediator.Send(query);
 
+            if(result == "Unauthorized")
+            {
+                return Unauthorized();
+            }
+
             return Ok(result);
         }
 
@@ -125,8 +141,8 @@ namespace GameZone.Api.Controllers
 
             var command = new AddFavoriteGameCommand
             {
-                IdGame = gameid,
-                IdUser = userid
+                GameId = gameid,
+                UserId = userid
             };
 
             await _mediator.Send(command);

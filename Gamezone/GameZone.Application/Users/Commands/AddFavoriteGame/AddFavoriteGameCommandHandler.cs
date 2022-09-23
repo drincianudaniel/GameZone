@@ -13,8 +13,8 @@ namespace GameZone.Application.Users.Commands.AddFavoriteGame
         }
         public async Task<Guid> Handle(AddFavoriteGameCommand request, CancellationToken cancellationToken)
         {
-            var user = await _unitOfWork.UserRepository.ReturnByIdAsync(request.IdUser);
-            var game = await _unitOfWork.GameRepository.ReturnByIdAsync(request.IdGame);
+            var user = await _unitOfWork.UserRepository.ReturnByIdAsync(request.UserId);
+            var game = await _unitOfWork.GameRepository.ReturnByIdAsync(request.GameId);
 
             await _unitOfWork.UserRepository.AddGameToFavorite(user, game);
             await _unitOfWork.SaveAsync();

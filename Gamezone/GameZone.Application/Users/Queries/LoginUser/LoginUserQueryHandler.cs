@@ -11,13 +11,11 @@ namespace GameZone.Application.Users.Queries.LoginUser
 {
     public class LoginUserQueryHandler : IRequestHandler<LoginUserQuery, string>
     {
-        private readonly IUnitOfWork _unitOfWork;
         private readonly UserManager<User> _userManager;
         private readonly RoleManager<Role> _roleManager;
 
-        public LoginUserQueryHandler(IUnitOfWork unitOfWork, UserManager<User> userManager, RoleManager<Role> roleManager)
+        public LoginUserQueryHandler(UserManager<User> userManager, RoleManager<Role> roleManager)
         {
-            _unitOfWork = unitOfWork;
             _userManager=userManager;
             _roleManager=roleManager;
         }
