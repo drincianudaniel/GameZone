@@ -15,7 +15,7 @@ namespace GameZone.Application.Users.Queries.FindUserByName
 
         public async Task<User> Handle(FindUserByNameQuery request, CancellationToken cancellationToken)
         {
-            var user = await _userManager.FindByEmailAsync(request.UserName);
+            var user = await _userManager.FindByNameAsync(request.UserName);
             return user;
         }
     }

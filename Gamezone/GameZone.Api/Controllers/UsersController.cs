@@ -72,7 +72,7 @@ namespace GameZone.Api.Controllers
 
             var userFound = await _mediator.Send(query);
 
-            if (user != null)
+            if (userFound != null)
                 return BadRequest("User already exists");
 
             var command = new CreateUserCommand
