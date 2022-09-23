@@ -8,10 +8,6 @@ import MoreMenu from "../Menus/MoreMenu";
 import RepliesDialog from "../Replies/RepliesDialog";
 import { convertUTCDateToLocalDate } from "../../utils/TimeConverting";
 
-const imgLink =
-  "https://images.pexels.com/photos/1681010/pexels-photo-1681010.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260";
-
-
 function Comment(props) {
   const [open, setOpen] = React.useState(false);
 
@@ -28,7 +24,7 @@ function Comment(props) {
     <div style={{ padding: { lg: 14, xs: 1 } }} className="App">
       <Grid container wrap="nowrap" spacing={2}>
         <Grid item>
-          <Avatar alt="Remy Sharp" src={imgLink} />
+          <Avatar alt="Remy Sharp" src={props.comment.userProfileImage} />
         </Grid>
         <Grid justifyContent="left" item xs zeroMinWidth>
           <h4 style={{ margin: 0, textAlign: "left" }}>

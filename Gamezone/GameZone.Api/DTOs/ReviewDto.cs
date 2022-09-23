@@ -3,6 +3,7 @@
     public class ReviewDto
     {
         public Guid Id { get; set; }
+        public string UserProfileImage { get; set; }
         public string UserName { get; set; }
         public string Gamename { get; set; }
         public double Rating { get; set; }

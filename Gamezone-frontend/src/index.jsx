@@ -7,16 +7,13 @@ import { ThemeProvider, createTheme } from "@mui/material/styles";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 const theme = createTheme({
-  palette:{
-  }
+  palette: {},
 });
 
 root.render(
-  <BrowserRouter>
-    <React.StrictMode>
-      <ThemeProvider theme={theme}>
-        <App />
-      </ThemeProvider>
-    </React.StrictMode>
-  </BrowserRouter>
+  <React.StrictMode>
+    <ThemeProvider theme={theme}>
+      <App />
+    </ThemeProvider>
+  </React.StrictMode>
 );

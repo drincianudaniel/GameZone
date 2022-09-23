@@ -29,13 +29,14 @@ namespace GameZone.Application.Users.Queries.LoginUser
 
                 var authClaims = new List<Claim>
                 {
-                    new Claim(ClaimTypes.Name, user.UserName),
-                    new Claim(ClaimTypes.Email, user.Email)
+                    new Claim("UserName", user.UserName),
+                    new Claim("Email", user.Email),
+                    new Claim("ProfileImage", user.ProfileImageSrc)
                 };
 
                 foreach(var userRole in userRoles)
                 {
-                    authClaims.Add(new Claim(ClaimTypes.Role, userRole));
+                    authClaims.Add(new Claim("Roles", userRole));
                 }
 
                 var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("4d97124e-3864-4ce6-9d5c-bfb06f2e22eb"));

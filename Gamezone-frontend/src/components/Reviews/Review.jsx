@@ -7,10 +7,6 @@ import axios from "axios";
 import MoreMenu from "../Menus/MoreMenu";
 import { convertUTCDateToLocalDate } from "../../utils/TimeConverting";
 
-const imgLink =
-  "https://images.pexels.com/photos/1681010/pexels-photo-1681010.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260";
-
-
 function Review(props) {
   const handleDelete = async () => {
     await axios
@@ -25,7 +21,7 @@ function Review(props) {
     <div style={{ padding: 14 }} className="App">
       <Grid container wrap="nowrap" spacing={2}>
         <Grid item>
-          <Avatar alt="Remy Sharp" src={imgLink} />
+          <Avatar alt="Remy Sharp" src={props.review.userProfileImage} />
         </Grid>
         <Grid justifyContent="left" item xs zeroMinWidth>
           <h4 style={{ margin: 0, textAlign: "left" }}>

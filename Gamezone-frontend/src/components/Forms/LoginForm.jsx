@@ -3,8 +3,13 @@ import { useForm } from "react-hook-form";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { Box, Paper } from "@mui/material";
+import UserService from "../../api/UserService";
+import { toast } from "react-toastify";
+import { useUser } from "../../hooks/useUser";
+import jwt_decode from "jwt-decode";
 
 function LoginForm() {
+  const {setUser, user, setToken} = useUser();
   const {
     register,
     handleSubmit,
@@ -15,19 +20,19 @@ function LoginForm() {
   const submit = (data) => {
     console.log(data);
 
-    // const dataToPost = {
-    //   username: data.Name,
-    //   password: data.Password,
-    // };
+    const dataToPost = {
+      username: data.Username,
+      password: data.Password,
+    };
 
-    // axios
-    //   .post(`${process.env.REACT_APP_SERVERIP}/genres`, dataToPost)
-    //   .then((response) => {
-    //     console.log(response);
-    //     toast.success("Genre Added");
-    //     reset();
-    //   })
-    //   .catch((err) => console.log(err));
+    UserService.Login(dataToPost)
+      .then((res) => {
+        console.log(res);
+        setToken(res.data);
+        setUser(jwt_decode(res.data));
+        console.log(user)
+      })
+      .catch(err => toast.error("Invalid username or password"));
   };
 
   return (
@@ -37,12 +42,12 @@ function LoginForm() {
       justifyContent="center"
       alignItems="center"
     >
-      <Paper elevation={24} variant="outlined" sx={{ padding: 1 }}>
+      <Paper elevation={24} sx={{ padding: 1 }}>
         <form noValidate autoComplete="off" onSubmit={handleSubmit(submit)}>
           <TextField
             fullWidth
             required
-            sx={{ marginBottom: 1 }}
+            sx={{ marginBottom: 1, mt: 1 }}
             label="Username"
             name="Username"
             id="fullWidth outlined-multiline-static"
@@ -55,6 +60,7 @@ function LoginForm() {
           <TextField
             fullWidth
             required
+            type="password"
             sx={{ marginBottom: 1 }}
             label="Password"
             name="Password"
