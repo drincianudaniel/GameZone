@@ -32,7 +32,8 @@ namespace GameZone.Application.Users.Queries.LoginUser
                     new Claim("Id", user.Id.ToString()),
                     new Claim("UserName", user.UserName),
                     new Claim("Email", user.Email),
-                    new Claim("ProfileImage", user.ProfileImageSrc)
+                    new Claim("ProfileImage", user.ProfileImageSrc),
+                    new Claim("IsLoggedIn", true.ToString(), ClaimValueTypes.Boolean)
                 };
 
                 foreach(var userRole in userRoles)

@@ -2,6 +2,7 @@
 using GameZone.Api.DTOs;
 using GameZone.Api.ViewModels;
 using GameZone.Application.Users.Commands.AddFavoriteGame;
+using GameZone.Application.Users.Commands.AddRoleToUser;
 using GameZone.Application.Users.Commands.CreateUser;
 using GameZone.Application.Users.Commands.DeleteUser;
 using GameZone.Application.Users.Commands.RemoveFavoriteGame;
@@ -113,6 +114,39 @@ namespace GameZone.Api.Controllers
             }
 
             return Ok(result);
+        }
+
+        [HttpPost]
+        [Route("assign-role/user/{userName}/role/{roleName}")]
+        public async Task<IActionResult> AddRoleToUser(string userName, string roleName)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var query = new FindUserByNameQuery
+            {
+                UserName = userName,
+            };
+
+            var userFound = await _mediator.Send(query);
+
+            if (userFound == null)
+                return BadRequest("User not found");
+
+            var command = new AddRoleToUserCommand
+            {
+                UserName = userName,
+                RoleName = roleName
+            };
+
+            var result = await _mediator.Send(command);
+
+            if (!result)
+            {
+                return BadRequest("Failed to add role to user");
+            }
+
+            return Ok($"{userName} added successfully to {roleName} role");
         }
 
         [HttpDelete]
