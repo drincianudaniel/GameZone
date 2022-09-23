@@ -27,12 +27,14 @@ const request = async function (options, store) {
   };
 
   // adding success and error handlers to client
-  return client(options).catch((err) => {
-    if(err.response.status == 404){
-      window.location.href = "/notfound";
-      return;
-    }
-  });
+  return client(options)
+  // .catch(err => onError(err))
+  // .catch((err) => {
+  //   if(err.response.status == 404){
+  //     window.location.href = "/notfound";
+  //     return;
+  //   }
+  // });
 };
 
 export default request;

@@ -1,33 +1,60 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import { Box, Grid, Paper } from "@mui/material";
+import {
+  Box,
+  FormControl,
+  FormHelperText,
+  Grid,
+  IconButton,
+  InputAdornment,
+  InputLabel,
+  OutlinedInput,
+  Paper,
+} from "@mui/material";
+import UserService from "../../api/UserService";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router";
 
 function RegisterForm() {
+  const [showPassword, setShowPassword] = useState(false);
+  const history = useNavigate();
   const {
     register,
     handleSubmit,
-    reset,
     formState: { errors },
   } = useForm();
+
+  const handleClickShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
 
   const submit = (data) => {
     console.log(data);
 
-    // const dataToPost = {
-    //   username: data.Name,
-    //   password: data.Password,
-    // };
+    const dataToPost = {
+      firstName: data.FirstName,
+      lastName: data.LastName,
+      userName: data.Username,
+      email: data.Email,
+      password: data.Password,
+      profileImageSrc:
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNDgyaDCaoDZJx8N9BBE6eXm5uXuObd6FPeg&usqp=CAU",
+    };
 
-    // axios
-    //   .post(`${process.env.REACT_APP_SERVERIP}/genres`, dataToPost)
-    //   .then((response) => {
-    //     console.log(response);
-    //     toast.success("Genre Added");
-    //     reset();
-    //   })
-    //   .catch((err) => console.log(err));
+    UserService.Register(dataToPost)
+      .then((res) => {
+        console.log(res);
+        history("/login")
+        toast.success("Registered Successfully")
+      })
+      .catch( err => toast.error(err.data));
   };
 
   return (
@@ -37,9 +64,9 @@ function RegisterForm() {
       justifyContent="center"
       alignItems="center"
     >
-      <Paper elevation={24} variant="outlined" sx={{ padding: 1 }}>
+      <Paper elevation={24} sx={{ padding: 1 }}>
         <form noValidate autoComplete="off" onSubmit={handleSubmit(submit)}>
-          <Grid container spacing = {2}>
+          <Grid container spacing={2} sx={{ mt: 1 }}>
             <Grid item sm={6} xs={12}>
               <TextField
                 fullWidth
@@ -77,6 +104,10 @@ function RegisterForm() {
                 id="fullWidth outlined-multiline-static"
                 {...register("Email", {
                   required: { value: true, message: "Email is required" },
+                  pattern: {
+                    value: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/i,
+                    message: "Valid email required",
+                  },
                 })}
                 error={!!errors.Email}
                 helperText={errors.Email?.message}
@@ -96,19 +127,46 @@ function RegisterForm() {
                 helperText={errors.Username?.message}
               />
             </Grid>
-            <Grid item sm={12} xs={12}>
-              <TextField
-                fullWidth
-                required
-                label="Password"
-                name="Password"
-                id="fullWidth outlined-multiline-static"
-                {...register("Password", {
-                  required: { value: true, message: "Password is required" },
-                })}
-                error={!!errors.Password}
-                helperText={errors.Password?.message}
-              />
+            <Grid item sm={12} xs={12} sx={{ width: "100%" }}>
+              <FormControl sx={{ width: "100%" }}>
+                <InputLabel htmlFor="component-simple">Password *</InputLabel>
+                <OutlinedInput
+                  id="component-simple"
+                  sx={{ width: "100%" }}
+                  required
+                  label="Password"
+                  name="Password"
+                  type={showPassword ? "text" : "password"}
+                  endAdornment={
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={handleClickShowPassword}
+                        onMouseDown={handleMouseDownPassword}
+                        edge="end"
+                      >
+                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  }
+                  {...register("Password", {
+                    required: { value: true, message: "Password is required" },
+                    pattern: {
+                      value:
+                        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/i,
+                      message:
+                        "Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character",
+                    },
+                  })}
+                  error={!!errors.Password}
+                  helperText={errors.Password?.message}
+                />
+                {!!errors.Password && (
+                  <FormHelperText error id="accountId-error">
+                    {errors.Password?.message}
+                  </FormHelperText>
+                )}
+              </FormControl>
             </Grid>
             <Grid item sm={12} xs={12}>
               <Box

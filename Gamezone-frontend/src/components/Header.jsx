@@ -17,6 +17,7 @@ import AutoCompleteSearch from "./Search/AutoCompleteSearch";
 import "./css/Header.css";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../hooks/useUser";
+import { WindowSharp } from "@mui/icons-material";
 
 const Header = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -63,6 +64,11 @@ const Header = () => {
   const redirectToGames = () => {
     history("/games");
   };
+
+  const handleLogout = () => {
+    history("/login");
+    window.location.reload(false);
+  }
 
   const handleSearchGame = (searchGame) => {
     redirectToSearchedGame(searchGame.value);
@@ -218,7 +224,7 @@ const Header = () => {
                 <MenuItem onClick={handleCloseUserMenu}>
                   <Typography textAlign="center">Profile</Typography>
                 </MenuItem>
-                <MenuItem onClick={handleCloseUserMenu}>
+                <MenuItem onClick={handleLogout}>
                   <Typography textAlign="center">Logout</Typography>
                 </MenuItem>
               </Menu>
