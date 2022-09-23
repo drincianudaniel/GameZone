@@ -28,7 +28,7 @@ function Reply(props) {
         </Grid>
         <Grid justifyContent="left" item xs zeroMinWidth>
           <h4 style={{ margin: 0, textAlign: "left" }}>
-            {props.reply.username}
+            {props.reply.userName}
           </h4>
           <p style={{ textAlign: "left" }}>{props.reply.content}</p>
           <p style={{ textAlign: "left", color: "gray" }}>

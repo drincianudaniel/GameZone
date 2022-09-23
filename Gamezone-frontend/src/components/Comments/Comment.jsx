@@ -32,7 +32,7 @@ function Comment(props) {
         </Grid>
         <Grid justifyContent="left" item xs zeroMinWidth>
           <h4 style={{ margin: 0, textAlign: "left" }}>
-            {props.comment.username}
+            {props.comment.userName}
           </h4>
           <p style={{ textAlign: "left" }}>{props.comment.content}</p>
           <p style={{ textAlign: "left", color: "gray" }}>

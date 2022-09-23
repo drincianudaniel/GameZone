@@ -32,7 +32,7 @@ function Review(props) {
             {props.review.rating}/10
           </h4>
           <h4 style={{ margin: 0, textAlign: "left" }}>
-            {props.review.username}
+            {props.review.userName}
           </h4>
           <p style={{ textAlign: "left" }}>{props.review.content}</p>
           <p style={{ textAlign: "left", color: "gray" }}>
