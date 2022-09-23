@@ -4,8 +4,10 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { useUser } from "../../hooks/useUser";
 
 function PostCommentForm(props) {
+  const {user} = useUser();
   const {
     register,
     handleSubmit,
@@ -17,7 +19,7 @@ function PostCommentForm(props) {
     console.log(data);
 
     const dataToPost = {
-      userId: "02ea0508-999e-4cb0-29a9-08da7ea2b5b5",
+      userId: user.Id,
       gameId: props.id,
       content: data.Content,
     };

@@ -7,9 +7,13 @@ import UserService from "../../api/UserService";
 import { toast } from "react-toastify";
 import { useUser } from "../../hooks/useUser";
 import jwt_decode from "jwt-decode";
+import { useNavigate } from "react-router";
 
 function LoginForm() {
+
   const {setUser, user, setToken} = useUser();
+  const history = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -31,6 +35,7 @@ function LoginForm() {
         setToken(res.data);
         setUser(jwt_decode(res.data));
         console.log(user)
+        history("/")
       })
       .catch(err => toast.error("Invalid username or password"));
   };

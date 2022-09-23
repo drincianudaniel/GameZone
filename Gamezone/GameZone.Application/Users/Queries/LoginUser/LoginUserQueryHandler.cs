@@ -29,6 +29,7 @@ namespace GameZone.Application.Users.Queries.LoginUser
 
                 var authClaims = new List<Claim>
                 {
+                    new Claim("Id", user.Id.ToString()),
                     new Claim("UserName", user.UserName),
                     new Claim("Email", user.Email),
                     new Claim("ProfileImage", user.ProfileImageSrc)

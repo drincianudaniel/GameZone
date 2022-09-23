@@ -1,5 +1,6 @@
 import axios from "axios";
 import { Navigate } from "react-router";
+import { useUser } from "../hooks/useUser";
 import Error404Page from "../pages/Error404Page";
 const client = (() => {
   return axios.create({
@@ -7,9 +8,12 @@ const client = (() => {
   });
 })();
 
+// const {token} = useUser();
+
 // the request function which will destructure the response
 const request = async function (options, store) {
   // success handler
+
   const onSuccess = function (response) {
     const {
       data: { message },
