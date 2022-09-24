@@ -38,14 +38,14 @@ namespace GameZone.Application.Users.Queries.LoginUser
 
                 foreach(var userRole in userRoles)
                 {
-                    authClaims.Add(new Claim("Roles", userRole));
+                    authClaims.Add(new Claim(ClaimTypes.Role, userRole));
                 }
 
                 var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("4d97124e-3864-4ce6-9d5c-bfb06f2e22eb"));
 
                 var token = new JwtSecurityToken(
                     issuer: "https://localhost:7092",
-                    audience: "https://localhost:3000",
+                    audience: "http://localhost:3000",
                     claims: authClaims,
                     expires: DateTime.Now.AddHours(3),
                     signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)

@@ -67,6 +67,7 @@ const Header = () => {
 
   const handleLogout = () => {
     history("/login");
+    localStorage.clear();
     window.location.reload(false);
   }
 

@@ -59,12 +59,20 @@ builder.Services.AddAuthentication(options =>
     options.TokenValidationParameters = new TokenValidationParameters
     {
         ValidateIssuer = true,
-        ValidateAudience = true,
+        ValidateAudience = false,
         ValidAudience = "audience",
         ValidIssuer = "https://localhost:7092",
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration.GetSection("JwtToken:Token").Value))
     };
 });
+
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("AdminPolicy", policy =>
+          policy.RequireRole("Administrator"));
+});
+
+
 //cors
 builder.Services.AddCors(options =>
 {
@@ -102,9 +110,9 @@ if (app.Environment.IsDevelopment())
 }
 app.UseStaticFiles();
 app.UseHttpsRedirection();
+app.UseAuthentication();
 app.UseRouting();
 app.UseAuthorization();
-app.UseAuthentication();
 app.UseMyMiddleware();
 app.UseCors(policyName);
 app.MapControllers();

@@ -36,6 +36,7 @@ function LoginForm() {
         setUser(jwt_decode(res.data));
         console.log(user)
         history("/")
+        localStorage.setItem('jwt', res.data);
       })
       .catch(err => toast.error("Invalid username or password"));
   };

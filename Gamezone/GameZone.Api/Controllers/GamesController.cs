@@ -16,6 +16,7 @@ using GameZone.Application.Games.Queries.GamesAutoComplete;
 using GameZone.Application.Games.Queries.CountAsync;
 using Microsoft.AspNetCore.JsonPatch;
 using GameZone.Application.Games.Commands.SaveAsync;
+using Microsoft.AspNetCore.Authorization;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -38,6 +39,7 @@ namespace GameZone.Api.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> GetGames()
         {
             _logger.LogInformation("Getting list of games");
