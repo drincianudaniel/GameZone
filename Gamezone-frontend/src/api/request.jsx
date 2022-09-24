@@ -1,12 +1,27 @@
+import { ContainerClient } from "@azure/storage-blob";
 import axios from "axios";
 
-const client = (() => {
-  return axios.create({
-    baseURL: "https://localhost:7092/api",
-    // headers: { Authorization: `Bearer ${localStorage.getItem("jwt")}` }
-  });
-})();
+const defaultOptions = {
+  baseURL: "https://localhost:7092/api",
+  headers: {
+    'Content-Type': 'application/json',
+  },
+};
 
+let client = axios.create(defaultOptions);
+
+// const client = (() => {
+//   return axios.create({
+//     baseURL: "https://localhost:7092/api",
+//     headers: { Authorization: `Bearer ${localStorage.getItem("jwt")}` }
+//   });
+// })();
+
+client.interceptors.request.use(function(config){
+  const token = localStorage.getItem("jwt");
+  config.headers.Authorization =  token ? `Bearer ${token}` : '';
+    return config;
+})
 // const {token} = useUser();
 
 // the request function which will destructure the response

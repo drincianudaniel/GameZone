@@ -110,11 +110,11 @@ if (app.Environment.IsDevelopment())
 }
 app.UseStaticFiles();
 app.UseHttpsRedirection();
+app.UseCors(policyName);
 app.UseAuthentication();
 app.UseRouting();
 app.UseAuthorization();
 app.UseMyMiddleware();
-app.UseCors(policyName);
 app.MapControllers();
 
 app.Run();

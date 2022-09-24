@@ -10,6 +10,7 @@ using GameZone.Application.Genres.Commands.UpdateGenre;
 using GameZone.Api.DTOs;
 using GameZone.Application.Genres.Queries.GetGenresPaged;
 using GameZone.Application.Genres.Queries.CountAsync;
+using Microsoft.AspNetCore.Authorization;
 
 namespace GameZone.Api.Controllers
 {
@@ -96,6 +97,7 @@ namespace GameZone.Api.Controllers
 
         [HttpPut]
         [Route("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdateGenre(Guid id, [FromBody] GenreViewModel genre)
         {
             _logger.LogInformation("Updating genre with id {id}", id);
