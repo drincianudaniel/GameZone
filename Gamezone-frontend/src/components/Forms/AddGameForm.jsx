@@ -8,10 +8,11 @@ import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import MultipleSelectChip from "../MultipleSelectChip";
-import { Box, Fab, IconButton } from "@mui/material";
+import { Box } from "@mui/material";
 import { useNavigate } from "react-router";
-import { BlobServiceClient, ContainerClient } from "@azure/storage-blob";
-import { PhotoCamera } from "@mui/icons-material";
+import { uploadFile } from "../../utils/UploadFile";
+import { v4 as uuidv4 } from "uuid";
+
 
 function AddGameForm() {
   const [date, setDate] = useState(new Date("2018-01-01T00:00:00.000Z"));
@@ -72,32 +73,17 @@ function AddGameForm() {
     formState: { errors },
   } = useForm();
 
-  const uploadFile = async (image) => {
-    console.log("started");
-
-    let storageAccountName = "gamezone";
-    let sasToken = process.env.REACT_APP_SASTOKEN;
-    const blobService = new BlobServiceClient(
-      `https://${storageAccountName}.blob.core.windows.net/?${sasToken}`
-    );
-    const containerClient = blobService.getContainerClient("files");
-
-    const blobClient = containerClient.getBlockBlobClient(image.name);
-
-    const options = { blobHTTPHeaders: { blobContentType: image.type } };
-
-    await blobClient.uploadBrowserData(image, options);
-    console.log("done");
-  };
-
   const submit = (data) => {
     console.log(data);
-    uploadFile(data.imgSrc[0]);
+    let uniqueId = uuidv4();
+    uploadFile(data.imgSrc[0], uniqueId);
+    console.log(uniqueId)
+      
 
     const dataToPost = {
       name: data.Name,
       releaseDate: date,
-      imageSrc: `https://gamezone.blob.core.windows.net/files/${data.imgSrc[0].name}`,
+      imageSrc: `https://gamezone.blob.core.windows.net/files/${data.imgSrc[0].name}${uniqueId}`,
       gameDetails: data.Details,
       developerList: selectedDevelopers.map((e) => e.id),
       genreList: selectedGenres.map((e) => e.id),
