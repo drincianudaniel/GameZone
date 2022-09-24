@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useEffect } from "react";
+import jwt_decode from "jwt-decode";
 
 const UserContext = createContext();
 
@@ -17,8 +18,12 @@ export function UserContextProvider({ children }) {
     setUser,
     setToken,
   };
+
  useEffect(() =>{
     console.log(user)
+    if(localStorage.getItem("jwt")){
+      setUser(jwt_decode(localStorage.getItem("jwt")));
+    }
     if(user.length != 0){
         setIsLoggedIn(true)
     }
