@@ -14,7 +14,6 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 var policyName = "_myAllowSpecificOrigins";
-var Token = ""; 
 // Add services to the container.
 
 builder.Services.AddControllers().AddNewtonsoftJson();
@@ -60,9 +59,23 @@ builder.Services.AddAuthentication(options =>
     {
         ValidateIssuer = true,
         ValidateAudience = false,
+        ValidateLifetime = true,
+        ClockSkew = TimeSpan.Zero,
         ValidAudience = "audience",
         ValidIssuer = "https://localhost:7092",
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration.GetSection("JwtToken:Token").Value))
+    };
+    options.Events = new JwtBearerEvents
+    {
+        OnAuthenticationFailed = context =>
+        {
+            if (context.Exception.GetType() == typeof(SecurityTokenExpiredException))
+            {
+                context.Response.Headers.Add("Token-Expired", "True");
+                /*context.Response.StatusCode = 401;*/
+            }
+            return Task.CompletedTask;
+        }
     };
 });
 
@@ -108,10 +121,13 @@ if (app.Environment.IsDevelopment())
     });
     app.UseDeveloperExceptionPage();
 }
+
 app.UseStaticFiles();
 app.UseHttpsRedirection();
 app.UseCors(policyName);
 app.UseAuthentication();
+//expired token middleware call
+app.UseMiddleware<ExpiredTokenMiddleware>();
 app.UseRouting();
 app.UseAuthorization();
 app.UseMyMiddleware();
