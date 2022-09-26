@@ -6,9 +6,10 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import AddGameForm from "../Forms/AddGameForm";
 import DevelopersTabbedPanel from "./DevelopersTabbedPanel";
-import { Link, Route, Routes } from "react-router-dom";
+import { Link, Navigate, Route, Routes } from "react-router-dom";
 import GenresTabbedPanel from "./GenresTabbedPanel";
 import PlatformsTabbedPanel from "./PlatformsTabbedPanel";
+import { useUser } from "../../hooks/useUser";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -49,7 +50,6 @@ function LinkTab(props) {
 
 export default function BasicTabs() {
   const [value, setValue] = React.useState(0);
-
   React.useEffect(() => {
     let path = window.location.pathname;
 

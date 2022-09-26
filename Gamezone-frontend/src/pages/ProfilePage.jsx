@@ -1,4 +1,4 @@
-import { Container } from "@mui/material";
+import { Container, Grid, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
@@ -21,8 +21,22 @@ function ProfilePage() {
     <>
       <Header />
       <Container maxWidth="lg">
-        {user.userName}'s Profile
-        </Container>
+        <Grid container spacing={2} sx={{ mt: 2 }}>
+          <Grid
+            item
+            xs={12}
+            sm={12}
+            sx={{
+              borderBottom: 1,
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <Typography> {user.userName}'s Profile</Typography>
+          </Grid>
+        </Grid>
+      </Container>
     </>
   );
 }

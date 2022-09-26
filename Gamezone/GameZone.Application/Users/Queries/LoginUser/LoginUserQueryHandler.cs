@@ -38,7 +38,15 @@ namespace GameZone.Application.Users.Queries.LoginUser
 
                 foreach(var userRole in userRoles)
                 {
-                    authClaims.Add(new Claim(ClaimTypes.Role, userRole));
+                    authClaims.Add(new Claim("Roles", userRole));
+                    if (userRole.Equals("Admin"))
+                    {
+                        authClaims.Add(new Claim("IsAdmin", true.ToString(), ClaimValueTypes.Boolean));
+                    }
+                    else
+                    {
+                        authClaims.Add(new Claim("IsAdmin", false.ToString(), ClaimValueTypes.Boolean));
+                    }
                 }
 
                 var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("4d97124e-3864-4ce6-9d5c-bfb06f2e22eb"));

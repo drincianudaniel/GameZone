@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import AppPagination from "../components/Pagination/AppPagination";
 import GameService from "../api/GameService";
 import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
+import { useUser } from "../hooks/useUser";
 
 const GamesContext = createContext();
 
@@ -19,6 +20,7 @@ function GamesPage() {
   const [games, setGames] = useState([]);
   const [page, setPage] = useState(1);
   const [numberOfPages, setNumberOfPages] = useState(10);
+  const { user } = useUser();
   useEffect(() => {
     getGames();
 
@@ -55,18 +57,20 @@ function GamesPage() {
       <Header />
       <Box className="gamesContent">
         <div className="subheader">
-          <Link
-            style={{ textDecoration: "none", color: "black" }}
-            to={`/admin-page/add-game`}
-          >
-            {" "}
-            <IconButton className="addButton" size="large">
-              <AdminPanelSettingsIcon
-                fontSize="large"
-                sx={{ color: "white" }}
-              />{" "}
-            </IconButton>
-          </Link>
+          {user.IsAdmin && (
+            <Link
+              style={{ textDecoration: "none", color: "black" }}
+              to={`/admin-page/add-game`}
+            >
+              {" "}
+              <IconButton className="addButton" size="large">
+                <AdminPanelSettingsIcon
+                  fontSize="large"
+                  sx={{ color: "white" }}
+                />{" "}
+              </IconButton>
+            </Link>
+          )}
         </div>
         <div className="nav"></div>
         <div className="games">
