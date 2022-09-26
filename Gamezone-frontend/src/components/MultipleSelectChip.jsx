@@ -40,7 +40,10 @@ export default function MultipleSelectChip(props) {
   }, []);
 
   const getData = () => {
-    props.getData().then((res) => setData(res));
+    props.getData().then((res) => {
+      console.log(res)
+      setData(res);
+    });
   };
 
   return (

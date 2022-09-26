@@ -10,11 +10,13 @@ using GameZone.Application.Platforms.Commands.UpdatePlatform;
 using GameZone.Api.DTOs;
 using GameZone.Application.Platforms.Queries.GetPlatformsPaged;
 using GameZone.Application.Platforms.Queries.CountAsync;
+using Microsoft.AspNetCore.Authorization;
 
 namespace GameZone.Api.Controllers
 {
     [Route("api/platforms")]
     [ApiController]
+    [Authorize(Roles = "Admin")]
     public class PlatformsController : ControllerBase
     {
         public readonly IMapper _mapper;

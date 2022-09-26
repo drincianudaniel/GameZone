@@ -8,8 +8,11 @@ import MoreMenu from "../Menus/MoreMenu";
 import { convertUTCDateToLocalDate } from "../../utils/TimeConverting";
 import { Link } from "react-router-dom";
 import { Typography } from "@mui/material";
+import { useUser } from "../../hooks/useUser";
 
 function Review(props) {
+  const {user} = useUser()
+
   const handleDelete = async () => {
     await axios
       .delete(`${process.env.REACT_APP_SERVERIP}/reviews/${props.review.id}`)
@@ -55,7 +58,9 @@ function Review(props) {
           </p>
         </Grid>
         <Grid>
-          <MoreMenu handleDelete={handleDelete} />
+          {(user.UserName === props.review.userName || user.IsAdmin) && (
+            <MoreMenu handleDelete={handleDelete} />
+          )}
         </Grid>
       </Grid>
       <Divider variant="fullWidth" style={{ margin: "30px 0" }} />

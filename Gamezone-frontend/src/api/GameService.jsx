@@ -29,6 +29,14 @@ export default class GameService {
     });
   }
 
+  static async postGame(data){
+    return await request({
+      url: "/games",
+      method: "POST",
+      data: data
+    });
+  }
+
   static async updateGameDetails(id, data) {
     return await request({
       url: `/games/${id}`,

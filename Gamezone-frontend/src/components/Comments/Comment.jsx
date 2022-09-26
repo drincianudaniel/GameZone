@@ -9,13 +9,16 @@ import RepliesDialog from "../Replies/RepliesDialog";
 import { convertUTCDateToLocalDate } from "../../utils/TimeConverting";
 import { Typography } from "@mui/material";
 import { Link } from "react-router-dom";
+import { useUser } from "../../hooks/useUser";
+import CommentService from "../../api/CommentService";
 
 function Comment(props) {
   const [open, setOpen] = React.useState(false);
+  const { user } = useUser();
 
   const handleDelete = async () => {
     await axios
-      .delete(`${process.env.REACT_APP_SERVERIP}/comments/${props.comment.id}`)
+      CommentService.deleteComment(props.comment.id)
       .then((response) => {
         props.getComments();
       })
@@ -62,7 +65,9 @@ function Comment(props) {
           />
         </Grid>
         <Grid>
-          <MoreMenu handleDelete={handleDelete} />
+          {((user.UserName === props.comment.userName) || (user.IsAdmin)) && (
+            <MoreMenu handleDelete={handleDelete} />
+          )}
         </Grid>
       </Grid>
       <Divider variant="fullWidth" style={{ margin: "30px 0" }} />

@@ -8,11 +8,14 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import ClearIcon from "@mui/icons-material/Clear";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { useUser } from "../../hooks/useUser";
+import GameService from "../../api/GameService";
 
 export default function GameCard(props) {
+  const { user } = useUser();
   const deleteGame = async () => {
     await axios
-      .delete(`${process.env.REACT_APP_SERVERIP}/Games/${props.data.id}`)
+      GameService.deleteGame(props.data.id)
       .then((response) => {
         props.getGames();
       })
@@ -48,14 +51,21 @@ export default function GameCard(props) {
           image={props.data.imageSrc}
         />
       </Link>
-      <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
-        </IconButton>
-        <IconButton aria-label="Delete" onClick={deleteGame}>
-          <ClearIcon></ClearIcon>
-        </IconButton>
-      </CardActions>
+      {user.IsLoggedIn && (
+        <CardActions disableSpacing>
+          {user.IsLoggedIn && (
+            <IconButton aria-label="add to favorites">
+              <FavoriteIcon />
+            </IconButton>
+          )}
+
+          {user.IsAdmin && (
+            <IconButton aria-label="Delete" onClick={deleteGame}>
+              <ClearIcon></ClearIcon>
+            </IconButton>
+          )}
+        </CardActions>
+      )}
     </Card>
   );
 }

@@ -5,6 +5,7 @@ import Button from "@mui/material/Button";
 import axios from "axios";
 import { Box } from "@mui/material";
 import { toast } from "react-toastify";
+import GenreService from "../../api/GenreService";
 
 function AddGenreForm() {
   const {
@@ -21,8 +22,7 @@ function AddGenreForm() {
       name: data.Name,
     };
 
-    axios
-      .post(`${process.env.REACT_APP_SERVERIP}/genres`, dataToPost)
+    GenreService.postGenre(dataToPost)
       .then((response) => {
         console.log(response)
         toast.success("Genre Added");

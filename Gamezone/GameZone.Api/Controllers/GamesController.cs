@@ -39,7 +39,7 @@ namespace GameZone.Api.Controllers
         }
 
         [HttpGet]
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetGames()
         {
             _logger.LogInformation("Getting list of games");
@@ -140,6 +140,7 @@ namespace GameZone.Api.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> CreateGame([FromBody] GameViewModel game)
         {
             _logger.LogInformation("Creating a game");
@@ -166,6 +167,7 @@ namespace GameZone.Api.Controllers
         // not fully working yet
         [HttpPut]
         [Route("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdateGame(Guid id, [FromBody] GameViewModel game)
         {
             _logger.LogInformation("Updating game with id {id}", id);
@@ -195,6 +197,7 @@ namespace GameZone.Api.Controllers
 
         [HttpPatch]
         [Route("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> PartiallyUpdateGame(Guid id, JsonPatchDocument<GamePatchDto> patchDocument)
         {
             _logger.LogInformation("Patching game with id {id}", id);
@@ -224,6 +227,7 @@ namespace GameZone.Api.Controllers
 
         [HttpDelete]
         [Route("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteGame(Guid id)
         {
             _logger.LogInformation("Deleting game with id {id}", id);

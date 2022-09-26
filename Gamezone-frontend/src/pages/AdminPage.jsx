@@ -11,6 +11,7 @@ function AdminPage() {
   const redirectToHome = () =>{
     history("/")
   }
+
   useEffect(()=>{
     if(user.IsAdmin !== true){
       redirectToHome()

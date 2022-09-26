@@ -1,12 +1,29 @@
 import request from "./request";
 
 export default class PlatformService {
+
+  static async getPlatforms(){
+    return await request({
+      url: "/platforms",
+      method: "GET",
+    });
+  }
+
   static async getPlatformsPaginated(page, searchString) {
     return await request({
       url: `/platforms/page/${page}/page-size/${9}?searchString=${searchString}`,
       method: "GET",
     });
   }
+
+  static async postPlatform(data){
+    return await request({
+      url: "/platforms",
+      method: "POST",
+      data: data
+    });
+  }
+
 
   static async deletePlatform(id) {
     return await request({

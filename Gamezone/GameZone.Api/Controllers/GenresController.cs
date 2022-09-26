@@ -16,6 +16,7 @@ namespace GameZone.Api.Controllers
 {
     [Route("api/genres")]
     [ApiController]
+    [Authorize(Roles = "Admin")]
     public class GenresController : ControllerBase
     {
         public readonly IMapper _mapper;
@@ -97,7 +98,6 @@ namespace GameZone.Api.Controllers
 
         [HttpPut]
         [Route("{id}")]
-        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdateGenre(Guid id, [FromBody] GenreViewModel genre)
         {
             _logger.LogInformation("Updating genre with id {id}", id);

@@ -8,8 +8,10 @@ import MoreMenu from "../Menus/MoreMenu";
 import { convertUTCDateToLocalDate } from "../../utils/TimeConverting";
 import { Link } from "react-router-dom";
 import { Typography } from "@mui/material";
+import { useUser } from "../../hooks/useUser";
 
 function Reply(props) {
+  const {user} = useUser()
   const handleDelete = async () => {
     await axios
       .delete(`${process.env.REACT_APP_SERVERIP}/replies/${props.reply.id}`)
@@ -52,7 +54,9 @@ function Reply(props) {
           </p>
         </Grid>
         <Grid>
-          <MoreMenu handleDelete={handleDelete} />
+        {(user.UserName === props.reply.userName || user.IsAdmin) && (
+            <MoreMenu handleDelete={handleDelete} />
+          )}
         </Grid>
       </Grid>
       <Divider variant="fullWidth" style={{ margin: "30px 0" }} />

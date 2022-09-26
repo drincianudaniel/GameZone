@@ -5,6 +5,7 @@ import Button from "@mui/material/Button";
 import axios from "axios";
 import { Box } from "@mui/material";
 import { toast } from "react-toastify";
+import PlatformService from "../../api/PlatformService";
 
 function AddPlatformForm() {
   const {
@@ -21,8 +22,7 @@ function AddPlatformForm() {
       name: data.Name,
     };
 
-    axios
-      .post(`${process.env.REACT_APP_SERVERIP}/platforms`, dataToPost)
+    PlatformService.postPlatform(dataToPost)
       .then((response) => {
         toast.success("Platform Added");
         reset();

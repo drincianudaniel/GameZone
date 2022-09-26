@@ -9,12 +9,14 @@ using GameZone.Application.Developers.Queries.GetDeveloperById;
 using GameZone.Application.Developers.Queries.GetDevelopersList;
 using GameZone.Application.Developers.Queries.GetDevelopersPaged;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GameZone.Api.Controllers
 {
     [Route("api/developers")]
     [ApiController]
+    [Authorize(Roles = "Admin")]
     public class DevelopersController : ControllerBase
     {
         public readonly IMediator _mediator;

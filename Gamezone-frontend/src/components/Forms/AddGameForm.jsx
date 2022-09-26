@@ -12,7 +12,10 @@ import { Box } from "@mui/material";
 import { useNavigate } from "react-router";
 import { uploadFile } from "../../utils/UploadFile";
 import { v4 as uuidv4 } from "uuid";
-
+import GenreService from "../../api/GenreService";
+import PlatformService from "../../api/PlatformService";
+import DeveloperService from "../../api/DeveloperService";
+import GameService from "../../api/GameService";
 
 function AddGameForm() {
   const [date, setDate] = useState(new Date("2018-01-01T00:00:00.000Z"));
@@ -49,20 +52,20 @@ function AddGameForm() {
   };
 
   const getDevelopers = async () => {
-    return await axios
-      .get(`${process.env.REACT_APP_SERVERIP}/Developers`)
+    return await
+      DeveloperService.getDevelopers()
       .then((res) => res.data);
   };
 
   const getGenres = async () => {
-    return await axios
-      .get(`${process.env.REACT_APP_SERVERIP}/Genres`)
+    return await
+      GenreService.getGenres()
       .then((res) => res.data);
   };
 
   const getPlatforms = async () => {
-    return await axios
-      .get(`${process.env.REACT_APP_SERVERIP}/Platforms`)
+    return await
+      PlatformService.getPlatforms()
       .then((res) => res.data);
   };
 
@@ -77,8 +80,7 @@ function AddGameForm() {
     console.log(data);
     let uniqueId = uuidv4();
     uploadFile(data.imgSrc[0], uniqueId);
-    console.log(uniqueId)
-      
+    console.log(uniqueId);
 
     const dataToPost = {
       name: data.Name,
@@ -90,8 +92,7 @@ function AddGameForm() {
       platformList: selectedPlatforms.map((e) => e.id),
     };
 
-    axios
-      .post(`${process.env.REACT_APP_SERVERIP}/games`, dataToPost)
+      GameService.postGame(dataToPost)
       .then((response) => {
         reset();
         history(`/game/${response.data.id}/comments`);

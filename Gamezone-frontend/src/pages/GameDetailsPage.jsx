@@ -18,6 +18,7 @@ import MoreMenu from "../components/Menus/MoreMenu";
 import FormDialog from "../components/Dialogs/FormDialog";
 import EditGameDetailsForm from "../components/Forms/EditForms/EditGameDetailsForm";
 import ImageModal from "../components/Modals/ImageModal";
+import { useUser } from "../hooks/useUser";
 
 function GameDetailsPage() {
   const [game, setGame] = useState([]);
@@ -29,6 +30,7 @@ function GameDetailsPage() {
   const [open, setOpen] = useState(false);
   const [openImageModal, setOpenImageModal] = useState(false);
 
+  const { user } = useUser();
   useEffect(() => {
     getGame();
 
@@ -162,18 +164,20 @@ function GameDetailsPage() {
                           >
                             Synopsis:
                           </Typography>
-                          <Typography
-                            onClick={handleClickOpen}
-                            sx={{
-                              marginBottom: 0.2,
-                              cursor: "pointer",
-                              "&:hover": {
-                                color: "primary.main",
-                              },
-                            }}
-                          >
-                            Edit
-                          </Typography>
+                          {user.IsAdmin && (
+                            <Typography
+                              onClick={handleClickOpen}
+                              sx={{
+                                marginBottom: 0.2,
+                                cursor: "pointer",
+                                "&:hover": {
+                                  color: "primary.main",
+                                },
+                              }}
+                            >
+                              Edit
+                            </Typography>
+                          )}
                         </Box>
                         <Divider />
                         <Typography sx={{ mt: 1 }}>

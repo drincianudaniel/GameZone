@@ -38,7 +38,8 @@ namespace GameZone.Application.Users.Queries.LoginUser
 
                 foreach(var userRole in userRoles)
                 {
-                    authClaims.Add(new Claim("Roles", userRole));
+                    authClaims.Add(new Claim(ClaimTypes.Role, userRole));
+
                     if (userRole.Equals("Admin"))
                     {
                         authClaims.Add(new Claim("IsAdmin", true.ToString(), ClaimValueTypes.Boolean));
