@@ -31,6 +31,8 @@ namespace GameZone.Application.Users.Commands.CreateUser
 
             var result = await _userManager.CreateAsync(user, request.Password);
 
+            var addRoleToUser = await _userManager.AddToRoleAsync(user, "User");
+
             /*await _unitOfWork.SaveAsync();*/
 
             return user;

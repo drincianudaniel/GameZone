@@ -5,7 +5,7 @@ import AddTabbedPanel from "../components/TabbedPanels/AddTabbedPanel";
 import { useUser } from "../hooks/useUser";
 
 function AdminPage() {
-  const {user} = useUser();
+  const {user, loading} = useUser();
   const history = useNavigate();
 
   const redirectToHome = () =>{
@@ -13,7 +13,12 @@ function AdminPage() {
   }
 
   useEffect(()=>{
-    if(user.IsAdmin !== true){
+
+    // if(user.IsLoggedIn !== true){
+    //   redirectToHome()
+    // }
+
+    if(user.IsAdmin === false){
       redirectToHome()
     }
   })
