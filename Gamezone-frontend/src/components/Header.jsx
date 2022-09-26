@@ -22,7 +22,7 @@ import { WindowSharp } from "@mui/icons-material";
 const Header = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-  const { user, isLoggedIn } = useUser();
+  const { user, setUser } = useUser();
   const history = useNavigate();
 
   const handleOpenNavMenu = (event) => {
@@ -68,6 +68,8 @@ const Header = () => {
   const handleLogout = () => {
     history("/login");
     localStorage.clear();
+    // setUser([]);
+    // setIsLoggedIn(false);
     window.location.reload(false);
   }
 
@@ -205,7 +207,7 @@ const Header = () => {
                 <Avatar alt="Remy Sharp" src={user.ProfileImage} />
               </IconButton>
             </Tooltip>
-            {isLoggedIn && (
+            {user.IsLoggedIn && (
               <Menu
                 sx={{ mt: "45px" }}
                 id="menu-appbar"
@@ -230,7 +232,7 @@ const Header = () => {
                 </MenuItem>
               </Menu>
             )}
-            {!isLoggedIn && (
+            {!user.IsLoggedIn && (
               <Menu
                 sx={{ mt: "45px" }}
                 id="menu-appbar"

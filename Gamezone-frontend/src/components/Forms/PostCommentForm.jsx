@@ -30,7 +30,7 @@ function PostCommentForm(props) {
         console.log(response);
         props.getComments();
         reset();
-        toast.success(response.statusText);
+        //toast.success();
       })
       .catch((err) => console.log(err));
   };

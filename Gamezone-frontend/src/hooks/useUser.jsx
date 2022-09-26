@@ -8,27 +8,24 @@ export function useUser() {
 }
 
 export function UserContextProvider({ children }) {
-  const [user, setUser] = useState([]);
+  const [user, setUser] = useState({
+    isLoggedIn: false,
+  });
   const [token, setToken] = useState([]);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const value = {
     user,
-    isLoggedIn,
     setUser,
     setToken,
   };
 
- useEffect(() =>{
-    console.log(user)
-    if(localStorage.getItem("jwt")){
+  useEffect(() => {
+    console.log(user);
+
+    if (localStorage.getItem("jwt")) {
       setUser(jwt_decode(localStorage.getItem("jwt")));
     }
-    if(user.length != 0){
-        setIsLoggedIn(true)
-    }
+  }, []);
 
-    console.log(isLoggedIn)
- })
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
 }
