@@ -16,4 +16,11 @@ export default class UserService {
       data: data,
     });
   }
+
+  static async GetUserByUsername(username){
+    return await request({
+      url: `/users/username/${username}`,
+      method: "GET",
+    });
+  }
 }

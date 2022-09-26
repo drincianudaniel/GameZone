@@ -2,6 +2,8 @@ import { Typography } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
+import { Link } from "react-router-dom";
+import { useUser } from "../../hooks/useUser";
 import PostReviewForm from "../Forms/PostReviewForm";
 import SpinningLoading from "../LoadingComponents/SpinningLoading";
 import GamePagination from "../Pagination/GamePagination";
@@ -13,7 +15,7 @@ function Reviews(props) {
   const [page, setPage] = useState(1);
   const [numberOfPages, setNumberOfPages] = useState(10);
   const params = useParams();
-
+  const { user } = useUser();
   useEffect(() => {
     getReviews();
 
@@ -49,11 +51,23 @@ function Reviews(props) {
           No reviews yet. Please add a review.
         </Typography>
       )}
-      <PostReviewForm
-        id={params.id}
-        getReviews={getReviews}
-        getGame={props.getGame}
-      />
+
+      {user.IsLoggedIn && (
+        <PostReviewForm
+          id={params.id}
+          getReviews={getReviews}
+          getGame={props.getGame}
+        />
+      )}
+      {!user.IsLoggedIn && (
+        <Typography sx={{ mb: 2 }}>
+          You have to be{" "}
+          <Link to={"/login"}>
+            <Typography sx={{display: "inline", color:"primary.main"}}>logged in</Typography>
+          </Link>{" "}
+          to post a review.
+        </Typography>
+      )}
       <GamePagination setPage={setPage} numberOfPages={numberOfPages} />
     </>
   );

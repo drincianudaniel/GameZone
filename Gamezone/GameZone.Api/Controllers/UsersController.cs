@@ -49,6 +49,27 @@ namespace GameZone.Api.Controllers
         }
 
         [HttpGet]
+        [Route("username/{username}")]
+        public async Task<IActionResult> GetByUsername(string username)
+        {
+            _logger.LogInformation("Getting user {username}", username);
+
+            var query = new FindUserByNameQuery
+            {
+                UserName = username,
+            };
+
+            var result = await _mediator.Send(query);
+
+            if (result == null)
+            {
+                return NotFound();
+            }
+
+            var mappedResult = _mapper.Map<ProfileUserDto>(result);
+            return Ok(mappedResult);
+        }
+        [HttpGet]
         public async Task<IActionResult> GetUsers()
         {
             _logger.LogInformation("Getting users list");

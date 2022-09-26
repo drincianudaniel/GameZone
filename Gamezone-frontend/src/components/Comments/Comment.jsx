@@ -7,6 +7,8 @@ import axios from "axios";
 import MoreMenu from "../Menus/MoreMenu";
 import RepliesDialog from "../Replies/RepliesDialog";
 import { convertUTCDateToLocalDate } from "../../utils/TimeConverting";
+import { Typography } from "@mui/material";
+import { Link } from "react-router-dom";
 
 function Comment(props) {
   const [open, setOpen] = React.useState(false);
@@ -27,9 +29,25 @@ function Comment(props) {
           <Avatar alt="Remy Sharp" src={props.comment.userProfileImage} />
         </Grid>
         <Grid justifyContent="left" item xs zeroMinWidth>
-          <h4 style={{ margin: 0, textAlign: "left" }}>
-            {props.comment.userName}
-          </h4>
+          <Link
+            style={{ textDecoration: "none", color: "inherit" }}
+            to={`/profile/${props.comment.userName}`}
+          >
+            <Typography
+              sx={{
+                margin: 0,
+                textAlign: "left",
+                fontWeight: "bold",
+                cursor: "pointer",
+                "&:hover": {
+                  color: "primary.main",
+                },
+              }}
+            >
+              {props.comment.userName}
+            </Typography>
+          </Link>
+
           <p style={{ textAlign: "left" }}>{props.comment.content}</p>
           <p style={{ textAlign: "left", color: "gray" }}>
             {moment(

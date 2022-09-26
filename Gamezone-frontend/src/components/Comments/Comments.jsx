@@ -6,12 +6,15 @@ import Comment from "./Comment";
 import PostCommentForm from "../Forms/PostCommentForm";
 import { Typography } from "@mui/material";
 import SpinningLoading from "../LoadingComponents/SpinningLoading";
+import { useUser } from "../../hooks/useUser";
+import { Link } from "react-router-dom";
 function Comments() {
   const [comments, setComments] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [page, setPage] = useState(1);
   const [numberOfPages, setNumberOfPages] = useState(10);
   const params = useParams();
+  const { user } = useUser();
 
   useEffect(() => {
     getComments();
@@ -52,7 +55,20 @@ function Comments() {
           No comments yet. Please add a comment.
         </Typography>
       )}
-      <PostCommentForm id={params.id} getComments={getComments} />
+      {user.IsLoggedIn && (
+        <PostCommentForm id={params.id} getComments={getComments} />
+      )}
+      {!user.IsLoggedIn && (
+        <Typography sx={{ mb: 2 }}>
+          You have to be{" "}
+          <Link to={"/login"}>
+            <Typography sx={{ display: "inline", color: "primary.main" }}>
+              logged in
+            </Typography>
+          </Link>{" "}
+          to post a comment.
+        </Typography>
+      )}
       <GamePagination setPage={setPage} numberOfPages={numberOfPages} />
     </>
   );

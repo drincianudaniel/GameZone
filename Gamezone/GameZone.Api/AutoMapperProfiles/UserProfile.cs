@@ -10,6 +10,8 @@ namespace GameZone.Api.AutoMapperProfiles
         {
             CreateMap<User, UserDto>();
             CreateMap<UserDto, User>();
+            CreateMap<User, ProfileUserDto>();
+            CreateMap<ProfileUserDto, User>();
         }
     }
 }

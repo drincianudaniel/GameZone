@@ -6,6 +6,8 @@ import moment from "moment";
 import axios from "axios";
 import MoreMenu from "../Menus/MoreMenu";
 import { convertUTCDateToLocalDate } from "../../utils/TimeConverting";
+import { Link } from "react-router-dom";
+import { Typography } from "@mui/material";
 
 function Reply(props) {
   const handleDelete = async () => {
@@ -24,9 +26,24 @@ function Reply(props) {
           <Avatar alt="Remy Sharp" src={props.reply.userProfileImage} />
         </Grid>
         <Grid justifyContent="left" item xs zeroMinWidth>
-          <h4 style={{ margin: 0, textAlign: "left" }}>
-            {props.reply.userName}
-          </h4>
+        <Link
+            style={{ textDecoration: "none", color: "inherit" }}
+            to={`/profile/${props.reply.userName}`}
+          >
+            <Typography
+              sx={{
+                margin: 0,
+                textAlign: "left",
+                fontWeight: "bold",
+                cursor: "pointer",
+                "&:hover": {
+                  color: "primary.main",
+                },
+              }}
+            >
+              {props.reply.userName}
+            </Typography>
+          </Link>
           <p style={{ textAlign: "left" }}>{props.reply.content}</p>
           <p style={{ textAlign: "left", color: "gray" }}>
             {moment(

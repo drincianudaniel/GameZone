@@ -9,7 +9,6 @@ export function useUser() {
 
 export function UserContextProvider({ children }) {
   const [user, setUser] = useState({
-    isLoggedIn: false,
   });
   const [token, setToken] = useState([]);
 
@@ -25,6 +24,7 @@ export function UserContextProvider({ children }) {
     if (localStorage.getItem("jwt")) {
       setUser(jwt_decode(localStorage.getItem("jwt")));
     }
+
   }, []);
 
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>;

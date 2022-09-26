@@ -1,6 +1,8 @@
 import { Typography } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { useUser } from "../../hooks/useUser";
 import PostReplyForm from "../Forms/PostReplyForm";
 import GamePagination from "../Pagination/GamePagination";
 import Reply from "./Reply";
@@ -9,7 +11,7 @@ function Replies(props) {
   const [replies, setReplies] = useState([]);
   const [page, setPage] = useState(1);
   const [numberOfPages, setNumberOfPages] = useState(10);
-
+  const {user} = useUser()
   const getReplies = async () => {
     await axios
       .get(
@@ -45,7 +47,22 @@ function Replies(props) {
           No replies yet. Please add a reply.
         </Typography>
       )}
-      <PostReplyForm commentId={props.commentId} getReplies={getReplies} />
+      
+      {user.IsLoggedIn && (
+        <PostReplyForm commentId={props.commentId} getReplies={getReplies} />
+      )}
+      {!user.IsLoggedIn && (
+        <Typography sx={{ mb: 2 }}>
+          You have to be{" "}
+          <Link to={"/login"}>
+            <Typography sx={{ display: "inline", color: "primary.main" }}>
+              logged in
+            </Typography>
+          </Link>{" "}
+          to post a reply.
+        </Typography>
+      )}
+
       <GamePagination setPage={setPage} numberOfPages={numberOfPages} />
     </div>
   );

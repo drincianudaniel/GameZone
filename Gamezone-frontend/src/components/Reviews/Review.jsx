@@ -6,6 +6,8 @@ import moment from "moment";
 import axios from "axios";
 import MoreMenu from "../Menus/MoreMenu";
 import { convertUTCDateToLocalDate } from "../../utils/TimeConverting";
+import { Link } from "react-router-dom";
+import { Typography } from "@mui/material";
 
 function Review(props) {
   const handleDelete = async () => {
@@ -27,9 +29,24 @@ function Review(props) {
           <h4 style={{ margin: 0, textAlign: "left" }}>
             {props.review.rating}/10
           </h4>
-          <h4 style={{ margin: 0, textAlign: "left" }}>
-            {props.review.userName}
-          </h4>
+          <Link
+            style={{ textDecoration: "none", color: "inherit" }}
+            to={`/profile/${props.review.userName}`}
+          >
+            <Typography
+              sx={{
+                margin: 0,
+                textAlign: "left",
+                fontWeight: "bold",
+                cursor: "pointer",
+                "&:hover": {
+                  color: "primary.main",
+                },
+              }}
+            >
+              {props.review.userName}
+            </Typography>
+          </Link>
           <p style={{ textAlign: "left" }}>{props.review.content}</p>
           <p style={{ textAlign: "left", color: "gray" }}>
             {moment(

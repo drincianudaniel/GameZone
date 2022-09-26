@@ -17,7 +17,6 @@ import AutoCompleteSearch from "./Search/AutoCompleteSearch";
 import "./css/Header.css";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../hooks/useUser";
-import { WindowSharp } from "@mui/icons-material";
 
 const Header = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -65,12 +64,14 @@ const Header = () => {
     history("/games");
   };
 
+  const redirectToProfile = () =>{
+    history(`/profile/${user.UserName}`)
+  }
+
   const handleLogout = () => {
     history("/login");
     localStorage.clear();
-    // setUser([]);
-    // setIsLoggedIn(false);
-    window.location.reload(false);
+    setUser([]);
   }
 
   const handleSearchGame = (searchGame) => {
@@ -224,7 +225,7 @@ const Header = () => {
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}
               >
-                <MenuItem onClick={handleCloseUserMenu}>
+                <MenuItem onClick={redirectToProfile}>
                   <Typography textAlign="center">Profile</Typography>
                 </MenuItem>
                 <MenuItem onClick={handleLogout}>
