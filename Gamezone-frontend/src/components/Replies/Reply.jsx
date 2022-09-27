@@ -9,12 +9,13 @@ import { convertUTCDateToLocalDate } from "../../utils/TimeConverting";
 import { Link } from "react-router-dom";
 import { Typography } from "@mui/material";
 import { useUser } from "../../hooks/useUser";
+import ReplyService from "../../api/ReplyService";
 
 function Reply(props) {
-  const {user} = useUser()
+  const { user } = useUser();
+  
   const handleDelete = async () => {
-    await axios
-      .delete(`${process.env.REACT_APP_SERVERIP}/replies/${props.reply.id}`)
+    ReplyService.deleteReply(props.reply.id, user.Id)
       .then((response) => {
         props.getReplies();
       })
@@ -28,7 +29,7 @@ function Reply(props) {
           <Avatar alt="Remy Sharp" src={props.reply.userProfileImage} />
         </Grid>
         <Grid justifyContent="left" item xs zeroMinWidth>
-        <Link
+          <Link
             style={{ textDecoration: "none", color: "inherit" }}
             to={`/profile/${props.reply.userName}`}
           >
@@ -54,7 +55,7 @@ function Reply(props) {
           </p>
         </Grid>
         <Grid>
-        {(user.UserName === props.reply.userName || user.IsAdmin) && (
+          {(user.UserName === props.reply.userName || user.IsAdmin) && (
             <MoreMenu handleDelete={handleDelete} />
           )}
         </Grid>

@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 
 namespace GameZone.Application.Replies.Commands.DeleteReply
 {
-    public class DeleteReplyCommand : IRequest<Guid>
+    public class DeleteReplyCommand : IRequest<string>
     {
         public Guid Id { get; set; }
+        public Guid UserId { get; set; }
     }
 }

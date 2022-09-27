@@ -17,8 +17,7 @@ function Comment(props) {
   const { user } = useUser();
 
   const handleDelete = async () => {
-    await axios
-      CommentService.deleteComment(props.comment.id)
+    CommentService.deleteComment(props.comment.id, user.Id)
       .then((response) => {
         props.getComments();
       })
@@ -65,7 +64,7 @@ function Comment(props) {
           />
         </Grid>
         <Grid>
-          {((user.UserName === props.comment.userName) || (user.IsAdmin)) && (
+          {(user.UserName === props.comment.userName || user.IsAdmin) && (
             <MoreMenu handleDelete={handleDelete} />
           )}
         </Grid>

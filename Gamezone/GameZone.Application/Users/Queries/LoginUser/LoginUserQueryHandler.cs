@@ -26,6 +26,8 @@ namespace GameZone.Application.Users.Queries.LoginUser
             if (user != null && await _userManager.CheckPasswordAsync(user, request.Password))
             {
                 var userRoles = await _userManager.GetRolesAsync(user);
+                var isAdmin = new Claim("IsAdmin", true.ToString(), ClaimValueTypes.Boolean);
+                var isAdminFalse = new Claim("IsAdmin", false.ToString(), ClaimValueTypes.Boolean);
 
                 var authClaims = new List<Claim>
                 {
@@ -33,7 +35,8 @@ namespace GameZone.Application.Users.Queries.LoginUser
                     new Claim("UserName", user.UserName),
                     new Claim("Email", user.Email),
                     new Claim("ProfileImage", user.ProfileImageSrc),
-                    new Claim("IsLoggedIn", true.ToString(), ClaimValueTypes.Boolean)
+                    new Claim("IsLoggedIn", true.ToString(), ClaimValueTypes.Boolean),
+                    isAdminFalse
                 };
 
                 foreach(var userRole in userRoles)
@@ -42,11 +45,8 @@ namespace GameZone.Application.Users.Queries.LoginUser
 
                     if (userRole.Equals("Admin"))
                     {
-                        authClaims.Add(new Claim("IsAdmin", true.ToString(), ClaimValueTypes.Boolean));
-                    }
-                    else
-                    {
-                        authClaims.Add(new Claim("IsAdmin", false.ToString(), ClaimValueTypes.Boolean));
+                        authClaims.Remove(isAdminFalse);
+                        authClaims.Add(isAdmin);
                     }
                 }
 

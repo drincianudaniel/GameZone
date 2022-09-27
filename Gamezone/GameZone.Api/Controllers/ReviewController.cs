@@ -126,21 +126,31 @@ namespace GameZone.Api.Controllers
         }
 
         [HttpDelete]
-        [Route("{id}")]
-        public async Task<IActionResult> DeleteReview(Guid id)
+        [Route("{id}/user/{userid}")]
+        public async Task<IActionResult> DeleteReview(Guid id, Guid userid)
         {
             _logger.LogInformation("Deleting review with id {id}", id);
 
-            var command = new DeleteReviewCommand { Id = id };
+            var command = new DeleteReviewCommand 
+            { 
+                Id = id,
+                UserId = userid
+            };
+
             var result = await _mediator.Send(command);
 
-            if (result == Guid.Empty)
+            if (result == "Not authorized")
+            {
+                return Unauthorized();
+            }
+
+            if (result == "null")
             {
                 _logger.LogWarning("Result with id {id} NOT FOUND", id);
                 return NotFound();
             }
 
-            return NoContent();
+            return Ok(result);
         }
     }
 }

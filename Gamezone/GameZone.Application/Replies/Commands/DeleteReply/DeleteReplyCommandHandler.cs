@@ -1,23 +1,34 @@
 ﻿using GameZone.Application.Interfaces;
+using GameZone.Domain.Models;
 using MediatR;
+using Microsoft.AspNetCore.Identity;
 
 namespace GameZone.Application.Replies.Commands.DeleteReply
 {
-    public class DeleteReplyCommandHandler : IRequestHandler<DeleteReplyCommand, Guid>
+    public class DeleteReplyCommandHandler : IRequestHandler<DeleteReplyCommand, string>
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly UserManager<User> _userManager;
 
-        public DeleteReplyCommandHandler(IUnitOfWork unitOfWork)
+
+        public DeleteReplyCommandHandler(IUnitOfWork unitOfWork, UserManager<User> userManager)
         {
             _unitOfWork=unitOfWork;
+            _userManager=userManager;
         }
 
-        public async Task<Guid> Handle(DeleteReplyCommand request, CancellationToken cancellationToken)
+        public async Task<string> Handle(DeleteReplyCommand request, CancellationToken cancellationToken)
         {
             var reply = await _unitOfWork.ReplyRepository.ReturnByIdAsync(request.Id);
-            await _unitOfWork.ReplyRepository.DeleteAsync(reply);
-            await _unitOfWork.SaveAsync();
-            return reply.Id;
+            var user = await _unitOfWork.UserRepository.ReturnByIdAsync(request.UserId);
+
+            if (((request.UserId == reply.UserId) == true) || ((await _userManager.IsInRoleAsync(user, "Admin")) == true))
+            {
+                await _unitOfWork.ReplyRepository.DeleteAsync(reply);
+                await _unitOfWork.SaveAsync();
+                return "Reply deleted";
+            }
+            return "Not authorized";
         }
     }
 }

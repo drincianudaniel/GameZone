@@ -26,7 +26,6 @@ namespace GameZone.Infrastructure.Repositories
                 .Include(x => x.Game)
                 .Include(x => x.User)
                 .Where(review => review.Id == id)
-                .AsNoTracking()
                 .FirstOrDefaultAsync();
 
             return reviewToReturn;

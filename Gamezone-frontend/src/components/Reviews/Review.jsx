@@ -9,13 +9,13 @@ import { convertUTCDateToLocalDate } from "../../utils/TimeConverting";
 import { Link } from "react-router-dom";
 import { Typography } from "@mui/material";
 import { useUser } from "../../hooks/useUser";
+import ReviewService from "../../api/ReviewService";
 
 function Review(props) {
   const {user} = useUser()
 
   const handleDelete = async () => {
-    await axios
-      .delete(`${process.env.REACT_APP_SERVERIP}/reviews/${props.review.id}`)
+      ReviewService.deleteReview(props.review.id, user.Id)
       .then((response) => {
         props.getReviews();
       })

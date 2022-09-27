@@ -23,7 +23,6 @@ namespace GameZone.Infrastructure.Repositories
         public async Task<Reply> ReturnByIdAsync(Guid id)
         {
             var replyToReturn = await _context.Replies.Where(reply => reply.Id == id).Include(x => x.User)
-                .AsNoTracking()
                 .FirstOrDefaultAsync();
 
             return replyToReturn;

@@ -39,13 +39,6 @@ const request = async function (options, store) {
   };
 
   return client(options)
-  // .catch(err => onError(err))
-  // .catch((err) => {
-  //   if(err.response.status == 404){
-  //     window.location.href = "/notfound";
-  //     return;
-  //   }
-  // });
 };
 
 export default request;
