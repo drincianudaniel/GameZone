@@ -22,9 +22,14 @@ function GamesPage() {
   const [page, setPage] = useState(1);
   const [numberOfPages, setNumberOfPages] = useState(10);
   const [favoriteGames, setFavoriteGames] = useState([]);
-  const { user } = useUser();
+  const { user, loading } = useUser();
   useEffect(() => {
-    if (user.IsLoggedIn) {
+
+    if(loading){
+      return
+    }
+
+    if (user.IsLoggedIn === true) {
       getFavoriteGames();
     }
     getGames();

@@ -20,7 +20,7 @@ export default function GameCard(props) {
 
   useEffect(() => {
     isFavCheck();
-  }, [isFav]);
+  }, []);
 
   const deleteGame = async () => {
     GameService.deleteGame(props.data.id)
@@ -33,16 +33,14 @@ export default function GameCard(props) {
   const addGameToFavorite = async () => {
     UserService.AddGameToFavorite(user.Id, props.data.id).then((res) => {
       toast.success("Game added to favorite");
-      isFavCheck();
-      props.getFavoriteGames();
+      setIsFav(true)
     });
   };
 
   const removeFromFavorite = async () => {
     UserService.RemoveGameFromFavorite(user.Id, props.data.id).then((res) => {
       toast.success("Game removed from favorite");
-      isFavCheck();
-      props.getFavoriteGames();
+      setIsFav(false)
     });
   };
 
