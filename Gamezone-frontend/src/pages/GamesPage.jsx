@@ -10,6 +10,7 @@ import GameService from "../api/GameService";
 import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import { useUser } from "../hooks/useUser";
 import UserService from "../api/UserService";
+import SpinningLoading from "../components/LoadingComponents/SpinningLoading";
 
 const GamesContext = createContext();
 
@@ -28,41 +29,22 @@ function GamesPage() {
     if(loading){
       return
     }
-
-    if (user.IsLoggedIn === true) {
-      getFavoriteGames();
-    }
     getGames();
 
-    // if(user.Id !== undefined){
-    //   getFavoriteGames();
-    // }
-    // GameService.getGamesPaginated(page).then((response) =>{
-    //   console.log(response);
-    //   setGames(response.data.data);
-    //   setNumberOfPages(response.data.totalPages);
-    // });
-
-    //console.log(data.data);
-    // if (isLodoing){
-    //   // display loading
-    // }
-    // else
-    //setGames(data);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, user]);
 
-  //const {data, isLoading, errors} = useQuery('/Games');
+  const getGames = async () => {
 
-  // is Loading  = true
-  // finally flase
-  // return {data: data, isLoading, error ""}
+    if (user.IsLoggedIn === true) {
+      await getFavoriteGames();
+    }
 
-  const getGames = () => {
     GameService.getGamesPaginated(page).then((response) => {
       setGames(response.data.data);
       setNumberOfPages(response.data.totalPages);
     });
+    
   };
 
   const getFavoriteGames = async () => {
