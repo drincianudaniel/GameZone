@@ -8,4 +8,13 @@ export default class ReplyService {
       method: "DELETE",
     });
   }
+
+  static async postReply(data){
+    return await request({
+      url: "/replies",
+      method: "POST",
+      data: data
+    });
+  }
+
 }

@@ -6,17 +6,19 @@ import CardActions from "@mui/material/CardActions";
 import IconButton from "@mui/material/IconButton";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ClearIcon from "@mui/icons-material/Clear";
-import axios from "axios";
 import { Link } from "react-router-dom";
 import { useUser } from "../../hooks/useUser";
 import GameService from "../../api/GameService";
 import UserService from "../../api/UserService";
 import { toast } from "react-toastify";
 import { useEffect } from "react";
+import { useState } from "react";
+import LoadingBarComponent from "../LoadingComponents/LoadingBar";
 
 export default function GameCard(props) {
   const { user } = useUser();
   const [isFav, setIsFav] = React.useState(false);
+  const [progress, setProgress] = useState(0)
 
   useEffect(() => {
     isFavCheck();
@@ -31,16 +33,20 @@ export default function GameCard(props) {
   };
 
   const addGameToFavorite = async () => {
+    setProgress(50);
     UserService.AddGameToFavorite(user.Id, props.data.id).then((res) => {
+      setProgress(100);
       toast.success("Game added to favorite");
-      setIsFav(true)
+      setIsFav(true);
     });
   };
 
   const removeFromFavorite = async () => {
+    setProgress(50);
     UserService.RemoveGameFromFavorite(user.Id, props.data.id).then((res) => {
       toast.success("Game removed from favorite");
-      setIsFav(false)
+      setProgress(100);
+      setIsFav(false);
     });
   };
 
@@ -50,7 +56,7 @@ export default function GameCard(props) {
         setIsFav(true);
       }
     });
-    console.log(isFav)
+    console.log(isFav);
   };
 
   return (
@@ -60,6 +66,7 @@ export default function GameCard(props) {
         "&:hover": { boxShadow: "-1px 10px 29px 0px rgba(0, 0, 0, 0.8)" },
       }}
     >
+      <LoadingBarComponent progress={progress} setProgress={setProgress}/>
       <Link
         style={{ textDecoration: "none", color: "black" }}
         to={`/game/${props.data.id}/comments`}

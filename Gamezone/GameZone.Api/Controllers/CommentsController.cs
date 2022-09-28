@@ -9,6 +9,7 @@ using GameZone.Application.Comments.Queries.GetCommentById;
 using GameZone.Application.Comments.Queries.GetCommentsList;
 using GameZone.Application.Comments.Queries.GetGameComments;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GameZone.Api.Controllers
@@ -79,6 +80,8 @@ namespace GameZone.Api.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "User")]
+
         public async Task<IActionResult> CreateComment([FromBody] CommentViewModel comment)
         {
             _logger.LogInformation("Creating comment");

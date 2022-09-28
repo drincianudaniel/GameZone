@@ -8,4 +8,13 @@ export default class CommentService {
       method: "DELETE",
     });
   }
+
+  static async postComment(data){
+    return await request({
+      url: "/comments",
+      method: "POST",
+      data: data
+    });
+  }
+  
 }

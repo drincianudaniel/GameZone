@@ -9,6 +9,7 @@ using GameZone.Application.Reviews.Queries.GetGameReviews;
 using GameZone.Application.Reviews.Queries.GetReviewById;
 using GameZone.Application.Reviews.Queries.GetReviewsList;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GameZone.Api.Controllers
@@ -79,6 +80,8 @@ namespace GameZone.Api.Controllers
 
 
         [HttpPost]
+        [Authorize(Roles = "User")]
+
         public async Task<IActionResult> CreateReview([FromBody] ReviewViewModel review)
         {
             _logger.LogInformation("Creating review");

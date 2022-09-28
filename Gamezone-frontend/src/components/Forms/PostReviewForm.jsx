@@ -5,9 +5,10 @@ import Button from "@mui/material/Button";
 import axios from "axios";
 import Rating from "@mui/material/Rating";
 import { useUser } from "../../hooks/useUser";
+import ReviewService from "../../api/ReviewService";
 
 function PostReviewForm(props) {
-  const {user} = useUser();
+  const { user } = useUser();
 
   const {
     register,
@@ -28,8 +29,7 @@ function PostReviewForm(props) {
       content: data.Content,
     };
 
-    axios
-      .post(`${process.env.REACT_APP_SERVERIP}/reviews`, dataToPost)
+    ReviewService.postReview(dataToPost)
       .then((response) => {
         props.getReviews();
         reset();

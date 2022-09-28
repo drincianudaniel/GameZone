@@ -10,7 +10,6 @@ import GameService from "../api/GameService";
 import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import { useUser } from "../hooks/useUser";
 import UserService from "../api/UserService";
-import SpinningLoading from "../components/LoadingComponents/SpinningLoading";
 
 const GamesContext = createContext();
 
@@ -19,14 +18,16 @@ export function useGames() {
 }
 
 function GamesPage() {
+
   const [games, setGames] = useState([]);
   const [page, setPage] = useState(1);
   const [numberOfPages, setNumberOfPages] = useState(10);
   const [favoriteGames, setFavoriteGames] = useState([]);
-  const { user, loading } = useUser();
+  const { user, loadingUser } = useUser();
+
   useEffect(() => {
 
-    if(loading){
+    if(loadingUser){
       return
     }
     getGames();
@@ -44,7 +45,7 @@ function GamesPage() {
       setGames(response.data.data);
       setNumberOfPages(response.data.totalPages);
     });
-    
+
   };
 
   const getFavoriteGames = async () => {

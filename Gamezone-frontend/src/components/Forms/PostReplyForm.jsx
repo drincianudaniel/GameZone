@@ -4,6 +4,7 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import axios from "axios";
 import { useUser } from "../../hooks/useUser";
+import ReplyService from "../../api/ReplyService";
 
 function PostReplyForm(props) {
   const {user} = useUser();
@@ -23,8 +24,7 @@ function PostReplyForm(props) {
       content: data.Content,
     };
 
-    axios
-      .post(`${process.env.REACT_APP_SERVERIP}/replies`, dataToPost)
+   ReplyService.postReply(dataToPost)
       .then((response) => {
         props.getReplies();
         reset();

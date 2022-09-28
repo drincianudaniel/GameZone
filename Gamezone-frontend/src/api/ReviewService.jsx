@@ -8,4 +8,12 @@ export default class ReviewService {
       method: "DELETE",
     });
   }
+
+  static async postReview(data){
+    return await request({
+      url: "/reviews",
+      method: "POST",
+      data: data
+    });
+  }
 }

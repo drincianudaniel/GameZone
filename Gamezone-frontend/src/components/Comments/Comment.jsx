@@ -11,14 +11,19 @@ import { Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 import { useUser } from "../../hooks/useUser";
 import CommentService from "../../api/CommentService";
+import LoadingBarComponent from "../LoadingComponents/LoadingBar";
+import { useState } from "react";
 
 function Comment(props) {
   const [open, setOpen] = React.useState(false);
   const { user } = useUser();
+  const [progress, setProgress] = useState(0)
 
   const handleDelete = async () => {
+    setProgress(50);
     CommentService.deleteComment(props.comment.id, user.Id)
       .then((response) => {
+        setProgress(100);
         props.getComments();
       })
       .catch((err) => console.log(err));
@@ -26,6 +31,7 @@ function Comment(props) {
 
   return (
     <div style={{ padding: { lg: 14, xs: 1 } }} className="App">
+      <LoadingBarComponent progress={progress} setProgress={setProgress}/>
       <Grid container wrap="nowrap" spacing={2}>
         <Grid item>
           <Avatar alt="Remy Sharp" src={props.comment.userProfileImage} />

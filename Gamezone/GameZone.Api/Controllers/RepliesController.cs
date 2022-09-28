@@ -9,6 +9,7 @@ using GameZone.Application.Replies.Queries.GetCommentReplies;
 using GameZone.Application.Replies.Queries.GetRepliesList;
 using GameZone.Application.Replies.Queries.GetReplyById;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GameZone.Api.Controllers
@@ -80,6 +81,8 @@ namespace GameZone.Api.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "User")]
+
         public async Task<IActionResult> CreateReply([FromBody] ReplyViewModel reply)
         {
             _logger.LogInformation("Creating reply");

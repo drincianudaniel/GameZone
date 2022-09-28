@@ -2,7 +2,7 @@ import Header from "../components/Header";
 import TopTable from "../components/Tables/TopTable";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Container, Divider } from "@mui/material";
+import { Box, Container, Divider } from "@mui/material";
 import AppPagination from "../components/Pagination/AppPagination";
 import SpinningLoading from "../components/LoadingComponents/SpinningLoading";
 
@@ -30,19 +30,32 @@ function TopPage() {
   }, [page]);
 
   return (
-    <div>
+    <Box
+      sx={{
+        height: "100%",
+        background:
+          "linear-gradient(-45deg, #000000, #00177a, #227fd6, #bce9f7)",
+        backgroundSize: "400% 400%",
+        animation: "gradient 20s ease infinite",
+      }}
+    >
       <Header />
       {isLoading ? (
         <SpinningLoading />
       ) : (
-        <Container sx={{ marginTop: 4 }} maxWidth="xl">
+        <Container
+          sx={{
+            marginTop: 4,
+          }}
+          maxWidth="xl"
+        >
           {" "}
           <TopTable games={games} page={page} />
           <Divider sx={{ mb: 2 }}></Divider>
           <AppPagination setPage={setPage} numberOfPages={numberOfPages} />
         </Container>
       )}
-    </div>
+    </Box>
   );
 }
 

@@ -5,9 +5,10 @@ import Button from "@mui/material/Button";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useUser } from "../../hooks/useUser";
+import CommentService from "../../api/CommentService";
 
 function PostCommentForm(props) {
-  const {user} = useUser();
+  const { user } = useUser();
   const {
     register,
     handleSubmit,
@@ -24,8 +25,7 @@ function PostCommentForm(props) {
       content: data.Content,
     };
 
-    axios
-      .post(`${process.env.REACT_APP_SERVERIP}/comments`, dataToPost)
+    CommentService.postComment(dataToPost)
       .then((response) => {
         console.log(response);
         props.getComments();
