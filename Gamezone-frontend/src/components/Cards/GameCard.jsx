@@ -12,25 +12,49 @@ import { useUser } from "../../hooks/useUser";
 import GameService from "../../api/GameService";
 import UserService from "../../api/UserService";
 import { toast } from "react-toastify";
+import { useEffect } from "react";
 
 export default function GameCard(props) {
   const { user } = useUser();
-  
+  const [isFav, setIsFav] = React.useState(false);
+
+  useEffect(() => {
+    isFavCheck();
+  }, [isFav]);
+
   const deleteGame = async () => {
-    await axios
-      GameService.deleteGame(props.data.id)
+    GameService.deleteGame(props.data.id)
       .then((response) => {
         props.getGames();
       })
       .catch((err) => console.log(err));
   };
 
-  const addGameToFavorite = async () =>
-  {
-     UserService.AddGameToFavorite(user.Id, props.data.id).then(res => {
+  const addGameToFavorite = async () => {
+    UserService.AddGameToFavorite(user.Id, props.data.id).then((res) => {
       toast.success("Game added to favorite");
-     });
-  }
+      isFavCheck();
+      props.getFavoriteGames();
+    });
+  };
+
+  const removeFromFavorite = async () => {
+    UserService.RemoveGameFromFavorite(user.Id, props.data.id).then((res) => {
+      toast.success("Game removed from favorite");
+      isFavCheck();
+      props.getFavoriteGames();
+    });
+  };
+
+  const isFavCheck = () => {
+    props.favoriteGames.map((game) => {
+      if (game.name === props.data.name) {
+        setIsFav(true);
+      }
+    });
+    console.log(isFav)
+  };
+
   return (
     <Card
       sx={{
@@ -63,9 +87,23 @@ export default function GameCard(props) {
       {user.IsLoggedIn && (
         <CardActions disableSpacing>
           {user.IsLoggedIn && (
-            <IconButton aria-label="add to favorites" onClick={addGameToFavorite}>
-              <FavoriteIcon />
-            </IconButton>
+            <>
+              {isFav ? (
+                <IconButton
+                  aria-label="remove game from favorites"
+                  onClick={removeFromFavorite}
+                >
+                  <FavoriteIcon sx={{ color: "red" }} />
+                </IconButton>
+              ) : (
+                <IconButton
+                  aria-label="add to favorites"
+                  onClick={addGameToFavorite}
+                >
+                  <FavoriteIcon />
+                </IconButton>
+              )}
+            </>
           )}
 
           {user.IsAdmin && (

@@ -1,6 +1,7 @@
 ﻿using GameZone.Application;
 using GameZone.Domain.Models;
 using Microsoft.EntityFrameworkCore;
+using X.PagedList;
 
 namespace GameZone.Infrastructure.Repositories
 {
@@ -40,6 +41,11 @@ namespace GameZone.Infrastructure.Repositories
                 .AsNoTracking()
                 .ToListAsync();
         }
+
+        public async Task<IEnumerable<Game>> GetUserFavoriteGames(Guid id)
+        {
+            return await _context.Users.Include(x => x.Games).Where(x => x.Id == id).FirstOrDefault().Games.ToListAsync();
+        } 
 
         public async Task UpdateAsync(User user)
         {

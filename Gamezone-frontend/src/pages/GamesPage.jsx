@@ -9,6 +9,7 @@ import AppPagination from "../components/Pagination/AppPagination";
 import GameService from "../api/GameService";
 import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import { useUser } from "../hooks/useUser";
+import UserService from "../api/UserService";
 
 const GamesContext = createContext();
 
@@ -20,10 +21,17 @@ function GamesPage() {
   const [games, setGames] = useState([]);
   const [page, setPage] = useState(1);
   const [numberOfPages, setNumberOfPages] = useState(10);
+  const [favoriteGames, setFavoriteGames] = useState([]);
   const { user } = useUser();
   useEffect(() => {
+    if (user.IsLoggedIn) {
+      getFavoriteGames();
+    }
     getGames();
 
+    // if(user.Id !== undefined){
+    //   getFavoriteGames();
+    // }
     // GameService.getGamesPaginated(page).then((response) =>{
     //   console.log(response);
     //   setGames(response.data.data);
@@ -37,7 +45,7 @@ function GamesPage() {
     // else
     //setGames(data);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page]);
+  }, [page, user]);
 
   //const {data, isLoading, errors} = useQuery('/Games');
 
@@ -49,6 +57,13 @@ function GamesPage() {
     GameService.getGamesPaginated(page).then((response) => {
       setGames(response.data.data);
       setNumberOfPages(response.data.totalPages);
+    });
+  };
+
+  const getFavoriteGames = async () => {
+    UserService.GetUsersFavorites(user.Id).then((res) => {
+      setFavoriteGames(res.data);
+      console.log(favoriteGames);
     });
   };
 
@@ -77,7 +92,12 @@ function GamesPage() {
           {games.map((data, i) => {
             return (
               <React.Fragment key={data.id}>
-                <GameCard data={data} getGames={getGames} />
+                <GameCard
+                  data={data}
+                  getGames={getGames}
+                  favoriteGames={favoriteGames}
+                  getFavoriteGames={getFavoriteGames}
+                />
               </React.Fragment>
             );
           })}

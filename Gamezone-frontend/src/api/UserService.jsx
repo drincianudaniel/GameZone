@@ -30,4 +30,18 @@ export default class UserService {
       method: "POST",
     });
   }
+
+  static async RemoveGameFromFavorite(userid, gameid){
+    return await request({
+      url: `/users/${userid}/games/${gameid}`,
+      method: "DELETE",
+    });
+  }
+
+  static async GetUsersFavorites(id){
+    return await request({
+      url: `/users/favorite-games/${id}`,
+      method: "GET",
+    });
+  }
 }

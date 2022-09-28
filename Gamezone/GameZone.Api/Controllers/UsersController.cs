@@ -7,6 +7,7 @@ using GameZone.Application.Users.Commands.CreateUser;
 using GameZone.Application.Users.Commands.DeleteUser;
 using GameZone.Application.Users.Commands.RemoveFavoriteGame;
 using GameZone.Application.Users.Queries.FindUserByName;
+using GameZone.Application.Users.Queries.GetFavoriteGames;
 using GameZone.Application.Users.Queries.GetUserById;
 using GameZone.Application.Users.Queries.GetUsersList;
 using GameZone.Application.Users.Queries.LoginUser;
@@ -76,6 +77,18 @@ namespace GameZone.Api.Controllers
 
             var result = await _mediator.Send(new GetUsersListQuery());
             var mappedResult = _mapper.Map<IEnumerable<UserDto>>(result);
+            return Ok(mappedResult);
+        }
+
+        [HttpGet]
+        [Route("favorite-games/{id}")]
+        public async Task<IActionResult> GetUsersFavoriteGames(Guid id)
+        {
+            _logger.LogInformation("Getting users favorite games");
+
+            var result = await _mediator.Send(new GetFavoriteGamesQuery { UserId = id});
+
+            var mappedResult = _mapper.Map<IEnumerable<SimpleGameDto>>(result);
             return Ok(mappedResult);
         }
 
