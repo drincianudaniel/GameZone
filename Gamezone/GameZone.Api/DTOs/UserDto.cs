@@ -8,5 +8,7 @@
         public string FirstName { get; set; } = string.Empty;
         public string LastName { get; set; } = string.Empty;
         public string ProfileImageSrc { get; set; }
+        public virtual ICollection<SimpleGameDto> Games { get; set; }
+
     }
 }

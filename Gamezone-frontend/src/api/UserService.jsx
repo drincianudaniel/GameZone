@@ -23,4 +23,11 @@ export default class UserService {
       method: "GET",
     });
   }
+
+  static async AddGameToFavorite(userid, gameid){
+    return await request({
+      url: `/users/${userid}/games/${gameid}`,
+      method: "POST",
+    });
+  }
 }

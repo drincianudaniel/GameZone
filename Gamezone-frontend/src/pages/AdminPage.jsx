@@ -14,14 +14,18 @@ function AdminPage() {
 
   useEffect(()=>{
 
-    // if(user.IsLoggedIn !== true){
-    //   redirectToHome()
-    // }
+    if (loading){
+      return
+    }
+    
+    if(user.IsLoggedIn !== true){
+      redirectToHome()
+    }
 
     if(user.IsAdmin === false){
       redirectToHome()
     }
-  })
+  }, [user, user.IsLoggedIn, user.IsAdmin])
 
   return (
     <div>

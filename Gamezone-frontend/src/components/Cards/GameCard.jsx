@@ -10,9 +10,12 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { useUser } from "../../hooks/useUser";
 import GameService from "../../api/GameService";
+import UserService from "../../api/UserService";
+import { toast } from "react-toastify";
 
 export default function GameCard(props) {
   const { user } = useUser();
+  
   const deleteGame = async () => {
     await axios
       GameService.deleteGame(props.data.id)
@@ -22,6 +25,12 @@ export default function GameCard(props) {
       .catch((err) => console.log(err));
   };
 
+  const addGameToFavorite = async () =>
+  {
+     UserService.AddGameToFavorite(user.Id, props.data.id).then(res => {
+      toast.success("Game added to favorite");
+     });
+  }
   return (
     <Card
       sx={{
@@ -54,7 +63,7 @@ export default function GameCard(props) {
       {user.IsLoggedIn && (
         <CardActions disableSpacing>
           {user.IsLoggedIn && (
-            <IconButton aria-label="add to favorites">
+            <IconButton aria-label="add to favorites" onClick={addGameToFavorite}>
               <FavoriteIcon />
             </IconButton>
           )}
