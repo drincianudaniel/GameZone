@@ -45,16 +45,16 @@ function LinkTab(props) {
   return <Tab component={Link} to={props.pathname} {...props} />;
 }
 
-export default function DetailsTabbedPanel(props) {
+export default function UserTabbedPanel(props) {
   const [value, setValue] = React.useState(0);
   const params = useParams();
 
-  React.useEffect(() => {
-    let path = window.location.pathname;
+//   React.useEffect(() => {
+//     let path = window.location.pathname;
 
-    if (path === `/game/${params.id}/comments` && value !== 0) setValue(0);
-    else if (path === `/game/${params.id}/reviews` && value !== 1) setValue(1);
-  }, [value]);
+//     if (path === `/game/${params.id}/comments` && value !== 0) setValue(0);
+//     else if (path === `/game/${params.id}/reviews` && value !== 1) setValue(1);
+//   }, [value]);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -69,13 +69,13 @@ export default function DetailsTabbedPanel(props) {
           aria-label="basic tabs example"
         >
           <LinkTab
-            label="Comments"
-            pathname={`/game/${params.id}/comments`}
+            label="Reviews"
+            pathname={`/profile/${params.username}/reviews`}
             {...a11yProps(0)}
           />
           <LinkTab
-            label="Reviews"
-            pathname={`/game/${params.id}/reviews`}
+            label="Favorite Games"
+            pathname={`/profile/${params.username}/favorite-games`}
             {...a11yProps(1)}
           />
         </Tabs>
@@ -88,10 +88,10 @@ export default function DetailsTabbedPanel(props) {
           <Reviews getGame={props.getGame} />
         </TabPanel> */}
         <Routes>
-          <Route path={"comments"} element={<Comments />} />
+          <Route path={"reviews"} element={<div>reviews</div>} />
           <Route
-            path={"reviews"}
-            element={<Reviews getGame={props.getGame} />}
+            path={"favorite-games"}
+            element={<div>favorite games</div>}
           />
           <Route path={"*"} element={<Navigate to="/notfound" replace />} />
         </Routes>

@@ -5,6 +5,7 @@ import { useParams } from "react-router";
 import UserService from "../api/UserService";
 import Header from "../components/Header";
 import ProfileMoreMenu from "../components/Menus/ProfileMoreMenu";
+import UserTabbedPanel from "../components/TabbedPanels/UserTabbedPanel";
 import { useUser } from "../hooks/useUser";
 
 function ProfilePage() {
@@ -64,6 +65,13 @@ function ProfilePage() {
                 src={profileUser.profileImageSrc}
               />
             </Grid>
+          </Grid>
+          <Grid
+            item
+            xs={12}
+            sm={9}
+          >
+            <UserTabbedPanel></UserTabbedPanel>
           </Grid>
         </Grid>
       </Container>

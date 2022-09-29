@@ -39,7 +39,7 @@ function Comment(props) {
         <Grid justifyContent="left" item xs zeroMinWidth>
           <Link
             style={{ textDecoration: "none", color: "inherit" }}
-            to={`/profile/${props.comment.userName}`}
+            to={`/profile/${props.comment.userName}/reviews`}
           >
             <Typography
               sx={{

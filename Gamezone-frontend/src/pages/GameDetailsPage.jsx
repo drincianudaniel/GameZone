@@ -87,7 +87,7 @@ function GameDetailsPage() {
                 }}
               >
                 <Typography variant="h4">{game.name}</Typography>
-                <MoreMenu handleDelete={handleDelete} />
+                {user.IsAdmin && <MoreMenu handleDelete={handleDelete} />}
               </Grid>
               <Grid
                 item
@@ -116,7 +116,11 @@ function GameDetailsPage() {
                   <Typography>Developers:</Typography>
                   {game.developers && game.developers.length > 0 ? (
                     game.developers.map((developer) => (
-                      <Chip key={developer.id} label={developer.name} />
+                      <Chip
+                        sx={{ mt: 0.2 }}
+                        key={developer.id}
+                        label={developer.name}
+                      />
                     ))
                   ) : (
                     <Typography>No Developers</Typography>
@@ -124,7 +128,11 @@ function GameDetailsPage() {
                   <Typography>Genres:</Typography>
                   {game.genres && game.genres.length > 0 ? (
                     game.genres.map((genre) => (
-                      <Chip key={genre.id} label={genre.name} />
+                      <Chip
+                        sx={{ mt: 0.2 }}
+                        key={genre.id}
+                        label={genre.name}
+                      />
                     ))
                   ) : (
                     <Typography>No Genres</Typography>
@@ -132,7 +140,11 @@ function GameDetailsPage() {
                   <Typography>Platforms:</Typography>
                   {game.platforms && game.platforms.length > 0 ? (
                     game.platforms.map((platform) => (
-                      <Chip key={platform.id} label={platform.name} />
+                      <Chip
+                        sx={{ mt: 0.2 }}
+                        key={platform.id}
+                        label={platform.name}
+                      />
                     ))
                   ) : (
                     <Typography>No Platforms</Typography>

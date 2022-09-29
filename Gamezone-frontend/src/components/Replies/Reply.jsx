@@ -31,7 +31,7 @@ function Reply(props) {
         <Grid justifyContent="left" item xs zeroMinWidth>
           <Link
             style={{ textDecoration: "none", color: "inherit" }}
-            to={`/profile/${props.reply.userName}`}
+            to={`/profile/${props.reply.userName}/reviews`}
           >
             <Typography
               sx={{

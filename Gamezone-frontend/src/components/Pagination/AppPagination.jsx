@@ -2,7 +2,7 @@ import { Box, Pagination } from "@mui/material";
 
 function AppPagination(props) {
   const handleChange = (event, value) => {
-    props.setPage(value)
+    props.setPage(value);
   };
 
   return (
@@ -12,6 +12,7 @@ function AppPagination(props) {
       sx={{ paddingBottom: "20px" }}
     >
       <Pagination
+        sx={{ button: { color: "#ffffff" } }}
         count={props.numberOfPages}
         onChange={handleChange}
         variant="outlined"

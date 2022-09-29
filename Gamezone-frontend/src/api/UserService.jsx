@@ -44,4 +44,12 @@ export default class UserService {
       method: "GET",
     });
   }
+
+  static async ChangePassword(data) {
+    return await request({
+      url: `/users/change-password`,
+      method: "POST",
+      data: data,
+    });
+  }
 }

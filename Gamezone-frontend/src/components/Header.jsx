@@ -65,7 +65,7 @@ const Header = () => {
   };
 
   const redirectToProfile = () =>{
-    history(`/profile/${user.UserName}`)
+    history(`/profile/${user.UserName}/reviews`)
   }
 
   const handleLogout = () => {

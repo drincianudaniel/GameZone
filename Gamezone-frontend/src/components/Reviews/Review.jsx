@@ -34,7 +34,7 @@ function Review(props) {
           </h4>
           <Link
             style={{ textDecoration: "none", color: "inherit" }}
-            to={`/profile/${props.review.userName}`}
+            to={`/profile/${props.review.userName}/reviews`}
           >
             <Typography
               sx={{
