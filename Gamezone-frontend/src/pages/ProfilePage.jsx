@@ -69,7 +69,9 @@ function ProfilePage() {
           <Grid
             item
             xs={12}
-            sm={9}
+            sm={12}
+            md={12}
+            lg={9}
           >
             <UserTabbedPanel profileUser={profileUser}></UserTabbedPanel>
           </Grid>
