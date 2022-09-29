@@ -115,6 +115,12 @@ export default function BasicTabs() {
             pathname="/admin-page/platforms/add-platform"
             {...a11yProps(3)}
           />
+           <LinkTab
+            sx={{ fontWeight: "bold" }}
+            label="Users"
+            pathname="/admin-page/users"
+            {...a11yProps(3)}
+          />
         </Tabs>
       </Box>
       <Box>
@@ -131,6 +137,7 @@ export default function BasicTabs() {
           <Route path={"developers/*"} element={<DevelopersTabbedPanel />} />
           <Route path={"genres/*"} element={<GenresTabbedPanel />} />
           <Route path={"platforms/*"} element={<PlatformsTabbedPanel />} />
+          <Route path={"users"} element={<div>asd</div>} />
         </Routes>
       </Box>
     </Box>

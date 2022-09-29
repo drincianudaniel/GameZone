@@ -7,10 +7,12 @@ using GameZone.Application.Users.Commands.ChangePassword;
 using GameZone.Application.Users.Commands.CreateUser;
 using GameZone.Application.Users.Commands.DeleteUser;
 using GameZone.Application.Users.Commands.RemoveFavoriteGame;
+using GameZone.Application.Users.Queries.CountAsync;
 using GameZone.Application.Users.Queries.FindUserByName;
 using GameZone.Application.Users.Queries.GetFavoriteGames;
 using GameZone.Application.Users.Queries.GetUserById;
 using GameZone.Application.Users.Queries.GetUsersList;
+using GameZone.Application.Users.Queries.GetUsersPaged;
 using GameZone.Application.Users.Queries.LoginUser;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -49,6 +51,27 @@ namespace GameZone.Api.Controllers
 
             var mappedResult = _mapper.Map<UserDto>(result);
             return Ok(mappedResult);
+        }
+
+        [HttpGet]
+        [Route("page/{page}/page-size/{pageSize}")]
+        public async Task<IActionResult> GetUsersPaged(int page, int pageSize, string? searchString = null)
+        {
+            _logger.LogInformation("Getting platforms at page {page}", page);
+
+            var result = await _mediator.Send(new GetUsersPagedQuery
+            {
+                Page = page,
+                PageSize = pageSize,
+                SearchString = searchString
+            });
+
+            var count = await _mediator.Send(new CountAsyncQuery { SearchString = searchString });
+            var totalPages = ((double)count / (double)pageSize);
+            int roundedTotalPages = Convert.ToInt32(Math.Ceiling(totalPages));
+
+            var mappedResult = _mapper.Map<IEnumerable<UserDto>>(result);
+            return Ok(new PagedResponse<IEnumerable<UserDto>>(mappedResult, page, count, roundedTotalPages, pageSize));
         }
 
         [HttpGet]
