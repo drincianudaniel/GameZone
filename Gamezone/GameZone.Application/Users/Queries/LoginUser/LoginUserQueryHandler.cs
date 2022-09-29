@@ -2,6 +2,7 @@
 using GameZone.Domain.Models;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -13,11 +14,13 @@ namespace GameZone.Application.Users.Queries.LoginUser
     {
         private readonly UserManager<User> _userManager;
         private readonly RoleManager<Role> _roleManager;
+        private readonly IConfiguration _configuration;
 
-        public LoginUserQueryHandler(UserManager<User> userManager, RoleManager<Role> roleManager)
+        public LoginUserQueryHandler(UserManager<User> userManager, RoleManager<Role> roleManager, IConfiguration configuration)
         {
             _userManager=userManager;
             _roleManager=roleManager;
+            _configuration=configuration;
         }
 
         public async Task<string> Handle(LoginUserQuery request, CancellationToken cancellationToken)
@@ -36,6 +39,7 @@ namespace GameZone.Application.Users.Queries.LoginUser
                     new Claim("Email", user.Email),
                     new Claim("ProfileImage", user.ProfileImageSrc),
                     new Claim("IsLoggedIn", true.ToString(), ClaimValueTypes.Boolean),
+                    new Claim(ClaimTypes.NameIdentifier, user.UserName),
                     isAdminFalse
                 };
 
@@ -50,7 +54,7 @@ namespace GameZone.Application.Users.Queries.LoginUser
                     }
                 }
 
-                var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("4d97124e-3864-4ce6-9d5c-bfb06f2e22eb"));
+                var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration.GetSection("JwtToken:Token").Value));
 
                 var token = new JwtSecurityToken(
                     issuer: "https://localhost:7092",

@@ -4,18 +4,22 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import UserService from "../api/UserService";
 import Header from "../components/Header";
+import ProfileMoreMenu from "../components/Menus/ProfileMoreMenu";
+import { useUser } from "../hooks/useUser";
 
 function ProfilePage() {
-  const [user, setUser] = useState([]);
+  const [profileUser, setProfileUser] = useState([]);
+  const { user } = useUser();
   const params = useParams();
 
   useEffect(() => {
     getUser();
   }, []);
   const getUser = () => {
-    UserService.GetUserByUsername(params.username).then((res) =>
-      setUser(res.data)
-    );
+    UserService.GetUserByUsername(params.username).then((res) => {
+      setProfileUser(res.data);
+      console.log(res.data);
+    });
   };
   return (
     <>
@@ -33,7 +37,33 @@ function ProfilePage() {
               alignItems: "center",
             }}
           >
-            <Typography> {user.userName}'s Profile</Typography>
+            <Typography variant="h4">
+              {" "}
+              {profileUser.userName}'s Profile
+            </Typography>
+            {profileUser.userName == user.UserName && (
+              <ProfileMoreMenu></ProfileMoreMenu>
+            )}
+          </Grid>
+          <Grid
+            item
+            xs={12}
+            md={3}
+            sx={{ borderRight: { lg: 1 }, borderColor: "grey.500" }}
+          >
+            <Grid item xs={12} md={12} lg={12} justify="center">
+              <Box
+                sx={{
+                  "&:hover": {
+                    opacity: "0.95",
+                  },
+                }}
+                component="img"
+                alt={profileUser.userName}
+                className="gameImg"
+                src={profileUser.profileImageSrc}
+              />
+            </Grid>
           </Grid>
         </Grid>
       </Container>

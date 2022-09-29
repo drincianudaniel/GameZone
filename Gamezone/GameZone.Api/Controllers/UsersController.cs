@@ -3,6 +3,7 @@ using GameZone.Api.DTOs;
 using GameZone.Api.ViewModels;
 using GameZone.Application.Users.Commands.AddFavoriteGame;
 using GameZone.Application.Users.Commands.AddRoleToUser;
+using GameZone.Application.Users.Commands.ChangePassword;
 using GameZone.Application.Users.Commands.CreateUser;
 using GameZone.Application.Users.Commands.DeleteUser;
 using GameZone.Application.Users.Commands.RemoveFavoriteGame;
@@ -13,6 +14,7 @@ using GameZone.Application.Users.Queries.GetUsersList;
 using GameZone.Application.Users.Queries.LoginUser;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace GameZone.Api.Controllers
 {
@@ -231,6 +233,28 @@ namespace GameZone.Api.Controllers
 
             await _mediator.Send(command);
             return NoContent();
+        }
+
+        [HttpPost]
+        [Route("change-password")]
+        public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordDto changePassword)
+        {
+            string claim = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var command = new ChangePasswordCommand
+            {
+                UserId = claim,
+                OldPassword = changePassword.OldPassword,
+                NewPassword = changePassword.NewPassword,
+            };
+
+            var result = await _mediator.Send(command);
+
+            if(result == false)
+            {
+                return BadRequest("Error changing password");
+            }
+
+            return Ok("Password has been changed");
         }
     }
 }
