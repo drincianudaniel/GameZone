@@ -71,7 +71,7 @@ function ProfilePage() {
             xs={12}
             sm={9}
           >
-            <UserTabbedPanel></UserTabbedPanel>
+            <UserTabbedPanel profileUser={profileUser}></UserTabbedPanel>
           </Grid>
         </Grid>
       </Container>

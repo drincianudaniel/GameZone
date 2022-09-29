@@ -69,10 +69,10 @@ namespace GameZone.Infrastructure.Repositories
             return await users.CountAsync();
         }
 
-        public async Task<IEnumerable<Game>> GetUserFavoriteGames(Guid id)
+        public async Task<IEnumerable<Game>> GetUserFavoriteGames(string username)
         {
-            return await _context.Users.Include(x => x.Games).Where(x => x.Id == id).FirstOrDefault().Games.ToListAsync();
-        } 
+            return await _context.Users.Include(x => x.Games).Where(x => x.UserName == username).FirstOrDefault().Games.ToListAsync();
+        }
 
         public async Task UpdateAsync(User user)
         {

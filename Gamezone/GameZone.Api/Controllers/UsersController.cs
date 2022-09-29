@@ -106,12 +106,12 @@ namespace GameZone.Api.Controllers
         }
 
         [HttpGet]
-        [Route("favorite-games/{id}")]
-        public async Task<IActionResult> GetUsersFavoriteGames(Guid id)
+        [Route("favorite-games/{username}")]
+        public async Task<IActionResult> GetUsersFavoriteGames(string username)
         {
             _logger.LogInformation("Getting users favorite games");
 
-            var result = await _mediator.Send(new GetFavoriteGamesQuery { UserId = id});
+            var result = await _mediator.Send(new GetFavoriteGamesQuery { UserName = username });
 
             var mappedResult = _mapper.Map<IEnumerable<SimpleGameDto>>(result);
             return Ok(mappedResult);

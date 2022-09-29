@@ -49,7 +49,7 @@ function GamesPage() {
   };
 
   const getFavoriteGames = async () => {
-    UserService.GetUsersFavorites(user.Id).then((res) => {
+    UserService.GetUsersFavorites(user.UserName).then((res) => {
       setFavoriteGames(res.data);
       console.log(favoriteGames);
     });

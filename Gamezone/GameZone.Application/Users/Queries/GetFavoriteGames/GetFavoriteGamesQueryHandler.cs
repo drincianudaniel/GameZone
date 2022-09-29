@@ -15,7 +15,7 @@ namespace GameZone.Application.Users.Queries.GetFavoriteGames
 
         public async Task<IEnumerable<Game>> Handle(GetFavoriteGamesQuery request, CancellationToken cancellationToken)
         {
-            var games = await _unitOfWork.UserRepository.GetUserFavoriteGames(request.UserId);
+            var games = await _unitOfWork.UserRepository.GetUserFavoriteGames(request.UserName);
             return games;
         }
     }

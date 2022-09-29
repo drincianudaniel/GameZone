@@ -7,6 +7,7 @@ import Box from "@mui/material/Box";
 import Reviews from "../Reviews/Reviews";
 import Comments from "../Comments/Comments";
 import { Link, Navigate, Route, Routes, useParams } from "react-router-dom";
+import FavoriteGames from "../Users/FavoriteGames";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -91,7 +92,7 @@ export default function UserTabbedPanel(props) {
           <Route path={"reviews"} element={<div>reviews</div>} />
           <Route
             path={"favorite-games"}
-            element={<div>favorite games</div>}
+            element={<FavoriteGames profileUser={props.profileUser}/>}
           />
           <Route path={"*"} element={<Navigate to="/notfound" replace />} />
         </Routes>

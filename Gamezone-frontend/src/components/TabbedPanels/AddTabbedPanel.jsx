@@ -10,6 +10,7 @@ import { Link, Navigate, Route, Routes } from "react-router-dom";
 import GenresTabbedPanel from "./GenresTabbedPanel";
 import PlatformsTabbedPanel from "./PlatformsTabbedPanel";
 import { useUser } from "../../hooks/useUser";
+import Users from "../Users/Users";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -137,7 +138,7 @@ export default function BasicTabs() {
           <Route path={"developers/*"} element={<DevelopersTabbedPanel />} />
           <Route path={"genres/*"} element={<GenresTabbedPanel />} />
           <Route path={"platforms/*"} element={<PlatformsTabbedPanel />} />
-          <Route path={"users"} element={<div>asd</div>} />
+          <Route path={"users"} element={<Users/>} />
         </Routes>
       </Box>
     </Box>

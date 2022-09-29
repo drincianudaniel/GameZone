@@ -24,6 +24,13 @@ export default class UserService {
     });
   }
 
+  static async getGenresPaginated(page, searchString) {
+    return await request({
+      url: `/users/page/${page}/page-size/${9}?searchString=${searchString}`,
+      method: "GET",
+    });
+  }
+
   static async AddGameToFavorite(userid, gameid){
     return await request({
       url: `/users/${userid}/games/${gameid}`,
@@ -38,18 +45,26 @@ export default class UserService {
     });
   }
 
-  static async GetUsersFavorites(id){
+  static async GetUsersFavorites(username){
     return await request({
-      url: `/users/favorite-games/${id}`,
+      url: `/users/favorite-games/${username}`,
       method: "GET",
     });
   }
+
 
   static async ChangePassword(data) {
     return await request({
       url: `/users/change-password`,
       method: "POST",
       data: data,
+    });
+  }
+
+  static async DeleteUser(id) {
+    return await request({
+      url: `/users/${id}`,
+      method: "DELETE"
     });
   }
 }
