@@ -10,7 +10,7 @@ export default function FavoriteGames(props) {
   const params = useParams();
   useEffect(() => {
     getFavoriteGames();
-  }, []);
+  }, [params]);
 
   const getFavoriteGames = () => {
     UserService.GetUsersFavorites(params.username).then((res) => {

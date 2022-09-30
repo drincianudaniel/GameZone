@@ -1,6 +1,6 @@
 import { Container, Grid, Typography } from "@mui/material";
 import { Box } from "@mui/system";
-import { useEffect, useState } from "react";
+import { useEffect, useReducer, useState } from "react";
 import { useParams } from "react-router";
 import UserService from "../api/UserService";
 import Header from "../components/Header";
@@ -15,7 +15,7 @@ function ProfilePage() {
 
   useEffect(() => {
     getUser();
-  }, []);
+  }, [params]);
 
   const getUser = () => {
     UserService.GetUserByUsername(params.username).then((res) => {

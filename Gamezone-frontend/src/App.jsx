@@ -12,7 +12,8 @@ import RegisterPage from "./pages/RegisterPage";
 import { UserContextProvider } from "./hooks/useUser";
 import ProfilePage from "./pages/ProfilePage";
 
-function App() {
+function App(props) {
+
   return (
     <div style={{ height: "100%" }}>
       <ToastContainer />
@@ -32,7 +33,7 @@ function App() {
           />
           <Route path={"/login"} element={<LoginPage />} />
           <Route path={"/register"} element={<RegisterPage />} />
-          <Route path={"/profile/:username/*"} element={<ProfilePage/>} />
+          <Route path={"/profile/:username/*"} element={<ProfilePage />} />
         </Routes>
         </BrowserRouter>
       </UserContextProvider>

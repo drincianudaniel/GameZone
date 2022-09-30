@@ -11,7 +11,7 @@ export default function UserReviews() {
 
   useEffect(() => {
     getReviews();
-  }, []);
+  }, [params]);
 
   const getReviews = () => {
     UserService.GetUserReviews(params.username).then((res) => {
