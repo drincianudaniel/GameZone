@@ -11,7 +11,8 @@ namespace GameZone.Api.AutoMapperProfiles
             CreateMap<Review, ReviewDto>()
                 .ForMember(c => c.UserName, opt => opt.MapFrom(s => s.User.UserName))
                 .ForMember(c => c.Gamename, opt => opt.MapFrom(s => s.Game.Name))
-                .ForMember(c => c.UserProfileImage, opt => opt.MapFrom(s => s.User.ProfileImageSrc));
+                .ForMember(c => c.UserProfileImage, opt => opt.MapFrom(s => s.User.ProfileImageSrc))
+                .ForMember(c => c.GameId, opt => opt.MapFrom(s => s.Game.Id));
 
             CreateMap<ReviewDto, Review>();
         }

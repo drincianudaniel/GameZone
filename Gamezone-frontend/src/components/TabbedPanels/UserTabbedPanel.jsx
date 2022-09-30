@@ -8,6 +8,7 @@ import Reviews from "../Reviews/Reviews";
 import Comments from "../Comments/Comments";
 import { Link, Navigate, Route, Routes, useParams } from "react-router-dom";
 import FavoriteGames from "../Users/FavoriteGames";
+import UserReviews from "../Users/UserReviews";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -89,7 +90,7 @@ export default function UserTabbedPanel(props) {
           <Reviews getGame={props.getGame} />
         </TabPanel> */}
         <Routes>
-          <Route path={"reviews"} element={<div>reviews</div>} />
+          <Route path={"reviews"} element={<UserReviews/>} />
           <Route
             path={"favorite-games"}
             element={<FavoriteGames profileUser={props.profileUser}/>}

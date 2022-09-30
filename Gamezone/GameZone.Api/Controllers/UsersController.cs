@@ -112,6 +112,18 @@ namespace GameZone.Api.Controllers
         {
             _logger.LogInformation("Getting users favorite games");
 
+            var query = new FindUserByNameQuery
+            {
+                UserName = username,
+            };
+
+            var userFound = await _mediator.Send(query);
+
+            if(userFound == null)
+            {
+                return NotFound();
+            };
+
             var result = await _mediator.Send(new GetFavoriteGamesQuery { UserName = username });
 
             var mappedResult = _mapper.Map<IEnumerable<SimpleGameDto>>(result);
@@ -123,6 +135,18 @@ namespace GameZone.Api.Controllers
         public async Task<IActionResult> GetUserReviews(string username)
         {
             _logger.LogInformation("Getting users reviews");
+
+            var query = new FindUserByNameQuery
+            {
+                UserName = username,
+            };
+
+            var userFound = await _mediator.Send(query);
+
+            if (userFound == null)
+            {
+                return NotFound();
+            };
 
             var result = await _mediator.Send(new GetUserReviewsQuery { UserName = username });
 

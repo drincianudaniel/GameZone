@@ -16,12 +16,14 @@ function ProfilePage() {
   useEffect(() => {
     getUser();
   }, []);
+
   const getUser = () => {
     UserService.GetUserByUsername(params.username).then((res) => {
       setProfileUser(res.data);
       console.log(res.data);
     });
   };
+
   return (
     <>
       <Header />
@@ -66,13 +68,7 @@ function ProfilePage() {
               />
             </Grid>
           </Grid>
-          <Grid
-            item
-            xs={12}
-            sm={12}
-            md={12}
-            lg={9}
-          >
+          <Grid item xs={12} sm={12} md={12} lg={9} justify="center">
             <UserTabbedPanel profileUser={profileUser}></UserTabbedPanel>
           </Grid>
         </Grid>

@@ -52,6 +52,12 @@ export default class UserService {
     });
   }
 
+  static async GetUserReviews(username){
+    return await request({
+      url:`/users/reviews/${username}`,
+      method: "GET"
+    })
+  }
 
   static async ChangePassword(data) {
     return await request({
