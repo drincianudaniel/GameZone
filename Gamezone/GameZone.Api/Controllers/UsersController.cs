@@ -11,6 +11,7 @@ using GameZone.Application.Users.Queries.CountAsync;
 using GameZone.Application.Users.Queries.FindUserByName;
 using GameZone.Application.Users.Queries.GetFavoriteGames;
 using GameZone.Application.Users.Queries.GetUserById;
+using GameZone.Application.Users.Queries.GetUserReviews;
 using GameZone.Application.Users.Queries.GetUsersList;
 using GameZone.Application.Users.Queries.GetUsersPaged;
 using GameZone.Application.Users.Queries.LoginUser;
@@ -114,6 +115,18 @@ namespace GameZone.Api.Controllers
             var result = await _mediator.Send(new GetFavoriteGamesQuery { UserName = username });
 
             var mappedResult = _mapper.Map<IEnumerable<SimpleGameDto>>(result);
+            return Ok(mappedResult);
+        }
+
+        [HttpGet]
+        [Route("reviews/{username}")]
+        public async Task<IActionResult> GetUserReviews(string username)
+        {
+            _logger.LogInformation("Getting users reviews");
+
+            var result = await _mediator.Send(new GetUserReviewsQuery { UserName = username });
+
+            var mappedResult = _mapper.Map<IEnumerable<ReviewDto>>(result);
             return Ok(mappedResult);
         }
 

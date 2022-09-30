@@ -74,6 +74,11 @@ namespace GameZone.Infrastructure.Repositories
             return await _context.Users.Include(x => x.Games).Where(x => x.UserName == username).FirstOrDefault().Games.ToListAsync();
         }
 
+        public async Task<IEnumerable<Review>> GetUserReviews(string username)
+        {
+            return await _context.Users.Include(x => x.Reviews).ThenInclude(x => x.Game).Where(x => x.UserName == username).FirstOrDefault().Reviews.ToListAsync();
+        }
+
         public async Task UpdateAsync(User user)
         {
             _context.Update(user);

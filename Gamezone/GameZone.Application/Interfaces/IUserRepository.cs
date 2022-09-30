@@ -9,6 +9,7 @@ namespace GameZone.Application
         Task CreateAsync(User user);
         Task DeleteAsync(User user);
         Task<IEnumerable<Game>> GetUserFavoriteGames(string username);
+        Task<IEnumerable<Review>> GetUserReviews(string username);
         Task RemoveGameFromFavorites(User user, Game favoriteGame);
         Task<IEnumerable<User>> ReturnAllAsync();
         Task<User> ReturnByIdAsync(Guid id);
