@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using GameZone.Api.DTOs;
+using GameZone.Application.Dtos;
 using GameZone.Domain.Models;
 
 namespace GameZone.Api.AutoMapperProfiles
@@ -15,6 +16,8 @@ namespace GameZone.Api.AutoMapperProfiles
             CreateMap<Game, AutoCompleteGameDto>();
             CreateMap<Game, GamePatchDto>();
             CreateMap<GamePatchDto, Game>();
+            CreateMap<GamesWithUserFavoritesDTO, GamesWithFavoritesDto>();
+            CreateMap<GamesWithFavoritesDto, GamesWithUserFavoritesDTO>();
         }
     }
 }

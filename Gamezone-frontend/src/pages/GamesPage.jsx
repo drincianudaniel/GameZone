@@ -18,42 +18,40 @@ export function useGames() {
 }
 
 function GamesPage() {
-
   const [games, setGames] = useState([]);
   const [page, setPage] = useState(1);
   const [numberOfPages, setNumberOfPages] = useState(10);
-  const [favoriteGames, setFavoriteGames] = useState([]);
   const { user, loadingUser } = useUser();
 
   useEffect(() => {
-
-    if(loadingUser){
-      return
+    if (loadingUser) {
+      return;
     }
-    getGames();
+
+    if (!user.IsLoggedIn) {
+      getGames();
+    }
+
+    if(user.IsLoggedIn){
+      getGamesWhenLoggedIn();
+    }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, user]);
 
   const getGames = async () => {
-
-    if (user.IsLoggedIn === true) {
-      await getFavoriteGames();
-    }
-
     GameService.getGamesPaginated(page).then((response) => {
       setGames(response.data.data);
       setNumberOfPages(response.data.totalPages);
     });
-
   };
 
-  const getFavoriteGames = async () => {
-    UserService.GetUsersFavorites(user.UserName).then((res) => {
-      setFavoriteGames(res.data);
-      console.log(favoriteGames);
-    });
-  };
+  const getGamesWhenLoggedIn = async() =>{
+    GameService.getGamesWithUserFavorites(user.UserName, page).then((response) =>{
+      setGames(response.data.data);
+      setNumberOfPages(response.data.totalPages);
+    })
+  }
 
   return (
     <div className="gamePageContent">
@@ -83,8 +81,6 @@ function GamesPage() {
                 <GameCard
                   data={data}
                   getGames={getGames}
-                  favoriteGames={favoriteGames}
-                  getFavoriteGames={getFavoriteGames}
                 />
               </React.Fragment>
             );

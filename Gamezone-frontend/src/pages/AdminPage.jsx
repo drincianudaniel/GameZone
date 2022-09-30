@@ -1,3 +1,4 @@
+import { Box } from "@mui/material";
 import { useEffect } from "react";
 import { Navigate, useNavigate } from "react-router";
 import Header from "../components/Header";
@@ -19,7 +20,7 @@ function AdminPage() {
       return
     }
     
-    if(user.IsLoggedIn !== true){
+    if(!user.IsLoggedIn){
       redirectToHome()
     }
 
@@ -29,10 +30,10 @@ function AdminPage() {
   }, [user, user.IsLoggedIn, user.IsAdmin])
 
   return (
-    <div>
+    <Box sx={{height:"auto"}}>
       <Header />
       <AddTabbedPanel />
-    </div>
+    </Box>
   );
 }
 

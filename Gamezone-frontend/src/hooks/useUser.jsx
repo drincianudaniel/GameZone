@@ -28,6 +28,8 @@ export function UserContextProvider({ children }) {
       setUser(jwt_decode(localStorage.getItem("jwt")));
       setLoadingUser(false)
     }
+
+    setLoadingUser(false);
   }, []);
 
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>;

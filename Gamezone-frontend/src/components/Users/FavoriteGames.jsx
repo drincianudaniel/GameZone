@@ -8,6 +8,7 @@ import SimpleGameCard from "../Cards/SimpleGameCard";
 export default function FavoriteGames(props) {
   const [favoriteGames, setFavoriteGames] = useState([]);
   const params = useParams();
+  
   useEffect(() => {
     getFavoriteGames();
   }, [params]);

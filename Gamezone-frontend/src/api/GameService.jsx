@@ -8,6 +8,13 @@ export default class GameService {
     });
   }
 
+  static async getGamesWithUserFavorites(username, page) {
+    return await request({
+      url: `/games/user/${username}/page/${page}/page-size/${8}`,
+      method: "GET",
+    });
+  }
+
   static async getHomePageGames(count, sortOrder) {
     return await request({
       url: `/games/number/${count}/sort-order/${sortOrder}`,

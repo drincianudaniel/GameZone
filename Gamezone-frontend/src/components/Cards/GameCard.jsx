@@ -18,10 +18,10 @@ import LoadingBarComponent from "../LoadingComponents/LoadingBar";
 export default function GameCard(props) {
   const { user } = useUser();
   const [isFav, setIsFav] = React.useState(false);
-  const [progress, setProgress] = useState(0)
+  const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    isFavCheck();
+    isFavCheck()
   }, []);
 
   const deleteGame = async () => {
@@ -51,14 +51,8 @@ export default function GameCard(props) {
   };
 
   const isFavCheck = () => {
-    props.favoriteGames.map((game) => {
-      if (game.name === props.data.name) {
-        setIsFav(true);
-      }
-    });
-    console.log(isFav);
+    setIsFav(props.data.isFavorite);
   };
-
   return (
     <Card
       sx={{
@@ -66,7 +60,7 @@ export default function GameCard(props) {
         "&:hover": { boxShadow: "-1px 10px 29px 0px rgba(0, 0, 0, 0.8)" },
       }}
     >
-      <LoadingBarComponent progress={progress} setProgress={setProgress}/>
+      <LoadingBarComponent progress={progress} setProgress={setProgress} />
       <Link
         style={{ textDecoration: "none", color: "black" }}
         to={`/game/${props.data.id}/comments`}

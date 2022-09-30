@@ -17,6 +17,8 @@ using GameZone.Application.Games.Queries.CountAsync;
 using Microsoft.AspNetCore.JsonPatch;
 using GameZone.Application.Games.Commands.SaveAsync;
 using Microsoft.AspNetCore.Authorization;
+using GameZone.Application.Games.Queries.GetGamesWithUserFavorites;
+using GameZone.Application.Users.Queries.FindUserByName;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -106,6 +108,38 @@ namespace GameZone.Api.Controllers
 
             var mappedResult = _mapper.Map<IEnumerable<SimpleGameDto>>(result);
             return Ok(new PagedResponse<IEnumerable<SimpleGameDto>>(mappedResult, page, count, roundedTotalPages, pageSize));
+        }
+
+        [HttpGet]
+        [Route("user/{username}/page/{page}/page-size/{pageSize}")]
+        public async Task<IActionResult> GetGamesPagedUserFavorites(int page, int pageSize, string username)
+        {
+            _logger.LogInformation("Getting games at page {page}", page);
+
+            var query = new FindUserByNameQuery
+            {
+                UserName = username,
+            };
+
+            var userFound = await _mediator.Send(query);
+
+            if (userFound == null)
+            {
+                return NotFound();
+            };
+
+            var result = await _mediator.Send(new GetGamesWithUserFavoritesQuery
+            {
+                Page = page,
+                PageSize = pageSize,
+                UserName = username
+            });
+
+            var count = await _mediator.Send(new CountAsyncQuery());
+            var totalPages = ((double)count / (double)pageSize);
+            int roundedTotalPages = Convert.ToInt32(Math.Ceiling(totalPages));
+            var mappedResult = _mapper.Map<IEnumerable<GamesWithFavoritesDto>>(result);
+            return Ok(new PagedResponse<IEnumerable<GamesWithFavoritesDto>>(mappedResult, page, count, roundedTotalPages, pageSize));
         }
 
         [HttpGet]
