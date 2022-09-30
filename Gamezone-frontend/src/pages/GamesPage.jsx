@@ -10,6 +10,7 @@ import GameService from "../api/GameService";
 import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import { useUser } from "../hooks/useUser";
 import UserService from "../api/UserService";
+import { AndroidSharp } from "@mui/icons-material";
 
 const GamesContext = createContext();
 
@@ -25,19 +26,19 @@ function GamesPage() {
 
   useEffect(() => {
     if (loadingUser) {
-      return;
+      return
     }
 
     if (!user.IsLoggedIn) {
       getGames();
     }
 
-    if(user.IsLoggedIn){
+    if (user.IsLoggedIn) {
       getGamesWhenLoggedIn();
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page, user]);
+  }, [page, user, loadingUser]);
 
   const getGames = async () => {
     GameService.getGamesPaginated(page).then((response) => {
@@ -46,12 +47,14 @@ function GamesPage() {
     });
   };
 
-  const getGamesWhenLoggedIn = async() =>{
-    GameService.getGamesWithUserFavorites(user.UserName, page).then((response) =>{
-      setGames(response.data.data);
-      setNumberOfPages(response.data.totalPages);
-    })
-  }
+  const getGamesWhenLoggedIn = async () => {
+    GameService.getGamesWithUserFavorites(user.UserName, page).then(
+      (response) => {
+        setGames(response.data.data);
+        setNumberOfPages(response.data.totalPages);
+      }
+    );
+  };
 
   return (
     <div className="gamePageContent">
@@ -78,10 +81,7 @@ function GamesPage() {
           {games.map((data, i) => {
             return (
               <React.Fragment key={data.id}>
-                <GameCard
-                  data={data}
-                  getGames={getGames}
-                />
+                <GameCard data={data} getGames={getGames} />
               </React.Fragment>
             );
           })}

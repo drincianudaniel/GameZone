@@ -26,11 +26,14 @@ export function UserContextProvider({ children }) {
 
     if (localStorage.getItem("jwt")) {
       setUser(jwt_decode(localStorage.getItem("jwt")));
-      setLoadingUser(false)
+      setLoadingUser(false);
     }
 
-    setLoadingUser(false);
-  }, []);
+    if (!localStorage.getItem("jwt")) {
+      setLoadingUser(false);
+    }
+
+  }, [loadingUser]);
 
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
 }
