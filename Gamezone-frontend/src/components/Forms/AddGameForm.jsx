@@ -27,6 +27,7 @@ function AddGameForm() {
   const [selectedDevelopers, setSelectedDevelopers] = useState([]);
   const [selectedGenres, setSelectedGenres] = useState([]);
   const [selectedPlatforms, setSelectedPlatforms] = useState([]);
+
   const history = useNavigate();
 
   useEffect(() => {
@@ -180,7 +181,6 @@ function AddGameForm() {
               value={selectedDevelopers}
               onChange={(event, newValue) => {
                 setSelectedDevelopers(newValue);
-                console.log(selectedDevelopers);
               }}
               multiple
               id="tags-outlined"
@@ -198,7 +198,6 @@ function AddGameForm() {
               value={selectedGenres}
               onChange={(event, newValue) => {
                 setSelectedGenres(newValue);
-                console.log(selectedDevelopers);
               }}
               multiple
               id="tags-outlined"
@@ -216,7 +215,6 @@ function AddGameForm() {
               value={selectedPlatforms}
               onChange={(event, newValue) => {
                 setSelectedPlatforms(newValue);
-                console.log(selectedDevelopers);
               }}
               multiple
               id="tags-outlined"

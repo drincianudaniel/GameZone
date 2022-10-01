@@ -19,6 +19,7 @@ import FormDialog from "../components/Dialogs/FormDialog";
 import EditGameDetailsForm from "../components/Forms/EditForms/EditGameDetailsForm";
 import ImageModal from "../components/Modals/ImageModal";
 import { useUser } from "../hooks/useUser";
+import StarOutlinedIcon from "@mui/icons-material/StarOutlined";
 
 function GameDetailsPage() {
   const [game, setGame] = useState([]);
@@ -155,12 +156,23 @@ function GameDetailsPage() {
                 <Box sx={{ flexGrow: 1 }} className="detailsBox">
                   <Grid container spacing={2}>
                     <Grid item xs={12} sm={12} md={12}>
-                      <Rating
-                        name="read-only"
-                        value={game.totalRating / 2}
-                        readOnly
-                        precision={0.1}
-                      />
+                      <Box
+                        sx={{
+                          height: "100%",
+                          display: "flex",
+                          alignItems:"center"
+                        }}
+                      >
+                        <Typography sx={{ fontSize: 30, mr: 2 }}>
+                          {game.totalRating}/10
+                        </Typography>
+                        <StarOutlinedIcon
+                          fontSize={"30"}
+                          stroke="orange"
+                          strokeWidth={1}
+                          sx={{ color: "#ffea00", marginRight: 1, fontSize:25 }}
+                        ></StarOutlinedIcon>
+                      </Box>
                     </Grid>
                     <Grid item xs={12} md={12} sx={{ borderBottom: 1 }}>
                       <Box sx={{ minHeight: "315px" }} className="details">

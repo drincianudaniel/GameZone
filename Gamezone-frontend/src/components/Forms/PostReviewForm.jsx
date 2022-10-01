@@ -6,6 +6,7 @@ import axios from "axios";
 import Rating from "@mui/material/Rating";
 import { useUser } from "../../hooks/useUser";
 import ReviewService from "../../api/ReviewService";
+import { FormControl, FormHelperText, InputLabel, MenuItem, Select } from "@mui/material";
 
 function PostReviewForm(props) {
   const { user } = useUser();
@@ -17,15 +18,13 @@ function PostReviewForm(props) {
     formState: { errors },
   } = useForm();
 
-  const [value, setValue] = useState(0);
-
   const submit = (data) => {
     console.log(data);
 
     const dataToPost = {
       userId: user.Id,
       gameId: props.id,
-      rating: value * 2,
+      rating: data.Rating,
       content: data.Content,
     };
 
@@ -33,7 +32,6 @@ function PostReviewForm(props) {
       .then((response) => {
         props.getReviews();
         reset();
-        setValue(0);
         props.getGame();
       })
       .catch((err) => console.log(err));
@@ -41,18 +39,40 @@ function PostReviewForm(props) {
 
   return (
     <form
+      noValidate
       autoComplete="off"
       style={{ marginBottom: 20 }}
       onSubmit={handleSubmit(submit)}
     >
-      <Rating
-        name="simple-controlled"
-        value={value}
-        onChange={(event, newValue) => {
-          setValue(newValue);
-        }}
-        precision={0.1}
-      />
+      <FormControl sx={{ width: "50%", mb: 2 }}>
+        <InputLabel id="demo-simple-select-label">Rating *</InputLabel>
+        <Select
+          defaultValue={5}
+          {...register("Rating", {
+            required: { value: true, message: "Content is required" },
+          })}
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          label="Rating"
+          name="Rating"
+        >
+          <MenuItem value={1}>(1) Appaling</MenuItem>
+          <MenuItem value={2}>(2) Horrible</MenuItem>
+          <MenuItem value={3}>(3) Very Bad</MenuItem>
+          <MenuItem value={4}>(4) Bad</MenuItem>
+          <MenuItem value={5}>(5) Average</MenuItem>
+          <MenuItem value={6}>(6) Fine</MenuItem>
+          <MenuItem value={7}>(7) Good</MenuItem>
+          <MenuItem value={8}>(8) Very Good</MenuItem>
+          <MenuItem value={9}>(9) Great</MenuItem>
+          <MenuItem value={10}>(10) Masterpiece</MenuItem>
+        </Select>
+        {!!errors.Content && (
+          <FormHelperText error id="accountId-error">
+            {errors.Content?.message}
+          </FormHelperText>
+        )}
+      </FormControl>
 
       <TextField
         fullWidth
