@@ -1,6 +1,7 @@
 import request from "./request";
 
 export default class GameService {
+
   static async getGamesPaginated(page) {
     return await request({
       url: `/games/page/${page}/page-size/${8}`,
@@ -25,6 +26,13 @@ export default class GameService {
   static async getGame(id) {
     return await request({
       url: `/games/${id}`,
+      method: "GET",
+    });
+  }
+
+  static async getGames() {
+    return await request({
+      url: `/games`,
       method: "GET",
     });
   }

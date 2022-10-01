@@ -73,4 +73,11 @@ export default class UserService {
       method: "DELETE"
     });
   }
+
+  static async GetUsers(id){
+    return await request({
+      url: "/users",
+      method: "GET"
+    })
+  }
 }

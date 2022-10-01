@@ -27,7 +27,7 @@ function AdminPage() {
     if(user.IsAdmin === false){
       redirectToHome()
     }
-  }, [user, user.IsLoggedIn, user.IsAdmin])
+  }, [user, loadingUser])
 
   return (
     <Box sx={{height:"auto"}}>

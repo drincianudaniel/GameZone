@@ -17,6 +17,7 @@ import AutoCompleteSearch from "./Search/AutoCompleteSearch";
 import "./css/Header.css";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../hooks/useUser";
+import GroupedSearch from "./Search/GroupedSearch";
 
 const Header = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -201,6 +202,7 @@ const Header = () => {
           </Box>
           <Box sx={{ marginRight: 4, color: "black" }}>
             <AutoCompleteSearch handleSearchGame={handleSearchGame} />
+            {/* <GroupedSearch></GroupedSearch> */}
           </Box>
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
