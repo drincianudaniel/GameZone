@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
@@ -8,7 +8,7 @@ import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import MultipleSelectChip from "../MultipleSelectChip";
-import { Box } from "@mui/material";
+import { Autocomplete, Box } from "@mui/material";
 import { useNavigate } from "react-router";
 import { uploadFile } from "../../utils/UploadFile";
 import { v4 as uuidv4 } from "uuid";
@@ -19,54 +19,38 @@ import GameService from "../../api/GameService";
 
 function AddGameForm() {
   const [date, setDate] = useState(new Date("2018-01-01T00:00:00.000Z"));
+
+  const [developers, setDevelopers] = useState([]);
+  const [genres, setGenres] = useState([]);
+  const [platforms, setPlatforms] = useState([]);
+
   const [selectedDevelopers, setSelectedDevelopers] = useState([]);
   const [selectedGenres, setSelectedGenres] = useState([]);
   const [selectedPlatforms, setSelectedPlatforms] = useState([]);
-  const [file, setFile] = useState(null);
   const history = useNavigate();
 
-  const onFileChange = (event) => {
-    setFile(event.target.files[0]);
-    console.log(file);
+  useEffect(() => {
+    getDevelopersSearch();
+    getGenresSearch();
+    getPlatformsSearch();
+  }, []);
+
+  const getDevelopersSearch = async () => {
+    DeveloperService.getDevelopers().then((res) => {
+      setDevelopers(res.data);
+    });
   };
 
-  const handleChangeDevelopers = (event) => {
-    const {
-      target: { value },
-    } = event;
-    setSelectedDevelopers(value);
+  const getGenresSearch = async () => {
+    GenreService.getGenres().then((res) => {
+      setGenres(res.data);
+    });
   };
 
-  const handleChangeGenres = (event) => {
-    const {
-      target: { value },
-    } = event;
-    setSelectedGenres(value);
-  };
-
-  const handleChangePlatforms = (event) => {
-    const {
-      target: { value },
-    } = event;
-    setSelectedPlatforms(value);
-  };
-
-  const getDevelopers = async () => {
-    return await
-      DeveloperService.getDevelopers()
-      .then((res) => res.data);
-  };
-
-  const getGenres = async () => {
-    return await
-      GenreService.getGenres()
-      .then((res) => res.data);
-  };
-
-  const getPlatforms = async () => {
-    return await
-      PlatformService.getPlatforms()
-      .then((res) => res.data);
+  const getPlatformsSearch = async () => {
+    PlatformService.getPlatforms().then((res) => {
+      setPlatforms(res.data);
+    });
   };
 
   const {
@@ -92,7 +76,7 @@ function AddGameForm() {
       platformList: selectedPlatforms.map((e) => e.id),
     };
 
-      GameService.postGame(dataToPost)
+    GameService.postGame(dataToPost)
       .then((response) => {
         reset();
         history(`/game/${response.data.id}/comments`);
@@ -192,34 +176,61 @@ function AddGameForm() {
           </LocalizationProvider>
 
           <Grid item xs={12} md={12}>
-            <MultipleSelectChip
-              name="Developer"
-              getData={getDevelopers}
-              handleChange={handleChangeDevelopers}
-              valueName={selectedDevelopers}
+            <Autocomplete
+              value={selectedDevelopers}
+              onChange={(event, newValue) => {
+                setSelectedDevelopers(newValue);
+                console.log(selectedDevelopers);
+              }}
+              multiple
+              id="tags-outlined"
+              options={developers}
+              getOptionLabel={(option) => option.name}
+              filterSelectedOptions
+              renderInput={(params) => (
+                <TextField {...params} label="Search Developers" />
+              )}
             />
           </Grid>
 
           <Grid item xs={12} md={12}>
-            <MultipleSelectChip
-              name="Genre"
-              getData={getGenres}
-              handleChange={handleChangeGenres}
-              valueName={selectedGenres}
+            <Autocomplete
+              value={selectedGenres}
+              onChange={(event, newValue) => {
+                setSelectedGenres(newValue);
+                console.log(selectedDevelopers);
+              }}
+              multiple
+              id="tags-outlined"
+              options={genres}
+              getOptionLabel={(option) => option.name}
+              filterSelectedOptions
+              renderInput={(params) => (
+                <TextField {...params} label="Search Genre" />
+              )}
             />
           </Grid>
 
           <Grid item xs={12} md={12}>
-            <MultipleSelectChip
-              name="Platform"
-              getData={getPlatforms}
-              handleChange={handleChangePlatforms}
-              valueName={selectedPlatforms}
+            <Autocomplete
+              value={selectedPlatforms}
+              onChange={(event, newValue) => {
+                setSelectedPlatforms(newValue);
+                console.log(selectedDevelopers);
+              }}
+              multiple
+              id="tags-outlined"
+              options={platforms}
+              getOptionLabel={(option) => option.name}
+              filterSelectedOptions
+              renderInput={(params) => (
+                <TextField {...params} label="Search Platform" />
+              )}
             />
           </Grid>
         </Grid>
         {/* <Button onClick={() => reset()}>Reset</Button> */}
-        <Button type="submit" variant="contained">
+        <Button type="submit" variant="contained" sx={{ mt: 2 }}>
           Submit
         </Button>
       </form>
