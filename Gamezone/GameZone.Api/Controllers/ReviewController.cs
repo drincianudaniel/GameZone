@@ -98,6 +98,11 @@ namespace GameZone.Api.Controllers
             };
             var result = await _mediator.Send(command);
 
+            if (result == null)
+            {
+                return BadRequest("You have already reviewed this game");
+            }
+
             var mappedResult = _mapper.Map<ReviewDto>(result);
             return CreatedAtAction(nameof(GetById), new { Id = mappedResult.Id }, mappedResult);
         }

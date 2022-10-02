@@ -15,6 +15,14 @@ namespace GameZone.Application.Reviews.Commands.CreateReview
 
         public async Task<Review> Handle(CreateReviewCommand request, CancellationToken cancellationToken)
         {
+
+            var user = await _unitOfWork.UserRepository.ReturnByIdAsync(request.UserId);
+
+            if(user.Reviews.Any(x=> x.GameId == request.GameId))
+            {
+                return null;
+            }
+
             var review = new Review { UserId = request.UserId, GameId = request.GameId, Content = request.Content, Rating = request.Rating };
             await _unitOfWork.ReviewRepository.CreateAsync(review);
             await _unitOfWork.SaveAsync();

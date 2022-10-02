@@ -163,11 +163,10 @@ function GameDetailsPage() {
                           alignItems:"center"
                         }}
                       >
-                        <Typography sx={{ fontSize: 30, mr: 2 }}>
+                        <Typography sx={{ fontSize: 30, mr: 1 }}>
                           {game.totalRating}/10
                         </Typography>
                         <StarOutlinedIcon
-                          fontSize={"30"}
                           stroke="orange"
                           strokeWidth={1}
                           sx={{ color: "#ffea00", marginRight: 1, fontSize:25 }}

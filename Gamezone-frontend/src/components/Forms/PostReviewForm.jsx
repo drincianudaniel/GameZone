@@ -7,6 +7,7 @@ import Rating from "@mui/material/Rating";
 import { useUser } from "../../hooks/useUser";
 import ReviewService from "../../api/ReviewService";
 import { FormControl, FormHelperText, InputLabel, MenuItem, Select } from "@mui/material";
+import { toast } from "react-toastify";
 
 function PostReviewForm(props) {
   const { user } = useUser();
@@ -34,7 +35,7 @@ function PostReviewForm(props) {
         reset();
         props.getGame();
       })
-      .catch((err) => console.log(err));
+      .catch((err) => toast.error(err.response.data));
   };
 
   return (

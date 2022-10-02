@@ -7,15 +7,16 @@ import axios from "axios";
 import MoreMenu from "../Menus/MoreMenu";
 import { convertUTCDateToLocalDate } from "../../utils/TimeConverting";
 import { Link } from "react-router-dom";
-import { Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { useUser } from "../../hooks/useUser";
 import ReviewService from "../../api/ReviewService";
+import StarOutlinedIcon from "@mui/icons-material/StarOutlined";
 
 function Review(props) {
-  const {user} = useUser()
+  const { user } = useUser();
 
   const handleDelete = async () => {
-      ReviewService.deleteReview(props.review.id, user.Id)
+    ReviewService.deleteReview(props.review.id, user.Id)
       .then((response) => {
         props.getReviews();
       })
@@ -23,33 +24,54 @@ function Review(props) {
   };
 
   return (
-    <div style={{ padding: 14 }} className="App">
+    <div className="App">
       <Grid container wrap="nowrap" spacing={2}>
         <Grid item>
           <Avatar alt="Remy Sharp" src={props.review.userProfileImage} />
         </Grid>
         <Grid justifyContent="left" item xs zeroMinWidth>
-          <h4 style={{ margin: 0, textAlign: "left" }}>
-            {props.review.rating}/10
-          </h4>
-          <Link
-            style={{ textDecoration: "none", color: "inherit" }}
-            to={`/profile/${props.review.userName}/reviews`}
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
           >
-            <Typography
+            <Link
+              style={{ textDecoration: "none", color: "inherit" }}
+              to={`/profile/${props.review.userName}/reviews`}
+            >
+              <Typography
+                sx={{
+                  margin: 0,
+                  textAlign: "left",
+                  fontWeight: "bold",
+                  cursor: "pointer",
+                  "&:hover": {
+                    color: "primary.main",
+                  },
+                }}
+              >
+                {props.review.userName}
+              </Typography>
+            </Link>
+            <Box
               sx={{
-                margin: 0,
-                textAlign: "left",
-                fontWeight: "bold",
-                cursor: "pointer",
-                "&:hover": {
-                  color: "primary.main",
-                },
+                height: "100%",
+                display: "flex",
+                alignItems: "center",
               }}
             >
-              {props.review.userName}
-            </Typography>
-          </Link>
+              <Typography sx={{ margin: 0, fontWeight: "bold" }}>
+                {props.review.rating}/10
+              </Typography>
+              <StarOutlinedIcon
+                stroke="orange"
+                strokeWidth={1}
+                sx={{ color: "#ffea00", marginLeft: 0.5, fontSize: 25 }}
+              ></StarOutlinedIcon>
+            </Box>
+          </Box>
           <p style={{ textAlign: "left" }}>{props.review.content}</p>
           <p style={{ textAlign: "left", color: "gray" }}>
             {moment(
