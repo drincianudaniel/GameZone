@@ -7,6 +7,7 @@ using GameZone.Application.Users.Commands.ChangePassword;
 using GameZone.Application.Users.Commands.CreateUser;
 using GameZone.Application.Users.Commands.DeleteUser;
 using GameZone.Application.Users.Commands.RemoveFavoriteGame;
+using GameZone.Application.Users.Commands.RemoveRoleFromUser;
 using GameZone.Application.Users.Queries.CountAsync;
 using GameZone.Application.Users.Queries.FindUserByName;
 using GameZone.Application.Users.Queries.GetFavoriteGames;
@@ -243,6 +244,39 @@ namespace GameZone.Api.Controllers
             }
 
             return Ok($"{userName} added successfully to {roleName} role");
+        }
+
+        [HttpDelete]
+        [Route("assign-role/user/{userName}/role/{roleName}")]
+        public async Task<IActionResult> RemoveRoleFromUser(string userName, string roleName)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var query = new FindUserByNameQuery
+            {
+                UserName = userName,
+            };
+
+            var userFound = await _mediator.Send(query);
+
+            if (userFound == null)
+                return BadRequest("User not found");
+
+            var command = new RemoveRoleFromUserCommand
+            {
+                UserName = userName,
+                RoleName = roleName
+            };
+
+            var result = await _mediator.Send(command);
+
+            if (!result)
+            {
+                return BadRequest("Failed to remove role from user");
+            }
+
+            return Ok($"{userName} removed successfully from {roleName} role");
         }
 
         [HttpDelete]

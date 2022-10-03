@@ -17,7 +17,7 @@ export default class UserService {
     });
   }
 
-  static async GetUserByUsername(username){
+  static async GetUserByUsername(username) {
     return await request({
       url: `/users/username/${username}`,
       method: "GET",
@@ -31,32 +31,32 @@ export default class UserService {
     });
   }
 
-  static async AddGameToFavorite(userid, gameid){
+  static async AddGameToFavorite(userid, gameid) {
     return await request({
       url: `/users/${userid}/games/${gameid}`,
       method: "POST",
     });
   }
 
-  static async RemoveGameFromFavorite(userid, gameid){
+  static async RemoveGameFromFavorite(userid, gameid) {
     return await request({
       url: `/users/${userid}/games/${gameid}`,
       method: "DELETE",
     });
   }
 
-  static async GetUsersFavorites(username){
+  static async GetUsersFavorites(username) {
     return await request({
       url: `/users/favorite-games/${username}`,
       method: "GET",
     });
   }
 
-  static async GetUserReviews(username){
+  static async GetUserReviews(username) {
     return await request({
-      url:`/users/reviews/${username}`,
-      method: "GET"
-    })
+      url: `/users/reviews/${username}`,
+      method: "GET",
+    });
   }
 
   static async ChangePassword(data) {
@@ -70,14 +70,28 @@ export default class UserService {
   static async DeleteUser(id) {
     return await request({
       url: `/users/${id}`,
-      method: "DELETE"
+      method: "DELETE",
     });
   }
 
-  static async GetUsers(id){
+  static async GetUsers(id) {
     return await request({
       url: "/users",
-      method: "GET"
-    })
+      method: "GET",
+    });
+  }
+
+  static async AddRoleToUser(username, rolename) {
+    return await request({
+      url: `/users/assign-role/user/${username}/role/${rolename}`,
+      method: "POST",
+    });
+  }
+
+  static async RemoveRoleFromUser(username, rolename) {
+    return await request({
+      url: `/users/assign-role/user/${username}/role/${rolename}`,
+      method: "DELETE",
+    });
   }
 }

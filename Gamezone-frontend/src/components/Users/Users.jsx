@@ -59,6 +59,9 @@ export default function Users() {
                   Roles
                 </TableCell>
                 <TableCell sx={{ fontWeight: "bold" }} align="right">
+                  Admin
+                </TableCell>
+                <TableCell sx={{ fontWeight: "bold" }} align="right">
                   Delete
                 </TableCell>
               </TableRow>
