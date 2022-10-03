@@ -58,7 +58,7 @@ namespace GameZone.Api.Controllers
         [Route("page/{page}/page-size/{pageSize}")]
         public async Task<IActionResult> GetUsersPaged(int page, int pageSize, string? searchString = null)
         {
-            _logger.LogInformation("Getting platforms at page {page}", page);
+            _logger.LogInformation("Getting users at page {page}", page);
 
             var result = await _mediator.Send(new GetUsersPagedQuery
             {
@@ -71,8 +71,8 @@ namespace GameZone.Api.Controllers
             var totalPages = ((double)count / (double)pageSize);
             int roundedTotalPages = Convert.ToInt32(Math.Ceiling(totalPages));
 
-            var mappedResult = _mapper.Map<IEnumerable<UserDto>>(result);
-            return Ok(new PagedResponse<IEnumerable<UserDto>>(mappedResult, page, count, roundedTotalPages, pageSize));
+            var mappedResult = _mapper.Map<IEnumerable<UserWithRolesApiDto>>(result);
+            return Ok(new PagedResponse<IEnumerable<UserWithRolesApiDto>>(mappedResult, page, count, roundedTotalPages, pageSize));
         }
 
         [HttpGet]
@@ -302,7 +302,7 @@ namespace GameZone.Api.Controllers
             string claim = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var command = new ChangePasswordCommand
             {
-                UserId = claim,
+                UserName = claim,
                 OldPassword = changePassword.OldPassword,
                 NewPassword = changePassword.NewPassword,
             };

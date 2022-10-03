@@ -9,7 +9,7 @@ namespace GameZone.Application.Users.Commands.ChangePassword
 {
     public class ChangePasswordCommand : IRequest<bool>
     {
-        public string UserId { get; set; } 
+        public string UserName { get; set; } 
         public string OldPassword { get; set; }
         public string NewPassword { get; set; }
     }

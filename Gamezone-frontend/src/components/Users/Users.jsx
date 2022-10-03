@@ -36,7 +36,7 @@ export default function Users() {
 
   return (
     <Box
-      sx={{ width: "100%" }}
+      sx={{ width: "100%", mt:2 }}
       display="flex"
       justifyContent="center"
       alignItems="center"
@@ -54,6 +54,9 @@ export default function Users() {
               <TableRow>
                 <TableCell sx={{ fontWeight: "bold" }} align="left">
                   UserName
+                </TableCell>
+                <TableCell sx={{ fontWeight: "bold" }} align="left">
+                  Roles
                 </TableCell>
                 <TableCell sx={{ fontWeight: "bold" }} align="right">
                   Delete

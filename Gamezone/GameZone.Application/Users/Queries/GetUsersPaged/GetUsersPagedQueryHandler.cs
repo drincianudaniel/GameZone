@@ -1,22 +1,38 @@
-﻿using GameZone.Application.Interfaces;
+﻿using GameZone.Application.Dtos;
+using GameZone.Application.Interfaces;
 using GameZone.Domain.Models;
 using MediatR;
-
+using Microsoft.AspNetCore.Identity;
 
 namespace GameZone.Application.Users.Queries.GetUsersPaged
 {
-    public class GetUsersPagedQueryHandler : IRequestHandler<GetUsersPagedQuery, IEnumerable<User>>
+    public class GetUsersPagedQueryHandler : IRequestHandler<GetUsersPagedQuery, IEnumerable<UserWithRolesDto>>
     {
         private readonly IUnitOfWork _unitOfWork;
-        public GetUsersPagedQueryHandler(IUnitOfWork unitOfWork)
+        private readonly RoleManager<Role> _roleManager;
+        private readonly UserManager<User> _userManager;
+        public GetUsersPagedQueryHandler(IUnitOfWork unitOfWork, RoleManager<Role> roleManager, UserManager<User> userManager)
         {
             _unitOfWork=unitOfWork;
+            _roleManager=roleManager;
+            _userManager=userManager;
         }
 
-        public async Task<IEnumerable<User>> Handle(GetUsersPagedQuery request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<UserWithRolesDto>> Handle(GetUsersPagedQuery request, CancellationToken cancellationToken)
         {
-            var query = await _unitOfWork.UserRepository.ReturnPagedAsync(request.Page, request.PageSize, request.SearchString);
-            return query;
+            var users = await _unitOfWork.UserRepository.ReturnPagedAsync(request.Page, request.PageSize, request.SearchString);
+            var usersToReturn = new List<UserWithRolesDto>();
+            foreach(var user in users)
+            {
+                var role = (await _userManager.GetRolesAsync(user)).ToList();
+                var userWithRoles = new UserWithRolesDto
+                {
+                    User = user,
+                    Roles = role
+                };
+                usersToReturn.Add(userWithRoles);
+            }
+            return usersToReturn;
         }
     }
 }
