@@ -21,6 +21,7 @@ import { useUser } from "../hooks/useUser";
 import StarOutlinedIcon from "@mui/icons-material/StarOutlined";
 import AddIcon from "@mui/icons-material/Add";
 import GameChip from "../components/Chips/GameChip";
+import GameAddPopover from "../components/Popovers/GameAddPopover";
 
 function GameDetailsPage() {
   const [game, setGame] = useState([]);
@@ -29,9 +30,37 @@ function GameDetailsPage() {
   const theme = useTheme();
   const history = useNavigate();
 
+  //modals
   const [open, setOpen] = useState(false);
   const [openImageModal, setOpenImageModal] = useState(false);
 
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleImage = () => {
+    setOpenImageModal(true);
+    console.log("click");
+  };
+
+  //popover
+  const [anchorElGenres, setAnchorElGenres] = useState(null);
+  const [anchorElDevelopers, setAnchorElDevelopers] = useState(null);
+  const [anchorElPlatforms, setAnchorElPlatforms] = useState(null);
+
+  const handleClickGenrePopover = (event) => {
+    setAnchorElGenres(event.currentTarget);
+  };
+
+  const handleClickDeveloperPopover = (event) => {
+    setAnchorElDevelopers(event.currentTarget);
+  };
+
+  const handleClickPlatformPopover = (event) => {
+    setAnchorElPlatforms(event.currentTarget);
+  };
+
+  //user
   const { user } = useUser();
   useEffect(() => {
     getGame();
@@ -49,15 +78,6 @@ function GameDetailsPage() {
       .catch((err) => {
         setIsLoading(false);
       });
-  };
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleImage = () => {
-    setOpenImageModal(true);
-    console.log("click");
   };
 
   const handleDelete = () => {
@@ -120,15 +140,24 @@ function GameDetailsPage() {
                     <>
                       {game.developers.map((developer) => (
                         <GameChip
+                          key={developer.id}
                           data={developer}
                           type="developer"
                           getGame={getGame}
                         />
                       ))}
                       {user.IsAdmin && (
-                        <IconButton>
-                          <AddIcon fontSize="small"></AddIcon>
-                        </IconButton>
+                        <>
+                          <IconButton onClick={handleClickDeveloperPopover}>
+                            <AddIcon fontSize="small"></AddIcon>
+                          </IconButton>
+                          <GameAddPopover
+                            type="developer"
+                            handleClick={handleClickDeveloperPopover}
+                            anchorEl={anchorElDevelopers}
+                            setAnchorEl={setAnchorElDevelopers}
+                          />
+                        </>
                       )}
                     </>
                   ) : (
@@ -145,13 +174,26 @@ function GameDetailsPage() {
                   {game.genres && game.genres.length > 0 ? (
                     <>
                       {game.genres.map((genre) => (
-                        <GameChip data={genre} type="genre" getGame={getGame} />
+                        <GameChip
+                          key={genre.id}
+                          data={genre}
+                          type="genre"
+                          getGame={getGame}
+                        />
                       ))}
 
                       {user.IsAdmin && (
-                        <IconButton>
-                          <AddIcon fontSize="small"></AddIcon>
-                        </IconButton>
+                        <>
+                          <IconButton onClick={handleClickGenrePopover}>
+                            <AddIcon fontSize="small"></AddIcon>
+                          </IconButton>
+                          <GameAddPopover
+                            type="genre"
+                            handleClick={handleClickGenrePopover}
+                            anchorEl={anchorElGenres}
+                            setAnchorEl={setAnchorElGenres}
+                          />
+                        </>
                       )}
                     </>
                   ) : (
@@ -169,15 +211,24 @@ function GameDetailsPage() {
                     <>
                       {game.platforms.map((platform) => (
                         <GameChip
+                          key={platform.id}
                           data={platform}
                           type="platform"
                           getGame={getGame}
                         />
                       ))}
                       {user.IsAdmin && (
-                        <IconButton>
-                          <AddIcon fontSize="small"></AddIcon>
-                        </IconButton>
+                        <>
+                          <IconButton onClick={handleClickPlatformPopover}>
+                            <AddIcon fontSize="small"></AddIcon>
+                          </IconButton>
+                          <GameAddPopover
+                            type="platform"
+                            handleClick={handleClickPlatformPopover}
+                            anchorEl={anchorElPlatforms}
+                            setAnchorEl={setAnchorElPlatforms}
+                          />
+                        </>
                       )}
                     </>
                   ) : (
