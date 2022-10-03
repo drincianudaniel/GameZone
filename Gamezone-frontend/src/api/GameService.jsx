@@ -1,7 +1,6 @@
 import request from "./request";
 
 export default class GameService {
-
   static async getGamesPaginated(page) {
     return await request({
       url: `/games/page/${page}/page-size/${8}`,
@@ -44,11 +43,11 @@ export default class GameService {
     });
   }
 
-  static async postGame(data){
+  static async postGame(data) {
     return await request({
       url: "/games",
       method: "POST",
-      data: data
+      data: data,
     });
   }
 
@@ -56,19 +55,42 @@ export default class GameService {
     return await request({
       url: `/games/${id}`,
       method: "PATCH",
-      data: [{
-        operationType: 0,
-        path: "gameDetails",
-        op: "replace",
-        from: `${data.from}`,
-        value: `${data.value}`,
-      }],
+      data: [
+        {
+          operationType: 0,
+          path: "gameDetails",
+          op: "replace",
+          from: `${data.from}`,
+          value: `${data.value}`,
+        },
+      ],
       config: {
         headers: {
           Accept: "*/*",
           "Content-Type": "application/json-patch+json",
         },
       },
+    });
+  }
+
+  static async RemoveGenre(gameid, genreid) {
+    return await request({
+      url: `/games/game/${gameid}/genre/${genreid}`,
+      method: "DELETE",
+    });
+  }
+
+  static async RemovePlatform(gameid, platformid) {
+    return await request({
+      url: `/games/game/${gameid}/platform/${platformid}`,
+      method: "DELETE",
+    });
+  }
+
+  static async RemoveDeveloper(gameid, developerid) {
+    return await request({
+      url: `/games/game/${gameid}/developer/${developerid}`,
+      method: "DELETE",
     });
   }
 }

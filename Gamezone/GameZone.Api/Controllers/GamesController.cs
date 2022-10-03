@@ -19,6 +19,10 @@ using GameZone.Application.Games.Commands.SaveAsync;
 using Microsoft.AspNetCore.Authorization;
 using GameZone.Application.Games.Queries.GetGamesWithUserFavorites;
 using GameZone.Application.Users.Queries.FindUserByName;
+using GameZone.Application.Games.Commands.AddGenre;
+using GameZone.Application.Games.Commands.RemoveGenre;
+using GameZone.Application.Games.Commands.RemovePlatform;
+using GameZone.Application.Games.Commands.RemoveDeveloper;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -290,6 +294,78 @@ namespace GameZone.Api.Controllers
             var mappedResult = _mapper.Map<IEnumerable<AutoCompleteGameDto>>(result);
 
             return Ok(mappedResult);
+        }
+
+        [HttpPost]
+        [Route("game/{gameid}/genre/{genreid}")]
+        public async Task<IActionResult> AddGenreToGame(Guid gameid, Guid genreid)
+        {
+            var result = await _mediator.Send(new AddGenreCommand
+            {
+                GameId = gameid,
+                GenreId = genreid
+            });
+
+            if (result)
+            {
+                return Ok("Genre Added");
+            }
+
+            return BadRequest("Something went wrong");
+        }
+
+        [HttpDelete]
+        [Route("game/{gameid}/genre/{genreid}")]
+        public async Task<IActionResult> RemoveGenreFromGame(Guid gameid, Guid genreid)
+        {
+            var result = await _mediator.Send(new RemoveGenreCommand
+            {
+                GameId = gameid,
+                GenreId = genreid
+            });
+
+            if (result)
+            {
+                return Ok("Genre Removed");
+            }
+
+            return BadRequest("Something went wrong");
+        }
+
+        [HttpDelete]
+        [Route("game/{gameid}/platform/{platformid}")]
+        public async Task<IActionResult> RemovePlatformFromGame(Guid gameid, Guid platformid)
+        {
+            var result = await _mediator.Send(new RemovePlatformCommand
+            {
+                GameId = gameid,
+                PlatformId = platformid
+            });
+
+            if (result)
+            {
+                return Ok("Platform Removed");
+            }
+
+            return BadRequest("Something went wrong");
+        }
+
+        [HttpDelete]
+        [Route("game/{gameid}/developer/{developerid}")]
+        public async Task<IActionResult> RemoveDeveloperFromgame(Guid gameid, Guid developerid)
+        {
+            var result = await _mediator.Send(new RemoveDeveloperCommand
+            {
+                GameId = gameid,
+                DeveloperId = developerid
+            });
+
+            if (result)
+            {
+                return Ok("Developer Removed");
+            }
+
+            return BadRequest("Something went wrong");
         }
     }
 }

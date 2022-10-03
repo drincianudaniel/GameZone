@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Header from "../components/Header";
-import Rating from "@mui/material/Rating";
 import Typography from "@mui/material/Typography";
 import "./css/GameDetailsPage.css";
 import Box from "@mui/material/Box";
@@ -9,7 +8,7 @@ import Grid from "@mui/material/Grid";
 import Chip from "@mui/material/Chip";
 import moment from "moment";
 import DetailsTabbedPanel from "../components/TabbedPanels/DetailsTabbedPannel";
-import { Container, Divider } from "@mui/material";
+import { Container, Divider, IconButton } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import SpinningLoading from "../components/LoadingComponents/SpinningLoading";
@@ -20,6 +19,8 @@ import EditGameDetailsForm from "../components/Forms/EditForms/EditGameDetailsFo
 import ImageModal from "../components/Modals/ImageModal";
 import { useUser } from "../hooks/useUser";
 import StarOutlinedIcon from "@mui/icons-material/StarOutlined";
+import AddIcon from "@mui/icons-material/Add";
+import GameChip from "../components/Chips/GameChip";
 
 function GameDetailsPage() {
   const [game, setGame] = useState([]);
@@ -116,39 +117,78 @@ function GameDetailsPage() {
                   <Divider />
                   <Typography>Developers:</Typography>
                   {game.developers && game.developers.length > 0 ? (
-                    game.developers.map((developer) => (
-                      <Chip
-                        sx={{ mt: 0.2 }}
-                        key={developer.id}
-                        label={developer.name}
-                      />
-                    ))
+                    <>
+                      {game.developers.map((developer) => (
+                        <GameChip
+                          data={developer}
+                          type="developer"
+                          getGame={getGame}
+                        />
+                      ))}
+                      {user.IsAdmin && (
+                        <IconButton>
+                          <AddIcon fontSize="small"></AddIcon>
+                        </IconButton>
+                      )}
+                    </>
                   ) : (
-                    <Typography>No Developers</Typography>
+                    <>
+                      <Typography>No Developers</Typography>
+                      {user.IsAdmin && (
+                        <IconButton>
+                          <AddIcon fontSize="small"></AddIcon>
+                        </IconButton>
+                      )}
+                    </>
                   )}
                   <Typography>Genres:</Typography>
                   {game.genres && game.genres.length > 0 ? (
-                    game.genres.map((genre) => (
-                      <Chip
-                        sx={{ mt: 0.2 }}
-                        key={genre.id}
-                        label={genre.name}
-                      />
-                    ))
+                    <>
+                      {game.genres.map((genre) => (
+                        <GameChip data={genre} type="genre" getGame={getGame} />
+                      ))}
+
+                      {user.IsAdmin && (
+                        <IconButton>
+                          <AddIcon fontSize="small"></AddIcon>
+                        </IconButton>
+                      )}
+                    </>
                   ) : (
-                    <Typography>No Genres</Typography>
+                    <>
+                      <Typography>No Genres</Typography>
+                      {user.IsAdmin && (
+                        <IconButton>
+                          <AddIcon fontSize="small"></AddIcon>
+                        </IconButton>
+                      )}
+                    </>
                   )}
                   <Typography>Platforms:</Typography>
                   {game.platforms && game.platforms.length > 0 ? (
-                    game.platforms.map((platform) => (
-                      <Chip
-                        sx={{ mt: 0.2 }}
-                        key={platform.id}
-                        label={platform.name}
-                      />
-                    ))
+                    <>
+                      {game.platforms.map((platform) => (
+                        <GameChip
+                          data={platform}
+                          type="platform"
+                          getGame={getGame}
+                        />
+                      ))}
+                      {user.IsAdmin && (
+                        <IconButton>
+                          <AddIcon fontSize="small"></AddIcon>
+                        </IconButton>
+                      )}
+                    </>
                   ) : (
-                    <Typography>No Platforms</Typography>
+                    <>
+                      <Typography>No Platforms</Typography>
+                      {user.IsAdmin && (
+                        <IconButton>
+                          <AddIcon fontSize="small"></AddIcon>
+                        </IconButton>
+                      )}
+                    </>
                   )}
                 </Grid>
               </Grid>
@@ -160,7 +200,7 @@ function GameDetailsPage() {
                         sx={{
                           height: "100%",
                           display: "flex",
-                          alignItems:"center"
+                          alignItems: "center",
                         }}
                       >
                         <Typography sx={{ fontSize: 30, mr: 1 }}>
@@ -169,7 +209,11 @@ function GameDetailsPage() {
                         <StarOutlinedIcon
                           stroke="orange"
                           strokeWidth={1}
-                          sx={{ color: "#ffea00", marginRight: 1, fontSize:25 }}
+                          sx={{
+                            color: "#ffea00",
+                            marginRight: 1,
+                            fontSize: 25,
+                          }}
                         ></StarOutlinedIcon>
                       </Box>
                     </Grid>
