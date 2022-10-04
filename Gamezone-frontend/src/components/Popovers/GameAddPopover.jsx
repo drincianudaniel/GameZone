@@ -14,29 +14,51 @@ import { Menu, MenuItem } from "@mui/material";
 export default function GameAddPopover(props) {
   const [data, setData] = useState([]);
   const params = useParams();
+  const [list, setList] = useState([]);
 
   useEffect(() => {
     getData();
   }, []);
 
-  const getData = () => {
+  const getData = async () => {
     if (props.type === "genre") {
-      GenreService.getGenres().then((res) => {
-        setData(res.data);
+      await GenreService.getGenres().then((res) => {
+        var newArr = res.data;
+        if (props.presentData !== undefined) {
+          newArr = res.data.filter(
+            (el) => !props.presentData.find((e) => e.id === el.id)
+          );
+        }
+        setData(newArr);
       });
     }
 
     if (props.type === "developer") {
-      DeveloperService.getDevelopers().then((res) => {
-        setData(res.data);
+      await DeveloperService.getDevelopers().then((res) => {
+        var newArr = res.data;
+        if (props.presentData !== undefined) {
+          newArr = res.data.filter(
+            (el) => !props.presentData.find((e) => e.id === el.id)
+          );
+        }
+        setData(newArr);
       });
     }
 
     if (props.type === "platform") {
-      PlatformService.getPlatforms().then((res) => {
-        setData(res.data);
+      await PlatformService.getPlatforms().then((res) => {
+        var newArr = res.data;
+        if (props.presentData !== undefined) {
+          newArr = res.data.filter(
+            (el) => !props.presentData.find((e) => e.id === el.id)
+          );
+        }
+        setData(newArr);
       });
     }
+    // props.presentData.map(pd=>{
+    //   list = data.filter(d => d.id !== pd.id)
+    // })
   };
 
   const handleDataPost = (id) => {

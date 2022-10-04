@@ -152,6 +152,7 @@ function GameDetailsPage() {
                             <AddIcon fontSize="small"></AddIcon>
                           </IconButton>
                           <GameAddPopover
+                            presentData={game.developers}
                             getGame={getGame}
                             type="developer"
                             handleClick={handleClickDeveloperPopover}
@@ -165,9 +166,18 @@ function GameDetailsPage() {
                     <>
                       <Typography>No Developers</Typography>
                       {user.IsAdmin && (
-                        <IconButton onClick={handleClickDeveloperPopover}>
-                          <AddIcon fontSize="small"></AddIcon>
-                        </IconButton>
+                        <>
+                          <IconButton onClick={handleClickDeveloperPopover}>
+                            <AddIcon fontSize="small"></AddIcon>
+                          </IconButton>
+                          <GameAddPopover
+                            getGame={getGame}
+                            type="developer"
+                            handleClick={handleClickDeveloperPopover}
+                            anchorEl={anchorElDevelopers}
+                            setAnchorEl={setAnchorElDevelopers}
+                          />
+                        </>
                       )}
                     </>
                   )}
@@ -189,6 +199,7 @@ function GameDetailsPage() {
                             <AddIcon fontSize="small"></AddIcon>
                           </IconButton>
                           <GameAddPopover
+                            presentData={game.genres}
                             getGame={getGame}
                             type="genre"
                             handleClick={handleClickGenrePopover}
@@ -202,9 +213,18 @@ function GameDetailsPage() {
                     <>
                       <Typography>No Genres</Typography>
                       {user.IsAdmin && (
-                        <IconButton onClick={handleClickGenrePopover}>
-                          <AddIcon fontSize="small"></AddIcon>
-                        </IconButton>
+                        <>
+                          <IconButton onClick={handleClickGenrePopover}>
+                            <AddIcon fontSize="small"></AddIcon>
+                          </IconButton>
+                          <GameAddPopover
+                            getGame={getGame}
+                            type="genre"
+                            handleClick={handleClickGenrePopover}
+                            anchorEl={anchorElGenres}
+                            setAnchorEl={setAnchorElGenres}
+                          />
+                        </>
                       )}
                     </>
                   )}
@@ -225,6 +245,7 @@ function GameDetailsPage() {
                             <AddIcon fontSize="small"></AddIcon>
                           </IconButton>
                           <GameAddPopover
+                            presentData={game.platforms}
                             type="platform"
                             getGame={getGame}
                             handleClick={handleClickPlatformPopover}
