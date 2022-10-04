@@ -23,6 +23,8 @@ using GameZone.Application.Games.Commands.AddGenre;
 using GameZone.Application.Games.Commands.RemoveGenre;
 using GameZone.Application.Games.Commands.RemovePlatform;
 using GameZone.Application.Games.Commands.RemoveDeveloper;
+using GameZone.Application.Games.Commands.AddDeveloper;
+using GameZone.Application.Games.Commands.AddPlatform;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -309,6 +311,44 @@ namespace GameZone.Api.Controllers
             if (result)
             {
                 return Ok("Genre Added");
+            }
+
+            return BadRequest("Something went wrong");
+        }
+
+
+        [HttpPost]
+        [Route("game/{gameid}/developer/{developerid}")]
+        public async Task<IActionResult> AddDeveloperToGame(Guid gameid, Guid developerid)
+        {
+            var result = await _mediator.Send(new AddDeveloperCommand
+            {
+                GameId = gameid,
+                DeveloperId = developerid
+            });
+
+            if (result)
+            {
+                return Ok("Developer Added");
+            }
+
+            return BadRequest("Something went wrong");
+        }
+
+
+        [HttpPost]
+        [Route("game/{gameid}/platform/{platformid}")]
+        public async Task<IActionResult> AddPlatformToGame(Guid gameid, Guid platformid)
+        {
+            var result = await _mediator.Send(new AddPlatformCommand
+            {
+                GameId = gameid,
+                PlatformId = platformid
+            });
+
+            if (result)
+            {
+                return Ok("Platform Added");
             }
 
             return BadRequest("Something went wrong");

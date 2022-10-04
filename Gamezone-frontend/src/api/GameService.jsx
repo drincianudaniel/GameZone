@@ -73,6 +73,28 @@ export default class GameService {
     });
   }
 
+  
+  static async AddGenre(gameid, genreid) {
+    return await request({
+      url: `/games/game/${gameid}/genre/${genreid}`,
+      method: "POST",
+    });
+  }
+
+  static async AddDeveloper(gameid, developerid) {
+    return await request({
+      url: `/games/game/${gameid}/developer/${developerid}`,
+      method: "POST",
+    });
+  }
+
+  static async AddPlatform(gameid, platformid) {
+    return await request({
+      url: `/games/game/${gameid}/platform/${platformid}`,
+      method: "POST",
+    });
+  }
+
   static async RemoveGenre(gameid, genreid) {
     return await request({
       url: `/games/game/${gameid}/genre/${genreid}`,
@@ -93,4 +115,6 @@ export default class GameService {
       method: "DELETE",
     });
   }
+
+
 }

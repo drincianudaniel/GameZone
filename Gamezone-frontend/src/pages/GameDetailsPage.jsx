@@ -152,6 +152,7 @@ function GameDetailsPage() {
                             <AddIcon fontSize="small"></AddIcon>
                           </IconButton>
                           <GameAddPopover
+                            getGame={getGame}
                             type="developer"
                             handleClick={handleClickDeveloperPopover}
                             anchorEl={anchorElDevelopers}
@@ -164,7 +165,7 @@ function GameDetailsPage() {
                     <>
                       <Typography>No Developers</Typography>
                       {user.IsAdmin && (
-                        <IconButton>
+                        <IconButton onClick={handleClickDeveloperPopover}>
                           <AddIcon fontSize="small"></AddIcon>
                         </IconButton>
                       )}
@@ -188,6 +189,7 @@ function GameDetailsPage() {
                             <AddIcon fontSize="small"></AddIcon>
                           </IconButton>
                           <GameAddPopover
+                            getGame={getGame}
                             type="genre"
                             handleClick={handleClickGenrePopover}
                             anchorEl={anchorElGenres}
@@ -200,7 +202,7 @@ function GameDetailsPage() {
                     <>
                       <Typography>No Genres</Typography>
                       {user.IsAdmin && (
-                        <IconButton>
+                        <IconButton onClick={handleClickGenrePopover}>
                           <AddIcon fontSize="small"></AddIcon>
                         </IconButton>
                       )}
@@ -224,6 +226,7 @@ function GameDetailsPage() {
                           </IconButton>
                           <GameAddPopover
                             type="platform"
+                            getGame={getGame}
                             handleClick={handleClickPlatformPopover}
                             anchorEl={anchorElPlatforms}
                             setAnchorEl={setAnchorElPlatforms}
@@ -235,9 +238,18 @@ function GameDetailsPage() {
                     <>
                       <Typography>No Platforms</Typography>
                       {user.IsAdmin && (
-                        <IconButton>
-                          <AddIcon fontSize="small"></AddIcon>
-                        </IconButton>
+                        <>
+                          <IconButton onClick={handleClickPlatformPopover}>
+                            <AddIcon fontSize="small"></AddIcon>
+                          </IconButton>
+                          <GameAddPopover
+                            type="platform"
+                            getGame={getGame}
+                            handleClick={handleClickPlatformPopover}
+                            anchorEl={anchorElPlatforms}
+                            setAnchorEl={setAnchorElPlatforms}
+                          />
+                        </>
                       )}
                     </>
                   )}

@@ -2,8 +2,66 @@ import * as React from "react";
 import Popover from "@mui/material/Popover";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
+import { useState } from "react";
+import GenreService from "../../api/GenreService";
+import DeveloperService from "../../api/DeveloperService";
+import PlatformService from "../../api/PlatformService";
+import { useEffect } from "react";
+import GameService from "../../api/GameService";
+import { useParams } from "react-router";
+import { Menu, MenuItem } from "@mui/material";
 
 export default function GameAddPopover(props) {
+  const [data, setData] = useState([]);
+  const params = useParams();
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  const getData = () => {
+    if (props.type === "genre") {
+      GenreService.getGenres().then((res) => {
+        setData(res.data);
+      });
+    }
+
+    if (props.type === "developer") {
+      DeveloperService.getDevelopers().then((res) => {
+        setData(res.data);
+      });
+    }
+
+    if (props.type === "platform") {
+      PlatformService.getPlatforms().then((res) => {
+        setData(res.data);
+      });
+    }
+  };
+
+  const handleDataPost = (id) => {
+    if (props.type === "genre") {
+      GameService.AddGenre(params.id, id).then((res) => {
+        handleClose();
+        props.getGame();
+      });
+    }
+
+    if (props.type === "developer") {
+      GameService.AddDeveloper(params.id, id).then((res) => {
+        handleClose();
+        props.getGame();
+      });
+    }
+
+    if (props.type === "platform") {
+      GameService.AddPlatform(params.id, id).then((res) => {
+        handleClose();
+        props.getGame();
+      });
+    }
+  };
+
   const handleClose = () => {
     props.setAnchorEl(null);
   };
@@ -23,18 +81,27 @@ export default function GameAddPopover(props) {
           horizontal: "left",
         }}
       >
-        {props.type === "developer" && (
-          <Typography sx={{ p: 2 }}>The content of the developer.</Typography>
-        )}
-
-        {props.type === "genre" && (
-          <Typography sx={{ p: 2 }}>The content of the genre.</Typography>
-        )}
-
-        {props.type === "platform" && (
-          <Typography sx={{ p: 2 }}>The content of the platform.</Typography>
-        )}
-        
+        <Menu
+          id="basic-menu"
+          anchorEl={props.anchorEl}
+          open={open}
+          onClose={handleClose}
+          MenuListProps={{
+            "aria-labelledby": "basic-button",
+          }}
+          sx={{ maxHeight: "300px" }}
+        >
+          {data.map((element) => {
+            return (
+              <MenuItem
+                onClick={() => handleDataPost(element.id)}
+                key={element.id}
+              >
+                {element.name}
+              </MenuItem>
+            );
+          })}
+        </Menu>
       </Popover>
     </div>
   );
