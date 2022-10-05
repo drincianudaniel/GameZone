@@ -94,4 +94,27 @@ export default class UserService {
       method: "DELETE",
     });
   }
+
+  static async updateUserProfileImage(data) {
+
+    return await request({
+      url: `/users`,
+      method: "PATCH",
+      data: [
+        {
+          operationType: 0,
+          path: "profileImageSrc",
+          op: "replace",
+          from: `${data.from}`,
+          value: `${data.value}`,
+        },
+      ],
+      config: {
+        headers: {
+          Accept: "*/*",
+          "Content-Type": "application/json-patch+json",
+        },
+      },
+    });
+  }
 }

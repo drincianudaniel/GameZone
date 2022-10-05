@@ -5,6 +5,7 @@ import { useParams } from "react-router";
 import UserService from "../api/UserService";
 import FormDialog from "../components/Dialogs/FormDialog";
 import ChangePasswordForm from "../components/Forms/ChangePasswordForm";
+import EditUserProfileImageForm from "../components/Forms/EditForms/EditUserProfileImageForm";
 import Header from "../components/Header";
 import ProfileMoreMenu from "../components/Menus/ProfileMoreMenu";
 import UserTabbedPanel from "../components/TabbedPanels/UserTabbedPanel";
@@ -17,6 +18,11 @@ function ProfilePage() {
 
   //modals
   const [openChangePassword, setOpenChangePassword] = useState(false);
+  const [openChangeImage, setOpenChangeImage] = useState(false);
+
+  const handleOpenChangeImage = () => {
+    setOpenChangeImage(true);
+  };
 
   const handleOpenChangePassword = () => {
     setOpenChangePassword(true);
@@ -54,7 +60,10 @@ function ProfilePage() {
               {profileUser.userName}'s Profile
             </Typography>
             {profileUser.userName === user.UserName && (
-              <ProfileMoreMenu handlePassword={handleOpenChangePassword}></ProfileMoreMenu>
+              <ProfileMoreMenu
+                handlePassword={handleOpenChangePassword}
+                handlePicture={handleOpenChangeImage}
+              ></ProfileMoreMenu>
             )}
           </Grid>
           <Grid
@@ -86,6 +95,14 @@ function ProfilePage() {
           open={openChangePassword}
           handleClickOpen={handleOpenChangePassword}
           form={ChangePasswordForm}
+        />
+        <FormDialog
+          setOpen={setOpenChangeImage}
+          open={openChangeImage}
+          handleClickOpen={handleOpenChangeImage}
+          form={EditUserProfileImageForm}
+          imageSrc={profileUser.profileImageSrc}
+          getUser={getUser}
         />
       </Container>
     </>

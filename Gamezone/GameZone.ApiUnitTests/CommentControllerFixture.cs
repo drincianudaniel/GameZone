@@ -199,7 +199,7 @@ namespace GameZone.ApiUnitTests
             Assert.Equal(game.Name, ((CommentDto)createdAtActionResult.Value).Gamename);
         }
 
-        [Fact]
+      /*  [Fact]
         public async Task Delete_Comment_Should_Return_No_Content()
         {
             //Arrange
@@ -221,7 +221,7 @@ namespace GameZone.ApiUnitTests
             var noContentResult = result as NoContentResult;
             //Assert
             Assert.Equal((int)HttpStatusCode.NoContent, noContentResult.StatusCode);
-        }
+        }*/
 
         [Fact]
         public async Task Update_Comment_Should_Return_OkStatusCode()

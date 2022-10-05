@@ -205,7 +205,7 @@ namespace GameZone.ApiUnitTests
             Assert.Equal(user.UserName, ((ReplyDto)createdAtActionResult.Value).UserName);
         }
 
-        [Fact]
+      /*  [Fact]
         public async Task Delete_Reply_Should_Return_No_Content()
         {
             //Arrange
@@ -227,7 +227,7 @@ namespace GameZone.ApiUnitTests
             var noContentResult = result as NoContentResult;
             //Assert
             Assert.Equal((int)HttpStatusCode.NoContent, noContentResult.StatusCode);
-        }
+        }*/
 
         [Fact]
         public async Task Update_Reply_Should_Return_OkStatusCode()
