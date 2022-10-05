@@ -1,8 +1,10 @@
 import { Container, Grid, Typography } from "@mui/material";
 import { Box } from "@mui/system";
-import { useEffect, useReducer, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import UserService from "../api/UserService";
+import FormDialog from "../components/Dialogs/FormDialog";
+import ChangePasswordForm from "../components/Forms/ChangePasswordForm";
 import Header from "../components/Header";
 import ProfileMoreMenu from "../components/Menus/ProfileMoreMenu";
 import UserTabbedPanel from "../components/TabbedPanels/UserTabbedPanel";
@@ -12,6 +14,13 @@ function ProfilePage() {
   const [profileUser, setProfileUser] = useState([]);
   const { user } = useUser();
   const params = useParams();
+
+  //modals
+  const [openChangePassword, setOpenChangePassword] = useState(false);
+
+  const handleOpenChangePassword = () => {
+    setOpenChangePassword(true);
+  };
 
   useEffect(() => {
     getUser();
@@ -44,8 +53,8 @@ function ProfilePage() {
               {" "}
               {profileUser.userName}'s Profile
             </Typography>
-            {profileUser.userName == user.UserName && (
-              <ProfileMoreMenu></ProfileMoreMenu>
+            {profileUser.userName === user.UserName && (
+              <ProfileMoreMenu handlePassword={handleOpenChangePassword}></ProfileMoreMenu>
             )}
           </Grid>
           <Grid
@@ -72,6 +81,12 @@ function ProfilePage() {
             <UserTabbedPanel profileUser={profileUser}></UserTabbedPanel>
           </Grid>
         </Grid>
+        <FormDialog
+          setOpen={setOpenChangePassword}
+          open={openChangePassword}
+          handleClickOpen={handleOpenChangePassword}
+          form={ChangePasswordForm}
+        />
       </Container>
     </>
   );
