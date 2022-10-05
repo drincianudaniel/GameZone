@@ -51,10 +51,13 @@ function RegisterForm() {
     UserService.Register(dataToPost)
       .then((res) => {
         console.log(res);
-        history("/login")
-        toast.success("Registered Successfully")
+        history("/login");
+        toast.success("Registered Successfully");
       })
-      .catch( err => toast.error(err.data));
+      .catch((err) => {
+        console.log(err);
+        toast.error(err.response.data);
+      });
   };
 
   return (
