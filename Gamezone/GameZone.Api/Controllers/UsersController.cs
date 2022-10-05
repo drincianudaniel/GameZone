@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using GameZone.Api.DTOs;
 using GameZone.Api.ViewModels;
+using GameZone.Application.Games.Commands.SaveAsync;
 using GameZone.Application.Users.Commands.AddFavoriteGame;
 using GameZone.Application.Users.Commands.AddRoleToUser;
 using GameZone.Application.Users.Commands.ChangePassword;
@@ -17,6 +18,7 @@ using GameZone.Application.Users.Queries.GetUsersList;
 using GameZone.Application.Users.Queries.GetUsersPaged;
 using GameZone.Application.Users.Queries.LoginUser;
 using MediatR;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
@@ -349,6 +351,34 @@ namespace GameZone.Api.Controllers
             }
 
             return Ok("Password has been changed");
+        }
+
+        [HttpPatch]
+        public async Task<IActionResult> PartiallyUpdateUser(JsonPatchDocument<UserPatchDto> patchDocument)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            string claim = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var query = new FindUserByNameQuery { UserName = claim };
+            var result = await _mediator.Send(query);
+
+            var userToPatch = _mapper.Map<UserPatchDto>(result);
+
+            patchDocument.ApplyTo(userToPatch, ModelState);
+
+            if (!TryValidateModel(userToPatch))
+            {
+                return BadRequest(ModelState);
+            }
+
+            _mapper.Map(userToPatch, result);
+            var command = new SaveAsyncCommand();
+            var save = await _mediator.Send(command);
+
+            return Content("The item has been updated!");
+
         }
     }
 }

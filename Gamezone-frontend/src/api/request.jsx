@@ -1,5 +1,6 @@
 import { ContainerClient } from "@azure/storage-blob";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const defaultOptions = {
   baseURL: "https://localhost:7092/api",
@@ -37,6 +38,7 @@ const request = async function (options, store) {
     if(error.response.data.Error === "Token has expired"){
       window.location.href = "/login";
       localStorage.clear();
+      toast.error("Session has expired, please login.")
     }
     return Promise.reject(error);
   };
