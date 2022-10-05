@@ -73,7 +73,50 @@ export default class GameService {
     });
   }
 
-  
+  static async updateGameName(id, data) {
+    return await request({
+      url: `/games/${id}`,
+      method: "PATCH",
+      data: [
+        {
+          operationType: 0,
+          path: "name",
+          op: "replace",
+          from: `${data.from}`,
+          value: `${data.value}`,
+        },
+      ],
+      config: {
+        headers: {
+          Accept: "*/*",
+          "Content-Type": "application/json-patch+json",
+        },
+      },
+    });
+  }
+
+  static async updateGameDate(id, data) {
+    return await request({
+      url: `/games/${id}`,
+      method: "PATCH",
+      data: [
+        {
+          operationType: 0,
+          path: "releaseDate",
+          op: "replace",
+          from: `${data.from}`,
+          value: `${data.value}`,
+        },
+      ],
+      config: {
+        headers: {
+          Accept: "*/*",
+          "Content-Type": "application/json-patch+json",
+        },
+      },
+    });
+  }
+
   static async AddGenre(gameid, genreid) {
     return await request({
       url: `/games/game/${gameid}/genre/${genreid}`,
@@ -115,6 +158,4 @@ export default class GameService {
       method: "DELETE",
     });
   }
-
-
 }

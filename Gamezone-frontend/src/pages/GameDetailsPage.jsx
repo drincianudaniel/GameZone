@@ -22,6 +22,9 @@ import StarOutlinedIcon from "@mui/icons-material/StarOutlined";
 import AddIcon from "@mui/icons-material/Add";
 import GameChip from "../components/Chips/GameChip";
 import GameAddPopover from "../components/Popovers/GameAddPopover";
+import EditGameNameForm from "../components/Forms/EditForms/EditGameNameForm";
+import GameMoreMenu from "../components/Menus/GameMoreMenu";
+import EditGameDateForm from "../components/Forms/EditForms/EditGameDateForm";
 
 function GameDetailsPage() {
   const [game, setGame] = useState([]);
@@ -33,6 +36,16 @@ function GameDetailsPage() {
   //modals
   const [open, setOpen] = useState(false);
   const [openImageModal, setOpenImageModal] = useState(false);
+  const [openName, setOpenName] = useState(false);
+  const [openDate, setOpenDate] = useState(false);
+
+  const handleClickOpenDate = () => {
+    setOpenDate(true);
+  };
+
+  const handleClickOpenName = () => {
+    setOpenName(true);
+  };
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -109,7 +122,13 @@ function GameDetailsPage() {
                 }}
               >
                 <Typography variant="h4">{game.name}</Typography>
-                {user.IsAdmin && <MoreMenu handleDelete={handleDelete} />}
+                {user.IsAdmin && (
+                  <GameMoreMenu
+                    handleDelete={handleDelete}
+                    handleName={handleClickOpenName}
+                    handleDate={handleClickOpenDate}
+                  />
+                )}
               </Grid>
               <Grid
                 item
@@ -343,6 +362,7 @@ function GameDetailsPage() {
             </Grid>
           )}
         </Box>
+        {/* Dialogs */}
         <FormDialog
           id={params.id}
           setOpen={setOpen}
@@ -351,6 +371,24 @@ function GameDetailsPage() {
           getGame={getGame}
           details={game.gameDetails}
           form={EditGameDetailsForm}
+        />
+        <FormDialog
+          id={params.id}
+          setOpen={setOpenName}
+          open={openName}
+          handleClickOpen={handleClickOpenName}
+          getGame={getGame}
+          name={game.name}
+          form={EditGameNameForm}
+        />
+        <FormDialog
+          id={params.id}
+          setOpen={setOpenDate}
+          open={openDate}
+          handleClickOpen={handleClickOpenDate}
+          getGame={getGame}
+          date={game.releaseDate}
+          form={EditGameDateForm}
         />
         <ImageModal
           open={openImageModal}
