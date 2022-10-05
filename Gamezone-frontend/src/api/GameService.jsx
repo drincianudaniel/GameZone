@@ -117,6 +117,28 @@ export default class GameService {
     });
   }
 
+  static async updateGameImage(id, data) {
+    return await request({
+      url: `/games/${id}`,
+      method: "PATCH",
+      data: [
+        {
+          operationType: 0,
+          path: "imageSrc",
+          op: "replace",
+          from: `${data.from}`,
+          value: `${data.value}`,
+        },
+      ],
+      config: {
+        headers: {
+          Accept: "*/*",
+          "Content-Type": "application/json-patch+json",
+        },
+      },
+    });
+  }
+
   static async AddGenre(gameid, genreid) {
     return await request({
       url: `/games/game/${gameid}/genre/${genreid}`,

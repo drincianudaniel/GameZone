@@ -5,7 +5,6 @@ import Typography from "@mui/material/Typography";
 import "./css/GameDetailsPage.css";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
-import Chip from "@mui/material/Chip";
 import moment from "moment";
 import DetailsTabbedPanel from "../components/TabbedPanels/DetailsTabbedPannel";
 import { Container, Divider, IconButton } from "@mui/material";
@@ -13,7 +12,6 @@ import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import SpinningLoading from "../components/LoadingComponents/SpinningLoading";
 import GameService from "../api/GameService";
-import MoreMenu from "../components/Menus/MoreMenu";
 import FormDialog from "../components/Dialogs/FormDialog";
 import EditGameDetailsForm from "../components/Forms/EditForms/EditGameDetailsForm";
 import ImageModal from "../components/Modals/ImageModal";
@@ -25,6 +23,7 @@ import GameAddPopover from "../components/Popovers/GameAddPopover";
 import EditGameNameForm from "../components/Forms/EditForms/EditGameNameForm";
 import GameMoreMenu from "../components/Menus/GameMoreMenu";
 import EditGameDateForm from "../components/Forms/EditForms/EditGameDateForm";
+import EditGameImageForm from "../components/Forms/EditForms/EditGamePictureForm";
 
 function GameDetailsPage() {
   const [game, setGame] = useState([]);
@@ -38,6 +37,11 @@ function GameDetailsPage() {
   const [openImageModal, setOpenImageModal] = useState(false);
   const [openName, setOpenName] = useState(false);
   const [openDate, setOpenDate] = useState(false);
+  const [openImage, setOpenImage] = useState(false);
+
+  const handleClickOpenImage = () => {
+    setOpenImage(true);
+  };
 
   const handleClickOpenDate = () => {
     setOpenDate(true);
@@ -127,6 +131,7 @@ function GameDetailsPage() {
                     handleDelete={handleDelete}
                     handleName={handleClickOpenName}
                     handleDate={handleClickOpenDate}
+                    handleImage={handleClickOpenImage}
                   />
                 )}
               </Grid>
@@ -389,6 +394,15 @@ function GameDetailsPage() {
           getGame={getGame}
           date={game.releaseDate}
           form={EditGameDateForm}
+        />
+        <FormDialog
+          id={params.id}
+          setOpen={setOpenImage}
+          open={openImage}
+          handleClickOpen={handleClickOpenImage}
+          getGame={getGame}
+          imageSrc={game.imageSrc}
+          form={EditGameImageForm}
         />
         <ImageModal
           open={openImageModal}

@@ -2,12 +2,10 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import axios from "axios";
 import Grid from "@mui/material/Grid";
 import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
-import MultipleSelectChip from "../MultipleSelectChip";
 import { Autocomplete, Box } from "@mui/material";
 import { useNavigate } from "react-router";
 import { uploadFile } from "../../utils/UploadFile";
@@ -62,10 +60,8 @@ function AddGameForm() {
   } = useForm();
 
   const submit = (data) => {
-    console.log(data);
     let uniqueId = uuidv4();
     uploadFile(data.imgSrc[0], uniqueId);
-    console.log(uniqueId);
 
     const dataToPost = {
       name: data.Name,

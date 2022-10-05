@@ -39,7 +39,7 @@ export default function GameMoreMenu(props) {
         <MenuItem onClick={props.handleDelete}>Delete</MenuItem>
         <MenuItem onClick={props.handleName}>Change Game Name</MenuItem>
         <MenuItem onClick={props.handleDate}>Change Game Date</MenuItem>
-        <MenuItem>Change Game Picture</MenuItem>
+        <MenuItem onClick={props.handleImage}>Change Game Picture</MenuItem>
       </Menu>
     </div>
   );
