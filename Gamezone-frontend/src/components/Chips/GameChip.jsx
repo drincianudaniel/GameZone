@@ -32,11 +32,12 @@ export default function GameChip(props) {
   };
 
   const { user } = useUser();
-  
+
   return (
     <>
       {!user.IsAdmin && (
         <Chip
+          color="secondary"
           sx={{ mt: 0.2, mr: 0.2 }}
           key={props.data.id}
           label={props.data.name}
@@ -44,7 +45,8 @@ export default function GameChip(props) {
       )}
       {user.IsAdmin && (
         <Chip
-          sx={{ mt: 0.2, mr: 0.2 }}
+          color="secondary"
+          sx={{ mt: 0.2, mr: 0.2, "& .MuiChip-label": { fontSize: 14 } }}
           key={props.data.id}
           label={props.data.name}
           onDelete={handleDelete}

@@ -4,12 +4,19 @@ import "./index.css";
 import App from "./App";
 import { BrowserRouter } from "react-router-dom";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { blue, cyan } from "@mui/material/colors";
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 const theme = createTheme({
-  palette: {},
+  palette: {
+    secondary: {
+      main: blue[500],
+      contrastText : "#fff"
+    },
+  },
 });
-
+ console.log(theme)
 root.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>

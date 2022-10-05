@@ -18,10 +18,11 @@ import "./css/Header.css";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../hooks/useUser";
 import GroupedSearch from "./Search/GroupedSearch";
+import { useState } from "react";
 
 const Header = () => {
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const [anchorElNav, setAnchorElNav] = useState(null);
+  const [anchorElUser, setAnchorElUser] = useState(null);
   const { user, setUser } = useUser();
   const history = useNavigate();
 
@@ -65,15 +66,15 @@ const Header = () => {
     history("/games");
   };
 
-  const redirectToProfile = () =>{
-    history(`/profile/${user.UserName}/reviews`)
-  }
+  const redirectToProfile = () => {
+    history(`/profile/${user.UserName}/reviews`);
+  };
 
   const handleLogout = () => {
     history("/login");
     localStorage.clear();
     setUser([]);
-  }
+  };
 
   const handleSearchGame = (searchGame) => {
     redirectToSearchedGame(searchGame.value);
