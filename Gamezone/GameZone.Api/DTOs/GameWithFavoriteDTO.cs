@@ -11,6 +11,7 @@
         public ICollection<DeveloperDto> Developers { get; set; }
         public ICollection<GenreDto> Genres { get; set; }
         public ICollection<PlatformDto> Platforms { get; set; }
+        public ReviewDto Review { get; set; }
         public bool IsFavorite { get; set; }
     }
 }

@@ -32,18 +32,27 @@ namespace GameZone.Application.Games.Queries.GetGameById
                 Developers = result.Developers,
                 Genres = result.Genres,
                 Platforms = result.Platforms,
-                IsFavorite = false
+                IsFavorite = false,
             };
 
 
             if (request.UserName != null)
             {
                 var userfavorites = await _unitOfWork.UserRepository.GetUserFavoriteGames(request.UserName);
+                var userReviews = await _unitOfWork.UserRepository.GetUserReviews(request.UserName);
                 foreach (var favorite in userfavorites)
                 {
                     if (favorite.Id == result.Id)
                     {
                         gameWithFavorite.IsFavorite = true;
+                    }
+                }
+
+                if (userReviews.Count() != 0)
+                {
+                    if(userReviews.FirstOrDefault().GameId == result.Id)
+                    {
+                        gameWithFavorite.Review = userReviews.FirstOrDefault();
                     }
                 }
             }

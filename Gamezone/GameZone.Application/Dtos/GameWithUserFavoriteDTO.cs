@@ -19,6 +19,6 @@ namespace GameZone.Application.Dtos
         public ICollection<Genre> Genres { get; set; } 
         public ICollection<Platform> Platforms { get; set; }
         public bool IsFavorite { get; set; }
-
+        public Review Review { get; set; }
     }
 }
