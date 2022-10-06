@@ -326,7 +326,7 @@ function GameDetailsPage() {
                         }}
                       >
                         <Typography sx={{ fontSize: 30, mr: 1 }}>
-                          {game.totalRating}/10
+                          {Math.round(game.totalRating * 10) / 10}/10
                         </Typography>
                         <StarOutlinedIcon
                           stroke="orange"
@@ -337,14 +337,19 @@ function GameDetailsPage() {
                             fontSize: 25,
                           }}
                         ></StarOutlinedIcon>
-                        {game.review ? (
+                        {user.IsLoggedIn && (
                           <>
-                            <Typography>
-                              (My rating: {game.review.rating}/10)
-                            </Typography>
+                            {" "}
+                            {game.review ? (
+                              <>
+                                <Typography>
+                                  (My rating: {game.review.rating}/10)
+                                </Typography>
+                              </>
+                            ) : (
+                              <Typography>(Not Reviewed)</Typography>
+                            )}
                           </>
-                        ) : (
-                          <Typography>(Not Reviewed)</Typography>
                         )}
                       </Box>
                     </Grid>

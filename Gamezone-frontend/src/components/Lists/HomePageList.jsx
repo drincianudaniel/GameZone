@@ -45,7 +45,7 @@ export default function HomePageList(props) {
                   }
                   secondary={
                     <Typography sx={{ fontSize: 14 }}>
-                      Rating {game.totalRating}/10
+                      Rating {Math.round(game.totalRating * 10) / 10}/10
                     </Typography>
                   }
                 />

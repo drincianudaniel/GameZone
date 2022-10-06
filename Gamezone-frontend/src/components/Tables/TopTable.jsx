@@ -51,7 +51,7 @@ export default function TopTable(props) {
                 <Typography
                   sx={{ fontSize: 50, color: "#888", fontWeight: "bold" }}
                 >
-                  {(props.page === 1 ? 0 : ((props.page - 1) * 10)) + value + 1}
+                  {(props.page === 1 ? 0 : (props.page - 1) * 10) + value + 1}
                 </Typography>
               </StyledTableCell>
               <StyledTableCell component="th" scope="row">
@@ -112,7 +112,7 @@ export default function TopTable(props) {
                     sx={{ color: "#ffea00", marginRight: 1 }}
                   ></StarOutlinedIcon>
                   <Typography sx={{ fontSize: 15 }}>
-                    {game.totalRating}
+                    {Math.round(game.totalRating * 10) / 10}/10
                   </Typography>
                 </Box>
               </StyledTableCell>
