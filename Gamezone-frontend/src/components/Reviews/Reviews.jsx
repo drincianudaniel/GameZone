@@ -43,7 +43,7 @@ function Reviews(props) {
       ) : reviews.length > 0 ? (
         reviews.map((review) => {
           return (
-            <Review key={review.id} review={review} getReviews={getReviews} />
+            <Review key={review.id} review={review} getReviews={getReviews} getGame={props.getGame}/>
           );
         })
       ) : (

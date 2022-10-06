@@ -19,12 +19,13 @@ function Review(props) {
     ReviewService.deleteReview(props.review.id, user.Id)
       .then((response) => {
         props.getReviews();
+        props.getGame();
       })
       .catch((err) => console.log(err));
   };
 
   return (
-    <div className="App">
+    <Box>
       <Grid container wrap="nowrap" spacing={2}>
         <Grid item>
           <Avatar alt="Remy Sharp" src={props.review.userProfileImage} />
@@ -37,24 +38,38 @@ function Review(props) {
               alignItems: "center",
             }}
           >
-            <Link
-              style={{ textDecoration: "none", color: "inherit" }}
-              to={`/profile/${props.review.userName}/reviews`}
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+              }}
             >
-              <Typography
-                sx={{
-                  margin: 0,
-                  textAlign: "left",
-                  fontWeight: "bold",
-                  cursor: "pointer",
-                  "&:hover": {
-                    color: "primary.main",
-                  },
-                }}
+              <Link
+                style={{ textDecoration: "none", color: "inherit" }}
+                to={`/profile/${props.review.userName}/reviews`}
               >
-                {props.review.userName}
+                <Typography
+                  sx={{
+                    margin: 0,
+                    textAlign: "left",
+                    fontWeight: "bold",
+                    cursor: "pointer",
+                    "&:hover": {
+                      color: "primary.main",
+                    },
+                  }}
+                >
+                  {props.review.userName}
+                </Typography>
+              </Link>
+              <Typography
+                sx={{ fontSize: 15, textAlign: "left", color: "gray", ml: 1 }}
+              >
+                {moment(
+                  convertUTCDateToLocalDate(new Date(props.review.createdAt))
+                ).fromNow()}
               </Typography>
-            </Link>
+            </Box>
             <Box
               sx={{
                 height: "100%",
@@ -72,12 +87,9 @@ function Review(props) {
               ></StarOutlinedIcon>
             </Box>
           </Box>
-          <p style={{ textAlign: "left" }}>{props.review.content}</p>
-          <p style={{ textAlign: "left", color: "gray" }}>
-            {moment(
-              convertUTCDateToLocalDate(new Date(props.review.createdAt))
-            ).fromNow()}
-          </p>
+          <Typography sx={{ textAlign: "left", mt: 1 }}>
+            {props.review.content}
+          </Typography>
         </Grid>
         <Grid>
           {(user.UserName === props.review.userName || user.IsAdmin) && (
@@ -86,7 +98,7 @@ function Review(props) {
         </Grid>
       </Grid>
       <Divider variant="fullWidth" style={{ margin: "30px 0" }} />
-    </div>
+    </Box>
   );
 }
 

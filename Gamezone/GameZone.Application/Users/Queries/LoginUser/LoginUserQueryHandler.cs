@@ -64,6 +64,9 @@ namespace GameZone.Application.Users.Queries.LoginUser
                     signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
                     );
 
+                /*var tokenString = new JwtSecurityTokenHandler().WriteToken(token);
+                var userToken = new JwtSecurityTokenHandler().ReadToken(tokenString) as JwtSecurityToken;*/
+
                 return new JwtSecurityTokenHandler().WriteToken(token);
             }
 

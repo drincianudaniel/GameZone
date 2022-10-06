@@ -13,11 +13,12 @@ import { useUser } from "../../hooks/useUser";
 import CommentService from "../../api/CommentService";
 import LoadingBarComponent from "../LoadingComponents/LoadingBar";
 import { useState } from "react";
+import { Box } from "@mui/system";
 
 function Comment(props) {
   const [open, setOpen] = React.useState(false);
   const { user } = useUser();
-  const [progress, setProgress] = useState(0)
+  const [progress, setProgress] = useState(0);
 
   const handleDelete = async () => {
     setProgress(50);
@@ -30,38 +31,47 @@ function Comment(props) {
   };
 
   return (
-    <div style={{ padding: { lg: 14, xs: 1 } }} className="App">
-      <LoadingBarComponent progress={progress} setProgress={setProgress}/>
+    <Box>
+      <LoadingBarComponent progress={progress} setProgress={setProgress} />
       <Grid container wrap="nowrap" spacing={2}>
         <Grid item>
           <Avatar alt="Remy Sharp" src={props.comment.userProfileImage} />
         </Grid>
         <Grid justifyContent="left" item xs zeroMinWidth>
-          <Link
-            style={{ textDecoration: "none", color: "inherit" }}
-            to={`/profile/${props.comment.userName}/reviews`}
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+            }}
           >
-            <Typography
-              sx={{
-                margin: 0,
-                textAlign: "left",
-                fontWeight: "bold",
-                cursor: "pointer",
-                "&:hover": {
-                  color: "primary.main",
-                },
-              }}
+            <Link
+              style={{ textDecoration: "none", color: "inherit" }}
+              to={`/profile/${props.comment.userName}/reviews`}
             >
-              {props.comment.userName}
+              <Typography
+                sx={{
+                  textAlign: "left",
+                  fontWeight: "bold",
+                  cursor: "pointer",
+                  "&:hover": {
+                    color: "primary.main",
+                  },
+                }}
+              >
+                {props.comment.userName}
+              </Typography>
+            </Link>
+            <Typography
+              sx={{ fontSize: 15, textAlign: "left", color: "gray", ml: 1 }}
+            >
+              {moment(
+                convertUTCDateToLocalDate(new Date(props.comment.createdAt))
+              ).fromNow()}
             </Typography>
-          </Link>
-
-          <p style={{ textAlign: "left" }}>{props.comment.content}</p>
-          <p style={{ textAlign: "left", color: "gray" }}>
-            {moment(
-              convertUTCDateToLocalDate(new Date(props.comment.createdAt))
-            ).fromNow()}
-          </p>
+          </Box>
+          <Typography sx={{ textAlign: "left", mt: 1 }}>
+            {props.comment.content}
+          </Typography>
           <RepliesDialog
             open={open}
             setOpen={setOpen}
@@ -76,7 +86,7 @@ function Comment(props) {
         </Grid>
       </Grid>
       <Divider variant="fullWidth" style={{ margin: "30px 0" }} />
-    </div>
+    </Box>
   );
 }
 

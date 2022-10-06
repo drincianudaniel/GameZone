@@ -135,7 +135,10 @@ function GameDetailsPage() {
                     alignItems: "center",
                   }}
                 >
-                  <FavoriteButton id={game.id} isFavorite={game.isFavorite}></FavoriteButton>
+                  <FavoriteButton
+                    id={game.id}
+                    isFavorite={game.isFavorite}
+                  ></FavoriteButton>
                   {user.IsAdmin && (
                     <GameMoreMenu
                       handleDelete={handleDelete}
@@ -330,10 +333,19 @@ function GameDetailsPage() {
                           strokeWidth={1}
                           sx={{
                             color: "#ffea00",
-                            marginRight: 1,
+                            mr: 1,
                             fontSize: 25,
                           }}
                         ></StarOutlinedIcon>
+                        {game.review ? (
+                          <>
+                            <Typography>
+                              (My rating: {game.review.rating}/10)
+                            </Typography>
+                          </>
+                        ) : (
+                          <Typography>(Not Reviewed)</Typography>
+                        )}
                       </Box>
                     </Grid>
                     <Grid item xs={12} md={12} sx={{ borderBottom: 1 }}>

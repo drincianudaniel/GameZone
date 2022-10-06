@@ -7,13 +7,13 @@ import axios from "axios";
 import MoreMenu from "../Menus/MoreMenu";
 import { convertUTCDateToLocalDate } from "../../utils/TimeConverting";
 import { Link } from "react-router-dom";
-import { Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { useUser } from "../../hooks/useUser";
 import ReplyService from "../../api/ReplyService";
 
 function Reply(props) {
   const { user } = useUser();
-  
+
   const handleDelete = async () => {
     ReplyService.deleteReply(props.reply.id, user.Id)
       .then((response) => {
@@ -23,36 +23,47 @@ function Reply(props) {
   };
 
   return (
-    <div style={{ padding: 14 }} className="App">
+    <Box>
       <Grid container wrap="nowrap" spacing={2}>
         <Grid item>
           <Avatar alt="Remy Sharp" src={props.reply.userProfileImage} />
         </Grid>
         <Grid justifyContent="left" item xs zeroMinWidth>
-          <Link
-            style={{ textDecoration: "none", color: "inherit" }}
-            to={`/profile/${props.reply.userName}/reviews`}
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+            }}
           >
-            <Typography
-              sx={{
-                margin: 0,
-                textAlign: "left",
-                fontWeight: "bold",
-                cursor: "pointer",
-                "&:hover": {
-                  color: "primary.main",
-                },
-              }}
+            <Link
+              style={{ textDecoration: "none", color: "inherit" }}
+              to={`/profile/${props.reply.userName}/reviews`}
             >
-              {props.reply.userName}
+              <Typography
+                sx={{
+                  margin: 0,
+                  textAlign: "left",
+                  fontWeight: "bold",
+                  cursor: "pointer",
+                  "&:hover": {
+                    color: "primary.main",
+                  },
+                }}
+              >
+                {props.reply.userName}
+              </Typography>
+            </Link>
+            <Typography
+              sx={{ fontSize: 15, textAlign: "left", color: "gray", ml: 1 }}
+            >
+              {moment(
+                convertUTCDateToLocalDate(new Date(props.reply.createdAt))
+              ).fromNow()}
             </Typography>
-          </Link>
-          <p style={{ textAlign: "left" }}>{props.reply.content}</p>
-          <p style={{ textAlign: "left", color: "gray" }}>
-            {moment(
-              convertUTCDateToLocalDate(new Date(props.reply.createdAt))
-            ).fromNow()}
-          </p>
+          </Box>
+          <Typography sx={{ textAlign: "left", mt: 1 }}>
+            {props.reply.content}
+          </Typography>
         </Grid>
         <Grid>
           {(user.UserName === props.reply.userName || user.IsAdmin) && (
@@ -61,7 +72,7 @@ function Reply(props) {
         </Grid>
       </Grid>
       <Divider variant="fullWidth" style={{ margin: "30px 0" }} />
-    </div>
+    </Box>
   );
 }
 
