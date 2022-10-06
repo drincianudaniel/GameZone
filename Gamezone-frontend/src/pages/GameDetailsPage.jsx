@@ -24,9 +24,9 @@ import EditGameNameForm from "../components/Forms/EditForms/EditGameNameForm";
 import GameMoreMenu from "../components/Menus/GameMoreMenu";
 import EditGameDateForm from "../components/Forms/EditForms/EditGameDateForm";
 import EditGameImageForm from "../components/Forms/EditForms/EditGamePictureForm";
-import FavoriteIcon from "@mui/icons-material/Favorite";
 import UserService from "../api/UserService";
 import { toast } from "react-toastify";
+import FavoriteButton from "../components/Buttons/FavoriteButton";
 
 function GameDetailsPage() {
   const [game, setGame] = useState([]);
@@ -34,9 +34,6 @@ function GameDetailsPage() {
   const params = useParams();
   const theme = useTheme();
   const history = useNavigate();
-
-  //favorite
-  const [isFav, setIsFav] = useState(game.isFavorite);
 
   //modals
   const [open, setOpen] = useState(false);
@@ -107,21 +104,6 @@ function GameDetailsPage() {
     });
   };
 
-
-  const addGameToFavorite = async () => {
-    UserService.AddGameToFavorite(user.Id, game.id).then((res) => {
-      toast.success("Game added to favorite");
-      getGame()
-    });
-  };
-
-  const removeFromFavorite = async () => {
-    UserService.RemoveGameFromFavorite(user.Id, game.id).then((res) => {
-      toast.success("Game removed from favorite");
-      getGame()
-    });
-  };
-
   return (
     <div>
       <Header />
@@ -153,26 +135,7 @@ function GameDetailsPage() {
                     alignItems: "center",
                   }}
                 >
-                  {user.IsLoggedIn && (
-                    <>
-                      {game.isFavorite && (
-                        <IconButton
-                          onClick={removeFromFavorite}
-                          aria-label="remove game from favorites"
-                        >
-                          <FavoriteIcon sx={{ color: "red" }} />
-                        </IconButton>
-                      )}
-                      {!game.isFavorite && (
-                        <IconButton
-                          onClick={addGameToFavorite}
-                          aria-label="remove game from favorites"
-                        >
-                          <FavoriteIcon />
-                        </IconButton>
-                      )}
-                    </>
-                  )}
+                  <FavoriteButton id={game.id} isFavorite={game.isFavorite}></FavoriteButton>
                   {user.IsAdmin && (
                     <GameMoreMenu
                       handleDelete={handleDelete}
