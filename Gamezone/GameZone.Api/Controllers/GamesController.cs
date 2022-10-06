@@ -25,6 +25,7 @@ using GameZone.Application.Games.Commands.RemovePlatform;
 using GameZone.Application.Games.Commands.RemoveDeveloper;
 using GameZone.Application.Games.Commands.AddDeveloper;
 using GameZone.Application.Games.Commands.AddPlatform;
+using System.Security.Claims;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -62,8 +63,9 @@ namespace GameZone.Api.Controllers
         public async Task<IActionResult> GetById(Guid id)
         {
             _logger.LogInformation("Getting item {id}", id);
+            string claim = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            var query = new GetGameByIdQuery { Id = id };
+            var query = new GetGameByIdQuery { Id = id, UserName = claim };
             var result = await _mediator.Send(query);
 
             if (result == null)
@@ -72,7 +74,7 @@ namespace GameZone.Api.Controllers
                 return NotFound();
             }
                 
-            var mappedResult = _mapper.Map<GameDto>(result);
+            var mappedResult = _mapper.Map<GameWithFavoriteDTO>(result);
             return Ok(mappedResult);
         }
 

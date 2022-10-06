@@ -18,6 +18,8 @@ namespace GameZone.Api.AutoMapperProfiles
             CreateMap<GamePatchDto, Game>();
             CreateMap<GamesWithUserFavoritesDTO, GamesWithFavoritesDto>();
             CreateMap<GamesWithFavoritesDto, GamesWithUserFavoritesDTO>();
+            CreateMap<GameWithUserFavoriteDTO, GameWithFavoriteDTO>();
+            CreateMap<GameWithFavoriteDTO, GameWithUserFavoriteDTO>();
         }
     }
 }
