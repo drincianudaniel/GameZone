@@ -40,7 +40,7 @@ export default function TopTable(props) {
         <TableHead>
           <TableRow>
             <StyledTableCell align="center">Rank</StyledTableCell>
-            <StyledTableCell align="center">Name</StyledTableCell>
+            <StyledTableCell align="left">Name</StyledTableCell>
             <StyledTableCell align="center">Rating</StyledTableCell>
           </TableRow>
         </TableHead>

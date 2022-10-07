@@ -15,14 +15,15 @@ function HomePage() {
   const [releasedGames, setReleasedGames] = useState();
   const [addedGames, setAddedGames] = useState();
   const [topRatedGames, setTopRatedGames] = useState();
+  const [mostReviewed, setMostReviewed] = useState();
 
-  
   useEffect(() => {
     getActionGames();
     getMostPopularGames();
     getReleasedGames();
     getAddedGames();
     getTopRatedGames();
+    getLatestReviewed();
   }, []);
 
   const getActionGames = async () => {
@@ -65,6 +66,14 @@ function HomePage() {
       .catch();
   };
 
+  const getLatestReviewed = async () => {
+    GameService.getHomePageGames(10, "most-reviewed")
+      .then((res) => {
+        setMostReviewed(res.data);
+      })
+      .catch();
+  };
+
   return (
     <div>
       <Header />
@@ -83,6 +92,12 @@ function HomePage() {
               </Typography>
               <Divider></Divider>
               <HomePageCarousel data={addedGames} />
+              <Divider></Divider>
+              <Typography sx={{ fontSize: 20, marginTop: 3 }}>
+                Most reviewed games
+              </Typography>
+              <Divider></Divider>
+              <HomePageCarousel data={mostReviewed} />
               <Divider></Divider>
             </Grid>
             <Grid

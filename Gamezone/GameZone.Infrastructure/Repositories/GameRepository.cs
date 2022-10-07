@@ -180,6 +180,9 @@ namespace GameZone.Infrastructure.Repositories
                 case "most-popular":
                     games = games.Include(games => games.Comments).Include(games => games.Reviews).OrderByDescending(game => game.Comments.Count() + game.Reviews.Count());
                     break;
+                case "most-reviewed":
+                    games = games.Include(games => games.Reviews).OrderByDescending(game => game.Reviews.Count());
+                    break;
                 default:
                     games = games.OrderBy(game => game.Name);
                     break;

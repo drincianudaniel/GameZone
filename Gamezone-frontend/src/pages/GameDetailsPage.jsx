@@ -347,7 +347,8 @@ function GameDetailsPage() {
                                 </Typography>
                               </>
                             ) : (
-                              <Typography>(Not Reviewed)</Typography>
+                              // <Typography>(Not Reviewed)</Typography>
+                              <></>
                             )}
                           </>
                         )}
