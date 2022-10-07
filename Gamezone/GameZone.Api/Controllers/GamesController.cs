@@ -26,6 +26,7 @@ using GameZone.Application.Games.Commands.RemoveDeveloper;
 using GameZone.Application.Games.Commands.AddDeveloper;
 using GameZone.Application.Games.Commands.AddPlatform;
 using System.Security.Claims;
+using GameZone.Application.Games.Queries.GetGameWithoutFavById;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -247,7 +248,7 @@ namespace GameZone.Api.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var query = new GetGameByIdQuery { Id = id };
+            var query = new GetGameWithoutFavByIdQuery { Id = id };
             var result = await _mediator.Send(query);
 
             var gameToPatch = _mapper.Map<GamePatchDto>(result);
