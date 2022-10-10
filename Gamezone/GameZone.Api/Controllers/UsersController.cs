@@ -18,6 +18,7 @@ using GameZone.Application.Users.Queries.GetUserReviews;
 using GameZone.Application.Users.Queries.GetUsersList;
 using GameZone.Application.Users.Queries.GetUsersPaged;
 using GameZone.Application.Users.Queries.LoginUser;
+using GameZone.Application.Users.Queries.UserSearchAutoComplete;
 using MediatR;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
@@ -391,5 +392,20 @@ namespace GameZone.Api.Controllers
             return Content("The item has been updated!");
 
         }
+
+        [HttpGet]
+        [Route("auto-complete/{search}")]
+        public async Task<IActionResult> GameAutoComplete(string search)
+        {
+            var result = await _mediator.Send(new UserSearchAutoCompleteQuery
+            {
+                SearchString = search
+            });
+
+            var mappedResult = _mapper.Map<IEnumerable<AutoCompleteUserDto>>(result);
+
+            return Ok(mappedResult);
+        }
+
     }
 }

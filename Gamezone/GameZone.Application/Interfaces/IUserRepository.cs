@@ -14,6 +14,7 @@ namespace GameZone.Application
         Task<IEnumerable<User>> ReturnAllAsync();
         Task<User> ReturnByIdAsync(Guid id);
         Task<IEnumerable<User>> ReturnPagedAsync(int? page, int pageSize, string searchString);
+        Task<IEnumerable<User>> SearchUserAsync(string searchString);
         Task UpdateAsync(User user);
     }
 }

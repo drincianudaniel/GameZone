@@ -21,6 +21,7 @@ namespace GameZone.Api.AutoMapperProfiles
             CreateMap<User, UserPatchDto>();
             CreateMap<UserPatchDto, User>();
 
+            CreateMap<User, AutoCompleteUserDto>();
         }
     }
 }

@@ -41,6 +41,18 @@ namespace GameZone.Infrastructure.Repositories
                 .AsNoTracking()
                 .ToListAsync();
         }
+        public async Task<IEnumerable<User>> SearchUserAsync(string searchString)
+        {
+            var users = from g in _context.Users select g;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                users = users.Where(s => s.UserName.Contains(searchString));
+            }
+
+            return await users.AsNoTracking().ToListAsync();
+        }
+
         public async Task<IEnumerable<User>> ReturnPagedAsync(int? page, int pageSize, string searchString)
         {
             int pageNumber = (page ?? 1);
