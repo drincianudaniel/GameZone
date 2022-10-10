@@ -46,6 +46,10 @@ const Header = () => {
     history(`/game/${id}/comments`);
   };
 
+  const redirectToUser = (id) => {
+    history(`/profile/${id}/reviews`);
+  };
+
   const redirectToHome = () => {
     history("/");
   };
@@ -76,9 +80,13 @@ const Header = () => {
     setUser([]);
   };
 
-  const handleSearchGame = (searchGame) => {
-    redirectToSearchedGame(searchGame.value);
-    console.log(searchGame.value);
+  const handleSearchGame = (search) => {
+    if(search.type === "Games"){
+      redirectToSearchedGame(search.value);
+    }
+    if(search.type === "Users"){
+      redirectToUser(search.value);
+    }
   };
 
   return (

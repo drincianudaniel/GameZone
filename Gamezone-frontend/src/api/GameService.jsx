@@ -180,4 +180,11 @@ export default class GameService {
       method: "DELETE",
     });
   }
+
+  static async GamesAutoComplete(searchstring) {
+    return await request({
+      url: `/games/auto-complete/${searchstring}`,
+      method: "GET",
+    });
+  }
 }

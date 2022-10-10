@@ -117,4 +117,11 @@ export default class UserService {
       },
     });
   }
+
+  static async UsersAutoComplete(searchstring) {
+    return await request({
+      url: `/users/auto-complete/${searchstring}`,
+      method: "GET",
+    });
+  }
 }
