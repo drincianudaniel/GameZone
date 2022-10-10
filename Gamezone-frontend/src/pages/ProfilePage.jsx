@@ -29,6 +29,7 @@ function ProfilePage() {
   };
 
   useEffect(() => {
+    console.log(user);
     getUser();
   }, [params]);
 
@@ -85,6 +86,12 @@ function ProfilePage() {
                 src={profileUser.profileImageSrc}
               />
             </Grid>
+            {profileUser.userName === user.UserName && (
+              <>
+                <Typography>First Name: {profileUser.firstName}</Typography>
+                <Typography>Last Name: {profileUser.lastName}</Typography>
+              </>
+            )}
           </Grid>
           <Grid item xs={12} sm={12} md={12} lg={9} justify="center">
             <UserTabbedPanel profileUser={profileUser}></UserTabbedPanel>
