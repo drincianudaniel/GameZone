@@ -56,6 +56,9 @@ export default function Users() {
                   UserName
                 </TableCell>
                 <TableCell sx={{ fontWeight: "bold" }} align="left">
+                  Email
+                </TableCell>
+                <TableCell sx={{ fontWeight: "bold" }} align="left">
                   Roles
                 </TableCell>
                 <TableCell sx={{ fontWeight: "bold" }} align="right">

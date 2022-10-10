@@ -57,6 +57,7 @@ export default function UsersRow(props) {
         sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
       >
         <TableCell allign="center">{props.user.user.userName}</TableCell>
+        <TableCell allign="center">{props.user.user.email}</TableCell>
         <TableCell allign="center">
           {roles.map((role) => {
             return <Typography sx={{ display: "inline" }}>{role} </Typography>;

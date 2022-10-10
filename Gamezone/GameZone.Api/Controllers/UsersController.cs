@@ -10,6 +10,7 @@ using GameZone.Application.Users.Commands.DeleteUser;
 using GameZone.Application.Users.Commands.RemoveFavoriteGame;
 using GameZone.Application.Users.Commands.RemoveRoleFromUser;
 using GameZone.Application.Users.Queries.CountAsync;
+using GameZone.Application.Users.Queries.FindUserByEmail;
 using GameZone.Application.Users.Queries.FindUserByName;
 using GameZone.Application.Users.Queries.GetFavoriteGames;
 using GameZone.Application.Users.Queries.GetUserById;
@@ -173,7 +174,17 @@ namespace GameZone.Api.Controllers
             var userFound = await _mediator.Send(query);
 
             if (userFound != null)
-                return BadRequest("User already exists");
+                return BadRequest("User with this username already exists");
+
+            var email = new FindUserByEmailQuery
+            {
+                Email = user.Email,
+            };
+
+            var emailFound = await _mediator.Send(email);
+
+            if (emailFound != null)
+                return BadRequest("User with this email already exists");
 
             var command = new CreateUserCommand
             {

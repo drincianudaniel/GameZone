@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useForm } from "react-hook-form";
+import React, { useRef, useState } from "react";
+import { useForm, useWatch } from "react-hook-form";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import {
@@ -25,7 +25,12 @@ function RegisterForm() {
     register,
     handleSubmit,
     formState: { errors },
+    watch
   } = useForm();
+
+  //password confirm
+  const password = useRef({});
+  password.current = watch("Password", "");
 
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
@@ -167,6 +172,45 @@ function RegisterForm() {
                 {!!errors.Password && (
                   <FormHelperText error id="accountId-error">
                     {errors.Password?.message}
+                  </FormHelperText>
+                )}
+              </FormControl>
+            </Grid>
+            <Grid item sm={12} xs={12} sx={{ width: "100%" }}>
+              <FormControl sx={{ width: "100%" }}>
+                <InputLabel htmlFor="component-simple">
+                  Repeat Password *
+                </InputLabel>
+                <OutlinedInput
+                  id="component-simple"
+                  sx={{ width: "100%" }}
+                  required
+                  label="Repeat Password"
+                  name="Password_repeat"
+                  type={showPassword ? "text" : "password"}
+                  endAdornment={
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={handleClickShowPassword}
+                        onMouseDown={handleMouseDownPassword}
+                        edge="end"
+                      >
+                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  }
+                  {...register("Password_repeat", {
+                    validate: (value) =>
+                      value === password.current ||
+                      "The passwords do not match",
+                  })}
+                  error={!!errors.Password_repeat}
+                  helperText={errors.Password_repeat?.message}
+                />
+                {!!errors.Password_repeat && (
+                  <FormHelperText error id="accountId-error">
+                    {errors.Password_repeat?.message}
                   </FormHelperText>
                 )}
               </FormControl>
