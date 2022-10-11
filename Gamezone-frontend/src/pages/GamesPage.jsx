@@ -57,19 +57,28 @@ function GamesPage() {
   }, [page, user, loadingUser]);
 
   const getGames = async () => {
-    GameService.getGamesPaginated(page).then((response) => {
+    GameService.getGamesPaginated(
+      page,
+      selectedGenre,
+      selectedDeveloper,
+      selectedPlatform
+    ).then((response) => {
       setGames(response.data.data);
       setNumberOfPages(response.data.totalPages);
     });
   };
 
   const getGamesWhenLoggedIn = async () => {
-    GameService.getGamesWithUserFavorites(user.UserName, page, selectedGenre, selectedDeveloper, selectedPlatform).then(
-      (response) => {
-        setGames(response.data.data);
-        setNumberOfPages(response.data.totalPages);
-      }
-    );
+    GameService.getGamesWithUserFavorites(
+      user.UserName,
+      page,
+      selectedGenre,
+      selectedDeveloper,
+      selectedPlatform
+    ).then((response) => {
+      setGames(response.data.data);
+      setNumberOfPages(response.data.totalPages);
+    });
   };
 
   return (
@@ -108,6 +117,7 @@ function GamesPage() {
             developer={selectedDeveloper}
             platform={selectedPlatform}
             getGames={getGamesWhenLoggedIn}
+            getGamesWhenLoggedOut={getGames}
           />
         </Box>
         <div className="games">

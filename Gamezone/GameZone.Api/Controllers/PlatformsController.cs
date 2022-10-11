@@ -16,7 +16,6 @@ namespace GameZone.Api.Controllers
 {
     [Route("api/platforms")]
     [ApiController]
-    [Authorize(Roles = "Admin")]
     public class PlatformsController : ControllerBase
     {
         public readonly IMapper _mapper;
@@ -61,6 +60,8 @@ namespace GameZone.Api.Controllers
 
         [HttpGet]
         [Route("page/{page}/page-size/{pageSize}")]
+        [Authorize(Roles = "Admin")]
+
         public async Task<IActionResult> GetGenresPaged(int page, int pageSize, string? searchString = null)
         {
             _logger.LogInformation("Getting platforms at page {page}", page);
@@ -81,6 +82,8 @@ namespace GameZone.Api.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
+
         public async Task<IActionResult> CreatePlatform([FromBody] PlatformViewModel platform)
         {
             _logger.LogInformation("Creating platform");
@@ -100,6 +103,8 @@ namespace GameZone.Api.Controllers
 
         [HttpPut]
         [Route("{id}")]
+        [Authorize(Roles = "Admin")]
+
         public async Task<IActionResult> UpdatePlatform(Guid id, [FromBody] PlatformViewModel platform)
         {
             _logger.LogInformation("Updating platform with id {id}", id);
@@ -123,6 +128,8 @@ namespace GameZone.Api.Controllers
 
         [HttpDelete]
         [Route("{id}")]
+        [Authorize(Roles = "Admin")]
+
         public async Task<IActionResult> DeletePlatform(Guid id)
         {
             _logger.LogInformation("Deleting platform with id {id}", id);

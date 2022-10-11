@@ -1,14 +1,20 @@
 import request from "./request";
 
 export default class GameService {
-  static async getGamesPaginated(page) {
+  static async getGamesPaginated(page, genre, developer, platform) {
     return await request({
-      url: `/games/page/${page}/page-size/${8}`,
+      url: `/games/page/${page}/page-size/${8}?Genre=${genre}&Developer=${developer}&Platform=${platform}`,
       method: "GET",
     });
   }
 
-  static async getGamesWithUserFavorites(username, page, genre, developer, platform) {
+  static async getGamesWithUserFavorites(
+    username,
+    page,
+    genre,
+    developer,
+    platform
+  ) {
     return await request({
       url: `/games/user/${username}/page/${page}/page-size/${8}?Genre=${genre}&Developer=${developer}&Platform=${platform}`,
       method: "GET",

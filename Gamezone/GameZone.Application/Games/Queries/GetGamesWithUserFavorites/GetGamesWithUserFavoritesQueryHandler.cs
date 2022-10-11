@@ -19,9 +19,10 @@ namespace GameZone.Application.Games.Queries.GetGamesWithUserFavorites
 
         public async Task<IEnumerable<GamesWithUserFavoritesDTO>> Handle(GetGamesWithUserFavoritesQuery request, CancellationToken cancellationToken)
         {
-            var userfavorites = await _unitOfWork.UserRepository.GetUserFavoriteGames(request.UserName);
             var games = await _unitOfWork.GameRepository.ReturnPagedAsync(request.Page, request.PageSize, request.Filter);
 
+
+            var userfavorites = await _unitOfWork.UserRepository.GetUserFavoriteGames(request.UserName);
             var gamesWithUserFavorites = new List<GamesWithUserFavoritesDTO>();
 
             foreach(var game in games)

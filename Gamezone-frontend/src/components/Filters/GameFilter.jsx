@@ -32,6 +32,11 @@ function GameFilter(props) {
     });
   }, []);
 
+  const handleClick = () => {
+    props.getGames();
+    props.getGamesWhenLoggedOut();
+  };
+
   return (
     <Box
       sx={{
@@ -125,7 +130,7 @@ function GameFilter(props) {
         </Grid>
 
         <Grid item xs={12} md={3}>
-          <Button onClick={props.getGames} sx={{ width: "100%" }}>
+          <Button onClick={handleClick} sx={{ width: "100%" }}>
             Apply filter
           </Button>
         </Grid>

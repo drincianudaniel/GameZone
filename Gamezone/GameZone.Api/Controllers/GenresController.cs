@@ -16,7 +16,6 @@ namespace GameZone.Api.Controllers
 {
     [Route("api/genres")]
     [ApiController]
-    [Authorize(Roles = "Admin")]
     public class GenresController : ControllerBase
     {
         public readonly IMapper _mapper;
@@ -59,6 +58,8 @@ namespace GameZone.Api.Controllers
 
         [HttpGet]
         [Route("page/{page}/page-size/{pageSize}")]
+        [Authorize(Roles = "Admin")]
+
         public async Task<IActionResult> GetGenresPaged(int page, int pageSize, string? searchString = null)
         {
             _logger.LogInformation("Getting genres at page {page}", page);
@@ -79,6 +80,8 @@ namespace GameZone.Api.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
+
         public async Task<IActionResult> CreateGenre([FromBody] GenreViewModel genre)
         {
             _logger.LogInformation("Creating genre");
@@ -98,6 +101,8 @@ namespace GameZone.Api.Controllers
 
         [HttpPut]
         [Route("{id}")]
+        [Authorize(Roles = "Admin")]
+
         public async Task<IActionResult> UpdateGenre(Guid id, [FromBody] GenreViewModel genre)
         {
             _logger.LogInformation("Updating genre with id {id}", id);
@@ -121,6 +126,8 @@ namespace GameZone.Api.Controllers
 
         [HttpDelete]
         [Route("{id}")]
+        [Authorize(Roles = "Admin")]
+
         public async Task<IActionResult> DeleteGenre(Guid id)
         {
             _logger.LogInformation("Deleting genre with id {id}", id);

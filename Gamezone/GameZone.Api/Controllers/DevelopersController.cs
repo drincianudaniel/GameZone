@@ -16,7 +16,6 @@ namespace GameZone.Api.Controllers
 {
     [Route("api/developers")]
     [ApiController]
-    [Authorize(Roles = "Admin")]
     public class DevelopersController : ControllerBase
     {
         public readonly IMediator _mediator;
@@ -32,6 +31,7 @@ namespace GameZone.Api.Controllers
 
         [HttpGet]
         [Route("{id}")]
+
         public async Task<IActionResult> GetById(Guid id)
         {
             _logger.LogInformation("Getting item {id}", id);
@@ -51,6 +51,8 @@ namespace GameZone.Api.Controllers
 
         [HttpGet]
         [Route("page/{page}/page-size/{pageSize}")]
+        [Authorize(Roles = "Admin")]
+
         public async Task<IActionResult> GetDevelopersPaged(int page, int pageSize, string? searchString)
         {
             _logger.LogInformation("Getting developers at page {page}", page);
@@ -71,6 +73,7 @@ namespace GameZone.Api.Controllers
         }
 
         [HttpGet]
+
         public async Task<IActionResult> GetDevelopers()
         {
             _logger.LogInformation("Getting developers list");
@@ -81,6 +84,8 @@ namespace GameZone.Api.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
+
         public async Task<IActionResult> CreateDeveloper([FromBody] DeveloperViewModel developer)
         {
             _logger.LogInformation("Creating developer");
@@ -102,6 +107,8 @@ namespace GameZone.Api.Controllers
 
         [HttpPut]
         [Route("{id}")]
+        [Authorize(Roles = "Admin")]
+
         public async Task<IActionResult> UpdateDeveloper(Guid id, [FromBody] DeveloperViewModel developer)
         {
             _logger.LogInformation("Updating developer with id {id}", id);
@@ -126,6 +133,8 @@ namespace GameZone.Api.Controllers
 
         [HttpDelete]
         [Route("{id}")]
+        [Authorize(Roles = "Admin")]
+
         public async Task<IActionResult> DeleteDeveloper(Guid id)
         {
             _logger.LogInformation("Deleting developer with id {id}", id);
