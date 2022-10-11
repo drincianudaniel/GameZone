@@ -9,8 +9,7 @@ import AppPagination from "../components/Pagination/AppPagination";
 import GameService from "../api/GameService";
 import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import { useUser } from "../hooks/useUser";
-import UserService from "../api/UserService";
-import { AndroidSharp } from "@mui/icons-material";
+import GameFilter from "../components/Filters/GameFilter";
 
 const GamesContext = createContext();
 
@@ -24,9 +23,26 @@ function GamesPage() {
   const [numberOfPages, setNumberOfPages] = useState(10);
   const { user, loadingUser } = useUser();
 
+  //filter system
+  const [selectedGenre, setSelectedGenre] = useState("");
+  const [selectedDeveloper, setSelectedDeveloper] = useState("");
+  const [selectedPlatform, setSelectedPlatform] = useState("");
+
+  const handleChangeGenre = (event) => {
+    setSelectedGenre(event.target.value);
+  };
+
+  const handleChangeDeveloper = (event) => {
+    setSelectedDeveloper(event.target.value);
+  };
+
+  const handleChangePlatform = (event) => {
+    setSelectedPlatform(event.target.value);
+  };
+
   useEffect(() => {
     if (loadingUser) {
-      return
+      return;
     }
 
     if (!user.IsLoggedIn) {
@@ -48,7 +64,7 @@ function GamesPage() {
   };
 
   const getGamesWhenLoggedIn = async () => {
-    GameService.getGamesWithUserFavorites(user.UserName, page).then(
+    GameService.getGamesWithUserFavorites(user.UserName, page, selectedGenre, selectedDeveloper, selectedPlatform).then(
       (response) => {
         setGames(response.data.data);
         setNumberOfPages(response.data.totalPages);
@@ -76,7 +92,24 @@ function GamesPage() {
             </Link>
           )}
         </div>
-        <div className="nav"></div>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            width: "100%",
+          }}
+        >
+          <GameFilter
+            handleChangePlatform={handleChangePlatform}
+            handleChangeDeveloper={handleChangeDeveloper}
+            handleChangeGenre={handleChangeGenre}
+            genre={selectedGenre}
+            developer={selectedDeveloper}
+            platform={selectedPlatform}
+            getGames={getGamesWhenLoggedIn}
+          />
+        </Box>
         <div className="games">
           {games.map((data, i) => {
             return (

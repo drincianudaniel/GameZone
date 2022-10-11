@@ -8,9 +8,9 @@ export default class GameService {
     });
   }
 
-  static async getGamesWithUserFavorites(username, page) {
+  static async getGamesWithUserFavorites(username, page, genre, developer, platform) {
     return await request({
-      url: `/games/user/${username}/page/${page}/page-size/${8}`,
+      url: `/games/user/${username}/page/${page}/page-size/${8}?Genre=${genre}&Developer=${developer}&Platform=${platform}`,
       method: "GET",
     });
   }
