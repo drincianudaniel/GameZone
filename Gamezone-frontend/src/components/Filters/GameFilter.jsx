@@ -12,11 +12,13 @@ import { useEffect } from "react";
 import DeveloperService from "../../api/DeveloperService";
 import GenreService from "../../api/GenreService";
 import PlatformService from "../../api/PlatformService";
+import { useUser } from "../../hooks/useUser";
 
 function GameFilter(props) {
   const [genres, setGenres] = useState([]);
   const [developers, setDevelopers] = useState([]);
   const [platforms, setPlatforms] = useState([]);
+  const { user, loadingUser } = useUser();
 
   useEffect(() => {
     GenreService.getGenres().then((res) => {
@@ -33,8 +35,13 @@ function GameFilter(props) {
   }, []);
 
   const handleClick = () => {
-    props.getGames();
-    props.getGamesWhenLoggedOut();
+    if (user.IsLoggedIn) {
+      props.getGames();
+    }
+
+    if (!user.IsLoggedIn) {
+      props.getGamesWhenLoggedOut();
+    }
   };
 
   return (
