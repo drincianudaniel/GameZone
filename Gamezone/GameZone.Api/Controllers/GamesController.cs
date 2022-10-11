@@ -82,7 +82,7 @@ namespace GameZone.Api.Controllers
 
         [HttpGet]
         [Route("top/page/{page}/page-size/{pageSize}")]
-        public async Task<IActionResult> GetTop(int page, int pageSize)
+        public async Task<IActionResult> GetTop(int page, int pageSize, [FromQuery] GameFilter filter = null)
         {
             _logger.LogInformation("Getting games top");
 
@@ -92,7 +92,7 @@ namespace GameZone.Api.Controllers
                 PageSize = pageSize
             });
 
-            var count = await _mediator.Send(new CountAsyncQuery());
+            var count = await _mediator.Send(new CountAsyncQuery { Filter = filter});
             var totalPages = ((double)count / (double)pageSize);
             int roundedTotalPages = Convert.ToInt32(Math.Ceiling(totalPages));
 
