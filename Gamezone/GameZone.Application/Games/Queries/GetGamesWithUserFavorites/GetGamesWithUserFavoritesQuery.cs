@@ -1,4 +1,5 @@
 ﻿using GameZone.Application.Dtos;
+using GameZone.Application.Filters;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -13,5 +14,6 @@ namespace GameZone.Application.Games.Queries.GetGamesWithUserFavorites
         public int Page { get; set; }
         public int PageSize { get; set; }
         public string UserName { get; set; }
+        public GameFilter Filter { get; set; }
     }
 }

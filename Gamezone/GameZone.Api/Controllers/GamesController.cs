@@ -27,6 +27,7 @@ using GameZone.Application.Games.Commands.AddDeveloper;
 using GameZone.Application.Games.Commands.AddPlatform;
 using System.Security.Claims;
 using GameZone.Application.Games.Queries.GetGameWithoutFavById;
+using GameZone.Application.Filters;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -101,17 +102,18 @@ namespace GameZone.Api.Controllers
 
         [HttpGet]
         [Route("page/{page}/page-size/{pageSize}")]
-        public async Task<IActionResult> GetGamesPaged(int page, int pageSize)
+        public async Task<IActionResult> GetGamesPaged(int page, int pageSize, [FromQuery] GameFilter filter = null)
         {
             _logger.LogInformation("Getting games at page {page}", page);
 
             var result = await _mediator.Send(new GetGamesPagedQuery
             {
                 Page = page,
-                PageSize = pageSize
+                PageSize = pageSize,
+                Filter = filter
             });
 
-            var count = await _mediator.Send(new CountAsyncQuery());
+            var count = await _mediator.Send(new CountAsyncQuery { Filter = filter});
             var totalPages = ((double)count / (double)pageSize);
             int roundedTotalPages = Convert.ToInt32(Math.Ceiling(totalPages));
 
@@ -121,7 +123,7 @@ namespace GameZone.Api.Controllers
 
         [HttpGet]
         [Route("user/{username}/page/{page}/page-size/{pageSize}")]
-        public async Task<IActionResult> GetGamesPagedUserFavorites(int page, int pageSize, string username)
+        public async Task<IActionResult> GetGamesPagedUserFavorites(int page, int pageSize, string username, [FromQuery] GameFilter filter = null)
         {
             _logger.LogInformation("Getting games at page {page}", page);
 
@@ -141,10 +143,11 @@ namespace GameZone.Api.Controllers
             {
                 Page = page,
                 PageSize = pageSize,
-                UserName = username
+                UserName = username,
+                Filter = filter
             });
 
-            var count = await _mediator.Send(new CountAsyncQuery());
+            var count = await _mediator.Send(new CountAsyncQuery { Filter = filter});
             var totalPages = ((double)count / (double)pageSize);
             int roundedTotalPages = Convert.ToInt32(Math.Ceiling(totalPages));
             var mappedResult = _mapper.Map<IEnumerable<GamesWithFavoritesDto>>(result);

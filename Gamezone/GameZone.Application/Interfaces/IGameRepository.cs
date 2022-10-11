@@ -1,4 +1,5 @@
-﻿using GameZone.Domain.Models;
+﻿using GameZone.Application.Filters;
+using GameZone.Domain.Models;
 
 namespace GameZone.Application
 {
@@ -11,13 +12,13 @@ namespace GameZone.Application
         Task AddPlatformAsync(Game game, Platform platform);
         Task AddPlatformListAsync(Game game, List<Platform> platforms);
         Task CalculateTotalRatingAsync(Game game);
-        Task<int> CountAsync();
+        Task<int> CountAsync(GameFilter filter);
         Task<IEnumerable<Game>> GenerateTopList(int? page, int pageSize);
         Task<IEnumerable<Game>> GetNumberOfGames(int number, string sortOrder);
         Task RemoveDeveloperAsync(Game game, Developer developer);
         Task RemoveGenreAsync(Game game, Genre genre);
         Task RemovePlatformAsync(Game game, Platform platform);
-        Task<IEnumerable<Game>> ReturnPagedAsync(int? page, int pageSize);
+        Task<IEnumerable<Game>> ReturnPagedAsync(int? page, int pageSize, GameFilter filter);
         Task SaveAsync();
         Task<IEnumerable<Game>> SearchGameAsync(string searchString);
     }

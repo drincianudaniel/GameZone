@@ -1,4 +1,5 @@
-﻿using GameZone.Domain.Models;
+﻿using GameZone.Application.Filters;
+using GameZone.Domain.Models;
 using MediatR;
 
 namespace GameZone.Application.Games.Queries.GetGamesPaged
@@ -7,5 +8,6 @@ namespace GameZone.Application.Games.Queries.GetGamesPaged
     {
         public int Page { get; set; }
         public int PageSize { get; set; }
+        public GameFilter Filter { get; set; }
     }
 }
