@@ -51,17 +51,23 @@ function GameFilter(props) {
         justifyContent: "center",
         alignItems: "center",
         width: "100%",
-        backgroundColor: "white",
+        paddingRight: 4,
+        paddingLeft: 4,
       }}
     >
       <Grid
         container
-        spacing={4}
+        columnSpacing={2}
         sx={{
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
           width: "100%",
+          backgroundColor: "white",
+          border: 2,
+          borderColor: "primary.main",
+          borderRadius: "16px",
+          paddingRight: 4,
         }}
       >
         <Grid item xs={12} md={3}>

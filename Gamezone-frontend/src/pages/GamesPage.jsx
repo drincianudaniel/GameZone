@@ -3,7 +3,7 @@ import { useEffect, useState, createContext, useContext } from "react";
 import * as React from "react";
 import GameCard from "../components/Cards/GameCard";
 import "./css/GamesPage.css";
-import { Box, IconButton } from "@mui/material";
+import { Box, IconButton, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 import AppPagination from "../components/Pagination/AppPagination";
 import GameService from "../api/GameService";
@@ -82,7 +82,15 @@ function GamesPage() {
   };
 
   return (
-    <div className="gamePageContent">
+    <Box
+      sx={{
+        background:
+          "linear-gradient(-45deg, #000000, #00177a, #227fd6, #bce9f7)",
+        backgroundSsize: "400% 400%",
+        animation: "gradient 20s ease infinite",
+        height: { md: "145vh", sm:"100%", xs: "100%" },
+      }}
+    >
       <Header />
       <Box className="gamesContent">
         <div className="subheader">
@@ -120,7 +128,20 @@ function GamesPage() {
             getGamesWhenLoggedOut={getGames}
           />
         </Box>
-        <div className="games">
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            width: "100%",
+            mt: 3,
+          }}
+        >
+          {games.length === 0 && (
+            <Typography sx={{ fontSize: "40px" }}>No games found</Typography>
+          )}
+        </Box>
+        <Box className="games">
           {games.map((data, i) => {
             return (
               <React.Fragment key={data.id}>
@@ -128,10 +149,10 @@ function GamesPage() {
               </React.Fragment>
             );
           })}
-        </div>
+        </Box>
         <AppPagination setPage={setPage} numberOfPages={numberOfPages} />
       </Box>
-    </div>
+    </Box>
   );
 }
 
