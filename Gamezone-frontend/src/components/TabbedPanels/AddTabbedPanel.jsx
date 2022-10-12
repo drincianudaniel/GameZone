@@ -6,10 +6,9 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import AddGameForm from "../Forms/AddGameForm";
 import DevelopersTabbedPanel from "./DevelopersTabbedPanel";
-import { Link, Navigate, Route, Routes } from "react-router-dom";
+import { Link, Route, Routes } from "react-router-dom";
 import GenresTabbedPanel from "./GenresTabbedPanel";
 import PlatformsTabbedPanel from "./PlatformsTabbedPanel";
-import { useUser } from "../../hooks/useUser";
 import Users from "../Users/Users";
 
 function TabPanel(props) {
@@ -116,7 +115,7 @@ export default function BasicTabs() {
             pathname="/admin-page/platforms/add-platform"
             {...a11yProps(3)}
           />
-           <LinkTab
+          <LinkTab
             sx={{ fontWeight: "bold" }}
             label="Users"
             pathname="/admin-page/users"
@@ -138,7 +137,7 @@ export default function BasicTabs() {
           <Route path={"developers/*"} element={<DevelopersTabbedPanel />} />
           <Route path={"genres/*"} element={<GenresTabbedPanel />} />
           <Route path={"platforms/*"} element={<PlatformsTabbedPanel />} />
-          <Route path={"users"} element={<Users/>} />
+          <Route path={"users"} element={<Users />} />
         </Routes>
       </Box>
     </Box>

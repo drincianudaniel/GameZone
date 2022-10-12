@@ -1,25 +1,24 @@
 import React from "react";
 import Grid from "@mui/material/Grid";
-import Avatar from "@mui/material/Avatar";
 import Divider from "@mui/material/Divider";
 import moment from "moment";
-import axios from "axios";
-import MoreMenu from "../Menus/MoreMenu";
 import { convertUTCDateToLocalDate } from "../../utils/TimeConverting";
 import { Link } from "react-router-dom";
 import { Typography } from "@mui/material";
-import { useUser } from "../../hooks/useUser";
-import ReviewService from "../../api/ReviewService";
 import { Box } from "@mui/system";
 
 function ProfileReview(props) {
-  const { user } = useUser();
-
   return (
     <div style={{ padding: 1 }} className="App">
       <Grid container wrap="nowrap" spacing={2}>
         <Grid item xs sx={{}}>
-          <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
             <Link
               style={{ textDecoration: "none", color: "inherit" }}
               to={`/game/${props.review.gameId}/reviews`}
@@ -37,11 +36,10 @@ function ProfileReview(props) {
               >
                 {props.review.gamename}
               </Typography>
-
             </Link>
             <Typography sx={{ margin: 0, fontWeight: "bold" }}>
-                {props.review.rating}/10
-              </Typography>
+              {props.review.rating}/10
+            </Typography>
           </Box>
           <p style={{ textAlign: "left" }}>{props.review.content}</p>
           <p style={{ textAlign: "left", color: "gray" }}>

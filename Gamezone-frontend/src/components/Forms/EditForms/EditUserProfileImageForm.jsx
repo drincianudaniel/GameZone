@@ -3,7 +3,6 @@ import { useForm } from "react-hook-form";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { Box, Grid } from "@mui/material";
-import GameService from "../../../api/GameService";
 import { v4 as uuidv4 } from "uuid";
 import { uploadFile } from "../../../utils/UploadFile";
 import UserService from "../../../api/UserService";
@@ -19,7 +18,7 @@ function EditUserProfileImageForm(props) {
     let uniqueId = uuidv4();
     uploadFile(data.ImageSrc[0], uniqueId);
 
-    console.log(data)
+    console.log(data);
 
     const dataToPost = {
       from: props.imageSrc,

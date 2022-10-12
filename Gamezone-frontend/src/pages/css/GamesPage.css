@@ -8,21 +8,6 @@
   place-items: center;
 }
 
-/* .gamePageContent {
-  background: linear-gradient(-45deg, #000000, #00177a, #227fd6, #bce9f7);
-  background-size: 400% 400%;
-  animation: gradient 20s ease infinite;
-  height: 100%;
-} */
-
-.subheader {
-  text-align: right;
-}
-
-.nav {
-  display: flex;
-  justify-content: center;
-}
 @keyframes gradient {
   0% {
     background-position: 0% 50%;

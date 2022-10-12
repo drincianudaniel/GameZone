@@ -1,8 +1,7 @@
 import request from "./request";
 
 export default class GenreService {
-
-  static async getGenres(){
+  static async getGenres() {
     return await request({
       url: "/genres",
       method: "GET",
@@ -16,11 +15,11 @@ export default class GenreService {
     });
   }
 
-  static async postGenre(data){
+  static async postGenre(data) {
     return await request({
       url: "/genres",
       method: "POST",
-      data: data
+      data: data,
     });
   }
 
@@ -36,11 +35,12 @@ export default class GenreService {
       method: "PUT",
       url: `/genres/${id}`,
       data: data,
-      config: { headers: {
-        'Accept': '*/*',
-        'Content-Type': 'application/json-patch+json'
-      }},
+      config: {
+        headers: {
+          Accept: "*/*",
+          "Content-Type": "application/json-patch+json",
+        },
+      },
     });
   }
-  
 }

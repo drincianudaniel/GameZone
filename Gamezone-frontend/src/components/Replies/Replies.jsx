@@ -11,7 +11,7 @@ function Replies(props) {
   const [replies, setReplies] = useState([]);
   const [page, setPage] = useState(1);
   const [numberOfPages, setNumberOfPages] = useState(10);
-  const {user} = useUser()
+  const { user } = useUser();
   const getReplies = async () => {
     await axios
       .get(
@@ -47,7 +47,7 @@ function Replies(props) {
           No replies yet. Please add a reply.
         </Typography>
       )}
-      
+
       {user.IsLoggedIn && (
         <PostReplyForm commentId={props.commentId} getReplies={getReplies} />
       )}

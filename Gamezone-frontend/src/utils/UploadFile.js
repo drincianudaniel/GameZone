@@ -1,7 +1,6 @@
-import { BlobServiceClient, ContainerClient } from "@azure/storage-blob";
+import { BlobServiceClient } from "@azure/storage-blob";
 
 export async function uploadFile(image, id) {
-
   let storageAccountName = "gamezone";
   let sasToken = process.env.REACT_APP_SASTOKEN;
   const blobService = new BlobServiceClient(

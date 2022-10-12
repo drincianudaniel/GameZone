@@ -86,14 +86,19 @@ function GamesPage() {
       sx={{
         background:
           "linear-gradient(-45deg, #000000, #00177a, #227fd6, #bce9f7)",
-        backgroundSsize: "400% 400%",
+        backgroundSize: "400% 400%",
         animation: "gradient 20s ease infinite",
-        height: { md: "145vh", sm:"100%", xs: "100%" },
+        height: {
+          lg: games.length < 5 ? "100vh" : "145vh",
+          md: "100%",
+          sm: "100%",
+          xs: "100%",
+        },
       }}
     >
       <Header />
       <Box className="gamesContent">
-        <div className="subheader">
+        <Box sx={{ textAlign: "right" }}>
           {user.IsAdmin && (
             <Link
               style={{ textDecoration: "none", color: "black" }}
@@ -108,7 +113,7 @@ function GamesPage() {
               </IconButton>
             </Link>
           )}
-        </div>
+        </Box>
         <Box
           sx={{
             display: "flex",

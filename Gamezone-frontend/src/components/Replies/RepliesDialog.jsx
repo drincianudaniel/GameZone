@@ -35,7 +35,9 @@ export default function RepliesDialog(props) {
 
   return (
     <>
-      <Button onClick={handleClickOpen("paper")} sx={{mt: 1}}>View Replies</Button>
+      <Button onClick={handleClickOpen("paper")} sx={{ mt: 1 }}>
+        View Replies
+      </Button>
       <Dialog
         fullScreen={fullScreen}
         open={props.open}

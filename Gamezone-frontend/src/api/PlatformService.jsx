@@ -1,8 +1,7 @@
 import request from "./request";
 
 export default class PlatformService {
-
-  static async getPlatforms(){
+  static async getPlatforms() {
     return await request({
       url: "/platforms",
       method: "GET",
@@ -16,14 +15,13 @@ export default class PlatformService {
     });
   }
 
-  static async postPlatform(data){
+  static async postPlatform(data) {
     return await request({
       url: "/platforms",
       method: "POST",
-      data: data
+      data: data,
     });
   }
-
 
   static async deletePlatform(id) {
     return await request({
@@ -37,11 +35,12 @@ export default class PlatformService {
       method: "PUT",
       url: `/platforms/${id}`,
       data: data,
-      config: { headers: {
-        'Accept': '*/*',
-        'Content-Type': 'application/json-patch+json'
-      }},
+      config: {
+        headers: {
+          Accept: "*/*",
+          "Content-Type": "application/json-patch+json",
+        },
+      },
     });
   }
-
 }

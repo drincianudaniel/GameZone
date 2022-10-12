@@ -5,7 +5,6 @@ import { Grid, Typography } from "@mui/material";
 import Divider from "@mui/material/Divider";
 import HomePageList from "../components/Lists/HomePageList";
 import { useEffect, useState } from "react";
-import axios from "axios";
 import HomePageCarousel from "../components/Carousels/HomePageCarousel";
 import GameService from "../api/GameService";
 

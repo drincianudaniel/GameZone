@@ -18,7 +18,7 @@ function GameFilter(props) {
   const [genres, setGenres] = useState([]);
   const [developers, setDevelopers] = useState([]);
   const [platforms, setPlatforms] = useState([]);
-  const { user, loadingUser } = useUser();
+  const { user } = useUser();
 
   useEffect(() => {
     GenreService.getGenres().then((res) => {

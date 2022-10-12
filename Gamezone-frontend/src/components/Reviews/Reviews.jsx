@@ -43,7 +43,12 @@ function Reviews(props) {
       ) : reviews.length > 0 ? (
         reviews.map((review) => {
           return (
-            <Review key={review.id} review={review} getReviews={getReviews} getGame={props.getGame}/>
+            <Review
+              key={review.id}
+              review={review}
+              getReviews={getReviews}
+              getGame={props.getGame}
+            />
           );
         })
       ) : (
@@ -63,7 +68,9 @@ function Reviews(props) {
         <Typography sx={{ mb: 2 }}>
           You have to be{" "}
           <Link to={"/login"}>
-            <Typography sx={{display: "inline", color:"primary.main"}}>logged in</Typography>
+            <Typography sx={{ display: "inline", color: "primary.main" }}>
+              logged in
+            </Typography>
           </Link>{" "}
           to post a review.
         </Typography>

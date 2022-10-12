@@ -12,11 +12,11 @@ const theme = createTheme({
   palette: {
     secondary: {
       main: blue[500],
-      contrastText : "#fff"
+      contrastText: "#fff",
     },
   },
 });
- console.log(theme)
+
 root.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>

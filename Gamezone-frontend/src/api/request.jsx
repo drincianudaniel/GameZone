@@ -1,4 +1,3 @@
-import { ContainerClient } from "@azure/storage-blob";
 import axios from "axios";
 import { toast } from "react-toastify";
 
@@ -35,15 +34,15 @@ const request = async function (options, store) {
   };
 
   const onError = function (error) {
-    if(error.response.data.Error === "Token has expired"){
+    if (error.response.data.Error === "Token has expired") {
       window.location.href = "/login";
       localStorage.clear();
-      toast.error("Session has expired, please login.")
+      toast.error("Session has expired, please login.");
     }
     return Promise.reject(error);
   };
 
-  return client(options).catch(err=>onError(err));
+  return client(options).catch((err) => onError(err));
 };
 
 export default request;

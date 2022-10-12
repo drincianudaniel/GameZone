@@ -47,31 +47,35 @@ export default function Platforms() {
       />
       {platforms.length > 0 ? (
         <TableContainer sx={{ maxWidth: 700, mb: 2 }}>
-        <Table sx={{ maxWidth: 700 }} aria-label="simple table">
-          <TableHead>
-            <TableRow>
-              <TableCell sx={{ fontWeight: "bold" }} align="left">
-                Name
-              </TableCell>
-              <TableCell sx={{ fontWeight: "bold" }} align="center">
-                Edit
-              </TableCell>
-              <TableCell sx={{ fontWeight: "bold" }} align="center">
-                Delete
-              </TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {platforms.map((platform, i) => {
-              return (
-                <PlatformRows getPlatforms={getPlatforms} platform={platform} />
-              );
-            })}
-          </TableBody>
-        </Table>
-      </TableContainer>
-      ): <Typography sx={{ mt: 1 }}>No platforms found...</Typography>}
-      
+          <Table sx={{ maxWidth: 700 }} aria-label="simple table">
+            <TableHead>
+              <TableRow>
+                <TableCell sx={{ fontWeight: "bold" }} align="left">
+                  Name
+                </TableCell>
+                <TableCell sx={{ fontWeight: "bold" }} align="center">
+                  Edit
+                </TableCell>
+                <TableCell sx={{ fontWeight: "bold" }} align="center">
+                  Delete
+                </TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {platforms.map((platform, i) => {
+                return (
+                  <PlatformRows
+                    getPlatforms={getPlatforms}
+                    platform={platform}
+                  />
+                );
+              })}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      ) : (
+        <Typography sx={{ mt: 1 }}>No platforms found...</Typography>
+      )}
 
       <GamePagination setPage={setPage} numberOfPages={numberOfPages} />
     </Box>

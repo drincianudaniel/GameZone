@@ -14,8 +14,7 @@ import FavoriteButton from "../Buttons/FavoriteButton";
 export default function GameCard(props) {
   const { user } = useUser();
 
-  useEffect(() => {
-  }, []);
+  useEffect(() => {}, []);
 
   const deleteGame = async () => {
     GameService.deleteGame(props.data.id)
@@ -56,7 +55,10 @@ export default function GameCard(props) {
       </Link>
       {user.IsLoggedIn && (
         <CardActions disableSpacing>
-          <FavoriteButton id={props.data.id} isFavorite={props.data.isFavorite}/>
+          <FavoriteButton
+            id={props.data.id}
+            isFavorite={props.data.isFavorite}
+          />
           {user.IsAdmin && (
             <IconButton aria-label="Delete" onClick={deleteGame}>
               <ClearIcon></ClearIcon>

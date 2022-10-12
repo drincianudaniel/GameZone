@@ -80,7 +80,7 @@ export default function DetailsTabbedPanel(props) {
           />
         </Tabs>
       </Box>
-      <Box sx={{ padding: {sm: "24px", xs:"5px"} }}>
+      <Box sx={{ padding: { sm: "24px", xs: "5px" } }}>
         {/* <TabPanel value={value} index={0}>
           <Comments />
         </TabPanel>

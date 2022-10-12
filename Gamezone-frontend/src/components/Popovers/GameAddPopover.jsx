@@ -1,7 +1,5 @@
 import * as React from "react";
 import Popover from "@mui/material/Popover";
-import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
 import { useState } from "react";
 import GenreService from "../../api/GenreService";
 import DeveloperService from "../../api/DeveloperService";
@@ -14,7 +12,6 @@ import { Menu, MenuItem } from "@mui/material";
 export default function GameAddPopover(props) {
   const [data, setData] = useState([]);
   const params = useParams();
-  const [list, setList] = useState([]);
 
   useEffect(() => {
     getData();

@@ -1,8 +1,7 @@
 import request from "./request";
 
 export default class DeveloperService {
-
-  static async getDevelopers(){
+  static async getDevelopers() {
     return await request({
       url: "/developers",
       method: "GET",
@@ -23,11 +22,11 @@ export default class DeveloperService {
     });
   }
 
-  static async postDeveloper(data){
+  static async postDeveloper(data) {
     return await request({
       url: "/developers",
       method: "POST",
-      data: data
+      data: data,
     });
   }
 
@@ -36,10 +35,12 @@ export default class DeveloperService {
       method: "PUT",
       url: `/developers/${id}`,
       data: data,
-      config: { headers: {
-        'Accept': '*/*',
-        'Content-Type': 'application/json-patch+json'
-      }},
+      config: {
+        headers: {
+          Accept: "*/*",
+          "Content-Type": "application/json-patch+json",
+        },
+      },
     });
   }
 }

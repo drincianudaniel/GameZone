@@ -35,7 +35,9 @@ export default function ProfileMoreMenu(props) {
         }}
         disableScrollLock={true}
       >
-        <MenuItem onClick={props.handlePicture}>Change Profile Picture</MenuItem>
+        <MenuItem onClick={props.handlePicture}>
+          Change Profile Picture
+        </MenuItem>
         <MenuItem onClick={props.handlePassword}>Change Password</MenuItem>
       </Menu>
     </div>

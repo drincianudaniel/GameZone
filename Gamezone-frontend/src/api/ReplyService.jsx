@@ -1,7 +1,6 @@
 import request from "./request";
 
 export default class ReplyService {
-
   static async deleteReply(id, userid) {
     return await request({
       url: `/replies/${id}/user/${userid}`,
@@ -9,12 +8,11 @@ export default class ReplyService {
     });
   }
 
-  static async postReply(data){
+  static async postReply(data) {
     return await request({
       url: "/replies",
       method: "POST",
-      data: data
+      data: data,
     });
   }
-
 }

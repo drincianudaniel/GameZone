@@ -10,10 +10,9 @@ import { Box } from "@mui/system";
 import UserService from "../../api/UserService";
 import GameService from "../../api/GameService";
 import axios from "axios";
-import { resolvePath } from "react-router";
 
 function AutoCompleteSearch(props) {
-  const [value, setValue] = useState(null);
+  const [value] = useState(null);
 
   const handleSearch = (searchGame) => {
     props.handleSearchGame(searchGame);

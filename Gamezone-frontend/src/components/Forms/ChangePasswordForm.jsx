@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useForm } from "react-hook-form";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
@@ -11,7 +11,6 @@ import {
   InputAdornment,
   InputLabel,
   OutlinedInput,
-  Paper,
 } from "@mui/material";
 import UserService from "../../api/UserService";
 import { useState } from "react";
@@ -23,7 +22,7 @@ import { useUser } from "../../hooks/useUser";
 function ChangePasswordForm() {
   const [showPassword, setShowPassword] = useState(false);
   const history = useNavigate();
-  const { user, setUser } = useUser();
+  const { setUser } = useUser();
 
   const {
     register,

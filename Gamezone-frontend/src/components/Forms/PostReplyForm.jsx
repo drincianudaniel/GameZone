@@ -2,12 +2,11 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import axios from "axios";
 import { useUser } from "../../hooks/useUser";
 import ReplyService from "../../api/ReplyService";
 
 function PostReplyForm(props) {
-  const {user} = useUser();
+  const { user } = useUser();
   const {
     register,
     handleSubmit,
@@ -24,7 +23,7 @@ function PostReplyForm(props) {
       content: data.Content,
     };
 
-   ReplyService.postReply(dataToPost)
+    ReplyService.postReply(dataToPost)
       .then((response) => {
         props.getReplies();
         reset();

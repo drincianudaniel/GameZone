@@ -17,7 +17,6 @@ import AutoCompleteSearch from "./Search/AutoCompleteSearch";
 import "./css/Header.css";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../hooks/useUser";
-import GroupedSearch from "./Search/GroupedSearch";
 import { useState } from "react";
 
 const Header = () => {
@@ -81,10 +80,10 @@ const Header = () => {
   };
 
   const handleSearchGame = (search) => {
-    if(search.type === "Games"){
+    if (search.type === "Games") {
       redirectToSearchedGame(search.value);
     }
-    if(search.type === "Users"){
+    if (search.type === "Users") {
       redirectToUser(search.value);
     }
   };

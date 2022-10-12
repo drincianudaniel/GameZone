@@ -30,12 +30,12 @@ export default function PlatformRows(props) {
         <TableCell allign="center">{props.platform.name}</TableCell>
         <TableCell align="center">
           <IconButton onClick={handleClickOpen} aria-label="comment">
-            <EditIcon sx={{color: "primary.main"}}/>
+            <EditIcon sx={{ color: "primary.main" }} />
           </IconButton>
         </TableCell>
         <TableCell align="center">
           <IconButton onClick={handleDelete} aria-label="comment">
-            <DeleteForeverIcon sx={{color: "primary.main"}}/>
+            <DeleteForeverIcon sx={{ color: "primary.main" }} />
           </IconButton>
         </TableCell>
       </TableRow>

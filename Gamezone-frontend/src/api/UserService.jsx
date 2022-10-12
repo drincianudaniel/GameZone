@@ -96,7 +96,6 @@ export default class UserService {
   }
 
   static async updateUserProfileImage(data) {
-
     return await request({
       url: `/users`,
       method: "PATCH",

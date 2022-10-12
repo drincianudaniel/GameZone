@@ -3,7 +3,6 @@ import Grid from "@mui/material/Grid";
 import Avatar from "@mui/material/Avatar";
 import Divider from "@mui/material/Divider";
 import moment from "moment";
-import axios from "axios";
 import MoreMenu from "../Menus/MoreMenu";
 import RepliesDialog from "../Replies/RepliesDialog";
 import { convertUTCDateToLocalDate } from "../../utils/TimeConverting";

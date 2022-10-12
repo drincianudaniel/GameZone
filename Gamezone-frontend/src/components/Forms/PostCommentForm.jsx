@@ -2,8 +2,6 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import axios from "axios";
-import { toast } from "react-toastify";
 import { useUser } from "../../hooks/useUser";
 import CommentService from "../../api/CommentService";
 

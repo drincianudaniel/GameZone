@@ -5,22 +5,26 @@ import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
 
 export default function LocalSearchBar(props) {
-
-    const handleSearch = () => {
-        props.getData();
-      };
+  const handleSearch = () => {
+    props.getData();
+  };
 
   return (
     <Paper
       component="form"
-      sx={{ p: "2px 4px", display: "flex", alignItems: "center", maxWidth: 400 }}
+      sx={{
+        p: "2px 4px",
+        display: "flex",
+        alignItems: "center",
+        maxWidth: 400,
+      }}
     >
       <InputBase
         sx={{ ml: 1, flex: 1 }}
-        onKeyPress={e => e.key === 'Enter' && e.preventDefault()}
+        onKeyPress={(e) => e.key === "Enter" && e.preventDefault()}
         placeholder="Search"
         value={props.searchString}
-        onInput={e=> props.setSearchString(e.target.value)}
+        onInput={(e) => props.setSearchString(e.target.value)}
       />
       <IconButton
         onClick={handleSearch}

@@ -3,8 +3,6 @@ import { Box } from "@mui/system";
 import { useState } from "react";
 import { useEffect } from "react";
 import GamePagination from "../Pagination/GamePagination";
-import GenreService from "../../api/GenreService";
-import GenresRow from "../Tables/TableRows/GenresRow";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -36,7 +34,7 @@ export default function Users() {
 
   return (
     <Box
-      sx={{ width: "100%", mt:2 }}
+      sx={{ width: "100%", mt: 2 }}
       display="flex"
       justifyContent="center"
       alignItems="center"

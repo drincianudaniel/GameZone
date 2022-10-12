@@ -24,8 +24,6 @@ import EditGameNameForm from "../components/Forms/EditForms/EditGameNameForm";
 import GameMoreMenu from "../components/Menus/GameMoreMenu";
 import EditGameDateForm from "../components/Forms/EditForms/EditGameDateForm";
 import EditGameImageForm from "../components/Forms/EditForms/EditGamePictureForm";
-import UserService from "../api/UserService";
-import { toast } from "react-toastify";
 import FavoriteButton from "../components/Buttons/FavoriteButton";
 
 function GameDetailsPage() {

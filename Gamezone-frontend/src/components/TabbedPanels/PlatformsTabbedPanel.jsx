@@ -52,7 +52,8 @@ export default function PlatformsTabbedPanel() {
   React.useEffect(() => {
     let path = window.location.pathname;
 
-    if (path === "/admin-page/platforms/add-platform" && value !== 0) setValue(0);
+    if (path === "/admin-page/platforms/add-platform" && value !== 0)
+      setValue(0);
     else if (path === "/admin-page/platforms/list" && value !== 1) setValue(1);
   }, [value]);
 

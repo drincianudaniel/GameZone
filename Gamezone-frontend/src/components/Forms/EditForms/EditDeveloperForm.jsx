@@ -47,7 +47,7 @@ function EditDeveloperForm(props) {
             <TextField
               fullWidth
               required
-              sx={{ marginBottom: 1, }}
+              sx={{ marginBottom: 1 }}
               label="Name"
               name="Name"
               defaultValue={props.name}

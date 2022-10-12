@@ -32,11 +32,14 @@ function TopPage() {
   return (
     <Box
       sx={{
-        height: "100%",
         background:
           "linear-gradient(-45deg, #000000, #00177a, #227fd6, #bce9f7)",
         backgroundSize: "400% 400%",
         animation: "gradient 20s ease infinite",
+        height: {
+          lg: games.length < 6 ? "100vh" : "170vh",
+          sx: "100%",
+        },
       }}
     >
       <Header />

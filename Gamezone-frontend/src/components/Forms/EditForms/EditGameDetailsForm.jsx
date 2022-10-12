@@ -49,7 +49,7 @@ function EditGameDetailsForm(props) {
               multiline
               required
               rows={10}
-              sx={{ marginBottom: 1, width: {md:"500px", sx:"400px"} }}
+              sx={{ marginBottom: 1, width: { md: "500px", sx: "400px" } }}
               defaultValue={props.details}
               label="Details"
               name="Details"

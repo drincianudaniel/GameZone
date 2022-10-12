@@ -2,7 +2,6 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import axios from "axios";
 import { Box } from "@mui/material";
 import { toast } from "react-toastify";
 import GenreService from "../../api/GenreService";
@@ -24,7 +23,7 @@ function AddGenreForm() {
 
     GenreService.postGenre(dataToPost)
       .then((response) => {
-        console.log(response)
+        console.log(response);
         toast.success("Genre Added");
         reset();
       })

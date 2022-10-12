@@ -9,7 +9,6 @@ import FormDialog from "../../Dialogs/FormDialog";
 import EditDeveloperForm from "../../Forms/EditForms/EditDeveloperForm";
 
 export default function DevelopersRow(props) {
-
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -32,24 +31,24 @@ export default function DevelopersRow(props) {
         <TableCell align="left">{props.developer.headquarters}</TableCell>
         <TableCell align="center">
           <IconButton onClick={handleClickOpen} aria-label="comment">
-            <EditIcon sx={{color: "primary.main"}}/>
+            <EditIcon sx={{ color: "primary.main" }} />
           </IconButton>
         </TableCell>
         <TableCell align="center">
           <IconButton onClick={handleDelete} aria-label="comment">
-            <DeleteForeverIcon sx={{color: "primary.main"}} />
+            <DeleteForeverIcon sx={{ color: "primary.main" }} />
           </IconButton>
         </TableCell>
       </TableRow>
       <FormDialog
-        id = {props.developer.id}
+        id={props.developer.id}
         setOpen={setOpen}
         open={open}
         handleClickOpen={handleClickOpen}
         getDevelopers={props.getDevelopers}
-        name = {props.developer.name}
-        headquarters = {props.developer.headquarters}
-        form ={EditDeveloperForm}
+        name={props.developer.name}
+        headquarters={props.developer.headquarters}
+        form={EditDeveloperForm}
       />
     </>
   );

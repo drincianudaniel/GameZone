@@ -1,6 +1,5 @@
 import { Container } from "@mui/material";
 import { Box } from "@mui/system";
-import LoginForm from "../components/Forms/LoginForm";
 import RegisterForm from "../components/Forms/RegisterForm";
 import Header from "../components/Header";
 

@@ -1,5 +1,4 @@
 import { Fade, Modal, Backdrop } from "@mui/material";
-import { useState } from "react";
 
 // const useStyles = makeStyles((theme) => ({
 //     modal: {
@@ -44,7 +43,12 @@ export default function ImageModal(props) {
         <img
           src={props.image}
           alt="asd"
-          style={{ maxHeight: "90%", maxWidth: "90%", outline: "none",zIndex: "100" }}
+          style={{
+            maxHeight: "90%",
+            maxWidth: "90%",
+            outline: "none",
+            zIndex: "100",
+          }}
         />
       </Fade>
     </Modal>

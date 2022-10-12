@@ -13,28 +13,27 @@ import { UserContextProvider } from "./hooks/useUser";
 import ProfilePage from "./pages/ProfilePage";
 
 function App(props) {
-
   return (
     <div style={{ height: "100%" }}>
       <ToastContainer />
       <UserContextProvider>
-      <BrowserRouter>
-        <Routes>
-          <Route exact path={"/"} element={<HomePage />} />
-          <Route exact path={"/top"} element={<TopPage />} />
-          <Route exact path={"/games"} element={<GamesPage />} />
-          <Route path={"/:admin-page/*"} element={<AdminPage />} />
-          <Route path={"/game/:id/*"} element={<GameDetailsPage />} />
-          <Route path={"/notfound"} element={<Error404Page />} />
-          <Route path={"*"} element={<Navigate to="/notfound" replace />} />
-          <Route
-            path={"/admin-page"}
-            element={<Navigate to="/admin-page/add-game" replace />}
-          />
-          <Route path={"/login"} element={<LoginPage />} />
-          <Route path={"/register"} element={<RegisterPage />} />
-          <Route path={"/profile/:username/*"} element={<ProfilePage />} />
-        </Routes>
+        <BrowserRouter>
+          <Routes>
+            <Route exact path={"/"} element={<HomePage />} />
+            <Route exact path={"/top"} element={<TopPage />} />
+            <Route exact path={"/games"} element={<GamesPage />} />
+            <Route path={"/:admin-page/*"} element={<AdminPage />} />
+            <Route path={"/game/:id/*"} element={<GameDetailsPage />} />
+            <Route path={"/notfound"} element={<Error404Page />} />
+            <Route path={"*"} element={<Navigate to="/notfound" replace />} />
+            <Route
+              path={"/admin-page"}
+              element={<Navigate to="/admin-page/add-game" replace />}
+            />
+            <Route path={"/login"} element={<LoginPage />} />
+            <Route path={"/register"} element={<RegisterPage />} />
+            <Route path={"/profile/:username/*"} element={<ProfilePage />} />
+          </Routes>
         </BrowserRouter>
       </UserContextProvider>
     </div>

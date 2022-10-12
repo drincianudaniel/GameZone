@@ -14,7 +14,7 @@ export default function FavoriteButton(props) {
   useEffect(() => {
     isFavCheck();
   }, []);
-  
+
   const isFavCheck = () => {
     setIsFav(props.isFavorite);
   };
