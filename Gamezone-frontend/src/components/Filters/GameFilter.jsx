@@ -81,8 +81,9 @@ function GameFilter(props) {
               value={props.genre}
               onChange={props.handleChangeGenre}
               label="Genre"
+              MenuProps={{ PaperProps: { sx: { maxHeight: 300 } } }}
             >
-              <MenuItem value="">Empty</MenuItem>
+              <MenuItem value="">None</MenuItem>
               {genres.map((genre) => {
                 return (
                   <MenuItem key={genre.id} value={genre.name}>
@@ -105,8 +106,9 @@ function GameFilter(props) {
               value={props.developer}
               onChange={props.handleChangeDeveloper}
               label="Developer"
+              MenuProps={{ PaperProps: { sx: { maxHeight: 300 } } }}
             >
-              <MenuItem value="">Empty</MenuItem>
+              <MenuItem value="">None</MenuItem>
               {developers.map((developer) => {
                 return (
                   <MenuItem key={developer.id} value={developer.name}>
@@ -129,8 +131,9 @@ function GameFilter(props) {
               value={props.platform}
               onChange={props.handleChangePlatform}
               label="Platform"
+              MenuProps={{ PaperProps: { sx: { maxHeight: 300 } } }}
             >
-              <MenuItem value="">Empty</MenuItem>
+              <MenuItem value="">None</MenuItem>
               {platforms.map((platform) => {
                 return (
                   <MenuItem key={platform.id} value={platform.name}>
