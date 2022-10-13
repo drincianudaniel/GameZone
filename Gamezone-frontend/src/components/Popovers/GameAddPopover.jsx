@@ -8,6 +8,7 @@ import { useEffect } from "react";
 import GameService from "../../api/GameService";
 import { useParams } from "react-router";
 import { Menu, MenuItem } from "@mui/material";
+import { toast } from "react-toastify";
 
 export default function GameAddPopover(props) {
   const [data, setData] = useState([]);
@@ -61,6 +62,7 @@ export default function GameAddPopover(props) {
   const handleDataPost = (id) => {
     if (props.type === "genre") {
       GameService.AddGenre(params.id, id).then((res) => {
+        toast.success(res.data);
         handleClose();
         props.getGame();
       });
@@ -68,6 +70,7 @@ export default function GameAddPopover(props) {
 
     if (props.type === "developer") {
       GameService.AddDeveloper(params.id, id).then((res) => {
+        toast.success(res.data);
         handleClose();
         props.getGame();
       });
@@ -75,6 +78,7 @@ export default function GameAddPopover(props) {
 
     if (props.type === "platform") {
       GameService.AddPlatform(params.id, id).then((res) => {
+        toast.success(res.data);
         handleClose();
         props.getGame();
       });

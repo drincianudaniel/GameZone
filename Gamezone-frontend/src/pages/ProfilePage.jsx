@@ -8,6 +8,7 @@ import ChangePasswordForm from "../components/Forms/ChangePasswordForm";
 import EditUserProfileImageForm from "../components/Forms/EditForms/EditUserProfileImageForm";
 import Header from "../components/Header";
 import ProfileMoreMenu from "../components/Menus/ProfileMoreMenu";
+import ImageModal from "../components/Modals/ImageModal";
 import UserTabbedPanel from "../components/TabbedPanels/UserTabbedPanel";
 import { useUser } from "../hooks/useUser";
 
@@ -26,6 +27,13 @@ function ProfilePage() {
 
   const handleOpenChangePassword = () => {
     setOpenChangePassword(true);
+  };
+
+  //profile image modal
+  const [openImageModal, setOpenImageModal] = useState(false);
+
+  const handleImage = () => {
+    setOpenImageModal(true);
   };
 
   useEffect(() => {
@@ -84,6 +92,7 @@ function ProfilePage() {
                 alt={profileUser.userName}
                 className="gameImg"
                 src={profileUser.profileImageSrc}
+                onClick={(e) => handleImage()}
               />
             </Grid>
             {profileUser.userName === user.UserName && (
@@ -110,6 +119,11 @@ function ProfilePage() {
           form={EditUserProfileImageForm}
           imageSrc={profileUser.profileImageSrc}
           getUser={getUser}
+        />
+        <ImageModal
+          open={openImageModal}
+          setOpen={setOpenImageModal}
+          image={profileUser.profileImageSrc}
         />
       </Container>
     </>
