@@ -37,9 +37,15 @@ function TopPage() {
         backgroundSize: "400% 400%",
         animation: "gradient 20s ease infinite",
         height: {
-          lg: games.length < 6 ? "100vh" : "170vh",
+          lg: games.length < 6 ? "100vh" : "100%",
           sx: "100%",
         },
+        // height: {
+        //   lg: games.length < 5 ? "100vh" : "100%",
+        //   md: "100%",
+        //   sm: "100%",
+        //   xs: games.length < 1 ? "100vh" : "100%",
+        // },
       }}
     >
       <Header />

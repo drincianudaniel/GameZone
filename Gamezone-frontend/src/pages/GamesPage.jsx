@@ -10,6 +10,7 @@ import GameService from "../api/GameService";
 import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import { useUser } from "../hooks/useUser";
 import GameFilter from "../components/Filters/GameFilter";
+import SpinningLoading from "../components/LoadingComponents/SpinningLoading";
 
 const GamesContext = createContext();
 
@@ -22,7 +23,7 @@ function GamesPage() {
   const [page, setPage] = useState(1);
   const [numberOfPages, setNumberOfPages] = useState(10);
   const { user, loadingUser } = useUser();
-
+  const [isLoading, setIsLoading] = useState(false);
   //filter system
   const [selectedGenre, setSelectedGenre] = useState("");
   const [selectedDeveloper, setSelectedDeveloper] = useState("");
@@ -57,6 +58,7 @@ function GamesPage() {
   }, [page, user, loadingUser]);
 
   const getGames = async () => {
+    setIsLoading(true);
     GameService.getGamesPaginated(
       page,
       selectedGenre,
@@ -65,10 +67,12 @@ function GamesPage() {
     ).then((response) => {
       setGames(response.data.data);
       setNumberOfPages(response.data.totalPages);
+      setIsLoading(false);
     });
   };
 
   const getGamesWhenLoggedIn = async () => {
+    setIsLoading(true);
     GameService.getGamesWithUserFavorites(
       user.UserName,
       page,
@@ -78,6 +82,7 @@ function GamesPage() {
     ).then((response) => {
       setGames(response.data.data);
       setNumberOfPages(response.data.totalPages);
+      setIsLoading(false);
     });
   };
 
@@ -89,10 +94,10 @@ function GamesPage() {
         backgroundSize: "400% 400%",
         animation: "gradient 20s ease infinite",
         height: {
-          lg: games.length < 5 ? "100vh" : "145vh",
+          lg: games.length < 5 ? "100vh" : "100%",
           md: "100%",
           sm: "100%",
-          xs: "100%",
+          xs: games.length < 1 ? "100vh" : "100%",
         },
       }}
     >
@@ -120,6 +125,7 @@ function GamesPage() {
             justifyContent: "center",
             alignItems: "center",
             width: "100%",
+            mt: 2
           }}
         >
           <GameFilter
@@ -133,28 +139,36 @@ function GamesPage() {
             getGamesWhenLoggedOut={getGames}
           />
         </Box>
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            width: "100%",
-            mt: 3,
-          }}
-        >
-          {games.length === 0 && (
-            <Typography sx={{ fontSize: "40px" }}>No games found</Typography>
-          )}
-        </Box>
-        <Box className="games">
-          {games.map((data, i) => {
-            return (
-              <React.Fragment key={data.id}>
-                <GameCard data={data} getGames={getGames} />
-              </React.Fragment>
-            );
-          })}
-        </Box>
+        {isLoading ? (
+          <SpinningLoading />
+        ) : (
+          <>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                width: "100%",
+                mt: 3,
+              }}
+            >
+              {games.length === 0 && (
+                <Typography sx={{ fontSize: "40px", color: "white" }}>
+                  No games found
+                </Typography>
+              )}
+            </Box>
+            <Box className="games">
+              {games.map((data, i) => {
+                return (
+                  <React.Fragment key={data.id}>
+                    <GameCard data={data} getGames={getGames} />
+                  </React.Fragment>
+                );
+              })}
+            </Box>
+          </>
+        )}
         <AppPagination setPage={setPage} numberOfPages={numberOfPages} />
       </Box>
     </Box>
