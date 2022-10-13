@@ -10,17 +10,23 @@ import { Box, Typography } from "@mui/material";
 import { useUser } from "../../hooks/useUser";
 import ReviewService from "../../api/ReviewService";
 import StarOutlinedIcon from "@mui/icons-material/StarOutlined";
+import { useConfirm } from "material-ui-confirm";
 
 function Review(props) {
   const { user } = useUser();
+  const confirm = useConfirm();
 
   const handleDelete = async () => {
-    ReviewService.deleteReview(props.review.id, user.Id)
-      .then((response) => {
-        props.getReviews();
-        props.getGame();
-      })
-      .catch((err) => console.log(err));
+    confirm({ description: "This will permanently delete the review." }).then(
+      () => {
+        ReviewService.deleteReview(props.review.id, user.Id)
+          .then((response) => {
+            props.getReviews();
+            props.getGame();
+          })
+          .catch((err) => console.log(err));
+      }
+    );
   };
 
   return (

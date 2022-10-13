@@ -7,14 +7,20 @@ import EditIcon from "@mui/icons-material/Edit";
 import FormDialog from "../../Dialogs/FormDialog";
 import PlatformService from "../../../api/PlatformService";
 import EditPlatformForm from "../../Forms/EditForms/EditPlatformForm";
+import { useConfirm } from "material-ui-confirm";
 
 export default function PlatformRows(props) {
   const [open, setOpen] = React.useState(false);
+  const confirm = useConfirm();
 
   const handleDelete = () => {
-    PlatformService.deletePlatform(props.platform.id).then((res) => {
-      props.getPlatforms();
-    });
+    confirm({ description: "This will permanently delete the platform." }).then(
+      () => {
+        PlatformService.deletePlatform(props.platform.id).then((res) => {
+          props.getPlatforms();
+        });
+      }
+    );
   };
 
   const handleClickOpen = () => {

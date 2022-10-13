@@ -10,18 +10,24 @@ import { useUser } from "../../hooks/useUser";
 import GameService from "../../api/GameService";
 import { useEffect } from "react";
 import FavoriteButton from "../Buttons/FavoriteButton";
+import { useConfirm } from "material-ui-confirm";
 
 export default function GameCard(props) {
   const { user } = useUser();
+  const confirm = useConfirm();
 
   useEffect(() => {}, []);
 
   const deleteGame = async () => {
-    GameService.deleteGame(props.data.id)
-      .then((response) => {
-        props.getGames();
-      })
-      .catch((err) => console.log(err));
+    confirm({ description: "This will permanently delete the game." }).then(
+      () => {
+        GameService.deleteGame(props.data.id)
+          .then((response) => {
+            props.getGames();
+          })
+          .catch((err) => console.log(err));
+      }
+    );
   };
 
   return (

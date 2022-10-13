@@ -9,26 +9,37 @@ import { Typography } from "@mui/material";
 import CheckIcon from "@mui/icons-material/Check";
 import ClearIcon from "@mui/icons-material/Clear";
 import { toast } from "react-toastify";
+import { useConfirm } from "material-ui-confirm";
 
 export default function UsersRow(props) {
   const [roles, setRoles] = useState([]);
   const [isAdmin, setIsAdmin] = useState(false);
+  const confirm = useConfirm();
+
   useEffect(() => {
     isAdminCheck();
     setRoles(props.user.roles);
   }, [roles]);
 
   const handleDelete = () => {
-    UserService.DeleteUser(props.user.user.id).then((res) => {
-      props.getUsers();
-    });
+    confirm({ description: "This will permanently delete the user." }).then(
+      () => {
+        UserService.DeleteUser(props.user.user.id).then((res) => {
+          props.getUsers();
+        });
+      }
+    );
   };
 
   const addAdmin = () => {
-    UserService.AddRoleToUser(props.user.user.userName, "Admin").then((res) => {
-      props.getUsers();
-      setIsAdmin(true);
-      toast.success(res.data);
+    confirm({ description: "This will make the user admin." }).then(() => {
+      UserService.AddRoleToUser(props.user.user.userName, "Admin").then(
+        (res) => {
+          props.getUsers();
+          setIsAdmin(true);
+          toast.success(res.data);
+        }
+      );
     });
   };
 

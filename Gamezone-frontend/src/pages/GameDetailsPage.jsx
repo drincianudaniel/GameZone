@@ -25,6 +25,7 @@ import GameMoreMenu from "../components/Menus/GameMoreMenu";
 import EditGameDateForm from "../components/Forms/EditForms/EditGameDateForm";
 import EditGameImageForm from "../components/Forms/EditForms/EditGamePictureForm";
 import FavoriteButton from "../components/Buttons/FavoriteButton";
+import { useConfirm } from "material-ui-confirm";
 
 function GameDetailsPage() {
   const [game, setGame] = useState([]);
@@ -32,6 +33,7 @@ function GameDetailsPage() {
   const params = useParams();
   const theme = useTheme();
   const history = useNavigate();
+  const confirm = useConfirm();
 
   //modals
   const [open, setOpen] = useState(false);
@@ -97,9 +99,13 @@ function GameDetailsPage() {
   };
 
   const handleDelete = () => {
-    GameService.deleteGame(params.id).then((res) => {
-      history(`/games`);
-    });
+    confirm({ description: "This will permanently delete the game." }).then(
+      () => {
+        GameService.deleteGame(params.id).then((res) => {
+          history(`/games`);
+        });
+      }
+    );
   };
 
   return (

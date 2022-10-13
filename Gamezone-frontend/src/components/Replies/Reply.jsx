@@ -9,16 +9,22 @@ import { Link } from "react-router-dom";
 import { Box, Typography } from "@mui/material";
 import { useUser } from "../../hooks/useUser";
 import ReplyService from "../../api/ReplyService";
+import { useConfirm } from "material-ui-confirm";
 
 function Reply(props) {
   const { user } = useUser();
+  const confirm = useConfirm();
 
   const handleDelete = async () => {
-    ReplyService.deleteReply(props.reply.id, user.Id)
-      .then((response) => {
-        props.getReplies();
-      })
-      .catch((err) => console.log(err));
+    confirm({ description: "This will permanently delete the reply." }).then(
+      () => {
+        ReplyService.deleteReply(props.reply.id, user.Id)
+          .then((response) => {
+            props.getReplies();
+          })
+          .catch((err) => console.log(err));
+      }
+    );
   };
 
   return (

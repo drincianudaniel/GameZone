@@ -13,20 +13,26 @@ import CommentService from "../../api/CommentService";
 import LoadingBarComponent from "../LoadingComponents/LoadingBar";
 import { useState } from "react";
 import { Box } from "@mui/system";
+import { useConfirm } from "material-ui-confirm";
 
 function Comment(props) {
   const [open, setOpen] = React.useState(false);
   const { user } = useUser();
   const [progress, setProgress] = useState(0);
+  const confirm = useConfirm();
 
   const handleDelete = async () => {
     setProgress(50);
-    CommentService.deleteComment(props.comment.id, user.Id)
-      .then((response) => {
+    confirm({ description: "This will permanently delete the comment." })
+      .then(() => {
+        CommentService.deleteComment(props.comment.id, user.Id)
+          .then((response) => {
+            props.getComments();
+          })
+          .catch((err) => console.log(err));
         setProgress(100);
-        props.getComments();
       })
-      .catch((err) => console.log(err));
+      .catch(() => setProgress(100));
   };
 
   return (

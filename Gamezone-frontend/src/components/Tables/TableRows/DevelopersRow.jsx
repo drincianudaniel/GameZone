@@ -7,17 +7,23 @@ import TableRow from "@mui/material/TableRow";
 import EditIcon from "@mui/icons-material/Edit";
 import FormDialog from "../../Dialogs/FormDialog";
 import EditDeveloperForm from "../../Forms/EditForms/EditDeveloperForm";
+import { useConfirm } from "material-ui-confirm";
 
 export default function DevelopersRow(props) {
   const [open, setOpen] = React.useState(false);
+  const confirm = useConfirm();
 
   const handleClickOpen = () => {
     setOpen(true);
   };
 
   const handleDelete = () => {
-    DeveloperService.deleteDeveloper(props.developer.id).then((res) => {
-      props.getDevelopers();
+    confirm({
+      description: "This will permanently delete the developer.",
+    }).then(() => {
+      DeveloperService.deleteDeveloper(props.developer.id).then((res) => {
+        props.getDevelopers();
+      });
     });
   };
 

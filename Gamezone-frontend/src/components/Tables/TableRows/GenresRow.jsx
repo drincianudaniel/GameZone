@@ -7,14 +7,20 @@ import EditIcon from "@mui/icons-material/Edit";
 import FormDialog from "../../Dialogs/FormDialog";
 import GenreService from "../../../api/GenreService";
 import EditGenreForm from "../../Forms/EditForms/EditGenreForm";
+import { useConfirm } from "material-ui-confirm";
 
 export default function GenresRow(props) {
   const [open, setOpen] = React.useState(false);
+  const confirm = useConfirm();
 
   const handleDelete = () => {
-    GenreService.deleteGenre(props.genre.id).then((res) => {
-      props.getGenres();
-    });
+    confirm({ description: "This will permanently delete the genre." }).then(
+      () => {
+        GenreService.deleteGenre(props.genre.id).then((res) => {
+          props.getGenres();
+        });
+      }
+    );
   };
 
   const handleClickOpen = () => {
