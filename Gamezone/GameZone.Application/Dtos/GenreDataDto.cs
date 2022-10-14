@@ -6,5 +6,6 @@ namespace GameZone.Application.Dtos
     {
         public string Name { get; set; }
         public int Count { get; set; }
+        public double AverageRating { get; set; }
     }
 }

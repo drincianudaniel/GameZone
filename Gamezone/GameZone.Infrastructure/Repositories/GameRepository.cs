@@ -61,6 +61,31 @@ namespace GameZone.Infrastructure.Repositories
 
         }
 
+        public async Task<IEnumerable<Game>> ReturnFiltered(GameFilter filter)
+        {
+            var games = from g in _context.Games select g;
+
+            if (!String.IsNullOrWhiteSpace(filter.Genre))
+            {
+                games = games.Include(g => g.Genres).Where(g => g.Genres.Any(genre => genre.Name.Equals(filter.Genre)));
+            }
+
+            if (!String.IsNullOrWhiteSpace(filter.Developer))
+            {
+                games = games.Include(g => g.Developers).Where(g => g.Developers.Any(dev => dev.Name.Equals(filter.Developer)));
+            }
+
+            if (!String.IsNullOrWhiteSpace(filter.Platform))
+            {
+                games = games.Include(g => g.Platforms).Where(g => g.Platforms.Any(platform => platform.Name.Equals(filter.Platform)));
+            }
+
+            return await games
+                .AsNoTracking()
+                .OrderByDescending(date => date.CreatedAt)
+                .ToListAsync();
+        }
+
         public async Task<int> CountAsync(GameFilter filter)
         {
             var games = from g in _context.Games select g;

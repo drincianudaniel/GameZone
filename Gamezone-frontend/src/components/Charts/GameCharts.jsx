@@ -1,4 +1,4 @@
-import { Typography } from "@mui/material";
+import { Box, Container, Typography } from "@mui/material";
 import { useEffect } from "react";
 import { useState } from "react";
 import GameService from "../../api/GameService";
@@ -7,27 +7,28 @@ var CanvasJS = CanvasJSReact.CanvasJS;
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 export default function GameCharts() {
-  const [data, setData] = useState([]);
+  const [genreAverage, setGenreAverage] = useState([]);
+  const [genreCount, setGenreCount] = useState([]);
 
   useEffect(() => {
     GameService.GetGamesChart().then((res) => {
-      setData(res.data.genreData);
-      console.log(data);
+      setGenreAverage(res.data.genreAverage);
+      setGenreCount(res.data.genreCount);
     });
   }, []);
-  const options = {
+  const genresCount = {
     animationEnabled: true,
     exportEnabled: true,
     theme: "light2", // "light1", "dark1", "dark2"
     title: {
-      text: "Genres",
+      text: "Games count by genre",
     },
     data: [
       {
         type: "pie",
-        indexLabel: "{label}: {y}%",
+        indexLabel: "{label}: {y}",
         startAngle: -90,
-        dataPoints: data.map((el) => {
+        dataPoints: genreCount.map((el) => {
           return {
             y: el.count,
             label: el.name,
@@ -36,13 +37,44 @@ export default function GameCharts() {
       },
     ],
   };
+
+  const genresAverage = {
+    animationEnabled: true,
+    theme: "light2",
+    title: {
+      text: "Genres by average rating",
+    },
+    axisY: {
+      maximum: 10.5,
+    },
+    data: [
+      {
+        type: "line",
+        indexLabelFontSize: 16,
+        dataPoints: genreAverage.map((el) => {
+          return {
+            y: el.averageRating,
+            label: el.name,
+          };
+        }),
+      },
+    ],
+  };
+
   return (
-    <>
-      <Typography>Here are some game charts</Typography>
-      <CanvasJSChart
-        options={options}
-        /* onRef={ref => this.chart = ref} */
-      />
-    </>
+    <Container maxWidth="lg">
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          flexDirection: "column",
+        }}
+      >
+        <Typography>Here are some game charts</Typography>
+        <CanvasJSChart options={genresCount} />
+        <CanvasJSChart options={genresAverage} />
+      </Box>
+    </Container>
   );
 }
