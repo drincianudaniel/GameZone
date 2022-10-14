@@ -4,6 +4,7 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { Box, Grid } from "@mui/material";
 import GameService from "../../../api/GameService";
+import moment from "moment/moment";
 
 function EditGameDateForm(props) {
   const {
@@ -46,7 +47,7 @@ function EditGameDateForm(props) {
               fullWidth
               required
               sx={{ marginBottom: 1, width: { md: "500px", sx: "400px" } }}
-              defaultValue={props.date}
+              defaultValue={moment(props.date).format("L")}
               label="Date"
               name="Date"
               id="fullWidth outlined-multiline-static"

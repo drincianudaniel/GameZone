@@ -125,7 +125,7 @@ function GamesPage() {
             justifyContent: "center",
             alignItems: "center",
             width: "100%",
-            mt: 2
+            mt: 2,
           }}
         >
           <GameFilter
@@ -140,7 +140,18 @@ function GamesPage() {
           />
         </Box>
         {isLoading ? (
-          <SpinningLoading />
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              width: "100%",
+              mt: 3,
+              height: "100vh",
+            }}
+          >
+            <SpinningLoading />
+          </Box>
         ) : (
           <>
             <Box
