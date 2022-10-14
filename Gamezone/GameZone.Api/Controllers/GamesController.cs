@@ -28,6 +28,7 @@ using GameZone.Application.Games.Commands.AddPlatform;
 using System.Security.Claims;
 using GameZone.Application.Games.Queries.GetGameWithoutFavById;
 using GameZone.Application.Filters;
+using GameZone.Application.Games.Queries.GetGamesChart;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -412,6 +413,15 @@ namespace GameZone.Api.Controllers
             }
 
             return BadRequest("Something went wrong");
+        }
+
+        [HttpGet]
+        [Route("chart")]
+        public async Task<IActionResult> GetGameChart()
+        {
+            var result = await _mediator.Send(new GetGamesChartQuery());
+
+            return Ok(result);
         }
     }
 }

@@ -10,6 +10,7 @@ import { Link, Route, Routes } from "react-router-dom";
 import GenresTabbedPanel from "./GenresTabbedPanel";
 import PlatformsTabbedPanel from "./PlatformsTabbedPanel";
 import Users from "../Users/Users";
+import GameCharts from "../Charts/GameCharts";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -121,6 +122,12 @@ export default function BasicTabs() {
             pathname="/admin-page/users"
             {...a11yProps(3)}
           />
+           <LinkTab
+            sx={{ fontWeight: "bold" }}
+            label="Charts"
+            pathname="/admin-page/charts"
+            {...a11yProps(4)}
+          />
         </Tabs>
       </Box>
       <Box>
@@ -138,6 +145,7 @@ export default function BasicTabs() {
           <Route path={"genres/*"} element={<GenresTabbedPanel />} />
           <Route path={"platforms/*"} element={<PlatformsTabbedPanel />} />
           <Route path={"users"} element={<Users />} />
+          <Route path={"charts"} element={<GameCharts />} />
         </Routes>
       </Box>
     </Box>

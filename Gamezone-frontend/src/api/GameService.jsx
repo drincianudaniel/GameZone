@@ -193,4 +193,11 @@ export default class GameService {
       method: "GET",
     });
   }
+
+  static async GetGamesChart(){
+    return await request({
+      url: `/games/chart`,
+      method: "GET",
+    })
+  }
 }
