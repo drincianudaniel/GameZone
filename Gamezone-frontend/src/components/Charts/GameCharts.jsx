@@ -88,16 +88,30 @@ export default function GameCharts() {
 
   return (
     <Container maxWidth="lg">
-      <Box
-        sx={{
-  
-        }}
-      >
-        <Grid Container>
-          <Grid item lg={6}>
+      <Box sx={{ mt: 2 }}>
+        <Grid container spacing={4}>
+          <Grid
+            item
+            xs={12}
+            sm={12}
+            md={6}
+            lg={6}
+            sx={{
+              width: { lg: "50%", xs: "100%", sm: "100%" },
+            }}
+          >
             <CanvasJSChart options={genresCount} />
           </Grid>
-          <Grid item lg={6}>
+          <Grid
+            item
+            xs={12}
+            sm={12}
+            md={6}
+            lg={6}
+            sx={{
+              width: { lg: "50%", xs: "100%", sm: "100%" },
+            }}
+          >
             <CanvasJSChart options={platformsCount} />
           </Grid>
         </Grid>
