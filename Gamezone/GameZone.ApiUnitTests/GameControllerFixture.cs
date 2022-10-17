@@ -59,8 +59,8 @@ namespace GameZone.ApiUnitTests
             _mockMediator.Verify(x => x.Send(It.IsAny<GetGameByIdQuery>(), It.IsAny<CancellationToken>()), Times.Once());
         }
 
-        [Fact]
-        public async Task Get_Game_By_Id_GetGameByIdQueryWithCorrectGameIdIsCalled()
+       /* [Fact]*/
+       /* public async Task Get_Game_By_Id_GetGameByIdQueryWithCorrectGameIdIsCalled()
         {
             //Arrange
             var gameId = new Guid();
@@ -85,9 +85,9 @@ namespace GameZone.ApiUnitTests
 
             //Assert
             Assert.Equal(gameId, guid);
-        }
+        }*/
 
-        [Fact]
+       /* [Fact]
         public async Task Get_Genre_By_Id_ShouldReturnOkStatusCode()
         {
             //Arrange
@@ -107,9 +107,9 @@ namespace GameZone.ApiUnitTests
             var okResult = result as OkObjectResult;
             //Assert
             Assert.Equal((int)HttpStatusCode.OK, okResult.StatusCode);
-        }
+        }*/
 
-        [Fact]
+       /* [Fact]
         public async Task Get_Game_By_Id_ShouldReturnFoundGame()
         {
             //Arange
@@ -139,7 +139,7 @@ namespace GameZone.ApiUnitTests
 
             //Assert
             Assert.Equal(mappedGame.Name, ((GameDto)okResult.Value).Name);
-        }
+        }*/
 
         [Fact]
         public async Task CallPost_ReturnsGameDto()

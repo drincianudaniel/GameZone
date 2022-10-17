@@ -59,6 +59,7 @@ namespace GameZone.IntegrationTests.Helpers
                 FirstName = "FirstName",
                 LastName = "LastName",
                 Email = "username@gmail.com",
+                ProfileImageSrc="https://pokemonletsgo.pokemon.com/assets/img/common/char-pikachu.png"
             };
 
             db.Users.Add(user);

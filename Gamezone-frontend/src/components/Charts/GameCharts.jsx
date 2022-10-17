@@ -1,19 +1,22 @@
-import { Box, Container, Typography } from "@mui/material";
+import { Box, Container, Typography, Divider, Grid } from "@mui/material";
 import { useEffect } from "react";
 import { useState } from "react";
 import GameService from "../../api/GameService";
 import CanvasJSReact from "../../assets/canvasjs.react";
+
 var CanvasJS = CanvasJSReact.CanvasJS;
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 export default function GameCharts() {
   const [genreAverage, setGenreAverage] = useState([]);
   const [genreCount, setGenreCount] = useState([]);
+  const [platformCount, setPlatformCount] = useState([]);
 
   useEffect(() => {
     GameService.GetGamesChart().then((res) => {
       setGenreAverage(res.data.genreAverage);
       setGenreCount(res.data.genreCount);
+      setPlatformCount(res.data.platformCount);
     });
   }, []);
   const genresCount = {
@@ -29,6 +32,28 @@ export default function GameCharts() {
         indexLabel: "{label}: {y}",
         startAngle: -90,
         dataPoints: genreCount.map((el) => {
+          return {
+            y: el.count,
+            label: el.name,
+          };
+        }),
+      },
+    ],
+  };
+
+  const platformsCount = {
+    animationEnabled: true,
+    exportEnabled: true,
+    theme: "light2", // "light1", "dark1", "dark2"
+    title: {
+      text: "Games count by platform",
+    },
+    data: [
+      {
+        type: "pie",
+        indexLabel: "{label}: {y}",
+        startAngle: -90,
+        dataPoints: platformCount.map((el) => {
           return {
             y: el.count,
             label: el.name,
@@ -65,14 +90,18 @@ export default function GameCharts() {
     <Container maxWidth="lg">
       <Box
         sx={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          flexDirection: "column",
+  
         }}
       >
-        <Typography>Here are some game charts</Typography>
-        <CanvasJSChart options={genresCount} />
+        <Grid Container>
+          <Grid item lg={6}>
+            <CanvasJSChart options={genresCount} />
+          </Grid>
+          <Grid item lg={6}>
+            <CanvasJSChart options={platformsCount} />
+          </Grid>
+        </Grid>
+        <Divider></Divider>
         <CanvasJSChart options={genresAverage} />
       </Box>
     </Container>

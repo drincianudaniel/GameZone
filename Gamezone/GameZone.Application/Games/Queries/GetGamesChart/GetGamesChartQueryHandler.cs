@@ -17,7 +17,8 @@ namespace GameZone.Application.Games.Queries.GetGamesChart
         public async Task<GameDataDto> Handle(GetGamesChartQuery request, CancellationToken cancellationToken)
         {
             var genres = await _unitOfWork.GenreRepository.ReturnAllAsync();
-            var data = new GameDataDto { GenreAverage = new List<GenreDataDto>(), GenreCount = new List<GenreDataDto>() };
+            var platforms = await _unitOfWork.PlatformRepository.ReturnAllAsync();
+            var data = new GameDataDto { GenreAverage = new List<GenreDataDto>(), PlatformCount = new List<PlatformDataDto>(), GenreCount = new List<GenreDataDto>() };
 
             foreach(var genre in genres)
             {
@@ -42,6 +43,19 @@ namespace GameZone.Application.Games.Queries.GetGamesChart
                         };
                         data.GenreAverage.Add(genredata);
                     }
+                }
+            }
+
+            foreach (var platform in platforms)
+            {
+                var platformFilter = new GameFilter { Platform = platform.Name };
+                var count = await _unitOfWork.GameRepository.CountAsync(platformFilter);
+
+                if (count != 0)
+                {
+                    var platformCount = new PlatformDataDto { Count = count, Name = platform.Name };
+                    data.PlatformCount.Add(platformCount);
+
                 }
             }
             return data;

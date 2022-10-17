@@ -4,9 +4,11 @@ using Microsoft.AspNetCore.Mvc.Testing;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using Xunit;
@@ -64,6 +66,11 @@ namespace GameZone.IntegrationTests
         [Fact]
         public async Task Post_Comments_ShouldReturnCreatedResponse()
         {
+            dynamic data = new ExpandoObject();
+            data.Id = "f535d0fc-020c-4549-8dce-6496ceedcd22";
+            data.UserName = "bryan778";
+            data.Roles = new[] { "Admin", "User" };
+
             var comment = new CommentViewModel
             {
                 Content = "i liked the game test comment",
@@ -72,6 +79,8 @@ namespace GameZone.IntegrationTests
             };
 
             var client = _factory.CreateClient();
+            client.SetFakeBearerToken((object)data);
+
             var response = await client.PostAsync("/api/comments",
                 new StringContent(JsonConvert.SerializeObject(comment), Encoding.UTF8, "application/json"));
 
@@ -89,6 +98,7 @@ namespace GameZone.IntegrationTests
             };
 
             var client = _factory.CreateClient();
+
             var response = await client.PostAsync("/api/comments",
                 new StringContent(JsonConvert.SerializeObject(newComment), Encoding.UTF8, "application/json"));
 

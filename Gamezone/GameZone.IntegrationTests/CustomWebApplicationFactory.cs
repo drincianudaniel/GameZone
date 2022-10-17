@@ -2,10 +2,12 @@
 using GameZone.IntegrationTests.Helpers;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
+using Microsoft.AspNetCore.TestHost;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System.Linq;
+using WebMotions.Fake.Authentication.JwtBearer;
 
 namespace GameZone.IntegrationTests
 {
@@ -21,12 +23,15 @@ namespace GameZone.IntegrationTests
         }
 
         protected override void ConfigureWebHost(IWebHostBuilder builder)
-        {
+        { 
+
             builder.ConfigureServices(services =>
             {
                 var serviceDescriptor = services.SingleOrDefault(d => d.ServiceType == typeof(DbContextOptions<GameZoneContext>));
                 services.Remove(serviceDescriptor);
 
+/*                services.AddAuthentication(FakeJwtBearerDefaults.AuthenticationScheme).AddJwtBearer();
+*/
                 var serviceProvider = new ServiceCollection()
                 .AddEntityFrameworkSqlite()
                 .BuildServiceProvider();
@@ -37,6 +42,7 @@ namespace GameZone.IntegrationTests
                     options.UseInternalServiceProvider(serviceProvider);
                 }, ServiceLifetime.Scoped);
 
+ 
                 var sp = services.BuildServiceProvider();
 
                 using (var scope = sp.CreateScope())
