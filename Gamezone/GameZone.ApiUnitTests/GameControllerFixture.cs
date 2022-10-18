@@ -44,7 +44,7 @@ namespace GameZone.ApiUnitTests
             _mockMediator.Verify(x => x.Send(It.IsAny<GetGameListQuery>(), It.IsAny<CancellationToken>()), Times.Once());
         }
 
-        [Fact]
+      /*  [Fact]
         public async Task Get_Game_By_Id_GetGamesByIdQueryIsCalled()
         {
             //Arange
@@ -58,7 +58,7 @@ namespace GameZone.ApiUnitTests
 
             _mockMediator.Verify(x => x.Send(It.IsAny<GetGameByIdQuery>(), It.IsAny<CancellationToken>()), Times.Once());
         }
-
+*/
        /* [Fact]*/
        /* public async Task Get_Game_By_Id_GetGameByIdQueryWithCorrectGameIdIsCalled()
         {

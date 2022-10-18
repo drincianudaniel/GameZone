@@ -1,4 +1,5 @@
 import { Typography } from "@mui/material";
+import { Box } from "@mui/system";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
@@ -38,44 +39,46 @@ function Reviews(props) {
 
   return (
     <>
-      {isLoading ? (
-        <SpinningLoading />
-      ) : reviews.length > 0 ? (
-        reviews.map((review) => {
-          return (
-            <Review
-              key={review.id}
-              review={review}
-              getReviews={getReviews}
-              getGame={props.getGame}
-            />
-          );
-        })
-      ) : (
-        <Typography sx={{ marginBottom: 2 }}>
-          No reviews yet. Please add a review.
-        </Typography>
-      )}
+      <Box sx={{ mt: { xs: 2, sm: 2, lg: 0 } }}>
+        {isLoading ? (
+          <SpinningLoading />
+        ) : reviews.length > 0 ? (
+          reviews.map((review) => {
+            return (
+              <Review
+                key={review.id}
+                review={review}
+                getReviews={getReviews}
+                getGame={props.getGame}
+              />
+            );
+          })
+        ) : (
+          <Typography sx={{ marginBottom: 2 }}>
+            No reviews yet. Please add a review.
+          </Typography>
+        )}
 
-      {user.IsLoggedIn && (
-        <PostReviewForm
-          id={params.id}
-          getReviews={getReviews}
-          getGame={props.getGame}
-        />
-      )}
-      {!user.IsLoggedIn && (
-        <Typography sx={{ mb: 2 }}>
-          You have to be{" "}
-          <Link to={"/login"}>
-            <Typography sx={{ display: "inline", color: "primary.main" }}>
-              logged in
-            </Typography>
-          </Link>{" "}
-          to post a review.
-        </Typography>
-      )}
-      <GamePagination setPage={setPage} numberOfPages={numberOfPages} />
+        {user.IsLoggedIn && (
+          <PostReviewForm
+            id={params.id}
+            getReviews={getReviews}
+            getGame={props.getGame}
+          />
+        )}
+        {!user.IsLoggedIn && (
+          <Typography sx={{ mb: 2 }}>
+            You have to be{" "}
+            <Link to={"/login"}>
+              <Typography sx={{ display: "inline", color: "primary.main" }}>
+                logged in
+              </Typography>
+            </Link>{" "}
+            to post a review.
+          </Typography>
+        )}
+        <GamePagination setPage={setPage} numberOfPages={numberOfPages} />
+      </Box>
     </>
   );
 }

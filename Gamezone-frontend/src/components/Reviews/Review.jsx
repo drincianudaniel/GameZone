@@ -46,7 +46,18 @@ function Review(props) {
             <Box
               sx={{
                 display: "flex",
-                alignItems: "center",
+                alignItems: {
+                  lg: "center",
+                  sm: "center",
+                  md: "center",
+                  xs: "left",
+                },
+                flexDirection: {
+                  xs: "column",
+                  sm: "row",
+                  md: "row",
+                  lg: "row",
+                },
               }}
             >
               <Link

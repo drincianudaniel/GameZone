@@ -61,7 +61,7 @@ export default function DetailsTabbedPanel(props) {
   };
 
   return (
-    <Box sx={{ width: "100%" }}>
+    <Box sx={{ width: "100%", mt: { sm: 1, lg: 0 } }}>
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
         <Tabs
           value={value}

@@ -47,9 +47,17 @@ export default function TopTable(props) {
         <TableBody>
           {props.games.map((game, value) => (
             <StyledTableRow key={game.name}>
-              <StyledTableCell align="center">
+              <StyledTableCell
+                width={100}
+                sx={{ maxWidth: "100px" }}
+                align="center"
+              >
                 <Typography
-                  sx={{ fontSize: 50, color: "#888", fontWeight: "bold" }}
+                  sx={{
+                    fontSize: 50,
+                    color: "#888",
+                    fontWeight: "bold",
+                  }}
                 >
                   {(props.page === 1 ? 0 : (props.page - 1) * 10) + value + 1}
                 </Typography>

@@ -4,7 +4,7 @@ import { useParams } from "react-router";
 import GamePagination from "../Pagination/GamePagination";
 import Comment from "./Comment";
 import PostCommentForm from "../Forms/PostCommentForm";
-import { Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import SpinningLoading from "../LoadingComponents/SpinningLoading";
 import { useUser } from "../../hooks/useUser";
 import { Link } from "react-router-dom";
@@ -38,38 +38,40 @@ function Comments() {
 
   return (
     <>
-      {isLoading ? (
-        <SpinningLoading />
-      ) : comments.length > 0 ? (
-        comments.map((comment) => {
-          return (
-            <Comment
-              key={comment.id}
-              comment={comment}
-              getComments={getComments}
-            />
-          );
-        })
-      ) : (
-        <Typography sx={{ marginBottom: 2 }}>
-          No comments yet. Please add a comment.
-        </Typography>
-      )}
-      {user.IsLoggedIn && (
-        <PostCommentForm id={params.id} getComments={getComments} />
-      )}
-      {!user.IsLoggedIn && (
-        <Typography sx={{ mb: 2 }}>
-          You have to be{" "}
-          <Link to={"/login"}>
-            <Typography sx={{ display: "inline", color: "primary.main" }}>
-              logged in
-            </Typography>
-          </Link>{" "}
-          to post a comment.
-        </Typography>
-      )}
-      <GamePagination setPage={setPage} numberOfPages={numberOfPages} />
+      <Box sx={{ mt: { xs: 2, sm: 2, lg: 0 } }}>
+        {isLoading ? (
+          <SpinningLoading />
+        ) : comments.length > 0 ? (
+          comments.map((comment) => {
+            return (
+              <Comment
+                key={comment.id}
+                comment={comment}
+                getComments={getComments}
+              />
+            );
+          })
+        ) : (
+          <Typography sx={{ marginBottom: 2 }}>
+            No comments yet. Please add a comment.
+          </Typography>
+        )}
+        {user.IsLoggedIn && (
+          <PostCommentForm id={params.id} getComments={getComments} />
+        )}
+        {!user.IsLoggedIn && (
+          <Typography sx={{ mb: 2 }}>
+            You have to be{" "}
+            <Link to={"/login"}>
+              <Typography sx={{ display: "inline", color: "primary.main" }}>
+                logged in
+              </Typography>
+            </Link>{" "}
+            to post a comment.
+          </Typography>
+        )}
+        <GamePagination setPage={setPage} numberOfPages={numberOfPages} />
+      </Box>
     </>
   );
 }
