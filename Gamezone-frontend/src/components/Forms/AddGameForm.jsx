@@ -59,7 +59,7 @@ function AddGameForm() {
     formState: { errors },
   } = useForm();
 
-  const submit = (data) => {
+  const submit = async (data) => {
     let uniqueId = uuidv4();
     uploadFile(data.imgSrc[0], uniqueId);
 
@@ -73,6 +73,7 @@ function AddGameForm() {
       platformList: selectedPlatforms.map((e) => e.id),
     };
 
+    await new Promise((resolve) => setTimeout(resolve, 1000));
     GameService.postGame(dataToPost)
       .then((response) => {
         reset();

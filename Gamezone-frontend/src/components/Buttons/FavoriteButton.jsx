@@ -23,7 +23,7 @@ export default function FavoriteButton(props) {
 
   const addGameToFavorite = async () => {
     setProgress(50);
-    UserService.AddGameToFavorite(user.Id, props.id).then((res) => {
+    UserService.AddGameToFavorite(props.id).then((res) => {
       setProgress(100);
       toast.success("Game added to favorite");
       setIsFav(true);

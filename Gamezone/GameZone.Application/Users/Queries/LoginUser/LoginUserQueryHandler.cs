@@ -40,6 +40,7 @@ namespace GameZone.Application.Users.Queries.LoginUser
                     new Claim("ProfileImage", user.ProfileImageSrc),
                     new Claim("IsLoggedIn", true.ToString(), ClaimValueTypes.Boolean),
                     new Claim(ClaimTypes.NameIdentifier, user.UserName),
+                    new Claim(ClaimTypes.Sid, user.Id.ToString()),
                     isAdminFalse
                 };
 

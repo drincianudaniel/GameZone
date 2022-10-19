@@ -20,6 +20,7 @@ namespace GameZone.Application
         Task RemovePlatformAsync(Game game, Platform platform);
         Task<IEnumerable<Game>> ReturnFiltered(GameFilter filter);
         Task<IEnumerable<Game>> ReturnPagedAsync(int? page, int pageSize, GameFilter filter);
+        Task<Game> ReturnSimpleByIdAsync(Guid id);
         Task SaveAsync();
         Task<IEnumerable<Game>> SearchGameAsync(string searchString);
     }

@@ -20,7 +20,7 @@ namespace GameZone.Application.Replies.Commands.DeleteReply
         public async Task<string> Handle(DeleteReplyCommand request, CancellationToken cancellationToken)
         {
             var reply = await _unitOfWork.ReplyRepository.ReturnByIdAsync(request.Id);
-            var user = await _unitOfWork.UserRepository.ReturnByIdAsync(request.UserId);
+            var user = await _unitOfWork.UserRepository.ReturnSimplyByIdAsync(request.UserId);
 
             if (((request.UserId == reply.UserId) == true) || ((await _userManager.IsInRoleAsync(user, "Admin")) == true))
             {

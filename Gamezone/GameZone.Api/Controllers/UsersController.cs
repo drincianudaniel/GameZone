@@ -312,15 +312,16 @@ namespace GameZone.Api.Controllers
         }
 
         [HttpPost]
-        [Route("{userid}/games/{gameid}")]
-        public async Task<IActionResult> AddGameToFavorite(Guid userid, Guid gameid)
+        [Route("games/{gameid}")]
+        public async Task<IActionResult> AddGameToFavorite(Guid gameid)
         {
-            _logger.LogInformation("Adding game with id {gameid} to user with id {userid}", gameid, userid);
+/*            _logger.LogInformation("Adding game with id {gameid} to user with id {userid}", gameid);
+*/            string claim = HttpContext.User.FindFirstValue(ClaimTypes.Sid);
 
             var command = new AddFavoriteGameCommand
             {
                 GameId = gameid,
-                UserId = userid
+                UserId = Guid.Parse(claim)
             };
 
             await _mediator.Send(command);

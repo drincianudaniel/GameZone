@@ -19,7 +19,7 @@ namespace GameZone.Application.Comments.Commands.DeleteComment
         public async Task<string> Handle(DeleteCommentCommand request, CancellationToken cancellationToken)
         {
             var comment = await _unitOfWork.CommentRepository.ReturnByIdAsync(request.Id);
-            var user = await _unitOfWork.UserRepository.ReturnByIdAsync(request.UserId);
+            var user = await _unitOfWork.UserRepository.ReturnSimplyByIdAsync(request.UserId);
 
             if (((request.UserId == comment.UserId) == true) || ((await _userManager.IsInRoleAsync(user, "Admin")) == true))
             {

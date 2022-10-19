@@ -31,6 +31,16 @@ namespace GameZone.Infrastructure.Repositories
             return userToReturn;
         }
 
+        public async Task<User> ReturnSimplyByIdAsync(Guid id)
+        {
+            var userToReturn = await _context.Users
+               .Where(user => user.Id == id)
+               .Include(x => x.Games)
+               .Include(x=>x.Reviews)
+               .FirstOrDefaultAsync();
+
+            return userToReturn;
+        }
         public async Task<IEnumerable<User>> ReturnAllAsync()
         {
             return await _context.Users

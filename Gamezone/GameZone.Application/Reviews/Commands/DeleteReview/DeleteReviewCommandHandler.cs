@@ -20,7 +20,7 @@ namespace GameZone.Application.Reviews.Commands.DeleteReview
         {
 
             var review = await _unitOfWork.ReviewRepository.ReturnByIdAsync(request.Id);
-            var user = await _unitOfWork.UserRepository.ReturnByIdAsync(request.UserId);
+            var user = await _unitOfWork.UserRepository.ReturnSimplyByIdAsync(request.UserId);
 
             if (((request.UserId == review.UserId) == true) || ((await _userManager.IsInRoleAsync(user, "Admin")) == true)) 
             {

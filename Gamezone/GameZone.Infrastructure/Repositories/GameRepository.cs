@@ -34,6 +34,16 @@ namespace GameZone.Infrastructure.Repositories
             return gameToReturn;
         }
 
+        public async Task<Game> ReturnSimpleByIdAsync(Guid id)
+        {
+            var gameToReturn = await _context.Games
+                .Where(x => x.Id == id)
+                .FirstOrDefaultAsync();
+
+            //make null
+            return gameToReturn;
+        }
+
         public async Task<IEnumerable<Game>> ReturnPagedAsync(int? page, int pageSize, GameFilter filter)
         {
             int pageNumber = (page ?? 1);

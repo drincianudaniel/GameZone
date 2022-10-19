@@ -31,9 +31,9 @@ export default class UserService {
     });
   }
 
-  static async AddGameToFavorite(userid, gameid) {
+  static async AddGameToFavorite(gameid) {
     return await request({
-      url: `/users/${userid}/games/${gameid}`,
+      url: `/users/games/${gameid}`,
       method: "POST",
     });
   }
