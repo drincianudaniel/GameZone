@@ -29,6 +29,10 @@ import { useConfirm } from "material-ui-confirm";
 
 function GameDetailsPage() {
   const [game, setGame] = useState([]);
+  const [developers, setDevelopers] = useState([]);
+  const [genres, setGenres] = useState([]);
+  const [platforms, setPlatforms] = useState([]);
+
   const [isLoading, setIsLoading] = useState(false);
   const params = useParams();
   const theme = useTheme();
@@ -91,11 +95,32 @@ function GameDetailsPage() {
     GameService.getGame(params.id)
       .then((res) => {
         setGame(res.data);
+        setDevelopers(res.data.developers);
+        setGenres(res.data.genres);
+        setPlatforms(res.data.platforms);
         setIsLoading(false);
       })
       .catch((err) => {
         setIsLoading(false);
       });
+  };
+
+  const getDevelopers = async () => {
+    GameService.getGame(params.id).then((res) => {
+      setDevelopers(res.data.developers);
+    });
+  };
+
+  const getGenres = async () => {
+    GameService.getGame(params.id).then((res) => {
+      setGenres(res.data.genres);
+    });
+  };
+
+  const getPlatforms = async () => {
+    GameService.getGame(params.id).then((res) => {
+      setPlatforms(res.data.platforms);
+    });
   };
 
   const handleDelete = () => {
@@ -178,14 +203,14 @@ function GameDetailsPage() {
                   </Typography>
                   <Divider />
                   <Typography>Developers:</Typography>
-                  {game.developers && game.developers.length > 0 ? (
+                  {developers.length > 0 ? (
                     <>
-                      {game.developers.map((developer) => (
+                      {developers.map((developer) => (
                         <GameChip
                           key={developer.id}
                           data={developer}
                           type="developer"
-                          getGame={getGame}
+                          getGame={getDevelopers}
                         />
                       ))}
                       {user.IsAdmin && (
@@ -194,8 +219,8 @@ function GameDetailsPage() {
                             <AddIcon fontSize="small"></AddIcon>
                           </IconButton>
                           <GameAddPopover
-                            presentData={game.developers}
-                            getGame={getGame}
+                            presentData={developers}
+                            getGame={getDevelopers}
                             type="developer"
                             handleClick={handleClickDeveloperPopover}
                             anchorEl={anchorElDevelopers}
@@ -213,7 +238,8 @@ function GameDetailsPage() {
                             <AddIcon fontSize="small"></AddIcon>
                           </IconButton>
                           <GameAddPopover
-                            getGame={getGame}
+                            presentData={developers}
+                            getGame={getDevelopers}
                             type="developer"
                             handleClick={handleClickDeveloperPopover}
                             anchorEl={anchorElDevelopers}
@@ -224,14 +250,14 @@ function GameDetailsPage() {
                     </>
                   )}
                   <Typography>Genres:</Typography>
-                  {game.genres && game.genres.length > 0 ? (
+                  {genres.length > 0 ? (
                     <>
-                      {game.genres.map((genre) => (
+                      {genres.map((genre) => (
                         <GameChip
                           key={genre.id}
                           data={genre}
                           type="genre"
-                          getGame={getGame}
+                          getGame={getGenres}
                         />
                       ))}
 
@@ -241,8 +267,8 @@ function GameDetailsPage() {
                             <AddIcon fontSize="small"></AddIcon>
                           </IconButton>
                           <GameAddPopover
-                            presentData={game.genres}
-                            getGame={getGame}
+                            presentData={genres}
+                            getGame={getGenres}
                             type="genre"
                             handleClick={handleClickGenrePopover}
                             anchorEl={anchorElGenres}
@@ -260,7 +286,8 @@ function GameDetailsPage() {
                             <AddIcon fontSize="small"></AddIcon>
                           </IconButton>
                           <GameAddPopover
-                            getGame={getGame}
+                            presentData={genres}
+                            getGame={getGenres}
                             type="genre"
                             handleClick={handleClickGenrePopover}
                             anchorEl={anchorElGenres}
@@ -271,14 +298,14 @@ function GameDetailsPage() {
                     </>
                   )}
                   <Typography>Platforms:</Typography>
-                  {game.platforms && game.platforms.length > 0 ? (
+                  {platforms && platforms.length > 0 ? (
                     <>
-                      {game.platforms.map((platform) => (
+                      {platforms.map((platform) => (
                         <GameChip
                           key={platform.id}
                           data={platform}
                           type="platform"
-                          getGame={getGame}
+                          getGame={getPlatforms}
                         />
                       ))}
                       {user.IsAdmin && (
@@ -287,9 +314,9 @@ function GameDetailsPage() {
                             <AddIcon fontSize="small"></AddIcon>
                           </IconButton>
                           <GameAddPopover
-                            presentData={game.platforms}
+                            presentData={platforms}
                             type="platform"
-                            getGame={getGame}
+                            getGame={getPlatforms}
                             handleClick={handleClickPlatformPopover}
                             anchorEl={anchorElPlatforms}
                             setAnchorEl={setAnchorElPlatforms}
@@ -306,8 +333,9 @@ function GameDetailsPage() {
                             <AddIcon fontSize="small"></AddIcon>
                           </IconButton>
                           <GameAddPopover
+                            presentData={platforms}
                             type="platform"
-                            getGame={getGame}
+                            getGame={getPlatforms}
                             handleClick={handleClickPlatformPopover}
                             anchorEl={anchorElPlatforms}
                             setAnchorEl={setAnchorElPlatforms}

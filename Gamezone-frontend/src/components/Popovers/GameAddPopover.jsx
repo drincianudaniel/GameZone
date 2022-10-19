@@ -16,12 +16,13 @@ export default function GameAddPopover(props) {
 
   useEffect(() => {
     getData();
-  }, []);
+  }, [props.presentData]);
 
   const getData = async () => {
     if (props.type === "genre") {
       await GenreService.getGenres().then((res) => {
         var newArr = res.data;
+        console.log(props.presentData)
         if (props.presentData !== undefined) {
           newArr = res.data.filter(
             (el) => !props.presentData.find((e) => e.id === el.id)
