@@ -11,21 +11,18 @@ export default function GameChip(props) {
   const handleDelete = () => {
     if (props.type === "genre") {
       GameService.RemoveGenre(params.id, props.data.id).then((res) => {
-        toast.success(res.data);
         props.getGame();
       });
     }
 
     if (props.type === "developer") {
       GameService.RemoveDeveloper(params.id, props.data.id).then((res) => {
-        toast.success(res.data);
         props.getGame();
       });
     }
 
     if (props.type === "platform") {
       GameService.RemovePlatform(params.id, props.data.id).then((res) => {
-        toast.success(res.data);
         props.getGame();
       });
     }

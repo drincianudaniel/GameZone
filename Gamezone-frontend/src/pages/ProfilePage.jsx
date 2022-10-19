@@ -37,14 +37,12 @@ function ProfilePage() {
   };
 
   useEffect(() => {
-    console.log(user);
     getUser();
   }, [params]);
 
   const getUser = () => {
     UserService.GetUserByUsername(params.username).then((res) => {
       setProfileUser(res.data);
-      console.log(res.data);
     });
   };
 

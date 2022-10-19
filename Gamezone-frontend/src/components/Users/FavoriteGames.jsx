@@ -16,7 +16,6 @@ export default function FavoriteGames(props) {
   const getFavoriteGames = () => {
     UserService.GetUsersFavorites(params.username).then((res) => {
       setFavoriteGames(res.data);
-      console.log(favoriteGames);
     });
   };
 
@@ -25,7 +24,7 @@ export default function FavoriteGames(props) {
       <Grid container spacing={4}>
         {favoriteGames.map((game) => {
           return (
-            <Grid item md={4} lg={4} xs={12}>
+            <Grid key={game.id} item md={4} lg={4} xs={12}>
               <SimpleGameCard data={game} />
             </Grid>
           );

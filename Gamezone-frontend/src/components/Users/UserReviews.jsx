@@ -16,7 +16,6 @@ export default function UserReviews() {
   const getReviews = () => {
     UserService.GetUserReviews(params.username).then((res) => {
       setReviews(res.data);
-      console.log(reviews);
     });
   };
 
@@ -25,7 +24,7 @@ export default function UserReviews() {
       <Grid container spacing={1}>
         {reviews.map((review) => {
           return (
-            <Grid item xs={12} sm={12} md={12}>
+            <Grid key={review.id} item xs={12} sm={12} md={12}>
               <ProfileReview review={review} />
             </Grid>
           );
